@@ -6,11 +6,11 @@
     <title>BillingWebhookKit Tools - payment webhook testing workbench</title>
     <meta
       name="description"
-      content="Browser-only payment webhook tools for Lemon Squeezy and Stripe payload generation, HMAC signature verification, idempotency keys, entitlement decisions, debugging cost estimates, webhook replay cURL commands, Next.js handlers, launch readiness scorecards, and billing integration checks."
+      content="Browser-only payment webhook tools for Lemon Squeezy and Stripe payload generation, HMAC signature verification, signature mismatch debugging, idempotency keys, entitlement decisions, debugging cost estimates, webhook replay cURL commands, Next.js handlers, launch readiness scorecards, and billing integration checks."
     />
     <meta
       name="keywords"
-      content="payment webhook tools, Lemon Squeezy webhook tools, Stripe webhook fixture generator, Next.js webhook handler generator, billing webhook launch readiness scorecard, webhook payload generator, x-signature verifier, webhook idempotency key generator, webhook entitlement decision matrix, billing webhook debug cost calculator, webhook replay curl generator, billing webhook test tools"
+      content="payment webhook tools, Lemon Squeezy webhook tools, Stripe webhook fixture generator, Next.js webhook handler generator, billing webhook launch readiness scorecard, webhook payload generator, x-signature verifier, webhook signature mismatch debugger, webhook idempotency key generator, webhook entitlement decision matrix, billing webhook debug cost calculator, webhook replay curl generator, billing webhook test tools"
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/" />
@@ -21,7 +21,7 @@
     <meta property="og:title" content="BillingWebhookKit Tools" />
     <meta
       property="og:description"
-      content="A browser-only workbench for Lemon Squeezy and Stripe webhook fixtures, HMAC signatures, idempotency keys, entitlement decisions, debug cost estimates, replay cURL commands, and billing route checks."
+      content="A browser-only workbench for Lemon Squeezy and Stripe webhook fixtures, HMAC signatures, signature mismatch debugging, idempotency keys, entitlement decisions, debug cost estimates, replay cURL commands, and billing route checks."
     />
     <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
@@ -31,7 +31,7 @@
     <meta name="twitter:title" content="BillingWebhookKit Tools" />
     <meta
       name="twitter:description"
-      content="Browser-only payment webhook tools for Lemon Squeezy and Stripe payload generation, signatures, idempotency keys, entitlement decisions, debug cost estimates, cURL replay, and local testing."
+      content="Browser-only payment webhook tools for Lemon Squeezy and Stripe payload generation, signatures, signature mismatch debugging, idempotency keys, entitlement decisions, debug cost estimates, cURL replay, and local testing."
     />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <script type="application/ld+json">
@@ -59,48 +59,54 @@
             {
               "@type": "ListItem",
               "position": 3,
+              "name": "Webhook Signature Mismatch Debugger",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
               "name": "Webhook Idempotency Key Generator",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
             },
             {
               "@type": "ListItem",
-              "position": 4,
+              "position": 5,
               "name": "Stripe Webhook Fixture Generator",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html"
             },
             {
               "@type": "ListItem",
-              "position": 5,
+              "position": 6,
               "name": "Webhook Replay cURL Generator",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html"
             },
             {
               "@type": "ListItem",
-              "position": 6,
+              "position": 7,
               "name": "Next.js Webhook Handler Generator",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html"
             },
             {
               "@type": "ListItem",
-              "position": 7,
+              "position": 8,
               "name": "Webhook Entitlement Decision Matrix Generator",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html"
             },
             {
               "@type": "ListItem",
-              "position": 8,
+              "position": 9,
               "name": "Billing Webhook Debug Cost Calculator",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html"
             },
             {
               "@type": "ListItem",
-              "position": 9,
+              "position": 10,
               "name": "Billing Webhook Launch Readiness Scorecard",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html"
             },
             {
               "@type": "ListItem",
-              "position": 10,
+              "position": 11,
               "name": "BillingWebhookKit Browser Workbench",
               "url": "https://qihaze123.github.io/billing-webhook-kit/"
             }
@@ -389,7 +395,7 @@
       <p class="eyebrow">Tool Index</p>
       <h1>Payment webhook tools for the work before checkout goes live.</h1>
       <p class="lead">
-        Browser-only utilities for generating fake Lemon Squeezy and Stripe fixtures, checking HMAC signatures, deriving idempotency keys, mapping entitlement decisions, calculating debugging cost, replaying webhook requests, and deciding whether the Pro Kit is worth buying.
+        Browser-only utilities for generating fake Lemon Squeezy and Stripe fixtures, checking HMAC signatures, debugging signature mismatches, deriving idempotency keys, mapping entitlement decisions, calculating debugging cost, replaying webhook requests, and deciding whether the Pro Kit is worth buying.
       </p>
 
       <section class="tool-grid" aria-label="BillingWebhookKit standalone tools">
@@ -404,6 +410,12 @@
           <h2>Lemon Squeezy x-signature verifier</h2>
           <p>Paste a raw body, endpoint signing secret, and received `x-signature` header to verify whether the digest matches locally.</p>
           <strong>Open verifier</strong>
+        </a>
+        <a class="tool-card" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html">
+          <span>Mismatch debug</span>
+          <h2>Webhook signature mismatch debugger</h2>
+          <p>Diagnose raw-body mutation, header format, wrong secret, JSON reserialization, CRLF, and framework parser causes behind invalid signatures.</p>
+          <strong>Open mismatch debugger</strong>
         </a>
         <a class="tool-card" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">
           <span>Retry safety</span>

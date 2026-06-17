@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webhook Signature Mismatch Debugger | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Debug payment webhook signature mismatches caused by changed raw bodies, sha256 prefixes, wrong secrets, JSON reserialization, CRLF changes, and framework body parsers. Browser-only."
+    />
+    <meta
+      name="keywords"
+      content="webhook signature mismatch debugger, Lemon Squeezy x-signature invalid, Stripe webhook signature mismatch, raw body webhook signature, payment webhook HMAC debugger"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Signature Mismatch Debugger" />
+    <meta
+      property="og:description"
+      content="Browser-only debugger for payment webhook HMAC signature mismatch causes and release fixes."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Webhook Signature Mismatch Debugger" />
+    <meta
+      name="twitter:description"
+      content="Diagnose raw-body, header, and secret causes when a payment webhook signature will not verify."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Webhook Signature Mismatch Debugger",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only debugger for payment webhook signature mismatch causes and raw-body verification fixes."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Webhook Signature Mismatch Debugger",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --cyan: #008c99;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .finding span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1060px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 870px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 410px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fbfcf8;
+      }
+
+      .finding-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .finding {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 13px;
+      }
+
+      .finding strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.2;
+      }
+
+      .finding.primary {
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      .finding.primary span,
+      .finding.primary strong {
+        color: var(--acid);
+      }
+
+      .finding p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .finding.primary p {
+        color: #d9dfcf;
+      }
+
+      .diagnosis-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .diagnosis-item {
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 13px;
+      }
+
+      .diagnosis-item strong {
+        display: block;
+        line-height: 1.25;
+      }
+
+      .diagnosis-item p {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.52;
+      }
+
+      .report {
+        min-height: 300px;
+        background: #11130f;
+        color: #f8faef;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 116px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 960px) {
+        .workbench,
+        .finding-grid,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Signature mismatch</p>
+      <h1>Webhook signature mismatch debugger.</h1>
+      <p class="lead">
+        Paste the raw webhook body, endpoint secret, and received signature to diagnose why payment webhook HMAC verification fails. The debugger checks digest format, raw-body mutation, JSON reserialization risk, CRLF changes, and likely framework parser mistakes locally in the browser.
+      </p>
+
+      <section class="workbench" aria-label="Webhook signature mismatch debugger">
+        <div class="panel">
+          <header>
+            <h2>Inputs</h2>
+            <p>Browser-only HMAC check</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Provider</span>
+              <select id="provider">
+                <option value="lemon">Lemon Squeezy x-signature</option>
+                <option value="stripe">Stripe-Signature style HMAC</option>
+                <option value="paddle">Paddle raw-body HMAC</option>
+                <option value="polar">Polar webhook signature</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Endpoint signing secret</span>
+              <input id="secret" value="whsec_local_debug_secret" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Received signature header</span>
+              <input id="received" value="sha256=bad-signature-from-log" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Raw request body</span>
+              <textarea id="rawBody" spellcheck="false">{"meta":{"event_name":"order_created"},"data":{"id":"ord_123","type":"orders","attributes":{"status":"paid","total":6900}}}</textarea>
+            </label>
+            <label class="field">
+              <span>Framework body handling</span>
+              <select id="framework">
+                <option value="next">Next.js App Router</option>
+                <option value="express">Express</option>
+                <option value="hono">Hono / Cloudflare</option>
+                <option value="unknown">Unknown or mixed stack</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button type="button" id="loadSample">Load matching sample</button>
+              <button type="button" id="copyReport" class="secondary">Copy report</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Diagnosis</h2>
+            <p>Format, digest, and raw-body checks</p>
+          </header>
+          <div class="result">
+            <div class="finding-grid" aria-label="Signature diagnosis summary">
+              <div class="finding primary">
+                <span>Verdict</span>
+                <strong id="verdict">Checking...</strong>
+                <p id="verdictCopy">Waiting for inputs.</p>
+              </div>
+              <div class="finding">
+                <span>Computed HMAC</span>
+                <strong id="computedShort">pending</strong>
+                <p>SHA-256 digest over the exact pasted raw body.</p>
+              </div>
+              <div class="finding">
+                <span>Body bytes</span>
+                <strong id="bodyBytes">0 bytes</strong>
+                <p>Byte length changes when whitespace or newline handling mutates the body.</p>
+              </div>
+            </div>
+
+            <div class="diagnosis-list" id="diagnosisList" aria-label="Likely mismatch causes"></div>
+
+            <label class="field">
+              <span class="output-label">PR-ready mismatch report</span>
+              <textarea id="report" class="report" spellcheck="false"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Upgrade path">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake Lemon Squeezy fixtures, signature tests, duplicate replay tests, and CI structure before buying.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Turn a one-off mismatch diagnosis into route handlers, signature tests, provider fixtures, and review reports.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const providerLabels = {
+        lemon: "Lemon Squeezy",
+        stripe: "Stripe",
+        paddle: "Paddle",
+        polar: "Polar"
+      };
+
+      const frameworkAdvice = {
+        next: "Use request.text() in the App Router route and verify before JSON.parse runs.",
+        express: "Mount express.raw({ type: 'application/json' }) before any JSON parser on the webhook route.",
+        hono: "Use await c.req.text() and pass that exact string into the HMAC verifier.",
+        unknown: "Trace the route until you can prove the verifier receives the exact bytes sent by the provider."
+      };
+
+      const providerEl = document.querySelector("#provider");
+      const secretEl = document.querySelector("#secret");
+      const receivedEl = document.querySelector("#received");
+      const rawBodyEl = document.querySelector("#rawBody");
+      const frameworkEl = document.querySelector("#framework");
+      const verdictEl = document.querySelector("#verdict");
+      const verdictCopyEl = document.querySelector("#verdictCopy");
+      const computedShortEl = document.querySelector("#computedShort");
+      const bodyBytesEl = document.querySelector("#bodyBytes");
+      const diagnosisListEl = document.querySelector("#diagnosisList");
+      const reportEl = document.querySelector("#report");
+
+      function normalizeSignature(value) {
+        return value
+          .trim()
+          .replace(/^sha256=/i, "")
+          .replace(/^v1=/i, "")
+          .replace(/^t=\d+,v1=/i, "")
+          .toLowerCase();
+      }
+
+      function bytesOf(value) {
+        return new TextEncoder().encode(value);
+      }
+
+      async function hmacSha256Hex(secret, body) {
+        const key = await crypto.subtle.importKey(
+          "raw",
+          bytesOf(secret),
+          { name: "HMAC", hash: "SHA-256" },
+          false,
+          ["sign"]
+        );
+        const signature = await crypto.subtle.sign("HMAC", key, bytesOf(body));
+        return [...new Uint8Array(signature)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      function jsonMutationHint(rawBody) {
+        try {
+          const minified = JSON.stringify(JSON.parse(rawBody));
+          return minified !== rawBody;
+        } catch {
+          return false;
+        }
+      }
+
+      function diagnoseSignatureMismatch(input) {
+        const issues = [];
+        if (!input.secret.trim()) {
+          issues.push({
+            title: "Endpoint secret is empty",
+            detail: "Use the signing secret for this exact webhook endpoint, not the API key or product identifier."
+          });
+        }
+        if (!input.receivedNormalized) {
+          issues.push({
+            title: "Received signature is empty",
+            detail: "Copy the provider signature header from the incoming request before any framework middleware rewrites headers."
+          });
+        } else if (!/^[a-f0-9]{64}$/.test(input.receivedNormalized)) {
+          issues.push({
+            title: "Signature format does not look like a SHA-256 hex digest",
+            detail: "Remove prefixes such as sha256= or v1= only after storing the original header in logs for review."
+          });
+        }
+        if (input.rawBody.includes("\r\n")) {
+          issues.push({
+            title: "CRLF line endings are present",
+            detail: "Line ending changes are enough to change the HMAC. Verify against the exact bytes received on the route."
+          });
+        }
+        if (jsonMutationHint(input.rawBody)) {
+          issues.push({
+            title: "JSON reserialization risk detected",
+            detail: "The pasted JSON can be minified or reordered by parsing. Verify before JSON.parse and never sign a reconstructed object."
+          });
+        }
+        issues.push({
+          title: "Framework raw-body checkpoint",
+          detail: frameworkAdvice[input.framework]
+        });
+        if (input.matches) {
+          issues.unshift({
+            title: "Signature matches the pasted body",
+            detail: "If production still fails, compare the logged production raw body byte length with this pasted sample."
+          });
+        } else {
+          issues.unshift({
+            title: "Signature mismatch confirmed",
+            detail: "The computed digest does not match the received header after normalization."
+          });
+        }
+        return issues;
+      }
+
+      function buildReport(state) {
+        return [
+          "# Webhook signature mismatch report",
+          "",
+          `Provider: ${providerLabels[state.provider]}`,
+          `Framework route: ${frameworkEl.options[frameworkEl.selectedIndex].text}`,
+          `Raw body bytes: ${state.byteLength}`,
+          `Computed SHA-256 HMAC: ${state.computed}`,
+          `Received normalized signature: ${state.receivedNormalized || "(empty)"}`,
+          `Verdict: ${state.matches ? "match" : "mismatch"}`,
+          "",
+          "## Likely causes and fixes",
+          "",
+          ...state.issues.map((issue) => `- ${issue.title}: ${issue.detail}`),
+          "",
+          "## Release gate",
+          "",
+          "- Verify the exact raw body before JSON parsing.",
+          "- Persist a provider event id before side effects.",
+          "- Replay this fixture in CI with the same endpoint secret format."
+        ].join("\n");
+      }
+
+      async function render() {
+        const rawBody = rawBodyEl.value;
+        const secret = secretEl.value;
+        const receivedNormalized = normalizeSignature(receivedEl.value);
+        const computed = await hmacSha256Hex(secret || "missing", rawBody);
+        const matches = receivedNormalized === computed;
+        const state = {
+          provider: providerEl.value,
+          framework: frameworkEl.value,
+          rawBody,
+          secret,
+          receivedNormalized,
+          computed,
+          matches,
+          byteLength: bytesOf(rawBody).length
+        };
+        state.issues = diagnoseSignatureMismatch(state);
+
+        verdictEl.textContent = matches ? "Match" : "Mismatch";
+        verdictCopyEl.textContent = matches
+          ? "The pasted body and secret produce the received signature."
+          : "The pasted body and secret do not produce the received signature.";
+        computedShortEl.textContent = `${computed.slice(0, 12)}...${computed.slice(-8)}`;
+        bodyBytesEl.textContent = `${state.byteLength} bytes`;
+        diagnosisListEl.innerHTML = state.issues
+          .map(
+            (issue) => `<div class="diagnosis-item">
+              <strong>${issue.title}</strong>
+              <p>${issue.detail}</p>
+            </div>`
+          )
+          .join("");
+        reportEl.value = buildReport(state);
+      }
+
+      async function loadMatchingSample() {
+        const sampleBody =
+          '{"meta":{"event_name":"order_created"},"data":{"id":"ord_123","type":"orders","attributes":{"status":"paid","total":6900}}}';
+        rawBodyEl.value = sampleBody;
+        secretEl.value = "whsec_local_debug_secret";
+        const digest = await hmacSha256Hex(secretEl.value, sampleBody);
+        receivedEl.value = `sha256=${digest}`;
+        await render();
+      }
+
+      document.querySelectorAll("select, input, textarea").forEach((element) => {
+        element.addEventListener("input", () => {
+          render();
+        });
+      });
+      document.querySelector("#loadSample").addEventListener("click", loadMatchingSample);
+      document.querySelector("#copyReport").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(reportEl.value);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

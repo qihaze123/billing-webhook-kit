@@ -10,6 +10,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`,
+  `${siteUrl}/tools/webhook-signature-mismatch-debugger.html`,
   `${siteUrl}/tools/webhook-idempotency-key-generator.html`,
   `${siteUrl}/tools/stripe-webhook-fixture-generator.html`,
   `${siteUrl}/tools/webhook-replay-curl-generator.html`,
@@ -102,6 +103,7 @@ const [
   toolIndex,
   signatureVerifier,
   payloadGenerator,
+  mismatchDebugger,
   idempotencyGenerator,
   stripeGenerator,
   replayGenerator,
@@ -122,6 +124,7 @@ const [
   fetchText(`${siteUrl}/tools/`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`),
+  fetchText(`${siteUrl}/tools/webhook-signature-mismatch-debugger.html`),
   fetchText(`${siteUrl}/tools/webhook-idempotency-key-generator.html`),
   fetchText(`${siteUrl}/tools/stripe-webhook-fixture-generator.html`),
   fetchText(`${siteUrl}/tools/webhook-replay-curl-generator.html`),
@@ -151,6 +154,9 @@ const issues = [
   ...(payloadGenerator.ok
     ? []
     : [`payload generator page returned HTTP ${payloadGenerator.status ?? "failed"}.`]),
+  ...(mismatchDebugger.ok
+    ? []
+    : [`signature mismatch debugger page returned HTTP ${mismatchDebugger.status ?? "failed"}.`]),
   ...(idempotencyGenerator.ok
     ? []
     : [`idempotency generator page returned HTTP ${idempotencyGenerator.status ?? "failed"}.`]),
@@ -171,7 +177,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 47 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 47.`]),
+  ...(sitemapUrls.length >= 48 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 48.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -185,6 +191,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`)
     ? []
     : ["llms.txt is missing the standalone payload generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/webhook-signature-mismatch-debugger.html`)
+    ? []
+    : ["llms.txt is missing the standalone signature mismatch debugger URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/webhook-idempotency-key-generator.html`)
     ? []
     : ["llms.txt is missing the standalone idempotency generator URL."]),
@@ -218,6 +227,7 @@ const issues = [
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
   toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
   toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
+  toolIndex.text.includes("Webhook signature mismatch debugger") &&
   toolIndex.text.includes("Webhook idempotency key generator") &&
   toolIndex.text.includes("Stripe webhook fixture generator") &&
   toolIndex.text.includes("Webhook replay cURL generator") &&
@@ -242,6 +252,12 @@ const issues = [
   payloadGenerator.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["payload generator page is missing payload logic, signature logic, or conversion links."]),
+  ...(mismatchDebugger.text.includes("Webhook signature mismatch debugger") &&
+  mismatchDebugger.text.includes("diagnoseSignatureMismatch") &&
+  mismatchDebugger.text.includes("JSON reserialization risk") &&
+  mismatchDebugger.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["signature mismatch debugger page is missing mismatch copy, diagnosis logic, or conversion links."]),
   ...(idempotencyGenerator.text.includes("Webhook idempotency key generator") &&
   idempotencyGenerator.text.includes("buildIdempotencyKey") &&
   idempotencyGenerator.text.includes("Duplicate delivery runs side effects once") &&
@@ -292,6 +308,7 @@ const issues = [
     : ["Pro Kit page is missing the buying-decision section."]),
   ...(proKit.text.includes("What the paid pack adds after the browser tools find the gap") &&
   proKit.text.includes("Tool-to-Pro Map") &&
+  proKit.text.includes("Mismatch debugger") &&
   proKit.text.includes("Entitlement matrix") &&
   proKit.text.includes("Cost calculator") &&
   proKit.text.includes("Readiness scorecard")
@@ -300,9 +317,9 @@ const issues = [
   ...((proKit.text.match(/class="decision-item"/g) || []).length === 3
     ? []
     : ["Pro Kit page does not expose 3 buying-decision cards."]),
-  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 8
+  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 9
     ? []
-    : ["Pro Kit page does not expose 8 tool-to-Pro map rows."]),
+    : ["Pro Kit page does not expose 9 tool-to-Pro map rows."]),
   ...((proKit.text.match(/"@type": "Question"/g) || []).length >= 7
     ? []
     : ["Pro Kit page exposes fewer than 7 FAQ schema questions."]),
@@ -326,6 +343,7 @@ const result = {
     toolIndex: toolIndex.status,
     signatureVerifier: signatureVerifier.status,
     payloadGenerator: payloadGenerator.status,
+    mismatchDebugger: mismatchDebugger.status,
     idempotencyGenerator: idempotencyGenerator.status,
     stripeGenerator: stripeGenerator.status,
     replayGenerator: replayGenerator.status,
