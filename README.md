@@ -114,3 +114,7 @@ For GitHub Pages, the workflow sets `GITHUB_PAGES=true` so Vite uses the `/billi
 ## Privacy
 
 Webhook signing secrets are used only in the browser through Web Crypto. The app has no backend and does not upload user input.
+
+## License
+
+The public repository code and documentation are MIT licensed. Private paid Pro Kit archive contents are not published in this repository.
