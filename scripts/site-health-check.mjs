@@ -22,6 +22,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
   `${siteUrl}/guides/lemon-squeezy-order-created-fixture.html`,
+  `${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
@@ -113,6 +114,7 @@ const [
   costCalculator,
   readinessScorecard,
   guideIndex,
+  checkoutSmokeGuide,
   stripeNextjsGuide,
   sitemap,
   robots,
@@ -135,6 +137,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/guides/`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -176,6 +179,9 @@ const issues = [
     ? []
     : [`readiness scorecard page returned HTTP ${readinessScorecard.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
+  ...(checkoutSmokeGuide.ok
+    ? []
+    : [`Lemon Squeezy checkout smoke test guide returned HTTP ${checkoutSmokeGuide.status ?? "failed"}.`]),
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
@@ -183,7 +189,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 49 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 49.`]),
+  ...(sitemapUrls.length >= 50 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 50.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -221,6 +227,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`)
     ? []
     : ["llms.txt is missing the standalone launch readiness scorecard URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy checkout smoke test guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
@@ -309,6 +318,12 @@ const issues = [
   readinessScorecard.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["readiness scorecard page is missing scorecard copy, report copy, or conversion links."]),
+  ...(checkoutSmokeGuide.text.includes("Lemon Squeezy checkout smoke test") &&
+  checkoutSmokeGuide.text.includes("CN¥69 price") &&
+  checkoutSmokeGuide.text.includes("order_created") &&
+  checkoutSmokeGuide.text.includes("View Pro Kit preview")
+    ? []
+    : ["Lemon Squeezy checkout smoke test guide is missing price copy, paid-order copy, or conversion links."]),
   ...(stripeNextjsGuide.text.includes("Stripe webhook signature verification in Next.js") &&
   stripeNextjsGuide.text.includes("request.text()") &&
   stripeNextjsGuide.text.includes("Stripe-Signature") &&
@@ -366,6 +381,7 @@ const result = {
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
+    checkoutSmokeGuide: checkoutSmokeGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

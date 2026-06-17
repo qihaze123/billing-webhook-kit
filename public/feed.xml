@@ -134,6 +134,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy Checkout Smoke Test</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html</guid>
+      <description>Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Next.js Lemon Squeezy Webhook Handler</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</guid>

@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lemon Squeezy Webhook Fixtures | BillingWebhookKit</title>
-    <meta name="description" content="Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests." />
+    <title>Lemon Squeezy Checkout Smoke Test | BillingWebhookKit</title>
+    <meta name="description" content="Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html" />
     <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
     <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="BillingWebhookKit" />
-    <meta property="og:title" content="Lemon Squeezy Webhook Fixtures" />
-    <meta property="og:description" content="Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests." />
-    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html" />
+    <meta property="og:title" content="Lemon Squeezy Checkout Smoke Test" />
+    <meta property="og:description" content="Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Lemon Squeezy Webhook Fixtures" />
-    <meta name="twitter:description" content="Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests." />
+    <meta name="twitter:title" content="Lemon Squeezy Checkout Smoke Test" />
+    <meta name="twitter:description" content="Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks." />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
@@ -52,37 +52,41 @@
       @media (max-width: 720px) { .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Lemon Squeezy Webhook Fixtures","description":"Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html"}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are these live Lemon Squeezy events?","acceptedAnswer":{"@type":"Answer","text":"No. They are deterministic development fixtures for local and CI tests. You should still run a final provider sandbox checkout before launch."}},{"@type":"Question","name":"Why use fixtures instead of only dashboard retries?","acceptedAnswer":{"@type":"Answer","text":"Fixtures make daily development fast and repeatable; dashboard retries are better for final end-to-end checks."}}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Lemon Squeezy Webhook Fixtures","item":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Lemon Squeezy Checkout Smoke Test","description":"Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can a checkout smoke test run before public launch?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use private review links, fake fixtures, and a controlled purchase path before exposing the checkout link in public marketing."}},{"@type":"Question","name":"What should block a Lemon Squeezy checkout launch?","acceptedAnswer":{"@type":"Answer","text":"Block launch if the price or currency is wrong, the checkout URL is missing, signature verification fails, fulfillment duplicates under replay, or the webhook cannot map the order to an entitlement."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Lemon Squeezy Checkout Smoke Test","item":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html"}]}</script>
   </head>
   <body>
     <main>
       <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
-      <h1>Lemon Squeezy webhook fixtures</h1>
-      <p class="lead">Developers searching for fixtures usually need copy-ready JSON bodies and signed replay commands, not a generic webhook explanation.</p>
+      <h1>Lemon Squeezy checkout smoke test</h1>
+      <p class="lead">Before a paid checkout link goes public, indie SaaS teams need a short proof that payment, webhook delivery, and fulfillment all work together.</p>
       <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
       <section>
-        <h2>Start with checkout-critical events</h2>
-        <p>Keep fixtures for order_created, subscription_created, subscription_payment_success, subscription_cancelled, and license_key_created before opening checkout to customers.</p>
+        <h2>Confirm the checkout surface</h2>
+        <p>Verify the product name, variant, CN¥69 price, currency policy, checkout URL, success redirect, and public buy button state before sharing the page.</p>
       </section>
 <section>
-        <h2>Sign fixtures the same way production does</h2>
-        <p>Generate the HMAC from the exact raw JSON body so your tests catch raw-body parsing mistakes before deployment.</p>
+        <h2>Watch the paid order event</h2>
+        <p>After a test or controlled live purchase, confirm that the order_created or subscription payment webhook reaches the production route and passes signature verification.</p>
       </section>
 <section>
-        <h2>Keep fixtures close to handlers</h2>
-        <p>Store payment payloads beside route tests so handler changes, provider migrations, and entitlement mapping edits stay reviewable.</p>
+        <h2>Prove fulfillment once</h2>
+        <p>Map the paid event to the right customer and entitlement, then replay the same signed fixture to prove access, emails, and download delivery do not duplicate.</p>
+      </section>
+<section>
+        <h2>Record the release evidence</h2>
+        <p>Keep the checkout URL, order ID, event ID, handler decision, idempotency key, and rollback notes in a release checklist before moving traffic to production.</p>
       </section>
       <section class="faq">
         <h2>FAQ</h2>
         <div class="faq-item">
-          <h3>Are these live Lemon Squeezy events?</h3>
-          <p>No. They are deterministic development fixtures for local and CI tests. You should still run a final provider sandbox checkout before launch.</p>
+          <h3>Can a checkout smoke test run before public launch?</h3>
+          <p>Yes. Use private review links, fake fixtures, and a controlled purchase path before exposing the checkout link in public marketing.</p>
         </div>
 <div class="faq-item">
-          <h3>Why use fixtures instead of only dashboard retries?</h3>
-          <p>Fixtures make daily development fast and repeatable; dashboard retries are better for final end-to-end checks.</p>
+          <h3>What should block a Lemon Squeezy checkout launch?</h3>
+          <p>Block launch if the price or currency is wrong, the checkout URL is missing, signature verification fails, fulfillment duplicates under replay, or the webhook cannot map the order to an entitlement.</p>
         </div>
       </section>
       <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
@@ -111,21 +115,21 @@
             <strong>All payment webhook guides</strong>
             <span>Browse the full BillingWebhookKit guide index.</span>
           </a>
-          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html">
+            <strong>Lemon Squeezy Webhook Test Checklist</strong>
+            <span>A launch checklist for Lemon Squeezy webhook signature verification, contract fields, idempotency keys, duplicate replay, and entitlement decisions.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html">
+            <strong>Test Lemon Squeezy Webhooks Locally</strong>
+            <span>Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html">
             <strong>Lemon Squeezy License Key Webhook Test</strong>
             <span>Generate and test Lemon Squeezy license key webhook payloads for desktop apps, plugins, and downloadable products.</span>
           </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html">
-            <strong>Hono Lemon Squeezy Webhook Handler</strong>
-            <span>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</span>
-          </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
-            <strong>Next.js Lemon Squeezy Webhook Handler</strong>
-            <span>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</span>
-          </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html">
-            <strong>Lemon Squeezy Checkout Smoke Test</strong>
-            <span>Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks.</span>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-order-created-fixture.html">
+            <strong>Lemon Squeezy order_created Webhook Fixture</strong>
+            <span>Use a Lemon Squeezy order_created webhook fixture to test paid order access grants, customer mapping, and duplicate replay behavior.</span>
           </a>
         </div>
       </section>
