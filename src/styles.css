@@ -498,6 +498,143 @@ h2 {
   line-height: 1.65;
 }
 
+.inspector-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--paper-2);
+  box-shadow: var(--shadow);
+}
+
+.inspector-panel h2 {
+  max-width: 540px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.inspector-panel p:not(.eyebrow) {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.inspector-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  gap: 12px;
+  min-width: 0;
+}
+
+.inspector-card,
+.inspector-facts,
+.risk-list {
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 14px;
+}
+
+.inspector-card--key {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.inspector-card span,
+.inspector-card--key span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.inspector-card--key strong {
+  display: block;
+  margin-top: 6px;
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.inspector-card--key button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--acid);
+  color: var(--ink);
+  padding: 0 12px;
+  font-weight: 850;
+}
+
+.inspector-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.inspector-facts div {
+  min-width: 0;
+  border-left: 4px solid var(--cyan);
+  background: #fbfcf8;
+  padding: 10px;
+}
+
+.inspector-facts dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.inspector-facts dd {
+  margin: 5px 0 0;
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.inspector-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inspector-card__head svg {
+  color: var(--green);
+}
+
+.inspector-card p {
+  margin-top: 10px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.risk-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 32px;
+  line-height: 1.45;
+}
+
+.risk-list li::marker {
+  color: var(--coral);
+}
+
 .verifier-panel {
   display: grid;
   grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
@@ -712,6 +849,8 @@ h2 {
   .guide-panel,
   .guide-grid,
   .evidence-panel,
+  .inspector-panel,
+  .inspector-grid,
   .verifier-panel,
   .verifier-grid {
     grid-template-columns: 1fr;
@@ -790,6 +929,21 @@ h2 {
   .evidence-panel {
     margin-top: 14px;
     padding: 14px;
+  }
+
+  .inspector-panel {
+    margin-top: 14px;
+    padding: 14px;
+  }
+
+  .inspector-card--key,
+  .inspector-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .inspector-card--key button {
+    width: 100%;
+    justify-content: center;
   }
 
   .verifier-panel {

@@ -8,7 +8,9 @@ import {
   Download,
   ExternalLink,
   FileJson,
+  Fingerprint,
   KeyRound,
+  ListChecks,
   PackageCheck,
   Play,
   ShieldCheck,
@@ -88,8 +90,131 @@ type VerificationState =
   | { status: "match"; message: string }
   | { status: "mismatch"; message: string };
 
+type PayloadInsight = {
+  eventName: string;
+  objectType: string;
+  objectId: string;
+  customerId: string;
+  userEmail: string;
+  status: string;
+  amount: string;
+  idempotencyKey: string;
+  targetRecord: string;
+  recommendedAction: string;
+  riskChecks: string[];
+};
+
 function normalizeSignatureInput(value: string) {
   return value.trim().replace(/^sha256=/i, "").toLowerCase();
+}
+
+async function copyTextToClipboard(value: string) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(value);
+      return;
+    } catch {
+      // Fall back for preview browsers or restricted clipboard contexts.
+    }
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+  document.body.append(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+}
+
+function readPath(value: unknown, path: string[]): unknown {
+  return path.reduce<unknown>((current, key) => {
+    if (current && typeof current === "object" && key in current) {
+      return (current as Record<string, unknown>)[key];
+    }
+    return undefined;
+  }, value);
+}
+
+function asDisplayValue(value: unknown, fallback = "Not present") {
+  if (value === null || value === undefined || value === "") {
+    return fallback;
+  }
+  return String(value);
+}
+
+function formatMinorAmount(total: unknown, currency: unknown) {
+  if (typeof total !== "number" || !Number.isFinite(total)) {
+    return "Not present";
+  }
+  const code = asDisplayValue(currency, "CNY").toUpperCase();
+  return `${code} ${(total / 100).toFixed(2)}`;
+}
+
+function inspectPayload(payloadJson: string): PayloadInsight {
+  const payload = JSON.parse(payloadJson) as Record<string, unknown>;
+  const eventName = asDisplayValue(readPath(payload, ["meta", "event_name"]), "unknown_event");
+  const objectType = asDisplayValue(readPath(payload, ["data", "type"]), "unknown_object");
+  const objectId = asDisplayValue(readPath(payload, ["data", "id"]), "missing_id");
+  const attributes = readPath(payload, ["data", "attributes"]);
+  const customerId = asDisplayValue(readPath(payload, ["data", "attributes", "customer_id"]));
+  const userEmail = asDisplayValue(readPath(payload, ["data", "attributes", "user_email"]));
+  const status = asDisplayValue(readPath(payload, ["data", "attributes", "status"]));
+  const total = readPath(payload, ["data", "attributes", "total"]);
+  const currency = readPath(payload, ["data", "attributes", "currency"]);
+  const amount = formatMinorAmount(total, currency);
+  const idempotencyKey = `lemonsqueezy:${eventName}:${objectType}:${objectId}`;
+
+  let targetRecord = customerId !== "Not present" ? `customer:${customerId}` : `object:${objectId}`;
+  let recommendedAction = "Verify the signature, persist the idempotency key, then dispatch by event name.";
+  const riskChecks = [
+    "Verify the HMAC signature before parsing business fields.",
+    "Persist the idempotency key before granting access or sending emails.",
+    "Return success for duplicate events after confirming the side effect already ran."
+  ];
+
+  if (eventName === "order_created") {
+    recommendedAction = status === "paid" ? "Grant one-time purchase access after the idempotency key is stored." : "Do not grant access until the order is paid.";
+    targetRecord = userEmail !== "Not present" ? `buyer:${userEmail}` : targetRecord;
+  } else if (eventName === "subscription_created") {
+    recommendedAction = "Create or activate the subscription entitlement for the mapped customer.";
+    targetRecord = `subscription:${objectId}`;
+  } else if (eventName === "subscription_payment_success") {
+    recommendedAction = "Record the invoice payment and extend the subscription entitlement once.";
+    const subscriptionId = asDisplayValue(readPath(payload, ["data", "attributes", "subscription_id"]));
+    targetRecord = subscriptionId !== "Not present" ? `subscription:${subscriptionId}` : targetRecord;
+  } else if (eventName === "subscription_cancelled") {
+    recommendedAction = "Schedule entitlement removal using ends_at, or revoke access immediately if your policy requires it.";
+    const endsAt = asDisplayValue(readPath(payload, ["data", "attributes", "ends_at"]));
+    if (endsAt !== "Not present") {
+      riskChecks.push(`Confirm cancellation effective date: ${endsAt}.`);
+    }
+    targetRecord = `subscription:${objectId}`;
+  } else if (eventName === "license_key_created") {
+    recommendedAction = "Store and deliver the license key, but log only a short key identifier.";
+    targetRecord = `license:${objectId}`;
+    riskChecks.push("Never log the full license key in request logs, CI output, or customer support screenshots.");
+  }
+
+  if (!attributes || typeof attributes !== "object") {
+    riskChecks.push("Payload is missing data.attributes; reject or quarantine it after signature verification.");
+  }
+
+  return {
+    eventName,
+    objectType,
+    objectId,
+    customerId,
+    userEmail,
+    status,
+    amount,
+    idempotencyKey,
+    targetRecord,
+    recommendedAction,
+    riskChecks
+  };
 }
 
 export function App() {
@@ -104,12 +229,14 @@ export function App() {
   const [verifySignature, setVerifySignature] = useState("");
   const [verifyExpectedSignature, setVerifyExpectedSignature] = useState("");
   const [copied, setCopied] = useState(false);
+  const [insightCopied, setInsightCopied] = useState(false);
   const [runtimeCheckoutUrl, setRuntimeCheckoutUrl] = useState("");
 
   const checkoutUrl = runtimeCheckoutUrl || import.meta.env.VITE_LEMON_CHECKOUT_URL || "";
   const selectedEvent = lemonEvents.find((event) => event.id === eventId) ?? lemonEvents[0];
   const payload = useMemo(() => buildLemonPayload(eventId), [eventId]);
   const payloadJson = useMemo(() => asJson(payload), [payload]);
+  const payloadInsight = useMemo(() => inspectPayload(payloadJson), [payloadJson]);
 
   useEffect(() => {
     let cancelled = false;
@@ -202,9 +329,15 @@ Header casing: x-signature / X-Signature`,
           : { status: "mismatch", message: "Signature does not match. Check raw body bytes, secret, and header value." };
 
   async function copyCurrentOutput() {
-    await navigator.clipboard.writeText(currentOutput);
+    await copyTextToClipboard(currentOutput);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1400);
+  }
+
+  async function copyIdempotencyKey() {
+    await copyTextToClipboard(payloadInsight.idempotencyKey);
+    setInsightCopied(true);
+    window.setTimeout(() => setInsightCopied(false), 1400);
   }
 
   function downloadCurrentOutput() {
@@ -407,6 +540,73 @@ Header casing: x-signature / X-Signature`,
             <span>No account required</span>
           </div>
         </aside>
+      </section>
+
+      <section className="inspector-panel" aria-label="Webhook payload inspector">
+        <div className="inspector-panel__copy">
+          <p className="eyebrow">Payload Inspector</p>
+          <h2>Extract the fields your handler should trust after signature verification</h2>
+          <p>
+            Use the generated payload to identify the event, target record, payment state, and
+            idempotency key before writing side effects.
+          </p>
+        </div>
+
+        <div className="inspector-grid">
+          <div className="inspector-card inspector-card--key">
+            <div>
+              <span>Recommended idempotency key</span>
+              <strong>{payloadInsight.idempotencyKey}</strong>
+            </div>
+            <button type="button" onClick={copyIdempotencyKey} title="Copy idempotency key">
+              {insightCopied ? <Check size={17} aria-hidden="true" /> : <Fingerprint size={17} aria-hidden="true" />}
+              {insightCopied ? "Copied" : "Copy"}
+            </button>
+          </div>
+
+          <dl className="inspector-facts">
+            <div>
+              <dt>Event</dt>
+              <dd>{payloadInsight.eventName}</dd>
+            </div>
+            <div>
+              <dt>Object</dt>
+              <dd>
+                {payloadInsight.objectType}:{payloadInsight.objectId}
+              </dd>
+            </div>
+            <div>
+              <dt>Target</dt>
+              <dd>{payloadInsight.targetRecord}</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>{payloadInsight.status}</dd>
+            </div>
+            <div>
+              <dt>Amount</dt>
+              <dd>{payloadInsight.amount}</dd>
+            </div>
+            <div>
+              <dt>Customer</dt>
+              <dd>{payloadInsight.customerId}</dd>
+            </div>
+          </dl>
+
+          <div className="inspector-card">
+            <div className="inspector-card__head">
+              <ListChecks size={18} aria-hidden="true" />
+              <span>Handler action</span>
+            </div>
+            <p>{payloadInsight.recommendedAction}</p>
+          </div>
+
+          <ul className="risk-list" aria-label="Webhook safety checks">
+            {payloadInsight.riskChecks.map((check) => (
+              <li key={check}>{check}</li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="verifier-panel" aria-label="Webhook signature verifier">
