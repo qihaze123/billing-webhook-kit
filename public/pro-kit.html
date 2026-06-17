@@ -227,6 +227,38 @@
         margin-top: 22px;
       }
 
+      .trust-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .trust-item {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 14px;
+      }
+
+      .trust-item span {
+        display: block;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.7rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .trust-item strong {
+        display: block;
+        margin-top: 7px;
+        color: var(--ink);
+        font-size: 0.95rem;
+        line-height: 1.25;
+      }
+
       .tile {
         min-width: 0;
         border: 1px solid var(--line);
@@ -315,6 +347,47 @@
         text-decoration: none;
       }
 
+      .delivery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .delivery-step {
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 16px;
+      }
+
+      .delivery-step span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(248, 250, 239, 0.32);
+        border-radius: 50%;
+        color: var(--acid);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+
+      .delivery-step h3 {
+        margin: 0;
+        color: #f8faef;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+
+      .delivery-step code {
+        color: var(--acid);
+        overflow-wrap: anywhere;
+      }
+
       .checklist {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -365,6 +438,8 @@
       @media (max-width: 820px) {
         .hero,
         .grid,
+        .trust-strip,
+        .delivery-grid,
         .checklist,
         .faq,
         .manifest-grid {
@@ -442,6 +517,22 @@
               "@type": "Answer",
               "text": "No. It is a one-time digital pack of local engineering assets: webhook fixtures, route handlers, signature tests, contract tests, duplicate replay tests, review report templates, and CI workflow examples."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I verify the downloaded Pro Kit archive?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The public manifest lists the package file count, test count, byte size, and SHA-256 checksum. After download, compare the archive hash and run npm install && npm test locally."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the Pro Kit require paid APIs to test?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The included fixtures, handlers, signature tests, contract tests, duplicate replay tests, and CI examples run against fake provider data without calling paid APIs."
+            }
           }
         ]
       }
@@ -488,6 +579,25 @@
             <li>GitHub Actions billing webhook workflow</li>
           </ul>
         </aside>
+      </section>
+
+      <section class="trust-strip" aria-label="BillingWebhookKit Pro verification summary">
+        <div class="trust-item">
+          <span>Archive</span>
+          <strong>Private ZIP delivery after checkout</strong>
+        </div>
+        <div class="trust-item">
+          <span>Manifest</span>
+          <strong>29 files, checksum published</strong>
+        </div>
+        <div class="trust-item">
+          <span>Tests</span>
+          <strong>12 local tests verified</strong>
+        </div>
+        <div class="trust-item">
+          <span>Safety</span>
+          <strong>Fake provider data, no paid API calls</strong>
+        </div>
       </section>
 
       <section class="grid" aria-label="Who BillingWebhookKit Pro helps">
@@ -556,6 +666,36 @@ docs/integration-checklist.md</code></pre>
         <a class="manifest-link" href="pro-kit-manifest.json">View public manifest JSON</a>
       </section>
 
+      <section class="section" aria-label="Pro Kit delivery and verification">
+        <p class="eyebrow">Delivery and Verification</p>
+        <h2>What happens after checkout is live</h2>
+        <p>
+          The paid archive is intentionally not published in the public repository. The public manifest gives enough metadata to inspect the package shape before buying and to verify the private ZIP after checkout is connected.
+        </p>
+        <div class="delivery-grid">
+          <article class="delivery-step">
+            <span>1</span>
+            <h3>Buy the CN¥69 digital pack</h3>
+            <p>When live Lemon Squeezy configuration is connected, the checkout button will open the production purchase flow for the private ZIP.</p>
+          </article>
+          <article class="delivery-step">
+            <span>2</span>
+            <h3>Compare the package hash</h3>
+            <p>Match the downloaded archive against the manifest SHA-256: <code>29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8</code>.</p>
+          </article>
+          <article class="delivery-step">
+            <span>3</span>
+            <h3>Run the local test suite</h3>
+            <p>Install dependencies and run <code>npm install && npm test</code>. The manifest records 3 test files and 12 passing tests.</p>
+          </article>
+          <article class="delivery-step">
+            <span>4</span>
+            <h3>Copy only fake-safe examples</h3>
+            <p>Use fake fixtures and fake signing secrets in public issues. Keep real provider secrets, customer data, and private checkout URLs out of shared reports.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="section" aria-label="Integration checklist">
         <p class="eyebrow">Launch Checklist</p>
         <h2>Practical failure modes covered</h2>
@@ -590,6 +730,14 @@ docs/integration-checklist.md</code></pre>
           <article class="qa">
             <h3>Is it a hosted SaaS?</h3>
             <p>No. It is a one-time digital pack of local fixtures, handlers, tests, CI examples, and review documentation.</p>
+          </article>
+          <article class="qa">
+            <h3>How do I verify the archive?</h3>
+            <p>Compare the downloaded ZIP against the public SHA-256 manifest, then run <code>npm install && npm test</code> locally.</p>
+          </article>
+          <article class="qa">
+            <h3>Does it require paid APIs?</h3>
+            <p>No. The tests use fake provider data and local fixtures, so integration checks can run before live provider delivery.</p>
           </article>
         </div>
       </section>
