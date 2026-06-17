@@ -91,6 +91,8 @@ type VerificationState =
   | { status: "mismatch"; message: string };
 
 type PayloadInsight = {
+  sourceLabel: string;
+  parseError?: string;
   eventName: string;
   objectType: string;
   objectId: string;
@@ -153,8 +155,37 @@ function formatMinorAmount(total: unknown, currency: unknown) {
   return `${code} ${(total / 100).toFixed(2)}`;
 }
 
-function inspectPayload(payloadJson: string): PayloadInsight {
-  const payload = JSON.parse(payloadJson) as Record<string, unknown>;
+function invalidPayloadInsight(sourceLabel: string, error: unknown): PayloadInsight {
+  return {
+    sourceLabel,
+    parseError: error instanceof Error ? error.message : "Invalid JSON payload.",
+    eventName: "Invalid JSON",
+    objectType: "Invalid JSON",
+    objectId: "Invalid JSON",
+    customerId: "Invalid JSON",
+    userEmail: "Invalid JSON",
+    status: "Invalid JSON",
+    amount: "Invalid JSON",
+    idempotencyKey: "Invalid JSON",
+    targetRecord: "Invalid JSON",
+    recommendedAction: "Fix the raw JSON body before trusting provider fields or writing billing side effects.",
+    riskChecks: [
+      "Do not dispatch business logic from a payload that cannot be parsed as JSON.",
+      "If signature verification still passes, inspect whether your raw body was copied with extra bytes or truncation.",
+      "Keep invalid payload examples in CI so your handler rejects malformed events safely."
+    ]
+  };
+}
+
+function inspectPayload(payloadJson: string, sourceLabel: string): PayloadInsight {
+  let payload: Record<string, unknown>;
+
+  try {
+    payload = JSON.parse(payloadJson) as Record<string, unknown>;
+  } catch (error) {
+    return invalidPayloadInsight(sourceLabel, error);
+  }
+
   const eventName = asDisplayValue(readPath(payload, ["meta", "event_name"]), "unknown_event");
   const objectType = asDisplayValue(readPath(payload, ["data", "type"]), "unknown_object");
   const objectId = asDisplayValue(readPath(payload, ["data", "id"]), "missing_id");
@@ -203,6 +234,7 @@ function inspectPayload(payloadJson: string): PayloadInsight {
   }
 
   return {
+    sourceLabel,
     eventName,
     objectType,
     objectId,
@@ -236,7 +268,12 @@ export function App() {
   const selectedEvent = lemonEvents.find((event) => event.id === eventId) ?? lemonEvents[0];
   const payload = useMemo(() => buildLemonPayload(eventId), [eventId]);
   const payloadJson = useMemo(() => asJson(payload), [payload]);
-  const payloadInsight = useMemo(() => inspectPayload(payloadJson), [payloadJson]);
+  const inspectorSource = verifyPayload.trim() ? verifyPayload : payloadJson;
+  const inspectorSourceLabel = verifyPayload.trim() ? "Verifier raw body" : "Generated fixture";
+  const payloadInsight = useMemo(
+    () => inspectPayload(inspectorSource, inspectorSourceLabel),
+    [inspectorSource, inspectorSourceLabel]
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -335,6 +372,10 @@ Header casing: x-signature / X-Signature`,
   }
 
   async function copyIdempotencyKey() {
+    if (payloadInsight.parseError) {
+      return;
+    }
+
     await copyTextToClipboard(payloadInsight.idempotencyKey);
     setInsightCopied(true);
     window.setTimeout(() => setInsightCopied(false), 1400);
@@ -547,8 +588,8 @@ Header casing: x-signature / X-Signature`,
           <p className="eyebrow">Payload Inspector</p>
           <h2>Extract the fields your handler should trust after signature verification</h2>
           <p>
-            Use the generated payload to identify the event, target record, payment state, and
-            idempotency key before writing side effects.
+            Inspect the generated fixture or the raw body pasted into the signature verifier to identify
+            the event, target record, payment state, and idempotency key before writing side effects.
           </p>
         </div>
 
@@ -558,10 +599,21 @@ Header casing: x-signature / X-Signature`,
               <span>Recommended idempotency key</span>
               <strong>{payloadInsight.idempotencyKey}</strong>
             </div>
-            <button type="button" onClick={copyIdempotencyKey} title="Copy idempotency key">
+            <button
+              type="button"
+              onClick={copyIdempotencyKey}
+              title="Copy idempotency key"
+              disabled={Boolean(payloadInsight.parseError)}
+            >
               {insightCopied ? <Check size={17} aria-hidden="true" /> : <Fingerprint size={17} aria-hidden="true" />}
               {insightCopied ? "Copied" : "Copy"}
             </button>
+          </div>
+
+          <div className={`inspector-source ${payloadInsight.parseError ? "inspector-source--error" : ""}`}>
+            <span>Inspector source</span>
+            <strong>{payloadInsight.sourceLabel}</strong>
+            {payloadInsight.parseError ? <p>{payloadInsight.parseError}</p> : null}
           </div>
 
           <dl className="inspector-facts">

@@ -578,6 +578,44 @@ h2 {
   font-weight: 850;
 }
 
+.inspector-card--key button:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.inspector-source {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fbfcf8;
+  padding: 12px 14px;
+}
+
+.inspector-source span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.inspector-source strong {
+  font-size: 0.95rem;
+}
+
+.inspector-source p {
+  color: var(--coral);
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.inspector-source--error {
+  border-color: var(--coral);
+  background: rgba(240, 95, 59, 0.1);
+}
+
 .inspector-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
