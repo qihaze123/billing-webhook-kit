@@ -50,7 +50,12 @@ const guideLinks = [
   { href: "guides/polar-webhook-fixtures.html", label: "Polar webhook fixtures" },
   { href: "guides/webhook-idempotency-checklist.html", label: "Webhook idempotency checklist" },
   { href: "guides/cloudflare-worker-webhook-handler.html", label: "Cloudflare Worker handler" },
-  { href: "guides/saas-billing-webhook-test-plan.html", label: "SaaS billing webhook test plan" }
+  { href: "guides/saas-billing-webhook-test-plan.html", label: "SaaS billing webhook test plan" },
+  { href: "guides/lemon-squeezy-webhook-fixtures.html", label: "Lemon Squeezy webhook fixtures" },
+  { href: "guides/payment-webhook-test-generator.html", label: "Payment webhook test generator" },
+  { href: "guides/billing-webhook-starter-kit.html", label: "Billing webhook starter kit" },
+  { href: "guides/nextjs-billing-webhook-test-suite.html", label: "Next.js billing webhook tests" },
+  { href: "guides/saas-webhook-release-checklist.html", label: "SaaS webhook release checklist" }
 ];
 
 const proArtifacts = [

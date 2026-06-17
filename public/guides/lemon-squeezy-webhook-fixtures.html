@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Webhook Fixtures | BillingWebhookKit</title>
+    <meta name="description" content="Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Webhook Fixtures" />
+    <meta property="og:description" content="Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Webhook Fixtures" />
+    <meta name="twitter:description" content="Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Lemon Squeezy Webhook Fixtures","description":"Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are these live Lemon Squeezy events?","acceptedAnswer":{"@type":"Answer","text":"No. They are deterministic development fixtures for local and CI tests. You should still run a final provider sandbox checkout before launch."}},{"@type":"Question","name":"Why use fixtures instead of only dashboard retries?","acceptedAnswer":{"@type":"Answer","text":"Fixtures make daily development fast and repeatable; dashboard retries are better for final end-to-end checks."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Lemon Squeezy webhook fixtures</h1>
+      <p class="lead">Developers searching for fixtures usually need copy-ready JSON bodies and signed replay commands, not a generic webhook explanation.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <section>
+        <h2>Start with checkout-critical events</h2>
+        <p>Keep fixtures for order_created, subscription_created, subscription_payment_success, subscription_cancelled, and license_key_created before opening checkout to customers.</p>
+      </section>
+<section>
+        <h2>Sign fixtures the same way production does</h2>
+        <p>Generate the HMAC from the exact raw JSON body so your tests catch raw-body parsing mistakes before deployment.</p>
+      </section>
+<section>
+        <h2>Keep fixtures close to handlers</h2>
+        <p>Store payment payloads beside route tests so handler changes, provider migrations, and entitlement mapping edits stay reviewable.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Are these live Lemon Squeezy events?</h3>
+          <p>No. They are deterministic development fixtures for local and CI tests. You should still run a final provider sandbox checkout before launch.</p>
+        </div>
+<div class="faq-item">
+          <h3>Why use fixtures instead of only dashboard retries?</h3>
+          <p>Fixtures make daily development fast and repeatable; dashboard retries are better for final end-to-end checks.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

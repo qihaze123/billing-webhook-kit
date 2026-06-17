@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SaaS Webhook Release Checklist | BillingWebhookKit</title>
+    <meta name="description" content="A release checklist for SaaS teams shipping checkout, subscription, cancellation, refund, and license webhook changes." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="SaaS Webhook Release Checklist" />
+    <meta property="og:description" content="A release checklist for SaaS teams shipping checkout, subscription, cancellation, refund, and license webhook changes." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SaaS Webhook Release Checklist" />
+    <meta name="twitter:description" content="A release checklist for SaaS teams shipping checkout, subscription, cancellation, refund, and license webhook changes." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"SaaS Webhook Release Checklist","description":"A release checklist for SaaS teams shipping checkout, subscription, cancellation, refund, and license webhook changes.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the highest-risk billing release bug?","acceptedAnswer":{"@type":"Answer","text":"Processing the same provider event twice is one of the most common and expensive mistakes because it can duplicate access, emails, or records."}},{"@type":"Question","name":"Can this checklist run without paid services?","acceptedAnswer":{"@type":"Answer","text":"Most checks can run with local fixtures and CI. The final provider checkout verification is separate and should use the payment provider's allowed test or live flow."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>SaaS webhook release checklist</h1>
+      <p class="lead">Before a billing release, teams need a short list of checks that prevent duplicate entitlements, missed cancellations, and broken checkout fulfillment.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <section>
+        <h2>Run success and failure fixtures</h2>
+        <p>Cover paid order success, failed signature, duplicate replay, unsupported event, cancellation, renewal, and license creation.</p>
+      </section>
+<section>
+        <h2>Inspect access transitions</h2>
+        <p>Check that users move between trial, paid, cancelled, expired, refunded, and license-enabled states as expected.</p>
+      </section>
+<section>
+        <h2>Verify production configuration last</h2>
+        <p>Only after local and CI fixtures pass should you test the live provider webhook URL, checkout link, and webhook secret wiring.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>What is the highest-risk billing release bug?</h3>
+          <p>Processing the same provider event twice is one of the most common and expensive mistakes because it can duplicate access, emails, or records.</p>
+        </div>
+<div class="faq-item">
+          <h3>Can this checklist run without paid services?</h3>
+          <p>Most checks can run with local fixtures and CI. The final provider checkout verification is separate and should use the payment provider's allowed test or live flow.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

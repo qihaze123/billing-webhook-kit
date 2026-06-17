@@ -27,6 +27,11 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - Webhook idempotency checklist: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
 - SaaS billing webhook test plan: https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html
+- Lemon Squeezy webhook fixtures: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html
+- Payment webhook test generator: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html
+- Billing webhook starter kit: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html
+- Next.js billing webhook test suite: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html
+- SaaS webhook release checklist: https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html
 
 ## Pro Kit
 

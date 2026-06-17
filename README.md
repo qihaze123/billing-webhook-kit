@@ -36,6 +36,11 @@ Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html
 
 ## Development
 
