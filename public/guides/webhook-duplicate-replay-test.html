@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webhook Duplicate Replay Test | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Test payment webhook duplicate deliveries with an idempotency key, process-once handler behavior, and a Vitest replay check."
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Duplicate Replay Test" />
+    <meta
+      property="og:description"
+      content="Test payment webhook duplicate deliveries with an idempotency key, process-once handler behavior, and a Vitest replay check."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Webhook Duplicate Replay Test" />
+    <meta
+      name="twitter:description"
+      content="Use a replay test to confirm the first payment webhook runs side effects once and duplicate deliveries are skipped."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      code { font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace; font-size: .92em; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Webhook Duplicate Replay Test","description":"Test payment webhook duplicate deliveries with an idempotency key, process-once handler behavior, and a Vitest replay check.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why test duplicate webhook replay?","acceptedAnswer":{"@type":"Answer","text":"Payment providers retry webhook delivery after timeouts and network failures. A duplicate replay test proves that billing side effects run once even when the same event is delivered multiple times."}},{"@type":"Question","name":"What should the idempotency key include?","acceptedAnswer":{"@type":"Answer","text":"Use a stable provider event or object identifier, such as provider:event_name:object_id, and store it before granting access, sending email, or mutating subscription state."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Webhook duplicate replay test</h1>
+      <p class="lead">Payment providers can deliver the same event more than once. A replay test confirms your handler processes the first delivery and skips duplicates without repeating billing side effects.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free replay simulator</a>
+      <section>
+        <h2>Use a stable idempotency key</h2>
+        <p>Derive a key from trusted fields after signature verification, for example <code>lemon_squeezy:order_created:order_id</code>. Store that key before sending emails, creating licenses, granting access, or changing subscription state.</p>
+      </section>
+      <section>
+        <h2>Assert process-once behavior</h2>
+        <p>Replay the same fixture three times in a unit test. The first delivery should run exactly one billing side effect, while the second and third deliveries should return success without repeating the side effect.</p>
+      </section>
+      <section>
+        <h2>Keep retry checks in CI</h2>
+        <p>Duplicate replay tests belong beside signature verification tests. Run them in CI whenever raw-body parsing, event mapping, entitlement writes, or webhook retry handling changes.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Why test duplicate webhook replay?</h3>
+          <p>Payment providers retry webhook delivery after timeouts and network failures. A duplicate replay test proves that billing side effects run once even when the same event is delivered multiple times.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What should the idempotency key include?</h3>
+          <p>Use a stable provider event or object identifier, such as provider:event_name:object_id, and store it before granting access, sending email, or mutating subscription state.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

@@ -45,6 +45,7 @@ Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.ht
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html

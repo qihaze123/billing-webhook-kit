@@ -55,6 +55,7 @@ const guideLinks = [
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
   { href: "guides/polar-webhook-fixtures.html", label: "Polar webhook fixtures" },
   { href: "guides/webhook-idempotency-checklist.html", label: "Webhook idempotency checklist" },
+  { href: "guides/webhook-duplicate-replay-test.html", label: "Webhook duplicate replay test" },
   { href: "guides/webhook-review-checklist.html", label: "Webhook review checklist" },
   { href: "guides/cloudflare-worker-webhook-handler.html", label: "Cloudflare Worker handler" },
   { href: "guides/saas-billing-webhook-test-plan.html", label: "SaaS billing webhook test plan" },

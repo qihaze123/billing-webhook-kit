@@ -57,6 +57,13 @@
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Webhook Duplicate Replay Test</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html</guid>
+      <description>Test duplicate payment webhook deliveries with an idempotency key and a process-once Vitest replay check.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Webhook Review Checklist</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</guid>
