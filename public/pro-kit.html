@@ -330,6 +330,31 @@
         font-weight: 800;
       }
 
+      .faq {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .qa {
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 16px;
+      }
+
+      .qa h3 {
+        margin: 0;
+        color: #f8faef;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+
+      .qa p {
+        margin-top: 8px;
+      }
+
       footer {
         margin-top: 28px;
         color: var(--muted);
@@ -341,6 +366,7 @@
         .hero,
         .grid,
         .checklist,
+        .faq,
         .manifest-grid {
           grid-template-columns: 1fr;
         }
@@ -378,6 +404,46 @@
           "priceCurrency": "CNY",
           "availability": "https://schema.org/PreOrder"
         }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does BillingWebhookKit Pro upload webhook signing secrets?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. BillingWebhookKit is a browser-only tool. Signing secrets are processed locally with Web Crypto, and the Pro Kit is a local digital download of fixtures, handlers, tests, and documentation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between the free sample and the Pro Kit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The free sample shows the structure with a Lemon Squeezy fixture, handler, signature test, contract test, duplicate replay test, review report, and CI skeleton. The Pro Kit expands this into a larger copy-ready package with more provider fixtures, framework handlers, tests, review templates, and launch notes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is checkout currently marked as opening soon?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The public page keeps checkout disabled until the live Lemon Squeezy production key and variant are connected. This prevents exposing test checkout links or an incomplete purchase flow."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the Pro Kit a hosted SaaS service?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It is a one-time digital pack of local engineering assets: webhook fixtures, route handlers, signature tests, contract tests, duplicate replay tests, review report templates, and CI workflow examples."
+            }
+          }
+        ]
       }
     </script>
   </head>
@@ -502,6 +568,29 @@ docs/integration-checklist.md</code></pre>
           <span>License and subscription states</span>
           <span>CI command examples</span>
           <span>Webhook route hardening notes</span>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Pro Kit frequently asked questions">
+        <p class="eyebrow">FAQ</p>
+        <h2>Buying and integration details</h2>
+        <div class="faq">
+          <article class="qa">
+            <h3>Does it upload webhook signing secrets?</h3>
+            <p>No. The hosted tool runs in the browser, and the Pro Kit is a local digital download. Secrets stay in your local workflow.</p>
+          </article>
+          <article class="qa">
+            <h3>What is different from the free sample?</h3>
+            <p>The sample shows the format. The Pro Kit adds more provider fixtures, framework handlers, tests, review templates, and launch notes.</p>
+          </article>
+          <article class="qa">
+            <h3>Why is checkout opening soon?</h3>
+            <p>The page stays disabled until the live Lemon Squeezy production key and variant are connected, so no test checkout is exposed publicly.</p>
+          </article>
+          <article class="qa">
+            <h3>Is it a hosted SaaS?</h3>
+            <p>No. It is a one-time digital pack of local fixtures, handlers, tests, CI examples, and review documentation.</p>
+          </article>
         </div>
       </section>
 
