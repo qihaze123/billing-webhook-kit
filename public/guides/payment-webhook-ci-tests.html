@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Payment Webhook CI Tests | BillingWebhookKit</title>
     <meta name="description" content="A practical CI checklist for testing payment webhook signatures, fixtures, retries, and idempotency." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Payment Webhook CI Tests" />
+    <meta property="og:description" content="A practical CI checklist for testing payment webhook signatures, fixtures, retries, and idempotency." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
       * { box-sizing: border-box; }
@@ -24,6 +30,7 @@
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Payment Webhook CI Tests","description":"A practical CI checklist for testing payment webhook signatures, fixtures, retries, and idempotency.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which tests should run on every pull request?","acceptedAnswer":{"@type":"Answer","text":"Signature verification, event parsing, idempotency, and entitlement mapping should run on every pull request."}},{"@type":"Question","name":"Do these tests require paid APIs?","acceptedAnswer":{"@type":"Answer","text":"No. Fixture-driven tests run locally or in CI without calling provider APIs."}}]}</script>
   </head>
   <body>

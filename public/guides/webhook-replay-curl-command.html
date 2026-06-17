@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Replay Payment Webhooks with cURL | BillingWebhookKit</title>
     <meta name="description" content="Generate repeatable cURL commands for payment webhook development without exposing signing secrets to a hosted service." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Replay Payment Webhooks with cURL" />
+    <meta property="og:description" content="Generate repeatable cURL commands for payment webhook development without exposing signing secrets to a hosted service." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
       * { box-sizing: border-box; }
@@ -24,6 +30,7 @@
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Replay Payment Webhooks with cURL","description":"Generate repeatable cURL commands for payment webhook development without exposing signing secrets to a hosted service.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is cURL enough for production testing?","acceptedAnswer":{"@type":"Answer","text":"No. Use cURL for repeatable development checks, then verify with provider sandbox deliveries before launch."}},{"@type":"Question","name":"Should I store real secrets in shell history?","acceptedAnswer":{"@type":"Answer","text":"No. Use throwaway test secrets and avoid pasting production webhook secrets into terminal history."}}]}</script>
   </head>
   <body>

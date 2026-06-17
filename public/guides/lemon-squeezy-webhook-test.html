@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Test Lemon Squeezy Webhooks Locally | BillingWebhookKit</title>
     <meta name="description" content="Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Test Lemon Squeezy Webhooks Locally" />
+    <meta property="og:description" content="Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
       * { box-sizing: border-box; }
@@ -24,6 +30,7 @@
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Test Lemon Squeezy Webhooks Locally","description":"Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Should I paste a production webhook secret?","acceptedAnswer":{"@type":"Answer","text":"No. Use a throwaway test secret. BillingWebhookKit runs in the browser, but test credentials are still the right default."}},{"@type":"Question","name":"Does this replace Lemon Squeezy webhooks?","acceptedAnswer":{"@type":"Answer","text":"No. It helps reproduce webhook events locally and in CI before you depend on live webhook delivery."}}]}</script>
   </head>
   <body>

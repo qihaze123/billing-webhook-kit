@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Webhook Idempotency Checklist | BillingWebhookKit</title>
     <meta name="description" content="A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Idempotency Checklist" />
+    <meta property="og:description" content="A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
       * { box-sizing: border-box; }
@@ -24,6 +30,7 @@
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Webhook Idempotency Checklist","description":"A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is idempotency only for webhooks?","acceptedAnswer":{"@type":"Answer","text":"No, but webhooks need it because provider retries and network failures are normal."}},{"@type":"Question","name":"Should duplicate events return errors?","acceptedAnswer":{"@type":"Answer","text":"Usually no. Return a successful response after confirming the event has already been handled."}}]}</script>
   </head>
   <body>

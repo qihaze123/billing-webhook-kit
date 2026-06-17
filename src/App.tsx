@@ -53,6 +53,21 @@ const guideLinks = [
   { href: "guides/saas-billing-webhook-test-plan.html", label: "SaaS billing webhook test plan" }
 ];
 
+const proArtifacts = [
+  "fixtures/lemon/order_created.json",
+  "src/handlers/next-app-router.ts",
+  "src/handlers/cloudflare-worker.ts",
+  "tests/lemon-signature.test.ts",
+  ".github/workflows/webhook-checks.yml"
+];
+
+const integrationSignals = [
+  "Raw-body HMAC checks",
+  "Idempotent retry fixtures",
+  "Provider mapping examples",
+  "CI-ready test command"
+];
+
 const defaultEndpoint = "https://yourapp.com/api/webhooks/lemonsqueezy";
 
 type CheckoutConfig = {
@@ -315,6 +330,25 @@ Header casing: x-signature / X-Signature`,
             <span>No account required</span>
           </div>
         </aside>
+      </section>
+
+      <section className="evidence-panel" aria-label="Pro Kit contents">
+        <div className="evidence-panel__copy">
+          <p className="eyebrow">Pro Kit Contents</p>
+          <h2>Copy-ready billing webhook assets, not another blank starter repo</h2>
+          <p>
+            The paid pack is organized around the failure modes that usually break SaaS billing launches:
+            signature verification, duplicate retries, provider field mapping, and release-time CI checks.
+          </p>
+          <div className="signal-row">
+            {integrationSignals.map((signal) => (
+              <span key={signal}>{signal}</span>
+            ))}
+          </div>
+        </div>
+        <pre className="file-tree" aria-label="Example Pro Kit file tree">
+          <code>{proArtifacts.join("\n")}</code>
+        </pre>
       </section>
 
       <section className="guide-panel" aria-label="Billing webhook integration guides">
