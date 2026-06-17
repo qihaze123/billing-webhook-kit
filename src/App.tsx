@@ -1392,6 +1392,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/stripe-webhook-fixture-generator.html">
             Stripe
           </a>
+          <a className="ghost-link" href="tools/webhook-replay-curl-generator.html">
+            Replay
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -2240,6 +2243,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/stripe-webhook-fixture-generator.html">
             Generate standalone Stripe fixtures
+          </a>
+          <a className="inline-cta" href="tools/webhook-replay-curl-generator.html">
+            Generate standalone replay cURL commands
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">
