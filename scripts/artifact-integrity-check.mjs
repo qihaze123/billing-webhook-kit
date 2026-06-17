@@ -9,6 +9,7 @@ const freeSampleZipPath = join(publicDir, "billing-webhook-kit-free-sample.zip")
 const freeSamplePath = join(publicDir, "free-sample.html");
 const proKitPath = join(publicDir, "pro-kit.html");
 const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
+const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digital-download-fulfillment.html");
 const statusPath = join(publicDir, "status.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
@@ -38,6 +39,9 @@ if (!existsSync(freeSampleZipPath)) issues.push("Missing public/billing-webhook-
 if (!existsSync(freeSamplePath)) issues.push("Missing public/free-sample.html.");
 if (!existsSync(proKitPath)) issues.push("Missing public/pro-kit.html.");
 if (!existsSync(deliverySupportPath)) issues.push("Missing public/delivery-refund-support.html.");
+if (!existsSync(digitalDownloadGuidePath)) {
+  issues.push("Missing public/guides/lemon-squeezy-digital-download-fulfillment.html.");
+}
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
 if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
@@ -49,6 +53,9 @@ const checkout = existsSync(checkoutPath) ? readJson(checkoutPath) : null;
 const freeSampleHtml = existsSync(freeSamplePath) ? readFileSync(freeSamplePath, "utf8") : "";
 const proKitHtml = existsSync(proKitPath) ? readFileSync(proKitPath, "utf8") : "";
 const deliverySupportHtml = existsSync(deliverySupportPath) ? readFileSync(deliverySupportPath, "utf8") : "";
+const digitalDownloadGuideHtml = existsSync(digitalDownloadGuidePath)
+  ? readFileSync(digitalDownloadGuidePath, "utf8")
+  : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
@@ -145,6 +152,17 @@ if (
   !deliverySupportHtml.includes("status.html")
 ) {
   issues.push("Delivery support page is missing buyer assurance, verification, refund, safety, or conversion links.");
+}
+if (
+  !digitalDownloadGuideHtml.includes("Deliver a digital download after Lemon Squeezy checkout") ||
+  !digitalDownloadGuideHtml.includes("private ZIP") ||
+  !digitalDownloadGuideHtml.includes("x-signature") ||
+  !digitalDownloadGuideHtml.includes("idempotency") ||
+  !digitalDownloadGuideHtml.includes("delivery-refund-support.html") ||
+  !digitalDownloadGuideHtml.includes("pro-kit.html") ||
+  !digitalDownloadGuideHtml.includes("free-sample.html")
+) {
+  issues.push("Digital download fulfillment guide is missing private delivery, signature, idempotency, policy, or conversion links.");
 }
 if (
   !proKitHtml.includes("Checkout Launch Gates") ||

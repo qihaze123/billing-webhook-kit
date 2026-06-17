@@ -106,6 +106,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Deliver a Digital Download After Lemon Squeezy Checkout</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html</guid>
+      <description>Fulfill a private ZIP, license file, or digital product after Lemon Squeezy checkout with signed webhook verification, idempotency, checksum evidence, and duplicate replay safety.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Test Lemon Squeezy Webhooks Locally</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</guid>

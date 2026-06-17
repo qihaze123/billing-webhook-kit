@@ -28,6 +28,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`,
   `${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
+  `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
@@ -125,6 +126,7 @@ const [
   checkout404Guide,
   paypalCheckoutGuide,
   webhookNotFiringGuide,
+  digitalDownloadGuide,
   stripeNextjsGuide,
   sitemap,
   robots,
@@ -153,6 +155,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -210,6 +213,9 @@ const issues = [
   ...(webhookNotFiringGuide.ok
     ? []
     : [`Lemon Squeezy webhook not firing guide returned HTTP ${webhookNotFiringGuide.status ?? "failed"}.`]),
+  ...(digitalDownloadGuide.ok
+    ? []
+    : [`Lemon Squeezy digital download fulfillment guide returned HTTP ${digitalDownloadGuide.status ?? "failed"}.`]),
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
@@ -217,7 +223,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 55 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 55.`]),
+  ...(sitemapUrls.length >= 56 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 56.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -273,6 +279,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook not firing after checkout guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy digital download fulfillment guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
@@ -405,6 +414,15 @@ const issues = [
   webhookNotFiringGuide.text.includes("View Pro Kit preview")
     ? []
     : ["Lemon Squeezy webhook not firing guide is missing environment, event, or conversion copy."]),
+  ...(digitalDownloadGuide.text.includes("Deliver a digital download after Lemon Squeezy checkout") &&
+  digitalDownloadGuide.text.includes("private ZIP") &&
+  digitalDownloadGuide.text.includes("x-signature") &&
+  digitalDownloadGuide.text.includes("idempotency") &&
+  digitalDownloadGuide.text.includes("delivery-refund-support.html") &&
+  digitalDownloadGuide.text.includes("pro-kit.html") &&
+  digitalDownloadGuide.text.includes("free-sample.html")
+    ? []
+    : ["Lemon Squeezy digital download fulfillment guide is missing private delivery, signature, idempotency, policy, or conversion copy."]),
   ...(stripeNextjsGuide.text.includes("Stripe webhook signature verification in Next.js") &&
   stripeNextjsGuide.text.includes("request.text()") &&
   stripeNextjsGuide.text.includes("Stripe-Signature") &&
@@ -496,6 +514,7 @@ const result = {
     checkout404Guide: checkout404Guide.status,
     paypalCheckoutGuide: paypalCheckoutGuide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
+    digitalDownloadGuide: digitalDownloadGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

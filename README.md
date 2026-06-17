@@ -37,6 +37,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Fix Lemon Squeezy checkout 404 from custom price or currency mismatch: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html
 - Lemon Squeezy PayPal checkout webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html
 - Lemon Squeezy webhook not firing after checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html
+- Deliver a digital download after Lemon Squeezy checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html
 
 ## Trust Signals
 
@@ -56,6 +57,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Delivery and support page: private ZIP delivery flow, checksum verification, support scope, refund triggers, and safe issue-reporting policy.
+- Digital delivery guide: fulfillment checklist for private ZIP delivery, signed webhooks, paid-state checks, idempotency, checksum evidence, and duplicate replay safety.
 - Artifact integrity: CI checks that the public sample ZIP hash matches release notes and the private Pro Kit ZIP is not published.
 - Site health: GitHub Actions checks live pages, sitemap, Pro Kit signals, free-sample upgrade links, and checkout safety after deployments.
 - Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
@@ -87,6 +89,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - Recommended idempotency keys for safe webhook retries
 - Entitlement decisions for access grants, license delivery, renewals, cancellations, failed payments, and unknown events
 - Launch readiness scoring for signature tests, duplicate replay, entitlement policy, fixtures, secrets, smoke tests, review reports, and monitoring
+- Digital download fulfillment after Lemon Squeezy checkout with private ZIP delivery, paid-state checks, idempotency, checksum evidence, and support-policy links
 - Duplicate replay behavior for process-once/skip-duplicate tests
 - Webhook debugging cost estimates for launch planning
 - PR-ready Markdown reports for webhook route review and release checklists
@@ -134,6 +137,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deliver a Digital Download After Lemon Squeezy Checkout | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Deliver a private ZIP, license file, or digital product after Lemon Squeezy checkout with signed webhook verification, idempotency, checksum evidence, support policy, and duplicate replay safety."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy digital download fulfillment, deliver digital product after checkout, Lemon Squeezy private ZIP delivery, Lemon Squeezy webhook fulfillment, digital product checksum"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Deliver a Digital Download After Lemon Squeezy Checkout" />
+    <meta
+      property="og:description"
+      content="A launch-safe fulfillment checklist for private ZIP delivery after Lemon Squeezy checkout: signed webhook, paid state, idempotency, checksum, support, and rollback evidence."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Deliver a Digital Download After Lemon Squeezy Checkout" />
+    <meta
+      name="twitter:description"
+      content="Fulfill a private digital download after Lemon Squeezy checkout without exposing the archive publicly or running fulfillment twice."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      html { background:
+        linear-gradient(90deg, rgba(18,19,15,.045) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(18,19,15,.045) 1px, transparent 1px),
+        var(--paper); background-size: 28px 28px; }
+      body { margin: 0; color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; overflow-x: hidden; }
+      main { width: 920px; max-width: calc(100vw - 32px); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 850; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .94; letter-spacing: 0; overflow-wrap: anywhere; }
+      .lead { margin: 18px 0 0; max-width: 780px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; justify-content: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.28rem; line-height: 1.2; }
+      h3 { margin: 0 0 8px; font-size: 1rem; line-height: 1.25; }
+      p { margin: 0; line-height: 1.72; }
+      code { font-family: Andale Mono, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+      .check-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .check { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .check span { display: block; color: var(--coral); font-family: Andale Mono, SFMono-Regular, Menlo, monospace; font-size: .72rem; font-weight: 850; text-transform: uppercase; }
+      .check strong { display: block; margin-top: 8px; line-height: 1.25; }
+      .check p { margin-top: 8px; color: var(--muted); line-height: 1.55; }
+      .code-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 8px; background: #10120f; color: var(--accent); padding: 16px; overflow: auto; font: .84rem/1.7 Andale Mono, SFMono-Regular, Menlo, Consolas, monospace; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .conversion-panel { background: #10120f; color: #f7faed; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions, .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a, .related-grid a { display: block; min-height: 124px; border: 1px solid #f7faed; border-radius: 7px; padding: 14px; text-decoration: none; background: #1d2119; }
+      .conversion-actions strong, .related-grid strong { display: block; margin-bottom: 8px; color: var(--accent); line-height: 1.25; }
+      .conversion-actions span, .related-grid span { display: block; color: #dfe6d6; font-size: .93rem; line-height: 1.5; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid a { border-color: #cfd6c5; background: #f9faf4; }
+      .related-grid strong { color: var(--ink); }
+      .related-grid span { color: var(--muted); }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+      @media (max-width: 720px) {
+        main { width: auto; max-width: none; margin: 0; padding: 36px 12px 48px; }
+        h1 { max-width: 100%; font-size: 1.72rem; line-height: 1.08; }
+        .lead { font-size: 1rem; line-height: 1.55; }
+        .cta { width: calc(100% - 8px); min-width: 0; padding: 10px 12px; text-align: center; line-height: 1.2; white-space: normal; overflow-wrap: anywhere; }
+        .check-grid, .conversion-actions, .related-grid { grid-template-columns: 1fr; }
+        .conversion-actions a, .related-grid a { min-height: 0; }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Deliver a Digital Download After Lemon Squeezy Checkout",
+        "description": "Deliver a private ZIP, license file, or digital product after Lemon Squeezy checkout with signed webhook verification, idempotency, checksum evidence, support policy, and duplicate replay safety.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Should a paid digital ZIP be public on GitHub Pages?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Keep the paid archive private. Publish only a manifest with file count, version, byte size, checksum, support policy, and safety notes so buyers can verify the download after checkout."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When should fulfillment run after Lemon Squeezy checkout?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Run fulfillment only after a signed webhook confirms a paid order or the equivalent trusted paid state. Store an idempotency key before sending download links, license files, or access grants."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I avoid duplicate delivery emails?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Persist a processed event key, such as provider, event name, object type, and object ID, before running side effects. Replayed deliveries should return success without sending another email or granting access twice."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Deliver a Digital Download After Lemon Squeezy Checkout", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Deliver a digital download after Lemon Squeezy checkout</h1>
+      <p class="lead">
+        A checkout page proves payment intent, not safe fulfillment. Before sending a private ZIP, license file, or download link, verify the signed webhook, confirm the paid state, store an idempotency key, and publish enough checksum evidence for the buyer to trust the archive.
+      </p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html">Read the delivery and support policy</a>
+
+      <section>
+        <h2>Keep the paid archive private</h2>
+        <p>
+          A public GitHub Pages site can host the landing page, free sample, manifest, and status page. It should not host the paid ZIP itself. Publish a manifest with package version, file count, test count, byte size, SHA-256 checksum, and safety flags so buyers can verify the private download after checkout.
+        </p>
+      </section>
+
+      <section>
+        <h2>Fulfill only after the trusted paid event</h2>
+        <p>
+          For a one-time Lemon Squeezy product, fulfillment usually starts from a signed <code>order_created</code> webhook with a paid state and the expected product or variant. Do not send delivery email from an unsigned client redirect, stale checkout URL, or test-mode event that does not match production.
+        </p>
+        <div class="check-grid">
+          <article class="check">
+            <span>Signature</span>
+            <strong>Verify the exact raw body first</strong>
+            <p>Read the raw request body once, compare the <code>x-signature</code>, then parse JSON and inspect trusted fields.</p>
+          </article>
+          <article class="check">
+            <span>Paid state</span>
+            <strong>Check order, product, and variant</strong>
+            <p>Match the expected live environment, product or variant ID, currency, and payment status before granting access.</p>
+          </article>
+          <article class="check">
+            <span>Idempotency</span>
+            <strong>Store the processed event key</strong>
+            <p>Use provider, event name, object type, and object ID so retries skip duplicate emails and duplicate license grants.</p>
+          </article>
+          <article class="check">
+            <span>Evidence</span>
+            <strong>Attach a fulfillment report</strong>
+            <p>Record checkout URL, order ID, event ID, delivery action, checksum, replay result, and rollback notes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Use a minimal fulfillment gate</h2>
+        <p>
+          The implementation details vary by stack, but the release rule should stay constant: verify, decide, store, then deliver.
+        </p>
+        <pre class="code-panel"><code>1. Receive Lemon Squeezy webhook
+2. Verify x-signature against the exact raw body
+3. Parse JSON after signature verification
+4. Confirm event_name, paid status, product/variant, and currency
+5. Insert processed_event idempotency key
+6. If insert succeeds, create the private delivery action
+7. If insert already exists, return 2xx without repeating side effects
+8. Log secret-free evidence: order, event, checksum, and fulfillment result</code></pre>
+      </section>
+
+      <section>
+        <h2>Publish buyer-visible verification</h2>
+        <p>
+          A buyer should understand what they receive before paying and how to verify it after downloading. Link the product page to a public delivery/support policy, a package manifest, and a status page. Keep the actual archive private until the production checkout is live.
+        </p>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Should a paid digital ZIP be public on GitHub Pages?</h3>
+          <p>No. Keep the paid archive private. Publish only a manifest with file count, version, byte size, checksum, support policy, and safety notes so buyers can verify the download after checkout.</p>
+        </div>
+        <div class="faq-item">
+          <h3>When should fulfillment run after Lemon Squeezy checkout?</h3>
+          <p>Run fulfillment only after a signed webhook confirms a paid order or the equivalent trusted paid state. Store an idempotency key before sending download links, license files, or access grants.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I avoid duplicate delivery emails?</h3>
+          <p>Persist a processed event key before side effects. Replayed deliveries should return success without sending another email, license file, private link, or access grant.</p>
+        </div>
+      </section>
+
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Turn fulfillment into a launch checklist</h2>
+          <p>Use the free sample to inspect fake fixtures and local tests. Use the Pro Kit preview when you need copy-ready handlers, duplicate replay tests, package verification notes, and review reports for paid delivery.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download free sample</strong>
+            <span>Inspect one Lemon Squeezy fixture, raw-body handler, signature test, contract test, replay test, and CI skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CN¥69 digital kit with manifest and delivery policy; checkout stays disabled until live configuration is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related launch checks</h2>
+          <p>Run these before a public buy link receives real checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">
+            <strong>Lemon Squeezy Checkout Smoke Test Report</strong>
+            <span>Generate a PR-ready report for price, checkout URL, paid webhook, duplicate replay, fulfillment, and rollback evidence.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html">
+            <strong>Webhook Not Firing After Checkout</strong>
+            <span>Debug live/test mismatch, endpoint URL, subscribed events, 2xx responses, signatures, retries, and fulfillment checks.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html">
+            <strong>Delivery, Refund, and Support Policy</strong>
+            <span>Document private ZIP delivery, checksum verification, support scope, refund triggers, and safe issue reporting.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html">
+            <strong>Webhook Duplicate Replay Test</strong>
+            <span>Prove provider retries cannot repeat emails, license grants, downloads, or entitlement writes.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use fake fixtures and fake signing secrets in public examples, and keep production checkout links, API keys, webhook secrets, and customer data out of shared reports.
+      </footer>
+    </main>
+  </body>
+</html>
