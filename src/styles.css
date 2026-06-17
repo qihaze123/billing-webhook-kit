@@ -831,6 +831,74 @@ h2 {
   overflow-wrap: anywhere;
 }
 
+.review-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--paper-2);
+  box-shadow: var(--shadow);
+}
+
+.review-panel h2 {
+  max-width: 540px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.review-panel p:not(.eyebrow) {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.review-actions button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--acid);
+  color: var(--ink);
+  padding: 0 12px;
+  font-weight: 850;
+}
+
+.review-actions button:nth-child(2) {
+  background: var(--panel);
+}
+
+.review-preview {
+  min-width: 0;
+  max-height: 420px;
+  margin: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(34, 122, 76, 0.18), transparent 40%),
+    #10120f;
+  color: #f5f8e8;
+  padding: 16px;
+  overflow: auto;
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .guide-panel {
   display: grid;
   grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
@@ -890,7 +958,8 @@ h2 {
   .inspector-panel,
   .inspector-grid,
   .verifier-panel,
-  .verifier-grid {
+  .verifier-grid,
+  .review-panel {
     grid-template-columns: 1fr;
   }
 }
@@ -987,6 +1056,16 @@ h2 {
   .verifier-panel {
     margin-top: 14px;
     padding: 14px;
+  }
+
+  .review-panel {
+    margin-top: 14px;
+    padding: 14px;
+  }
+
+  .review-actions {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .signal-row {
