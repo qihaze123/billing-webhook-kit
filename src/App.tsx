@@ -69,9 +69,12 @@ const guideLinks = [
 
 const proArtifacts = [
   "fixtures/lemon/order_created.json",
+  "src/idempotency.ts",
   "src/handlers/next-app-router.ts",
   "src/handlers/cloudflare-worker.ts",
   "tests/lemon-signature.test.ts",
+  "tests/lemon-idempotency-replay.test.ts",
+  "docs/idempotency-runbook.md",
   "docs/webhook-review-report-template.md",
   ".github/workflows/webhook-checks.yml"
 ];
@@ -746,7 +749,7 @@ Header casing: x-signature / X-Signature`,
             <li>Lemon Squeezy complete fixture library</li>
             <li>Stripe, Paddle, Polar starter events</li>
             <li>Next.js, Hono, Express, Workers templates</li>
-            <li>Vitest signature verification suite</li>
+            <li>Vitest signature and replay test suite</li>
             <li>PR-ready review report templates</li>
             <li>GitHub Actions billing webhook checks</li>
           </ul>

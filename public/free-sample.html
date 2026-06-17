@@ -6,7 +6,7 @@
     <title>BillingWebhookKit Free Sample - webhook fixture starter</title>
     <meta
       name="description"
-      content="Download a free BillingWebhookKit sample with a Lemon Squeezy order_created fixture, Next.js webhook handler, Vitest signature test, review report, and GitHub Actions workflow."
+      content="Download a free BillingWebhookKit sample with a Lemon Squeezy order_created fixture, Next.js webhook handler, Vitest signature and replay tests, review report, and GitHub Actions workflow."
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html" />
@@ -17,7 +17,7 @@
     <meta property="og:title" content="BillingWebhookKit Free Sample" />
     <meta
       property="og:description"
-      content="A free sample of the Pro Kit structure: fixture, handler, signature test, review report, and CI workflow."
+      content="A free sample of the Pro Kit structure: fixture, handler, signature and duplicate replay tests, review report, and CI workflow."
     />
     <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/free-sample.html" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
@@ -195,7 +195,7 @@
         "codeRepository": "https://github.com/qihaze123/billing-webhook-kit",
         "programmingLanguage": ["TypeScript", "JSON", "YAML"],
         "url": "https://qihaze123.github.io/billing-webhook-kit/free-sample.html",
-        "description": "A free sample of Lemon Squeezy webhook fixtures, a Next.js handler, a Vitest signature test, a webhook review report, and a GitHub Actions workflow."
+        "description": "A free sample of Lemon Squeezy webhook fixtures, a Next.js handler, Vitest signature and duplicate replay tests, a webhook review report, and a GitHub Actions workflow."
       }
     </script>
   </head>
@@ -210,7 +210,7 @@
       <h1>Inspect the webhook test structure before buying.</h1>
       <p class="lead">
         This sample gives you a safe Lemon Squeezy `order_created` fixture, a Next.js raw-body
-        handler, a Vitest signature test, a Markdown review report, and a GitHub Actions workflow.
+        handler, Vitest signature and duplicate replay tests, a Markdown review report, and a GitHub Actions workflow.
         It uses only fake data and a local test secret.
       </p>
 
@@ -230,8 +230,8 @@
           <p>A Next.js App Router example that verifies the exact raw body before parsing JSON.</p>
         </article>
         <article class="card">
-          <h2>Test</h2>
-          <p>A Vitest signature check showing why byte-for-byte request bodies matter.</p>
+          <h2>Tests</h2>
+          <p>Vitest checks for byte-for-byte signatures and process-once duplicate replay behavior.</p>
         </article>
         <article class="card">
           <h2>Review report</h2>
@@ -248,6 +248,7 @@
   fixtures/lemon/order-created.sample.json
   src/handlers/next-app-router.sample.ts
   tests/lemon-signature.sample.test.ts
+  tests/lemon-idempotency-replay.sample.test.ts
   docs/webhook-review-report.sample.md
   .github/workflows/webhook-checks.sample.yml</code></pre>
 

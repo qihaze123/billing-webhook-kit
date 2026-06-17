@@ -317,7 +317,7 @@
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "BillingWebhookKit Pro",
-        "description": "A digital pack of payment webhook fixtures, handlers, tests, review report templates, CI workflow, and launch checklists for indie SaaS billing integrations.",
+      "description": "A digital pack of payment webhook fixtures, handlers, signature tests, duplicate replay tests, review report templates, CI workflow, and launch checklists for indie SaaS billing integrations.",
         "brand": {
           "@type": "Brand",
           "name": "BillingWebhookKit"
@@ -369,7 +369,7 @@
             <li>Lemon Squeezy fixture library</li>
             <li>Stripe, Paddle, and Polar starter events</li>
             <li>Next.js, Hono, Express, and Workers handlers</li>
-            <li>Vitest signature verification suite</li>
+            <li>Vitest signature and replay test suite</li>
             <li>PR-ready review report templates</li>
             <li>GitHub Actions billing webhook workflow</li>
           </ul>
@@ -405,15 +405,17 @@
   paddle/transaction_completed.json
   polar/order_paid.json
 src/
+  idempotency.ts
   handlers/next-app-router.ts
   handlers/hono.ts
   handlers/express.ts
   handlers/cloudflare-worker.ts
 tests/
   lemon-signature.test.ts
-  idempotency-replay.test.ts
+  lemon-idempotency-replay.test.ts
 .github/workflows/webhook-checks.yml
 README.md
+docs/idempotency-runbook.md
 docs/webhook-review-checklist.md
 docs/webhook-review-report-template.md
 docs/integration-checklist.md</code></pre>

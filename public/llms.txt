@@ -45,4 +45,4 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 
 ## Pro Kit
 
-BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, tests, GitHub Actions checks, webhook review report templates, and integration checklists.
+BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, signature tests, duplicate replay tests, GitHub Actions checks, webhook review report templates, idempotency runbooks, and integration checklists.
