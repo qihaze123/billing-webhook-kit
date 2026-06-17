@@ -8,6 +8,7 @@ const manifestPath = join(publicDir, "pro-kit-manifest.json");
 const freeSampleZipPath = join(publicDir, "billing-webhook-kit-free-sample.zip");
 const freeSamplePath = join(publicDir, "free-sample.html");
 const proKitPath = join(publicDir, "pro-kit.html");
+const statusPath = join(publicDir, "status.html");
 const checkoutPath = join(publicDir, "checkout.json");
 const expectedFreeSampleSha256 = "8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b";
 
@@ -32,12 +33,14 @@ if (!existsSync(manifestPath)) issues.push("Missing public/pro-kit-manifest.json
 if (!existsSync(freeSampleZipPath)) issues.push("Missing public/billing-webhook-kit-free-sample.zip.");
 if (!existsSync(freeSamplePath)) issues.push("Missing public/free-sample.html.");
 if (!existsSync(proKitPath)) issues.push("Missing public/pro-kit.html.");
+if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
 const checkout = existsSync(checkoutPath) ? readJson(checkoutPath) : null;
 const freeSampleHtml = existsSync(freeSamplePath) ? readFileSync(freeSamplePath, "utf8") : "";
 const proKitHtml = existsSync(proKitPath) ? readFileSync(proKitPath, "utf8") : "";
+const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const publicZipFiles = existsSync(publicDir)
   ? walkFiles(publicDir).filter((path) => path.toLowerCase().endsWith(".zip"))
   : [];
@@ -103,6 +106,14 @@ if (!proKitHtml.includes("pro-kit-manifest.json")) {
 }
 if (!proKitHtml.includes("29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8")) {
   issues.push("Pro Kit page does not expose the public ZIP verification hash.");
+}
+if (
+  !statusHtml.includes("pro-kit-manifest.json") ||
+  !statusHtml.includes("8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b") ||
+  !statusHtml.includes("29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8") ||
+  !statusHtml.includes("Awaiting live key")
+) {
+  issues.push("Status page does not expose manifest, sample hash, Pro Kit hash, and checkout waiting state.");
 }
 
 const result = {

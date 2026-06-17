@@ -17,6 +17,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+- Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
 - Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 
 ## Trust Signals
@@ -25,6 +26,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - No backend: the hosted tool does not upload pasted payloads or secrets.
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
+- Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Artifact integrity: CI checks that the public sample ZIP hash matches release notes and the private Pro Kit ZIP is not published.
 - Site health: GitHub Actions checks live pages, sitemap, Pro Kit signals, free-sample upgrade links, and checkout safety after deployments.
 - Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
@@ -84,6 +86,8 @@ Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.ht
 Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 
 Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
+
+Public checkout and package status: https://qihaze123.github.io/billing-webhook-kit/status.html
 
 Current checkout state: public checkout is disabled until live Lemon Squeezy production configuration is connected. The Pro Kit archive stays private; the manifest exposes file count, test count, checksum, and safety flags for pre-purchase inspection.
 

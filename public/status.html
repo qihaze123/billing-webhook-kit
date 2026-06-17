@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BillingWebhookKit Status - checkout, sample, manifest, and health checks</title>
+    <meta
+      name="description"
+      content="Public BillingWebhookKit status page for checkout readiness, Pro Kit manifest verification, free sample download integrity, sitemap discovery, and automated site health checks."
+    />
+    <meta
+      name="keywords"
+      content="BillingWebhookKit status, Lemon Squeezy checkout status, Pro Kit manifest, webhook fixture sample checksum, payment webhook tool health check"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/status.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="BillingWebhookKit Status" />
+    <meta
+      property="og:description"
+      content="Checkout readiness, public manifest, free sample checksum, sitemap URL, and GitHub Actions health checks for BillingWebhookKit."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/status.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BillingWebhookKit Status" />
+    <meta
+      name="twitter:description"
+      content="A public status and verification page for the BillingWebhookKit webhook testing tool and Pro Kit."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "BillingWebhookKit Status",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/status.html",
+        "description": "Public status page for BillingWebhookKit checkout readiness, Pro Kit manifest verification, free sample integrity, sitemap discovery, and site health checks.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "BillingWebhookKit",
+          "url": "https://qihaze123.github.io/billing-webhook-kit/"
+        },
+        "about": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "BillingWebhookKit",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web"
+          },
+          {
+            "@type": "Product",
+            "name": "BillingWebhookKit Pro",
+            "offers": {
+              "@type": "Offer",
+              "price": "69",
+              "priceCurrency": "CNY",
+              "availability": "https://schema.org/PreOrder"
+            }
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1120px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 52px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 32px;
+        font-weight: 850;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        font-size: clamp(2.35rem, 7vw, 5.4rem);
+        line-height: 0.94;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        line-height: 1.2;
+      }
+
+      h3 {
+        font-size: 1rem;
+        line-height: 1.25;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.12rem;
+        line-height: 1.65;
+      }
+
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .status-card,
+      .section,
+      .checklist,
+      .link-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .status-card {
+        min-width: 0;
+        padding: 16px;
+      }
+
+      .status-card span,
+      .meta span,
+      .checklist span {
+        display: block;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .status-card strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 1.06rem;
+        line-height: 1.25;
+      }
+
+      .status-card p,
+      .section p,
+      .checklist p {
+        margin-top: 9px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .status-card.ready {
+        border-color: var(--green);
+      }
+
+      .status-card.waiting {
+        border-color: var(--coral);
+      }
+
+      .sections {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .meta div {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+      }
+
+      .meta strong {
+        display: block;
+        margin-top: 6px;
+        overflow-wrap: anywhere;
+        line-height: 1.25;
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 15px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .checklist {
+        margin-top: 18px;
+        padding: 20px;
+      }
+
+      .checklist ol {
+        display: grid;
+        gap: 10px;
+        margin: 14px 0 0;
+        padding-left: 0;
+        list-style-position: inside;
+        line-height: 1.55;
+      }
+
+      .checklist li {
+        overflow-wrap: anywhere;
+      }
+
+      .checklist code {
+        padding: 2px 5px;
+        border-radius: 5px;
+        background: var(--paper-2);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.88em;
+        overflow-wrap: anywhere;
+      }
+
+      .link-panel {
+        margin-top: 18px;
+        padding: 18px;
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      .link-panel h2 {
+        color: #f8faef;
+      }
+
+      .link-panel p {
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.55;
+      }
+
+      .link-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .link-grid a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        border: 1px solid rgba(248, 250, 239, 0.26);
+        border-radius: 7px;
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #f8faef;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      @media (max-width: 860px) {
+        .status-grid,
+        .sections,
+        .link-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .meta {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .page {
+          width: min(100vw - 24px, 1120px);
+          padding-top: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/sitemap.xml">Sitemap</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Public Status</p>
+      <h1>Checkout, package, and crawlability signals in one place.</h1>
+      <p class="lead">
+        This page exists so buyers, search crawlers, and AI assistants can verify the current BillingWebhookKit state without account access. The public Pro Kit checkout stays disabled until live Lemon Squeezy production configuration is connected.
+      </p>
+
+      <section class="status-grid" aria-label="Current BillingWebhookKit status">
+        <article class="status-card waiting">
+          <span>Checkout</span>
+          <strong>Awaiting live key</strong>
+          <p>Public checkout config is production-shaped but does not expose a purchase URL yet.</p>
+        </article>
+        <article class="status-card ready">
+          <span>Price</span>
+          <strong>CN¥69 one-time</strong>
+          <p>The intended Pro Kit launch price is stored as 6900 minor units and inherits the Lemon Squeezy variant currency.</p>
+        </article>
+        <article class="status-card ready">
+          <span>Package</span>
+          <strong>29 files, 12 tests</strong>
+          <p>The public manifest exposes the paid package shape and checksum without publishing the private ZIP.</p>
+        </article>
+        <article class="status-card ready">
+          <span>Discovery</span>
+          <strong>Sitemap and llms.txt live</strong>
+          <p>Search and assistant discovery files are reachable from GitHub Pages and linked from robots.txt.</p>
+        </article>
+      </section>
+
+      <div class="sections">
+        <section class="section" aria-label="Pro Kit verification details">
+          <p class="eyebrow">Pro Kit Verification</p>
+          <h2>Public metadata before the paid archive is delivered</h2>
+          <p>
+            The Pro Kit archive is intentionally private. The manifest publishes the package name, version, file count, test count, byte size, SHA-256 checksum, fake-data safety flags, and checkout currency policy so the download can be checked after purchase.
+          </p>
+          <div class="meta">
+            <div>
+              <span>Manifest</span>
+              <strong><a href="pro-kit-manifest.json">pro-kit-manifest.json</a></strong>
+            </div>
+            <div>
+              <span>Archive hash</span>
+              <strong>29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8</strong>
+            </div>
+            <div>
+              <span>Safety</span>
+              <strong>Fake provider data, no production secrets, no paid API calls</strong>
+            </div>
+            <div>
+              <span>Checkout policy</span>
+              <strong>inherit_store_or_variant_currency</strong>
+            </div>
+          </div>
+          <div class="buttons">
+            <a class="button" href="pro-kit.html">View Pro Kit preview</a>
+            <a class="button secondary" href="checkout.json">Inspect checkout config</a>
+          </div>
+        </section>
+
+        <section class="section" aria-label="Free sample verification details">
+          <p class="eyebrow">Free Sample</p>
+          <h2>Public sample ZIP remains available</h2>
+          <p>
+            The free sample gives developers a safe Lemon Squeezy fixture, Next.js handler, signature test, contract test, duplicate replay test, review report sample, and CI skeleton before any purchase.
+          </p>
+          <div class="meta">
+            <div>
+              <span>Download</span>
+              <strong><a href="billing-webhook-kit-free-sample.zip" download>billing-webhook-kit-free-sample.zip</a></strong>
+            </div>
+            <div>
+              <span>SHA-256</span>
+              <strong>8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b</strong>
+            </div>
+          </div>
+          <div class="buttons">
+            <a class="button" href="free-sample.html">Open free sample page</a>
+            <a class="button secondary" href="https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0">GitHub release</a>
+          </div>
+        </section>
+      </div>
+
+      <section class="checklist" aria-label="Search Console sitemap submission checklist">
+        <span>Google Search Console</span>
+        <h2>Manual sitemap submission target</h2>
+        <p>
+          Google account login, property verification, permission grants, and final form submission need the owner to complete them manually. The exact values are:
+        </p>
+        <ol>
+          <li>Property type: URL prefix</li>
+          <li>Property URL: <code>https://qihaze123.github.io/billing-webhook-kit/</code></li>
+          <li>Sitemap path to submit: <code>sitemap.xml</code></li>
+          <li>Full sitemap URL: <code>https://qihaze123.github.io/billing-webhook-kit/sitemap.xml</code></li>
+        </ol>
+        <div class="buttons">
+          <a class="button" href="https://search.google.com/search-console/sitemaps?resource_id=https%3A%2F%2Fqihaze123.github.io%2Fbilling-webhook-kit%2F">Open Search Console sitemap page</a>
+          <a class="button secondary" href="sitemap.xml">Open sitemap</a>
+        </div>
+      </section>
+
+      <section class="link-panel" aria-label="Public health and discovery links">
+        <h2>Health and discovery links</h2>
+        <p>
+          These public files and workflows are the strongest current non-account signals for crawlability, package boundaries, and checkout safety.
+        </p>
+        <div class="link-grid">
+          <a href="https://github.com/qihaze123/billing-webhook-kit/actions/workflows/site-health.yml">Site Health Check</a>
+          <a href="https://github.com/qihaze123/billing-webhook-kit/actions/workflows/deploy.yml">GitHub Pages Deploy</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/robots.txt">robots.txt</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/llms.txt">llms.txt</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/feed.xml">feed.xml</a>
+          <a href="https://github.com/qihaze123/billing-webhook-kit">GitHub repository</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

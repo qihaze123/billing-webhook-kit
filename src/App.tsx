@@ -1374,6 +1374,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="free-sample.html">
             Free sample
           </a>
+          <a className="ghost-link" href="status.html">
+            Status
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -1546,6 +1549,10 @@ Header casing: x-signature / X-Signature`,
 
           <a className="wide-cta wide-cta--secondary" href="free-sample.html">
             Download sample
+          </a>
+
+          <a className="wide-cta wide-cta--secondary" href="status.html">
+            Verify status
           </a>
 
           <div className="trust-row">
@@ -2200,6 +2207,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="free-sample.html">
             Download the free sample pack
+          </a>
+          <a className="inline-cta" href="status.html">
+            Verify checkout and package status
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">
