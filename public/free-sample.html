@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BillingWebhookKit Free Sample - webhook fixture starter</title>
+    <meta
+      name="description"
+      content="Download a free BillingWebhookKit sample with a Lemon Squeezy order_created fixture, Next.js webhook handler, Vitest signature test, and GitHub Actions workflow."
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="BillingWebhookKit Free Sample" />
+    <meta
+      property="og:description"
+      content="A free sample of the Pro Kit structure: fixture, handler, signature test, and CI workflow."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/free-sample.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BillingWebhookKit Free Sample" />
+    <meta
+      name="twitter:description"
+      content="Download a free Lemon Squeezy webhook fixture starter for local and CI billing tests."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 32px 0 52px;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 36px;
+        font-weight: 850;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 820px;
+        font-size: clamp(2.3rem, 7vw, 5.2rem);
+        line-height: 0.94;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 760px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.12rem;
+        line-height: 1.65;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .button {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 16px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 18px;
+      }
+
+      .card p {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .tree {
+        margin: 24px 0 0;
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: var(--acid);
+        padding: 18px;
+        overflow: auto;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 0.84rem;
+        line-height: 1.7;
+      }
+
+      footer {
+        margin-top: 30px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .nav,
+        .grid,
+        .actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "BillingWebhookKit Free Sample",
+        "codeRepository": "https://github.com/qihaze123/billing-webhook-kit",
+        "programmingLanguage": ["TypeScript", "JSON", "YAML"],
+        "url": "https://qihaze123.github.io/billing-webhook-kit/free-sample.html",
+        "description": "A free sample of Lemon Squeezy webhook fixtures, a Next.js handler, a Vitest signature test, and a GitHub Actions workflow."
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+      </nav>
+
+      <p class="eyebrow">Free Sample</p>
+      <h1>Inspect the webhook test structure before buying.</h1>
+      <p class="lead">
+        This sample gives you a safe Lemon Squeezy `order_created` fixture, a Next.js raw-body
+        handler, a Vitest signature test, and a GitHub Actions workflow. It uses only fake data
+        and a local test secret.
+      </p>
+
+      <div class="actions">
+        <a class="button" href="billing-webhook-kit-free-sample.zip" download>Download sample zip</a>
+        <a class="button secondary" href="sample-pack/README.md">View README</a>
+        <a class="button secondary" href="pro-kit.html">Compare Pro Kit</a>
+      </div>
+
+      <section class="grid" aria-label="Sample contents">
+        <article class="card">
+          <h2>Fixture</h2>
+          <p>A CNY `order_created` payload shaped for local entitlement and payment-state tests.</p>
+        </article>
+        <article class="card">
+          <h2>Handler</h2>
+          <p>A Next.js App Router example that verifies the exact raw body before parsing JSON.</p>
+        </article>
+        <article class="card">
+          <h2>Test</h2>
+          <p>A Vitest signature check showing why byte-for-byte request bodies matter.</p>
+        </article>
+        <article class="card">
+          <h2>CI</h2>
+          <p>A GitHub Actions workflow skeleton for running webhook tests before deploys.</p>
+        </article>
+      </section>
+
+      <pre class="tree"><code>sample-pack/
+  README.md
+  fixtures/lemon/order-created.sample.json
+  src/handlers/next-app-router.sample.ts
+  tests/lemon-signature.sample.test.ts
+  .github/workflows/webhook-checks.sample.yml</code></pre>
+
+      <footer>
+        The full Pro Kit adds more provider fixtures, more handlers, idempotency tests, and the launch checklist.
+        This sample is intentionally small so you can evaluate the format quickly.
+      </footer>
+    </main>
+  </body>
+</html>

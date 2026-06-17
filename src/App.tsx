@@ -165,6 +165,9 @@ Header casing: x-signature / X-Signature`,
           <h1>BillingWebhookKit</h1>
         </div>
         <div className="topbar__actions">
+          <a className="ghost-link" href="free-sample.html">
+            Free sample
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -334,6 +337,10 @@ Header casing: x-signature / X-Signature`,
             Preview contents
           </a>
 
+          <a className="wide-cta wide-cta--secondary" href="free-sample.html">
+            Download sample
+          </a>
+
           <div className="trust-row">
             <span>Browser-only generator</span>
             <span>No account required</span>
@@ -356,6 +363,9 @@ Header casing: x-signature / X-Signature`,
           </div>
           <a className="inline-cta" href="pro-kit.html">
             View the Pro Kit package preview
+          </a>
+          <a className="inline-cta" href="free-sample.html">
+            Download the free sample pack
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">

@@ -478,6 +478,10 @@ h2 {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.inline-cta + .inline-cta {
+  margin-left: 8px;
+}
+
 .file-tree {
   min-width: 0;
   margin: 0;
@@ -631,5 +635,14 @@ h2 {
   .signal-row {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .inline-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .inline-cta + .inline-cta {
+    margin-left: 0;
   }
 }

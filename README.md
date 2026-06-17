@@ -4,6 +4,8 @@ Browser-only payment webhook fixture generator for SaaS billing integrations.
 
 Live tool: https://qihaze123.github.io/billing-webhook-kit/
 
+Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
+
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
 The free tool generates Lemon Squeezy webhook payloads, HMAC signatures, cURL replay commands, and starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
@@ -28,6 +30,8 @@ The paid Pro Kit launch price is CN¥69 and adds copy-ready billing webhook asse
 - Integration checklist and replay notes
 
 Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+
+Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
 ## Guides
 
