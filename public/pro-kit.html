@@ -354,6 +354,48 @@
         margin-top: 18px;
       }
 
+      .tool-map {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .tool-map-row {
+        display: grid;
+        grid-template-columns: minmax(170px, 0.8fr) minmax(0, 1.2fr) minmax(0, 1.2fr);
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .tool-map-row > span,
+      .tool-map-row > strong,
+      .tool-map-row > p {
+        min-width: 0;
+        margin: 0;
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px;
+        line-height: 1.45;
+      }
+
+      .tool-map-row > span {
+        color: var(--acid);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .tool-map-row > strong {
+        color: #f8faef;
+        font-size: 0.96rem;
+      }
+
+      .tool-map-row > p {
+        color: #d9dfcf;
+      }
+
       .decision-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -479,7 +521,8 @@
         .delivery-grid,
         .checklist,
         .faq,
-        .manifest-grid {
+        .manifest-grid,
+        .tool-map-row {
           grid-template-columns: 1fr;
         }
 
@@ -685,6 +728,46 @@
             <strong>You need a pull-request artifact for billing changes.</strong>
             <p>Attach the included review report templates so future maintainers can see what event, field, and idempotency path grants access.</p>
           </article>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Free tools to Pro Kit upgrade map">
+        <p class="eyebrow">Tool-to-Pro Map</p>
+        <h2>What the paid pack adds after the browser tools find the gap</h2>
+        <p>
+          The free tools help diagnose one task in the browser. The Pro Kit turns those outputs into copy-ready files, tests, CI checks, and review artifacts for a product repository.
+        </p>
+        <div class="tool-map">
+          <div class="tool-map-row">
+            <span>Payload generator</span>
+            <strong>Need repeatable provider examples beyond one pasted payload.</strong>
+            <p>Pro adds Lemon Squeezy, Stripe, Paddle, and Polar fixture files organized for local tests and PR review.</p>
+          </div>
+          <div class="tool-map-row">
+            <span>Signature verifier</span>
+            <strong>Need raw-body checks that stay enforced in code.</strong>
+            <p>Pro adds route handler patterns and signature tests so the browser check becomes a CI gate.</p>
+          </div>
+          <div class="tool-map-row">
+            <span>Idempotency tool</span>
+            <strong>Need process-once behavior under provider retries.</strong>
+            <p>Pro adds idempotency helpers, duplicate replay tests, and database guard notes.</p>
+          </div>
+          <div class="tool-map-row">
+            <span>Replay cURL</span>
+            <strong>Need replay commands attached to release evidence.</strong>
+            <p>Pro adds replay notes and review report templates for billing route pull requests.</p>
+          </div>
+          <div class="tool-map-row">
+            <span>Next.js generator</span>
+            <strong>Need handler variants beyond one framework path.</strong>
+            <p>Pro adds Next.js, Hono, Express, and Cloudflare Worker handler templates with provider mapping notes.</p>
+          </div>
+          <div class="tool-map-row">
+            <span>Readiness scorecard</span>
+            <strong>Need every launch gate documented before checkout opens.</strong>
+            <p>Pro adds checklist docs, CI workflow examples, contract tests, and review reports that match the scorecard gates.</p>
+          </div>
         </div>
       </section>
 

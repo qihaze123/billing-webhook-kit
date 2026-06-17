@@ -258,9 +258,17 @@ const issues = [
   ...(proKit.text.includes("Buy it when the free sample stops being enough")
     ? []
     : ["Pro Kit page is missing the buying-decision section."]),
+  ...(proKit.text.includes("What the paid pack adds after the browser tools find the gap") &&
+  proKit.text.includes("Tool-to-Pro Map") &&
+  proKit.text.includes("Readiness scorecard")
+    ? []
+    : ["Pro Kit page is missing the tool-to-Pro upgrade map."]),
   ...((proKit.text.match(/class="decision-item"/g) || []).length === 3
     ? []
     : ["Pro Kit page does not expose 3 buying-decision cards."]),
+  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 6
+    ? []
+    : ["Pro Kit page does not expose 6 tool-to-Pro map rows."]),
   ...((proKit.text.match(/"@type": "Question"/g) || []).length >= 7
     ? []
     : ["Pro Kit page exposes fewer than 7 FAQ schema questions."]),
