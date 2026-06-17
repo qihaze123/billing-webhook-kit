@@ -1398,6 +1398,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/nextjs-webhook-handler-generator.html">
             Next.js
           </a>
+          <a className="ghost-link" href="tools/billing-webhook-launch-readiness-scorecard.html">
+            Score
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -2252,6 +2255,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/nextjs-webhook-handler-generator.html">
             Generate standalone Next.js handlers
+          </a>
+          <a className="inline-cta" href="tools/billing-webhook-launch-readiness-scorecard.html">
+            Score launch readiness
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">

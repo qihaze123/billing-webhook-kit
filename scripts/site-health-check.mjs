@@ -14,6 +14,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/stripe-webhook-fixture-generator.html`,
   `${siteUrl}/tools/webhook-replay-curl-generator.html`,
   `${siteUrl}/tools/nextjs-webhook-handler-generator.html`,
+  `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -103,6 +104,7 @@ const [
   stripeGenerator,
   replayGenerator,
   nextjsGenerator,
+  readinessScorecard,
   guideIndex,
   sitemap,
   robots,
@@ -120,6 +122,7 @@ const [
   fetchText(`${siteUrl}/tools/stripe-webhook-fixture-generator.html`),
   fetchText(`${siteUrl}/tools/webhook-replay-curl-generator.html`),
   fetchText(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`),
+  fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -148,12 +151,15 @@ const issues = [
   ...(stripeGenerator.ok ? [] : [`stripe generator page returned HTTP ${stripeGenerator.status ?? "failed"}.`]),
   ...(replayGenerator.ok ? [] : [`replay generator page returned HTTP ${replayGenerator.status ?? "failed"}.`]),
   ...(nextjsGenerator.ok ? [] : [`Next.js generator page returned HTTP ${nextjsGenerator.status ?? "failed"}.`]),
+  ...(readinessScorecard.ok
+    ? []
+    : [`readiness scorecard page returned HTTP ${readinessScorecard.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 44 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 44.`]),
+  ...(sitemapUrls.length >= 45 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 45.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -179,6 +185,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`)
     ? []
     : ["llms.txt is missing the standalone Next.js generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`)
+    ? []
+    : ["llms.txt is missing the standalone launch readiness scorecard URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -195,6 +204,7 @@ const issues = [
   toolIndex.text.includes("Stripe webhook fixture generator") &&
   toolIndex.text.includes("Webhook replay cURL generator") &&
   toolIndex.text.includes("Next.js webhook handler generator") &&
+  toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
   toolIndex.text.includes("Download the free sample") &&
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
     ? []
@@ -236,6 +246,12 @@ const issues = [
   nextjsGenerator.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["Next.js generator page is missing handler copy, raw-body logic, or conversion links."]),
+  ...(readinessScorecard.text.includes("Billing Webhook Launch Readiness Scorecard") &&
+  readinessScorecard.text.includes("Launch readiness score") &&
+  readinessScorecard.text.includes("PR-ready Markdown release report") &&
+  readinessScorecard.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["readiness scorecard page is missing scorecard copy, report copy, or conversion links."]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -272,6 +288,7 @@ const result = {
     stripeGenerator: stripeGenerator.status,
     replayGenerator: replayGenerator.status,
     nextjsGenerator: nextjsGenerator.status,
+    readinessScorecard: readinessScorecard.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,

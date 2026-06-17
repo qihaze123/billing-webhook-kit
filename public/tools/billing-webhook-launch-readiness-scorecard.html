@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Billing Webhook Launch Readiness Scorecard | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Score payment webhook launch readiness across raw-body signatures, idempotency, duplicate replay, fixtures, entitlement rules, env secrets, and monitoring. Browser-only."
+    />
+    <meta
+      name="keywords"
+      content="billing webhook launch readiness, payment webhook checklist, webhook release scorecard, SaaS billing webhook test checklist, webhook production readiness"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Billing Webhook Launch Readiness Scorecard" />
+    <meta
+      property="og:description"
+      content="Browser-only scorecard for payment webhook launch readiness, release reports, and Pro Kit gap review."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Billing Webhook Launch Readiness Scorecard" />
+    <meta
+      name="twitter:description"
+      content="Score raw-body signatures, idempotency, fixtures, replay tests, entitlement decisions, and launch monitoring locally."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Billing Webhook Launch Readiness Scorecard",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only payment webhook launch readiness scorecard with Markdown release report export."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Billing Webhook Launch Readiness Scorecard",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1240px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .item span,
+      .score-label,
+      .stat span {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      .lead {
+        max-width: 840px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .items,
+      .summary {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+      }
+
+      .item input {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        accent-color: var(--green);
+      }
+
+      .item strong {
+        display: block;
+        margin-top: 4px;
+        line-height: 1.25;
+      }
+
+      .item p {
+        margin-top: 5px;
+        color: var(--muted);
+        line-height: 1.48;
+      }
+
+      .score-card {
+        display: grid;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        padding: 18px;
+      }
+
+      .score {
+        font-size: clamp(3rem, 10vw, 6.5rem);
+        line-height: 0.9;
+        font-weight: 950;
+      }
+
+      .score-card p {
+        color: #d9dfcf;
+        line-height: 1.55;
+      }
+
+      .bar {
+        height: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(247, 250, 237, 0.35);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .bar div {
+        height: 100%;
+        width: 0;
+        background: var(--acid);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 13px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      pre {
+        min-height: 260px;
+        max-height: 430px;
+        margin: 0;
+        overflow: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+        color: var(--ink);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .stat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      @media (max-width: 900px) {
+        .workbench,
+        .stat-strip {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1240px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html">Launch guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Launch readiness</p>
+      <h1>Score whether your billing webhook can safely take real money.</h1>
+      <p class="lead">
+        Check the release gates that matter before production checkout goes live: raw-body signatures, idempotency, duplicate replay, entitlement mapping, environment secrets, fixtures, CI, and monitoring.
+      </p>
+
+      <section class="workbench" aria-label="Billing webhook launch readiness scorecard">
+        <article class="panel">
+          <header>
+            <h2>Release gates</h2>
+            <p>check every item you can prove</p>
+          </header>
+          <div class="items" id="items"></div>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Score and report</h2>
+            <p>copy into PR or launch notes</p>
+          </header>
+          <div class="summary">
+            <div class="score-card">
+              <span class="score-label">Launch readiness score</span>
+              <strong class="score" id="score">0</strong>
+              <div class="bar"><div id="bar"></div></div>
+              <p id="verdict"></p>
+            </div>
+            <div class="button-row">
+              <button class="button" type="button" id="copyReport">Copy report</button>
+              <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Preview the CNY 69 Pro Kit</a>
+            </div>
+            <pre id="report"></pre>
+          </div>
+        </article>
+      </section>
+
+      <section class="stat-strip" aria-label="Launch scorecard safety signals">
+        <div class="stat">
+          <span>Privacy</span>
+          <strong>Browser-only, no uploaded route details</strong>
+        </div>
+        <div class="stat">
+          <span>Focus</span>
+          <strong>Real payment side-effect safety</strong>
+        </div>
+        <div class="stat">
+          <span>Output</span>
+          <strong>PR-ready Markdown release report</strong>
+        </div>
+        <div class="stat">
+          <span>Upgrade</span>
+          <strong>Free sample plus CNY 69 Pro Kit preview</strong>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const gates = [
+        {
+          id: "raw_signature",
+          area: "Signature gate",
+          label: "Raw-body signature test passes",
+          weight: 18,
+          evidence: "The route verifies the exact raw body before JSON parsing."
+        },
+        {
+          id: "duplicate_replay",
+          area: "Retry safety",
+          label: "Duplicate replay runs side effects once",
+          weight: 16,
+          evidence: "The same signed delivery is replayed three times and grants access once."
+        },
+        {
+          id: "idempotency_store",
+          area: "Persistence",
+          label: "Processed-event key has a unique constraint",
+          weight: 14,
+          evidence: "A unique idempotency key is inserted before email, license, entitlement, or invoice writes."
+        },
+        {
+          id: "entitlement_matrix",
+          area: "Access policy",
+          label: "Event-to-entitlement matrix is explicit",
+          weight: 13,
+          evidence: "Paid, failed, refunded, cancelled, renewal, license, and unknown events have clear decisions."
+        },
+        {
+          id: "fixture_coverage",
+          area: "Fixtures",
+          label: "Happy and failure fixtures exist",
+          weight: 12,
+          evidence: "Fixtures cover purchase, renewal, cancellation, malformed body, bad signature, and duplicate delivery."
+        },
+        {
+          id: "env_separation",
+          area: "Secrets",
+          label: "Test and production secrets are separated",
+          weight: 10,
+          evidence: "Webhook secrets, API keys, store IDs, and variant IDs are stored per environment."
+        },
+        {
+          id: "ci_gate",
+          area: "CI",
+          label: "Webhook tests run in CI",
+          weight: 9,
+          evidence: "Signature, contract, idempotency, and duplicate replay tests run before deployment."
+        },
+        {
+          id: "monitoring",
+          area: "Operations",
+          label: "Failure monitoring and replay plan exists",
+          weight: 8,
+          evidence: "Rejected signatures, unknown events, duplicate deliveries, and failed side effects are observable."
+        }
+      ];
+
+      const items = document.getElementById("items");
+      const score = document.getElementById("score");
+      const bar = document.getElementById("bar");
+      const verdict = document.getElementById("verdict");
+      const report = document.getElementById("report");
+
+      function renderItems() {
+        items.innerHTML = gates
+          .map(
+            (gate) => `<label class="item">
+              <input type="checkbox" value="${gate.id}" />
+              <span>
+                ${gate.area} / ${gate.weight} pts
+                <strong>${gate.label}</strong>
+                <p>${gate.evidence}</p>
+              </span>
+            </label>`
+          )
+          .join("");
+        items.querySelectorAll("input").forEach((input) => input.addEventListener("change", render));
+      }
+
+      function selectedIds() {
+        return [...items.querySelectorAll("input:checked")].map((input) => input.value);
+      }
+
+      function verdictFor(value) {
+        if (value >= 85) return "Ready for production checkout smoke testing. Keep monitoring active.";
+        if (value >= 65) return "Close, but at least one revenue-path risk should be fixed before launch.";
+        if (value >= 40) return "Not ready for real payments. Use fixtures and replay tests before checkout goes live.";
+        return "High risk. Start with signature, idempotency, and duplicate replay gates.";
+      }
+
+      function buildReport(value, selected) {
+        const passed = gates.filter((gate) => selected.includes(gate.id));
+        const missing = gates.filter((gate) => !selected.includes(gate.id));
+        const missingLines = missing.map((gate) => `- [ ] ${gate.area}: ${gate.label} (${gate.weight} pts)`).join("\n");
+        const passedLines = passed.map((gate) => `- [x] ${gate.area}: ${gate.label} (${gate.weight} pts)`).join("\n");
+        return `# Billing Webhook Launch Readiness Report
+
+Generated by BillingWebhookKit
+https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
+
+## Score
+
+${value}/100
+
+${verdictFor(value)}
+
+## Passed
+
+${passedLines || "- None yet"}
+
+## Missing Before Production Checkout
+
+${missingLines || "- No missing gates in this scorecard"}
+
+## Suggested Next Step
+
+Use the free sample to inspect one fixture, handler, and replay test. Preview the CNY 69 Pro Kit when you need the full fixture set, route handlers, CI checks, review templates, and launch runbooks.`;
+      }
+
+      function render() {
+        const selected = selectedIds();
+        const value = gates
+          .filter((gate) => selected.includes(gate.id))
+          .reduce((total, gate) => total + gate.weight, 0);
+        score.textContent = String(value);
+        bar.style.width = `${value}%`;
+        verdict.textContent = verdictFor(value);
+        report.textContent = buildReport(value, selected);
+      }
+
+      async function copyText(value) {
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(value);
+            return;
+          } catch {
+            // Fall back for restricted preview browsers.
+          }
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.append(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      document.getElementById("copyReport").addEventListener("click", async () => {
+        await copyText(report.textContent || "");
+        document.getElementById("copyReport").textContent = "Copied";
+        setTimeout(() => {
+          document.getElementById("copyReport").textContent = "Copy report";
+        }, 1200);
+      });
+
+      renderItems();
+      render();
+    </script>
+  </body>
+</html>
