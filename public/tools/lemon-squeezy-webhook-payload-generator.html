@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Webhook Payload Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate fake Lemon Squeezy webhook payloads, HMAC x-signature values, and cURL replay commands in your browser. No backend, no account, no uploaded secrets."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy webhook payload generator, Lemon Squeezy webhook fixture, webhook curl replay, x-signature generator, Lemon Squeezy order_created JSON"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Webhook Payload Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only fake Lemon Squeezy payload, signature, and cURL replay generator for local webhook tests."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Webhook Payload Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate fake Lemon Squeezy webhook fixtures, signatures, and cURL replay commands locally."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Webhook Payload Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only fake Lemon Squeezy webhook payload, HMAC signature, and cURL replay generator."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Lemon Squeezy Webhook Payload Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1280px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1000px;
+        font-size: clamp(2.25rem, 7vw, 5.4rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 830px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr) minmax(290px, 360px);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result,
+      .side-body {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .field span {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 250px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        box-shadow: 0 0 0 3px rgba(0, 140, 153, 0.18);
+      }
+
+      .button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 15px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .tabs button {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--paper);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      .tabs button.active {
+        background: var(--acid);
+      }
+
+      .codebox {
+        min-height: 480px;
+      }
+
+      .digest {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .digest span {
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .digest code {
+        display: block;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 11px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
+      .callout {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        padding: 14px;
+      }
+
+      .callout p {
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      .link-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-grid a {
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 12px;
+        background: var(--paper-2);
+        font-weight: 850;
+        text-decoration: none;
+        line-height: 1.3;
+      }
+
+      .link-grid span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 1080px) {
+        .workbench {
+          grid-template-columns: 1fr;
+        }
+
+        .codebox {
+          min-height: 360px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1280px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button,
+        .tabs button {
+          width: 100%;
+        }
+
+        textarea {
+          min-height: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html">Signature verifier</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Fixture and replay workbench</p>
+      <h1>Generate fake Lemon Squeezy webhook payloads and cURL replays.</h1>
+      <p class="lead">
+        Build a safe webhook fixture, HMAC `x-signature`, and local replay command from fake data. Everything runs in the browser and no provider API is called.
+      </p>
+
+      <section class="workbench" aria-label="Lemon Squeezy webhook payload generator">
+        <aside class="panel">
+          <header>
+            <h2>Fixture controls</h2>
+            <p>Fake data only</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Event</span>
+              <select id="event-name">
+                <option value="order_created">order_created</option>
+                <option value="subscription_created">subscription_created</option>
+                <option value="subscription_payment_success">subscription_payment_success</option>
+                <option value="subscription_cancelled">subscription_cancelled</option>
+                <option value="license_key_created">license_key_created</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Object ID</span>
+              <input id="object-id" value="1042" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Customer ID</span>
+              <input id="customer-id" value="90210" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Total minor units</span>
+              <input id="total" value="6900" inputmode="numeric" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Replay endpoint</span>
+              <input id="endpoint" value="http://localhost:3000/api/webhooks/lemonsqueezy" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Webhook signing secret</span>
+              <input id="secret" type="password" value="webhook_signing_secret_for_local_tests" autocomplete="off" />
+            </label>
+            <div class="actions">
+              <button class="button" id="generate" type="button">Generate fixture</button>
+              <button class="button secondary" id="copy" type="button">Copy current output</button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="panel">
+          <header>
+            <h2>Generated output</h2>
+            <p>Payload, signature, replay</p>
+          </header>
+          <div class="result">
+            <div class="tabs" aria-label="Output tabs">
+              <button class="active" data-tab="payload" type="button">Payload JSON</button>
+              <button data-tab="signature" type="button">Signature</button>
+              <button data-tab="curl" type="button">cURL replay</button>
+            </div>
+            <textarea id="output" class="codebox" spellcheck="false" readonly></textarea>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <header>
+            <h2>Replay notes</h2>
+            <p>Launch-safe checks</p>
+          </header>
+          <div class="side-body">
+            <div class="digest">
+              <span>Event name</span>
+              <code id="event-preview">order_created</code>
+            </div>
+            <div class="digest">
+              <span>Computed x-signature</span>
+              <code id="signature-preview">waiting</code>
+            </div>
+            <div class="callout">
+              <h2>Use this for local tests</h2>
+              <p>Do not paste real customer data. Replace the fake endpoint and fake signing secret before committing test code.</p>
+            </div>
+            <div class="link-grid">
+              <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html">
+                Verify a received signature
+                <span>Check an existing `x-signature` against a raw webhook body.</span>
+              </a>
+              <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+                Download the free sample
+                <span>Fixture, handler, tests, review report, and CI skeleton.</span>
+              </a>
+              <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+                Preview the CNY 69 Pro Kit
+                <span>29 files, 12 tests, provider fixtures, route handlers, and review templates.</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      const eventEl = document.querySelector("#event-name");
+      const objectEl = document.querySelector("#object-id");
+      const customerEl = document.querySelector("#customer-id");
+      const totalEl = document.querySelector("#total");
+      const endpointEl = document.querySelector("#endpoint");
+      const secretEl = document.querySelector("#secret");
+      const outputEl = document.querySelector("#output");
+      const signaturePreviewEl = document.querySelector("#signature-preview");
+      const eventPreviewEl = document.querySelector("#event-preview");
+      let activeTab = "payload";
+      let state = { payload: "", signature: "", curl: "" };
+
+      function toHex(buffer) {
+        return [...new Uint8Array(buffer)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      async function hmacSha256Hex(secret, payload) {
+        const encoder = new TextEncoder();
+        const key = await crypto.subtle.importKey(
+          "raw",
+          encoder.encode(secret),
+          { name: "HMAC", hash: "SHA-256" },
+          false,
+          ["sign"]
+        );
+        const digest = await crypto.subtle.sign("HMAC", key, encoder.encode(payload));
+        return toHex(digest);
+      }
+
+      function buildPayload() {
+        const eventName = eventEl.value;
+        const id = objectEl.value.trim() || "1042";
+        const customerId = customerEl.value.trim() || "90210";
+        const total = Number.parseInt(totalEl.value, 10) || 6900;
+        const now = new Date().toISOString();
+        const objectType = eventName.startsWith("subscription") ? "subscriptions" : eventName.startsWith("license") ? "license-keys" : "orders";
+        const status =
+          eventName === "subscription_cancelled"
+            ? "cancelled"
+            : eventName === "license_key_created"
+              ? "active"
+              : "paid";
+
+        return {
+          meta: {
+            event_name: eventName,
+            custom_data: {
+              user_id: "user_1042",
+              workspace_id: "workspace_fake_local"
+            }
+          },
+          data: {
+            type: objectType,
+            id,
+            attributes: {
+              store_id: 12345,
+              customer_id: Number.parseInt(customerId, 10) || customerId,
+              identifier: `fake-${eventName}-${id}`,
+              status,
+              total,
+              subtotal: total,
+              tax: 0,
+              currency: "CNY",
+              created_at: now,
+              updated_at: now,
+              user_name: "Local Test Customer",
+              user_email: "customer@example.test",
+              product_name: "BillingWebhookKit Pro",
+              variant_name: "Pro Kit"
+            }
+          }
+        };
+      }
+
+      function shellEscapeSingleQuoted(value) {
+        return value.replace(/'/g, "'\"'\"'");
+      }
+
+      function buildCurl(endpoint, signature, payload) {
+        return [
+          "curl -X POST '" + shellEscapeSingleQuoted(endpoint) + "' \\",
+          "  -H 'content-type: application/json' \\",
+          "  -H 'x-signature: " + signature + "' \\",
+          "  --data-raw '" + shellEscapeSingleQuoted(payload) + "'"
+        ].join("\n");
+      }
+
+      function renderOutput() {
+        outputEl.value = state[activeTab] || "";
+        document.querySelectorAll(".tabs button").forEach((button) => {
+          button.classList.toggle("active", button.dataset.tab === activeTab);
+        });
+      }
+
+      async function generate() {
+        const payload = JSON.stringify(buildPayload(), null, 2);
+        const signature = await hmacSha256Hex(secretEl.value || "webhook_signing_secret_for_local_tests", payload);
+        const curl = buildCurl(endpointEl.value || "http://localhost:3000/api/webhooks/lemonsqueezy", signature, payload);
+        state = { payload, signature, curl };
+        eventPreviewEl.textContent = eventEl.value;
+        signaturePreviewEl.textContent = signature;
+        renderOutput();
+      }
+
+      document.querySelector("#generate").addEventListener("click", () => {
+        generate().catch(() => {
+          outputEl.value = "Unable to generate HMAC signature in this browser.";
+        });
+      });
+
+      document.querySelector("#copy").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(outputEl.value);
+      });
+
+      document.querySelectorAll(".tabs button").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeTab = button.dataset.tab;
+          renderOutput();
+        });
+      });
+
+      [eventEl, objectEl, customerEl, totalEl, endpointEl, secretEl].forEach((element) => {
+        element.addEventListener("change", () => {
+          generate().catch(() => undefined);
+        });
+      });
+
+      generate().catch(() => undefined);
+    </script>
+  </body>
+</html>

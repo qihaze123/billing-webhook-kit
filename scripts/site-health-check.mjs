@@ -8,6 +8,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/pro-kit.html`,
   `${siteUrl}/status.html`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
+  `${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -91,6 +92,7 @@ const [
   freeSample,
   statusPage,
   signatureVerifier,
+  payloadGenerator,
   guideIndex,
   sitemap,
   robots,
@@ -102,6 +104,7 @@ const [
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -120,12 +123,15 @@ const issues = [
   ...(signatureVerifier.ok
     ? []
     : [`signature verifier page returned HTTP ${signatureVerifier.status ?? "failed"}.`]),
+  ...(payloadGenerator.ok
+    ? []
+    : [`payload generator page returned HTTP ${payloadGenerator.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 38 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 38.`]),
+  ...(sitemapUrls.length >= 39 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 39.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -135,6 +141,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`)
     ? []
     : ["llms.txt is missing the standalone signature verifier URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`)
+    ? []
+    : ["llms.txt is missing the standalone payload generator URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -150,6 +159,13 @@ const issues = [
   signatureVerifier.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["signature verifier page is missing verifier logic or conversion links."]),
+  ...(payloadGenerator.text.includes("Generate fake Lemon Squeezy webhook payloads") &&
+  payloadGenerator.text.includes("buildCurl") &&
+  payloadGenerator.text.includes("crypto.subtle") &&
+  payloadGenerator.text.includes("Download the free sample") &&
+  payloadGenerator.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["payload generator page is missing payload logic, signature logic, or conversion links."]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -180,6 +196,7 @@ const result = {
     freeSample: freeSample.status,
     statusPage: statusPage.status,
     signatureVerifier: signatureVerifier.status,
+    payloadGenerator: payloadGenerator.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,
