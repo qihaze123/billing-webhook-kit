@@ -7,4 +7,12 @@
   <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html</loc></url>
   <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html</loc></url>
   <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/subscription-payment-success-webhook.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html</loc></url>
+  <url><loc>https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html</loc></url>
 </urlset>

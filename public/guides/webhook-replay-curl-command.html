@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Replay Payment Webhooks with cURL | BillingWebhookKit</title>
+    <meta name="description" content="Generate repeatable cURL commands for payment webhook development without exposing signing secrets to a hosted service." />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is cURL enough for production testing?","acceptedAnswer":{"@type":"Answer","text":"No. Use cURL for repeatable development checks, then verify with provider sandbox deliveries before launch."}},{"@type":"Question","name":"Should I store real secrets in shell history?","acceptedAnswer":{"@type":"Answer","text":"No. Use throwaway test secrets and avoid pasting production webhook secrets into terminal history."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Replay payment webhooks with cURL</h1>
+      <p class="lead">Developers need a fast way to replay the same signed webhook into local and staging routes while debugging billing state changes.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <section>
+        <h2>Keep the body exact</h2>
+        <p>Save the raw JSON payload and send it exactly as signed so the webhook route sees the same bytes during each replay.</p>
+      </section>
+<section>
+        <h2>Copy provider headers</h2>
+        <p>Include the event name and signature headers your handler expects, then change only the endpoint between local, tunnel, and staging runs.</p>
+      </section>
+<section>
+        <h2>Version useful failures</h2>
+        <p>Keep cURL examples for invalid signatures, unsupported events, and duplicate event IDs so regression tests cover failure paths.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Is cURL enough for production testing?</h3>
+          <p>No. Use cURL for repeatable development checks, then verify with provider sandbox deliveries before launch.</p>
+        </div>
+<div class="faq-item">
+          <h3>Should I store real secrets in shell history?</h3>
+          <p>No. Use throwaway test secrets and avoid pasting production webhook secrets into terminal history.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

@@ -42,7 +42,15 @@ const guideLinks = [
   { href: "guides/nextjs-lemon-squeezy-webhook-handler.html", label: "Next.js Lemon Squeezy handler" },
   { href: "guides/hono-lemon-squeezy-webhook-handler.html", label: "Hono Lemon Squeezy handler" },
   { href: "guides/stripe-webhook-fixture-generator.html", label: "Stripe webhook fixtures" },
-  { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" }
+  { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" },
+  { href: "guides/webhook-replay-curl-command.html", label: "Replay webhooks with cURL" },
+  { href: "guides/payment-webhook-ci-tests.html", label: "Payment webhook CI tests" },
+  { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
+  { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
+  { href: "guides/polar-webhook-fixtures.html", label: "Polar webhook fixtures" },
+  { href: "guides/webhook-idempotency-checklist.html", label: "Webhook idempotency checklist" },
+  { href: "guides/cloudflare-worker-webhook-handler.html", label: "Cloudflare Worker handler" },
+  { href: "guides/saas-billing-webhook-test-plan.html", label: "SaaS billing webhook test plan" }
 ];
 
 const defaultEndpoint = "https://yourapp.com/api/webhooks/lemonsqueezy";
