@@ -37,13 +37,19 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .conversion-panel { background: #10120f; color: #f7faed; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a { display: block; min-height: 126px; border: 1px solid #f7faed; border-radius: 7px; padding: 14px; text-decoration: none; background: #1d2119; }
+      .conversion-actions strong { display: block; margin-bottom: 8px; color: var(--accent); line-height: 1.25; }
+      .conversion-actions span { display: block; color: #dfe6d6; font-size: .93rem; line-height: 1.5; }
       .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .related-guides p { color: var(--muted); }
       .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
       .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
       .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
       .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
-      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
+      @media (max-width: 720px) { .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Next.js Billing Webhook Test Suite","description":"Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html"}</script>
@@ -77,6 +83,22 @@
 <div class="faq-item">
           <h3>Should webhook tests mock the provider API?</h3>
           <p>Handler tests usually should not call provider APIs. Use local fixtures for route behavior and separate live checkout checks for provider configuration.</p>
+        </div>
+      </section>
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Use the free sample before wiring production checkout</h2>
+          <p>Download a public sample pack with fake Lemon Squeezy fixtures, signature tests, contract checks, duplicate replay tests, and CI skeletons. The Pro Kit preview shows the full paid package structure without exposing the private archive.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download free sample</strong>
+            <span>Inspect the public fixture, tests, review report, and workflow before buying.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CN¥69 digital kit; checkout stays disabled until live Lemon Squeezy configuration is connected.</span>
+          </a>
         </div>
       </section>
       <section class="related-guides" aria-label="Related payment webhook guides">
