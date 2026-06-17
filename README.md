@@ -1,6 +1,7 @@
 # BillingWebhookKit
 
 [![Deploy GitHub Pages](https://github.com/qihaze123/billing-webhook-kit/actions/workflows/deploy.yml/badge.svg)](https://github.com/qihaze123/billing-webhook-kit/actions/workflows/deploy.yml)
+[![Site Health Check](https://github.com/qihaze123/billing-webhook-kit/actions/workflows/site-health.yml/badge.svg)](https://github.com/qihaze123/billing-webhook-kit/actions/workflows/site-health.yml)
 [![Free sample release](https://img.shields.io/github/v/release/qihaze123/billing-webhook-kit?label=free%20sample)](https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0)
 ![Browser-only](https://img.shields.io/badge/privacy-browser--only-0f766e)
 ![Production checkout](https://img.shields.io/badge/checkout-awaiting%20live%20key-f59e0b)
@@ -24,6 +25,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - No backend: the hosted tool does not upload pasted payloads or secrets.
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
+- Site health: GitHub Actions checks live pages, sitemap, Pro Kit signals, free-sample upgrade links, and checkout safety after deployments.
 - Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
 - Support policy: use fake fixtures and fake secrets in public issues; see [SUPPORT.md](SUPPORT.md).
 

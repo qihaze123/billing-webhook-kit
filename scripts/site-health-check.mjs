@@ -112,6 +112,12 @@ const issues = [
     .map((url) => `sitemap is missing ${url}.`),
   ...(robots.text.includes(`Sitemap: ${siteUrl}/sitemap.xml`) ? [] : ["robots.txt is missing the sitemap directive."]),
   ...(llms.text.includes(`${siteUrl}/pro-kit.html`) ? [] : ["llms.txt is missing the Pro Kit URL."]),
+  ...(llms.text.includes("Site Health Check workflow")
+    ? []
+    : ["llms.txt is missing the public Site Health Check signal."]),
+  ...(home.text.includes("Automated site health checks")
+    ? []
+    : ["homepage is missing the automated site health trust signal."]),
   ...(proKit.text.includes("Buy it when the free sample stops being enough")
     ? []
     : ["Pro Kit page is missing the buying-decision section."]),

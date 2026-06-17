@@ -1551,6 +1551,7 @@ Header casing: x-signature / X-Signature`,
           <div className="trust-row">
             <span>Browser-only generator</span>
             <span>No account required</span>
+            <span>Automated site health checks</span>
           </div>
         </aside>
       </section>
