@@ -45,6 +45,8 @@ Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 
 Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
+Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
+
 ## Guides
 
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html

@@ -9,6 +9,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Home: https://qihaze123.github.io/billing-webhook-kit/
 - Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+- Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 - Sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.xml
 - GitHub: https://github.com/qihaze123/billing-webhook-kit
 
@@ -57,4 +58,4 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 
 ## Pro Kit
 
-BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, signature tests, contract tests, duplicate replay tests, GitHub Actions checks, webhook review report templates, idempotency runbooks, and integration checklists.
+BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, signature tests, contract tests, duplicate replay tests, GitHub Actions checks, webhook review report templates, idempotency runbooks, and integration checklists. The public manifest lists the paid package structure, test count, file count, and checksum without exposing the paid zip.

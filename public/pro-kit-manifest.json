@@ -1,0 +1,158 @@
+{
+  "name": "BillingWebhookKit Pro",
+  "version": "0.1.0",
+  "generatedAt": "2026-06-17T16:43:02.364Z",
+  "price": {
+    "amount": 69,
+    "currency": "CNY",
+    "minorUnits": 6900
+  },
+  "delivery": {
+    "format": "zip",
+    "fileName": "BillingWebhookKit-Pro-0.1.0.zip",
+    "sha256": "29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8",
+    "bytes": 19069,
+    "publicDownload": false
+  },
+  "verification": {
+    "command": "npm install && npm test",
+    "testFiles": 3,
+    "tests": 12,
+    "lastVerified": "2026-06-17T16:43:02.366Z"
+  },
+  "contents": {
+    "fileCount": 29,
+    "categories": {
+      "lemonFixtures": 5,
+      "providerFixtures": 4,
+      "routeHandlers": 4,
+      "tests": 3,
+      "docs": 6,
+      "workflows": 1
+    },
+    "files": [
+      {
+        "path": ".github/workflows/billing-webhook-tests.yml",
+        "bytes": 284
+      },
+      {
+        "path": "docs/contract-tests.md",
+        "bytes": 650
+      },
+      {
+        "path": "docs/curl-replay.md",
+        "bytes": 462
+      },
+      {
+        "path": "docs/idempotency-runbook.md",
+        "bytes": 1001
+      },
+      {
+        "path": "docs/integration-checklist.md",
+        "bytes": 705
+      },
+      {
+        "path": "docs/webhook-review-checklist.md",
+        "bytes": 961
+      },
+      {
+        "path": "docs/webhook-review-report-template.md",
+        "bytes": 793
+      },
+      {
+        "path": "fixtures/lemon/license_key_created.json",
+        "bytes": 410
+      },
+      {
+        "path": "fixtures/lemon/order_created.json",
+        "bytes": 725
+      },
+      {
+        "path": "fixtures/lemon/subscription_cancelled.json",
+        "bytes": 395
+      },
+      {
+        "path": "fixtures/lemon/subscription_created.json",
+        "bytes": 497
+      },
+      {
+        "path": "fixtures/lemon/subscription_payment_success.json",
+        "bytes": 615
+      },
+      {
+        "path": "fixtures/paddle/paddle-transaction-completed.json",
+        "bytes": 295
+      },
+      {
+        "path": "fixtures/polar/polar-order-paid.json",
+        "bytes": 187
+      },
+      {
+        "path": "fixtures/stripe/stripe-checkout-session-completed.json",
+        "bytes": 424
+      },
+      {
+        "path": "fixtures/stripe/stripe-invoice-paid.json",
+        "bytes": 282
+      },
+      {
+        "path": "LICENSE.txt",
+        "bytes": 295
+      },
+      {
+        "path": "package.json",
+        "bytes": 264
+      },
+      {
+        "path": "README.md",
+        "bytes": 897
+      },
+      {
+        "path": "src/handlers/cloudflare-worker.ts",
+        "bytes": 671
+      },
+      {
+        "path": "src/handlers/express.ts",
+        "bytes": 616
+      },
+      {
+        "path": "src/handlers/hono.ts",
+        "bytes": 611
+      },
+      {
+        "path": "src/handlers/next-app-router.ts",
+        "bytes": 693
+      },
+      {
+        "path": "src/idempotency.ts",
+        "bytes": 861
+      },
+      {
+        "path": "src/verify-lemon.ts",
+        "bytes": 562
+      },
+      {
+        "path": "src/verify-webcrypto.ts",
+        "bytes": 447
+      },
+      {
+        "path": "tests/lemon-contract.test.ts",
+        "bytes": 1726
+      },
+      {
+        "path": "tests/lemon-idempotency-replay.test.ts",
+        "bytes": 1341
+      },
+      {
+        "path": "tests/lemon-signature.test.ts",
+        "bytes": 903
+      }
+    ]
+  },
+  "safety": {
+    "usesFakeProviderData": true,
+    "includesProductionSecrets": false,
+    "callsPaidApis": false,
+    "checkoutCurrencyPolicy": "inherit_store_or_variant_currency"
+  }
+}
