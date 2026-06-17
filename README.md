@@ -1,5 +1,10 @@
 # BillingWebhookKit
 
+[![Deploy GitHub Pages](https://github.com/qihaze123/billing-webhook-kit/actions/workflows/deploy.yml/badge.svg)](https://github.com/qihaze123/billing-webhook-kit/actions/workflows/deploy.yml)
+[![Free sample release](https://img.shields.io/github/v/release/qihaze123/billing-webhook-kit?label=free%20sample)](https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0)
+![Browser-only](https://img.shields.io/badge/privacy-browser--only-0f766e)
+![Production checkout](https://img.shields.io/badge/checkout-awaiting%20live%20key-f59e0b)
+
 Browser-only payment webhook fixture generator, raw-body signature verifier, signature mismatch debugger, payload inspector, idempotency key builder, contract test generator, entitlement decision matrix, launch readiness scorecard, duplicate replay simulator, debugging cost calculator, and review report exporter for SaaS billing integrations.
 
 Use it when you need to test a billing webhook route before a real Lemon Squeezy, Stripe, Paddle, or Polar event hits production.
