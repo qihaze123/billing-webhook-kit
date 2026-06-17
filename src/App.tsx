@@ -1377,6 +1377,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="status.html">
             Status
           </a>
+          <a className="ghost-link" href="tools/">
+            Tools
+          </a>
           <a className="ghost-link" href="tools/lemon-squeezy-signature-verifier.html">
             Verifier
           </a>
@@ -2216,6 +2219,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="status.html">
             Verify checkout and package status
+          </a>
+          <a className="inline-cta" href="tools/">
+            Browse standalone webhook tools
           </a>
           <a className="inline-cta" href="tools/lemon-squeezy-signature-verifier.html">
             Open standalone signature verifier

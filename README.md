@@ -16,6 +16,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
+- Tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
 - Standalone Lemon Squeezy payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - Standalone Lemon Squeezy x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
@@ -26,6 +27,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 
 - Browser-only: webhook signing secrets stay local and are processed with Web Crypto.
 - No backend: the hosted tool does not upload pasted payloads or secrets.
+- Tool index: one scannable entry point for the standalone payload generator, signature verifier, full app, free sample, and Pro Kit preview.
 - Standalone payload generator: fake Lemon Squeezy webhook fixtures, HMAC signatures, and cURL replay commands.
 - Standalone verifier: a focused Lemon Squeezy `x-signature` page for raw-body HMAC checks without account login.
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
@@ -98,6 +100,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 ## Guides
 
 - https://qihaze123.github.io/billing-webhook-kit/guides/
+- https://qihaze123.github.io/billing-webhook-kit/tools/
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html

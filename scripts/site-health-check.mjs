@@ -7,6 +7,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/free-sample.html`,
   `${siteUrl}/pro-kit.html`,
   `${siteUrl}/status.html`,
+  `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
@@ -91,6 +92,7 @@ const [
   proKit,
   freeSample,
   statusPage,
+  toolIndex,
   signatureVerifier,
   payloadGenerator,
   guideIndex,
@@ -103,6 +105,7 @@ const [
   fetchText(`${siteUrl}/pro-kit.html`),
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
+  fetchText(`${siteUrl}/tools/`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`),
   fetchText(`${siteUrl}/guides/`),
@@ -120,6 +123,7 @@ const issues = [
   ...(proKit.ok ? [] : [`pro-kit page returned HTTP ${proKit.status ?? "failed"}.`]),
   ...(freeSample.ok ? [] : [`free sample page returned HTTP ${freeSample.status ?? "failed"}.`]),
   ...(statusPage.ok ? [] : [`status page returned HTTP ${statusPage.status ?? "failed"}.`]),
+  ...(toolIndex.ok ? [] : [`tool index page returned HTTP ${toolIndex.status ?? "failed"}.`]),
   ...(signatureVerifier.ok
     ? []
     : [`signature verifier page returned HTTP ${signatureVerifier.status ?? "failed"}.`]),
@@ -131,13 +135,14 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 39 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 39.`]),
+  ...(sitemapUrls.length >= 40 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 40.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
   ...(robots.text.includes(`Sitemap: ${siteUrl}/sitemap.xml`) ? [] : ["robots.txt is missing the sitemap directive."]),
   ...(llms.text.includes(`${siteUrl}/pro-kit.html`) ? [] : ["llms.txt is missing the Pro Kit URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/`) ? [] : ["llms.txt is missing the tool index URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`)
     ? []
     : ["llms.txt is missing the standalone signature verifier URL."]),
@@ -153,6 +158,13 @@ const issues = [
   statusPage.text.includes("Search Console")
     ? []
     : ["status page is missing checkout, manifest, sitemap, or Search Console signals."]),
+  ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
+  toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
+  toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
+  toolIndex.text.includes("Download the free sample") &&
+  toolIndex.text.includes("Preview the CN¥69 Pro Kit")
+    ? []
+    : ["tool index page is missing tool cards or conversion links."]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
   signatureVerifier.text.includes("Download the free sample") &&
@@ -195,6 +207,7 @@ const result = {
     proKit: proKit.status,
     freeSample: freeSample.status,
     statusPage: statusPage.status,
+    toolIndex: toolIndex.status,
     signatureVerifier: signatureVerifier.status,
     payloadGenerator: payloadGenerator.status,
     guideIndex: guideIndex.status,

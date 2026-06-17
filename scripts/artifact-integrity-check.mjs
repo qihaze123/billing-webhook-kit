@@ -9,6 +9,7 @@ const freeSampleZipPath = join(publicDir, "billing-webhook-kit-free-sample.zip")
 const freeSamplePath = join(publicDir, "free-sample.html");
 const proKitPath = join(publicDir, "pro-kit.html");
 const statusPath = join(publicDir, "status.html");
+const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
 const payloadGeneratorPath = join(publicDir, "tools", "lemon-squeezy-webhook-payload-generator.html");
 const checkoutPath = join(publicDir, "checkout.json");
@@ -36,6 +37,7 @@ if (!existsSync(freeSampleZipPath)) issues.push("Missing public/billing-webhook-
 if (!existsSync(freeSamplePath)) issues.push("Missing public/free-sample.html.");
 if (!existsSync(proKitPath)) issues.push("Missing public/pro-kit.html.");
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
+if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
 if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
 if (!existsSync(payloadGeneratorPath)) issues.push("Missing public/tools/lemon-squeezy-webhook-payload-generator.html.");
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
@@ -45,6 +47,7 @@ const checkout = existsSync(checkoutPath) ? readJson(checkoutPath) : null;
 const freeSampleHtml = existsSync(freeSamplePath) ? readFileSync(freeSamplePath, "utf8") : "";
 const proKitHtml = existsSync(proKitPath) ? readFileSync(proKitPath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
+const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
 const payloadGeneratorHtml = existsSync(payloadGeneratorPath) ? readFileSync(payloadGeneratorPath, "utf8") : "";
 const publicZipFiles = existsSync(publicDir)
@@ -120,6 +123,15 @@ if (
   !statusHtml.includes("Awaiting live key")
 ) {
   issues.push("Status page does not expose manifest, sample hash, Pro Kit hash, and checkout waiting state.");
+}
+if (
+  !toolIndexHtml.includes("lemon-squeezy-webhook-payload-generator.html") ||
+  !toolIndexHtml.includes("lemon-squeezy-signature-verifier.html") ||
+  !toolIndexHtml.includes("free-sample.html") ||
+  !toolIndexHtml.includes("pro-kit.html") ||
+  !toolIndexHtml.includes("Browser-only")
+) {
+  issues.push("Tool index is missing standalone tool links, conversion links, or browser-only safety copy.");
 }
 if (
   !signatureVerifierHtml.includes("crypto.subtle") ||

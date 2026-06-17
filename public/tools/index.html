@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BillingWebhookKit Tools - payment webhook testing workbench</title>
+    <meta
+      name="description"
+      content="Browser-only payment webhook tools for Lemon Squeezy payload generation, HMAC x-signature verification, cURL replay commands, launch readiness, and billing integration checks."
+    />
+    <meta
+      name="keywords"
+      content="payment webhook tools, Lemon Squeezy webhook tools, webhook payload generator, x-signature verifier, billing webhook test tools, webhook replay curl"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="BillingWebhookKit Tools" />
+    <meta
+      property="og:description"
+      content="A browser-only workbench for Lemon Squeezy webhook fixtures, HMAC signatures, cURL replay commands, and billing route checks."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BillingWebhookKit Tools" />
+    <meta
+      name="twitter:description"
+      content="Browser-only payment webhook tools for Lemon Squeezy payload generation, signatures, and local replay testing."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "BillingWebhookKit Tools",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/",
+        "description": "Browser-only payment webhook tools for Lemon Squeezy payload generation, HMAC signature verification, and local replay testing.",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Lemon Squeezy Webhook Payload Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Lemon Squeezy Webhook Signature Verifier",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "BillingWebhookKit Browser Workbench",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/"
+            }
+          ]
+        }
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1180px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 52px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 30px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .tool-card span,
+      .stat span {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.75rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 940px;
+        font-size: clamp(2.35rem, 7vw, 5.45rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 790px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 26px;
+      }
+
+      .tool-card {
+        min-width: 0;
+        display: grid;
+        align-content: start;
+        gap: 14px;
+        min-height: 310px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 12px 12px 0 rgba(18, 19, 15, 0.1);
+        padding: 18px;
+        text-decoration: none;
+      }
+
+      .tool-card.primary {
+        background: var(--charcoal);
+        color: #f7faed;
+      }
+
+      .tool-card.primary p {
+        color: #d9dfcf;
+      }
+
+      .tool-card.primary span {
+        color: var(--acid);
+      }
+
+      .tool-card h2 {
+        font-size: 1.45rem;
+        line-height: 1.08;
+      }
+
+      .tool-card p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .tool-card strong {
+        display: inline-flex;
+        align-items: center;
+        width: max-content;
+        max-width: 100%;
+        min-height: 38px;
+        border: 1px solid currentColor;
+        border-radius: 7px;
+        padding: 0 12px;
+        background: var(--acid);
+        color: var(--ink);
+      }
+
+      .tool-card.primary strong {
+        background: var(--acid);
+        color: var(--ink);
+      }
+
+      .stat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      .section {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        gap: 18px;
+        margin-top: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 20px;
+      }
+
+      .section h2 {
+        font-size: 1.35rem;
+        line-height: 1.2;
+      }
+
+      .section p {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.62;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-list a {
+        display: block;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 12px;
+        font-weight: 850;
+        text-decoration: none;
+        line-height: 1.3;
+      }
+
+      .link-list span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 900px) {
+        .tool-grid,
+        .stat-strip,
+        .section {
+          grid-template-columns: 1fr;
+        }
+
+        .tool-card {
+          min-height: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1180px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .tool-card strong {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">Guides</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/status.html">Status</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Tool Index</p>
+      <h1>Payment webhook tools for the work before checkout goes live.</h1>
+      <p class="lead">
+        Browser-only utilities for generating fake Lemon Squeezy fixtures, checking HMAC signatures, replaying webhook requests, and deciding whether the Pro Kit is worth buying.
+      </p>
+
+      <section class="tool-grid" aria-label="BillingWebhookKit standalone tools">
+        <a class="tool-card primary" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html">
+          <span>Fixture generator</span>
+          <h2>Lemon Squeezy webhook payload generator</h2>
+          <p>Generate fake `order_created`, subscription, cancellation, payment, and license payloads with local HMAC signatures and cURL replay commands.</p>
+          <strong>Open payload generator</strong>
+        </a>
+        <a class="tool-card" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html">
+          <span>Signature checker</span>
+          <h2>Lemon Squeezy x-signature verifier</h2>
+          <p>Paste a raw body, endpoint signing secret, and received `x-signature` header to verify whether the digest matches locally.</p>
+          <strong>Open verifier</strong>
+        </a>
+        <a class="tool-card" href="https://qihaze123.github.io/billing-webhook-kit/">
+          <span>Full workbench</span>
+          <h2>BillingWebhookKit browser app</h2>
+          <p>Use the larger workbench for fixtures, signature mismatch debugging, idempotency keys, contract tests, entitlement decisions, replay simulation, cost estimates, and review reports.</p>
+          <strong>Open full app</strong>
+        </a>
+      </section>
+
+      <section class="stat-strip" aria-label="Tool safety signals">
+        <div class="stat">
+          <span>Privacy</span>
+          <strong>Browser-only, no uploaded secrets</strong>
+        </div>
+        <div class="stat">
+          <span>Cost</span>
+          <strong>No paid provider API calls</strong>
+        </div>
+        <div class="stat">
+          <span>Checkout</span>
+          <strong>Public Pro checkout still awaiting live key</strong>
+        </div>
+        <div class="stat">
+          <span>Package</span>
+          <strong>Free sample plus CN¥69 Pro Kit preview</strong>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Upgrade path">
+        <div>
+          <p class="eyebrow">From tool to package</p>
+          <h2>Use the tools first, then copy the tested structure when launch risk rises.</h2>
+          <p>
+            The public tools solve one-off verification jobs. The free sample shows the package format. The Pro Kit adds provider fixtures, route handlers, CI tests, review templates, and launch runbooks for teams preparing to accept real payments.
+          </p>
+        </div>
+        <div class="link-list">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            Download the free sample
+            <span>Inspect one fake Lemon Squeezy fixture, handler, signature test, contract test, replay test, review report, and CI skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            Preview the CN¥69 Pro Kit
+            <span>Review the paid package structure, manifest, checksum, 29 files, and 12 verified tests before live checkout is connected.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            Browse webhook guides
+            <span>Continue into raw-body, invalid signature, idempotency, contract test, entitlement, and launch readiness guides.</span>
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

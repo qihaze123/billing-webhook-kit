@@ -8,6 +8,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 
 - Home: https://qihaze123.github.io/billing-webhook-kit/
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
+- Tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
 - Standalone Lemon Squeezy payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - Standalone Lemon Squeezy x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
@@ -43,6 +44,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 
 - BillingWebhookKit Pro preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - BillingWebhookKit public status: https://qihaze123.github.io/billing-webhook-kit/status.html
+- BillingWebhookKit tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
 - BillingWebhookKit standalone payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - BillingWebhookKit standalone x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - BillingWebhookKit guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
@@ -74,4 +76,4 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 
 ## Pro Kit
 
-BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, signature tests, contract tests, duplicate replay tests, GitHub Actions checks, webhook review report templates, idempotency runbooks, and integration checklists. The public manifest lists the paid package structure, test count, file count, and checksum without exposing the paid zip. The public status page summarizes checkout readiness, Pro Kit manifest verification, free sample checksum, sitemap target, and health workflow links. The standalone payload generator is a browser-only page for generating fake Lemon Squeezy payloads, HMAC signatures, and cURL replay commands. The standalone x-signature verifier is a browser-only page for checking a Lemon Squeezy raw body and received signature without uploading secrets. A public Site Health Check workflow monitors live page availability, sitemap coverage, Pro Kit buying signals, free-sample upgrade links, status page visibility, standalone tool visibility, and checkout safety after deployments.
+BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, signature tests, contract tests, duplicate replay tests, GitHub Actions checks, webhook review report templates, idempotency runbooks, and integration checklists. The public manifest lists the paid package structure, test count, file count, and checksum without exposing the paid zip. The public status page summarizes checkout readiness, Pro Kit manifest verification, free sample checksum, sitemap target, and health workflow links. The tool index is a browser-only entry point for the standalone payload generator, signature verifier, full workbench, free sample, and Pro Kit preview. The standalone payload generator is a browser-only page for generating fake Lemon Squeezy payloads, HMAC signatures, and cURL replay commands. The standalone x-signature verifier is a browser-only page for checking a Lemon Squeezy raw body and received signature without uploading secrets. A public Site Health Check workflow monitors live page availability, sitemap coverage, Pro Kit buying signals, free-sample upgrade links, status page visibility, standalone tool visibility, and checkout safety after deployments.
