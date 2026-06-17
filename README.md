@@ -2,11 +2,23 @@
 
 Browser-only payment webhook fixture generator, raw-body signature verifier, signature mismatch debugger, payload inspector, idempotency key builder, contract test generator, entitlement decision matrix, launch readiness scorecard, duplicate replay simulator, debugging cost calculator, and review report exporter for SaaS billing integrations.
 
-Live tool: https://qihaze123.github.io/billing-webhook-kit/
+Use it when you need to test a billing webhook route before a real Lemon Squeezy, Stripe, Paddle, or Polar event hits production.
 
-Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
+## Fast Paths
 
-Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
+- Live tool: https://qihaze123.github.io/billing-webhook-kit/
+- Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
+- Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
+- Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+- Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
+
+## Trust Signals
+
+- Browser-only: webhook signing secrets stay local and are processed with Web Crypto.
+- No backend: the hosted tool does not upload pasted payloads or secrets.
+- Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
+- Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
+- Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
 
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
