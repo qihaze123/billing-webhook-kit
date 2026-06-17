@@ -10,6 +10,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`,
+  `${siteUrl}/tools/webhook-idempotency-key-generator.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -95,6 +96,7 @@ const [
   toolIndex,
   signatureVerifier,
   payloadGenerator,
+  idempotencyGenerator,
   guideIndex,
   sitemap,
   robots,
@@ -108,6 +110,7 @@ const [
   fetchText(`${siteUrl}/tools/`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`),
+  fetchText(`${siteUrl}/tools/webhook-idempotency-key-generator.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -130,12 +133,15 @@ const issues = [
   ...(payloadGenerator.ok
     ? []
     : [`payload generator page returned HTTP ${payloadGenerator.status ?? "failed"}.`]),
+  ...(idempotencyGenerator.ok
+    ? []
+    : [`idempotency generator page returned HTTP ${idempotencyGenerator.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 40 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 40.`]),
+  ...(sitemapUrls.length >= 41 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 41.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -149,6 +155,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`)
     ? []
     : ["llms.txt is missing the standalone payload generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/webhook-idempotency-key-generator.html`)
+    ? []
+    : ["llms.txt is missing the standalone idempotency generator URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -161,6 +170,7 @@ const issues = [
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
   toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
   toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
+  toolIndex.text.includes("Webhook idempotency key generator") &&
   toolIndex.text.includes("Download the free sample") &&
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
     ? []
@@ -178,6 +188,12 @@ const issues = [
   payloadGenerator.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["payload generator page is missing payload logic, signature logic, or conversion links."]),
+  ...(idempotencyGenerator.text.includes("Webhook idempotency key generator") &&
+  idempotencyGenerator.text.includes("buildIdempotencyKey") &&
+  idempotencyGenerator.text.includes("Duplicate delivery runs side effects once") &&
+  idempotencyGenerator.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["idempotency generator page is missing key logic, replay safety copy, or conversion links."]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -210,6 +226,7 @@ const result = {
     toolIndex: toolIndex.status,
     signatureVerifier: signatureVerifier.status,
     payloadGenerator: payloadGenerator.status,
+    idempotencyGenerator: idempotencyGenerator.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,

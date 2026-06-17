@@ -1386,6 +1386,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/lemon-squeezy-webhook-payload-generator.html">
             Payloads
           </a>
+          <a className="ghost-link" href="tools/webhook-idempotency-key-generator.html">
+            Idempotency
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -2228,6 +2231,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/lemon-squeezy-webhook-payload-generator.html">
             Generate standalone webhook payloads
+          </a>
+          <a className="inline-cta" href="tools/webhook-idempotency-key-generator.html">
+            Generate standalone idempotency keys
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">

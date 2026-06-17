@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webhook Idempotency Key Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate stable payment webhook idempotency keys, database constraints, handler guards, and duplicate replay tests for Lemon Squeezy, Stripe, Paddle, and Polar. Browser-only."
+    />
+    <meta
+      name="keywords"
+      content="webhook idempotency key generator, payment webhook idempotency, Lemon Squeezy idempotency key, Stripe webhook idempotency, duplicate webhook replay test"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Idempotency Key Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only payment webhook idempotency key generator with handler guards, SQL constraints, and duplicate replay tests."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Webhook Idempotency Key Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate stable payment webhook idempotency keys, database constraints, and replay tests locally."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Webhook Idempotency Key Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only payment webhook idempotency key generator with SQL constraints, handler guards, and duplicate replay tests."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Webhook Idempotency Key Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1240px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .stat span,
+      .field span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1030px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      .lead {
+        max-width: 830px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .results {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 13px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .key-card {
+        display: grid;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        padding: 16px;
+      }
+
+      .key-card strong {
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        line-height: 1.35;
+      }
+
+      .key-card p {
+        color: #d9dfcf;
+        line-height: 1.55;
+      }
+
+      .output-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .output {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+      }
+
+      .output header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .output button {
+        min-height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--panel);
+        padding: 0 10px;
+        font-weight: 850;
+      }
+
+      pre {
+        min-height: 190px;
+        max-height: 360px;
+        margin: 0;
+        overflow: auto;
+        padding: 12px;
+        color: var(--ink);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .stat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      .upgrade {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: 18px;
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 20px;
+      }
+
+      .upgrade p {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-list a {
+        display: block;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 12px;
+        font-weight: 850;
+        text-decoration: none;
+        line-height: 1.3;
+      }
+
+      .link-list span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 920px) {
+        .workbench,
+        .output-grid,
+        .stat-strip,
+        .upgrade {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1240px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Retry safety tool</p>
+      <h1>Webhook idempotency key generator for payment retries.</h1>
+      <p class="lead">
+        Build a stable key before your webhook grants access, sends email, writes invoices, or delivers licenses. The generated guard and replay test keep duplicate provider deliveries from running side effects twice.
+      </p>
+
+      <section class="workbench" aria-label="Webhook idempotency key generator">
+        <article class="panel">
+          <header>
+            <h2>Input</h2>
+            <p>provider + event + object + scope</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Provider</span>
+              <select id="provider">
+                <option value="lemonsqueezy">Lemon Squeezy</option>
+                <option value="stripe">Stripe</option>
+                <option value="paddle">Paddle</option>
+                <option value="polar">Polar</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Event name</span>
+              <input id="eventName" value="order_created" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Provider object ID</span>
+              <input id="objectId" value="order_1042" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Uniqueness scope</span>
+              <select id="scope">
+                <option value="event">Event object</option>
+                <option value="payment">Payment or invoice</option>
+                <option value="entitlement">Entitlement target</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Target record</span>
+              <input id="targetRecord" value="customer_1042" autocomplete="off" />
+            </label>
+            <div class="button-row">
+              <button class="button" type="button" id="copyReport">Copy report</button>
+              <button class="button secondary" type="button" id="downloadReport">Download report</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Generated outputs</h2>
+            <p>copy into handler, migration, and test</p>
+          </header>
+          <div class="results">
+            <div class="key-card">
+              <span class="output-label">Stable idempotency key</span>
+              <strong id="keyOutput"></strong>
+              <p id="scopeNote"></p>
+            </div>
+
+            <div class="output-grid">
+              <div class="output">
+                <header>
+                  <span class="output-label">SQL constraint</span>
+                  <button type="button" data-copy="sqlOutput">Copy</button>
+                </header>
+                <pre id="sqlOutput"></pre>
+              </div>
+              <div class="output">
+                <header>
+                  <span class="output-label">Handler guard</span>
+                  <button type="button" data-copy="guardOutput">Copy</button>
+                </header>
+                <pre id="guardOutput"></pre>
+              </div>
+              <div class="output">
+                <header>
+                  <span class="output-label">Replay test</span>
+                  <button type="button" data-copy="testOutput">Copy</button>
+                </header>
+                <pre id="testOutput"></pre>
+              </div>
+              <div class="output">
+                <header>
+                  <span class="output-label">Review note</span>
+                  <button type="button" data-copy="reportOutput">Copy</button>
+                </header>
+                <pre id="reportOutput"></pre>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="stat-strip" aria-label="Idempotency safety signals">
+        <div class="stat">
+          <span>Privacy</span>
+          <strong>Browser-only, no uploaded payloads</strong>
+        </div>
+        <div class="stat">
+          <span>Providers</span>
+          <strong>Lemon Squeezy, Stripe, Paddle, Polar</strong>
+        </div>
+        <div class="stat">
+          <span>Failure mode</span>
+          <strong>Duplicate delivery runs side effects once</strong>
+        </div>
+        <div class="stat">
+          <span>Upgrade path</span>
+          <strong>Free sample plus CNY 69 Pro Kit preview</strong>
+        </div>
+      </section>
+
+      <section class="upgrade" aria-label="Pro Kit upgrade path">
+        <div>
+          <p class="eyebrow">From key to kit</p>
+          <h2>The Pro Kit turns this pattern into copy-ready fixtures and tests.</h2>
+          <p>
+            Use this standalone generator for one route. Use the free sample to inspect the package format. Upgrade when you need provider fixtures, handler templates, duplicate replay tests, CI checks, and review reports across a real billing launch.
+          </p>
+        </div>
+        <div class="link-list">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            Download the free sample
+            <span>One fake Lemon Squeezy fixture, one handler, signature test, contract test, duplicate replay test, and CI skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            Preview the CNY 69 Pro Kit
+            <span>Review the 29-file package, 12 verified tests, manifest, checksum, and launch runbook before live checkout is connected.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html">
+            Read the Lemon Squeezy idempotency guide
+            <span>Map order, subscription, renewal, cancellation, and license events to one safe process-once rule.</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        provider: document.getElementById("provider"),
+        eventName: document.getElementById("eventName"),
+        objectId: document.getElementById("objectId"),
+        scope: document.getElementById("scope"),
+        targetRecord: document.getElementById("targetRecord")
+      };
+
+      const outputs = {
+        key: document.getElementById("keyOutput"),
+        scopeNote: document.getElementById("scopeNote"),
+        sql: document.getElementById("sqlOutput"),
+        guard: document.getElementById("guardOutput"),
+        test: document.getElementById("testOutput"),
+        report: document.getElementById("reportOutput")
+      };
+
+      const providerDefaults = {
+        lemonsqueezy: { eventName: "order_created", objectId: "order_1042", targetRecord: "customer_1042" },
+        stripe: { eventName: "checkout.session.completed", objectId: "cs_test_1042", targetRecord: "customer_1042" },
+        paddle: { eventName: "transaction.completed", objectId: "txn_1042", targetRecord: "customer_1042" },
+        polar: { eventName: "order.paid", objectId: "ord_1042", targetRecord: "customer_1042" }
+      };
+
+      const scopeNotes = {
+        event: "Use one processed-event row per provider event object. This is the default for webhook retry safety.",
+        payment: "Use one key per invoice or payment when renewal side effects must run once per paid billing period.",
+        entitlement: "Use one key per access target when a customer, license, or subscription should receive one entitlement write."
+      };
+
+      function normalize(value) {
+        return String(value || "")
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9._:-]+/g, "_")
+          .replace(/^_+|_+$/g, "") || "missing";
+      }
+
+      function buildIdempotencyKey(params) {
+        return [
+          normalize(params.provider),
+          normalize(params.scope),
+          normalize(params.eventName),
+          normalize(params.objectId),
+          normalize(params.targetRecord)
+        ].join(":");
+      }
+
+      function buildSql(key) {
+        return `create table if not exists processed_webhooks (
+  id bigserial primary key,
+  idempotency_key text not null,
+  provider text not null,
+  event_name text not null,
+  object_id text not null,
+  processed_at timestamptz not null default now()
+);
+
+create unique index if not exists processed_webhooks_idempotency_key_idx
+on processed_webhooks (idempotency_key);
+
+-- Example key
+-- ${key}`;
+      }
+
+      function buildGuard(key) {
+        return `async function processWebhookOnce(event, db) {
+  const idempotencyKey = "${key}";
+
+  const inserted = await db.processedWebhook.createMany({
+    data: {
+      idempotencyKey,
+      provider: event.provider,
+      eventName: event.name,
+      objectId: event.objectId
+    },
+    skipDuplicates: true
+  });
+
+  if (inserted.count === 0) {
+    return { status: "duplicate_skipped", idempotencyKey };
+  }
+
+  await runBillingSideEffect(event);
+  return { status: "processed", idempotencyKey };
+}`;
+      }
+
+      function buildReplayTest(key, provider, eventName) {
+        return `import { describe, expect, it } from "vitest";
+
+describe("${provider} ${eventName} duplicate replay", () => {
+  it("runs the billing side effect only once", async () => {
+    const processed = new Set();
+    let sideEffects = 0;
+    let duplicates = 0;
+
+    for (const delivery of [1, 2, 3]) {
+      const idempotencyKey = "${key}";
+
+      if (processed.has(idempotencyKey)) {
+        duplicates += 1;
+        continue;
+      }
+
+      processed.add(idempotencyKey);
+      sideEffects += 1;
+    }
+
+    expect(sideEffects).toBe(1);
+    expect(duplicates).toBe(2);
+  });
+});`;
+      }
+
+      function buildReport(params) {
+        return `# Webhook Idempotency Key Review
+
+Generated by BillingWebhookKit
+https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html
+
+## Inputs
+
+- Provider: ${params.provider}
+- Event: ${params.eventName}
+- Object ID: ${params.objectId}
+- Scope: ${params.scope}
+- Target record: ${params.targetRecord}
+
+## Recommended Key
+
+${params.key}
+
+## Release Rule
+
+Verify the webhook signature first, insert the idempotency key before side effects, then grant access, send email, deliver a license, or update billing state exactly once. Duplicate retries should return success after the stored key is found.`;
+      }
+
+      async function copyText(value) {
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(value);
+            return;
+          } catch {
+            // Fall back for restricted preview browsers.
+          }
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.append(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      function render() {
+        const params = {
+          provider: fields.provider.value,
+          eventName: fields.eventName.value,
+          objectId: fields.objectId.value,
+          scope: fields.scope.value,
+          targetRecord: fields.targetRecord.value
+        };
+        const key = buildIdempotencyKey(params);
+        const reportParams = { ...params, key };
+
+        outputs.key.textContent = key;
+        outputs.scopeNote.textContent = scopeNotes[params.scope] || scopeNotes.event;
+        outputs.sql.textContent = buildSql(key);
+        outputs.guard.textContent = buildGuard(key);
+        outputs.test.textContent = buildReplayTest(key, params.provider, params.eventName);
+        outputs.report.textContent = buildReport(reportParams);
+      }
+
+      fields.provider.addEventListener("change", () => {
+        const defaults = providerDefaults[fields.provider.value] || providerDefaults.lemonsqueezy;
+        fields.eventName.value = defaults.eventName;
+        fields.objectId.value = defaults.objectId;
+        fields.targetRecord.value = defaults.targetRecord;
+        render();
+      });
+
+      Object.values(fields).forEach((field) => field.addEventListener("input", render));
+      Object.values(fields).forEach((field) => field.addEventListener("change", render));
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const target = document.getElementById(button.dataset.copy);
+          await copyText(target.textContent || "");
+          button.textContent = "Copied";
+          setTimeout(() => {
+            button.textContent = "Copy";
+          }, 1200);
+        });
+      });
+
+      document.getElementById("copyReport").addEventListener("click", async () => {
+        await copyText(outputs.report.textContent || "");
+        document.getElementById("copyReport").textContent = "Copied";
+        setTimeout(() => {
+          document.getElementById("copyReport").textContent = "Copy report";
+        }, 1200);
+      });
+
+      document.getElementById("downloadReport").addEventListener("click", () => {
+        const blob = new Blob([outputs.report.textContent || ""], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "webhook-idempotency-key-report.md";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

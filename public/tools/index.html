@@ -6,11 +6,11 @@
     <title>BillingWebhookKit Tools - payment webhook testing workbench</title>
     <meta
       name="description"
-      content="Browser-only payment webhook tools for Lemon Squeezy payload generation, HMAC x-signature verification, cURL replay commands, launch readiness, and billing integration checks."
+      content="Browser-only payment webhook tools for Lemon Squeezy payload generation, HMAC x-signature verification, idempotency keys, cURL replay commands, launch readiness, and billing integration checks."
     />
     <meta
       name="keywords"
-      content="payment webhook tools, Lemon Squeezy webhook tools, webhook payload generator, x-signature verifier, billing webhook test tools, webhook replay curl"
+      content="payment webhook tools, Lemon Squeezy webhook tools, webhook payload generator, x-signature verifier, webhook idempotency key generator, billing webhook test tools, webhook replay curl"
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/" />
@@ -21,7 +21,7 @@
     <meta property="og:title" content="BillingWebhookKit Tools" />
     <meta
       property="og:description"
-      content="A browser-only workbench for Lemon Squeezy webhook fixtures, HMAC signatures, cURL replay commands, and billing route checks."
+      content="A browser-only workbench for Lemon Squeezy webhook fixtures, HMAC signatures, idempotency keys, cURL replay commands, and billing route checks."
     />
     <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
@@ -31,7 +31,7 @@
     <meta name="twitter:title" content="BillingWebhookKit Tools" />
     <meta
       name="twitter:description"
-      content="Browser-only payment webhook tools for Lemon Squeezy payload generation, signatures, and local replay testing."
+      content="Browser-only payment webhook tools for Lemon Squeezy payload generation, signatures, idempotency keys, and local replay testing."
     />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <script type="application/ld+json">
@@ -59,6 +59,12 @@
             {
               "@type": "ListItem",
               "position": 3,
+              "name": "Webhook Idempotency Key Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
               "name": "BillingWebhookKit Browser Workbench",
               "url": "https://qihaze123.github.io/billing-webhook-kit/"
             }
@@ -347,7 +353,7 @@
       <p class="eyebrow">Tool Index</p>
       <h1>Payment webhook tools for the work before checkout goes live.</h1>
       <p class="lead">
-        Browser-only utilities for generating fake Lemon Squeezy fixtures, checking HMAC signatures, replaying webhook requests, and deciding whether the Pro Kit is worth buying.
+        Browser-only utilities for generating fake Lemon Squeezy fixtures, checking HMAC signatures, deriving idempotency keys, replaying webhook requests, and deciding whether the Pro Kit is worth buying.
       </p>
 
       <section class="tool-grid" aria-label="BillingWebhookKit standalone tools">
@@ -362,6 +368,12 @@
           <h2>Lemon Squeezy x-signature verifier</h2>
           <p>Paste a raw body, endpoint signing secret, and received `x-signature` header to verify whether the digest matches locally.</p>
           <strong>Open verifier</strong>
+        </a>
+        <a class="tool-card" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">
+          <span>Retry safety</span>
+          <h2>Webhook idempotency key generator</h2>
+          <p>Build stable provider keys, SQL constraints, handler guards, duplicate replay tests, and review notes before payment side effects run.</p>
+          <strong>Open idempotency tool</strong>
         </a>
         <a class="tool-card" href="https://qihaze123.github.io/billing-webhook-kit/">
           <span>Full workbench</span>
