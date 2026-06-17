@@ -1377,6 +1377,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="status.html">
             Status
           </a>
+          <a className="ghost-link" href="tools/lemon-squeezy-signature-verifier.html">
+            Verifier
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -2210,6 +2213,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="status.html">
             Verify checkout and package status
+          </a>
+          <a className="inline-cta" href="tools/lemon-squeezy-signature-verifier.html">
+            Open standalone signature verifier
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">

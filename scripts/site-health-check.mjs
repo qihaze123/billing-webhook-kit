@@ -7,6 +7,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/free-sample.html`,
   `${siteUrl}/pro-kit.html`,
   `${siteUrl}/status.html`,
+  `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -84,11 +85,23 @@ function checkoutState(checkout) {
   };
 }
 
-const [home, proKit, freeSample, statusPage, guideIndex, sitemap, robots, llms, checkoutResult] = await Promise.all([
+const [
+  home,
+  proKit,
+  freeSample,
+  statusPage,
+  signatureVerifier,
+  guideIndex,
+  sitemap,
+  robots,
+  llms,
+  checkoutResult
+] = await Promise.all([
   fetchText(`${siteUrl}/`),
   fetchText(`${siteUrl}/pro-kit.html`),
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -104,18 +117,24 @@ const issues = [
   ...(proKit.ok ? [] : [`pro-kit page returned HTTP ${proKit.status ?? "failed"}.`]),
   ...(freeSample.ok ? [] : [`free sample page returned HTTP ${freeSample.status ?? "failed"}.`]),
   ...(statusPage.ok ? [] : [`status page returned HTTP ${statusPage.status ?? "failed"}.`]),
+  ...(signatureVerifier.ok
+    ? []
+    : [`signature verifier page returned HTTP ${signatureVerifier.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 37 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 37.`]),
+  ...(sitemapUrls.length >= 38 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 38.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
   ...(robots.text.includes(`Sitemap: ${siteUrl}/sitemap.xml`) ? [] : ["robots.txt is missing the sitemap directive."]),
   ...(llms.text.includes(`${siteUrl}/pro-kit.html`) ? [] : ["llms.txt is missing the Pro Kit URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`)
+    ? []
+    : ["llms.txt is missing the standalone signature verifier URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -125,6 +144,12 @@ const issues = [
   statusPage.text.includes("Search Console")
     ? []
     : ["status page is missing checkout, manifest, sitemap, or Search Console signals."]),
+  ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
+  signatureVerifier.text.includes("crypto.subtle") &&
+  signatureVerifier.text.includes("Download the free sample") &&
+  signatureVerifier.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["signature verifier page is missing verifier logic or conversion links."]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -154,6 +179,7 @@ const result = {
     proKit: proKit.status,
     freeSample: freeSample.status,
     statusPage: statusPage.status,
+    signatureVerifier: signatureVerifier.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,

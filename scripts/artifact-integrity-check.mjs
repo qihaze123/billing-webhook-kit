@@ -9,6 +9,7 @@ const freeSampleZipPath = join(publicDir, "billing-webhook-kit-free-sample.zip")
 const freeSamplePath = join(publicDir, "free-sample.html");
 const proKitPath = join(publicDir, "pro-kit.html");
 const statusPath = join(publicDir, "status.html");
+const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
 const checkoutPath = join(publicDir, "checkout.json");
 const expectedFreeSampleSha256 = "8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b";
 
@@ -34,6 +35,7 @@ if (!existsSync(freeSampleZipPath)) issues.push("Missing public/billing-webhook-
 if (!existsSync(freeSamplePath)) issues.push("Missing public/free-sample.html.");
 if (!existsSync(proKitPath)) issues.push("Missing public/pro-kit.html.");
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
+if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
@@ -41,6 +43,7 @@ const checkout = existsSync(checkoutPath) ? readJson(checkoutPath) : null;
 const freeSampleHtml = existsSync(freeSamplePath) ? readFileSync(freeSamplePath, "utf8") : "";
 const proKitHtml = existsSync(proKitPath) ? readFileSync(proKitPath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
+const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
 const publicZipFiles = existsSync(publicDir)
   ? walkFiles(publicDir).filter((path) => path.toLowerCase().endsWith(".zip"))
   : [];
@@ -114,6 +117,15 @@ if (
   !statusHtml.includes("Awaiting live key")
 ) {
   issues.push("Status page does not expose manifest, sample hash, Pro Kit hash, and checkout waiting state.");
+}
+if (
+  !signatureVerifierHtml.includes("crypto.subtle") ||
+  !signatureVerifierHtml.includes("hmacSha256Hex") ||
+  !signatureVerifierHtml.includes("free-sample.html") ||
+  !signatureVerifierHtml.includes("pro-kit.html") ||
+  !signatureVerifierHtml.includes("No backend") && !signatureVerifierHtml.includes("never leaves the browser")
+) {
+  issues.push("Standalone signature verifier is missing local HMAC logic, conversion links, or browser-only copy.");
 }
 
 const result = {
