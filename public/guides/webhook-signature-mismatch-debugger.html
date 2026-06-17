@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webhook Signature Mismatch Debugger | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Debug payment webhook signature mismatches caused by changed raw bodies, wrong webhook secrets, header formats, framework parsers, and cURL replay mistakes."
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Signature Mismatch Debugger" />
+    <meta
+      property="og:description"
+      content="A practical checklist for fixing raw-body HMAC signature mismatches in payment webhook routes."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Webhook Signature Mismatch Debugger" />
+    <meta
+      name="twitter:description"
+      content="Fix payment webhook signature mismatches caused by body parsers, wrong secrets, header formats, and replay mistakes."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --soft:#eef1e8; --accent:#d8f84f; --coral:#f05f3b; --cyan:#008c99; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(940px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 780px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .card strong { display: block; margin-bottom: 8px; }
+      .rule { border-left: 5px solid var(--coral); background: var(--soft); padding: 16px; }
+      pre { margin: 14px 0 0; overflow: auto; border: 1px solid var(--line); border-radius: 8px; background: #10120f; color: var(--accent); padding: 14px; font-family: Andale Mono, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86rem; line-height: 1.55; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+      @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Webhook Signature Mismatch Debugger","description":"Debug payment webhook signature mismatches caused by changed raw bodies, wrong webhook secrets, header formats, framework parsers, and cURL replay mistakes.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does a webhook signature mismatch when the JSON looks identical?","acceptedAnswer":{"@type":"Answer","text":"HMAC signatures are computed over exact raw bytes. Parsing JSON and re-stringifying it can change whitespace, ordering, encoding, or line endings, which makes the digest different even when the data looks identical."}},{"@type":"Question","name":"What should I test after fixing a webhook signature mismatch?","acceptedAnswer":{"@type":"Answer","text":"Keep a fixture file, sign the exact fixture bytes, verify the route accepts that signature, and add a negative test for a changed body or wrong secret."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Webhook signature mismatch debugger</h1>
+      <p class="lead">Payment webhook signature errors are usually not cryptography bugs. They are raw-body, secret, header, middleware, or replay bugs. Use this checklist to narrow the route fix before changing billing side effects.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free debugger</a>
+
+      <section>
+        <h2>Most common causes</h2>
+        <div class="grid">
+          <div class="card"><strong>Raw body changed</strong><p>JSON was parsed, re-stringified, trimmed, pretty-printed, reordered, or decoded before HMAC verification.</p></div>
+          <div class="card"><strong>Wrong secret</strong><p>The handler uses an API key, product key, old endpoint secret, or the staging secret in production.</p></div>
+          <div class="card"><strong>Header format mismatch</strong><p>The route compares a prefixed, uppercase, whitespace-padded, or wrong provider signature header.</p></div>
+          <div class="card"><strong>Framework parser issue</strong><p>Next.js, Hono, Express, or middleware consumes the body before the webhook route verifies the digest.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Fix order</h2>
+        <p class="rule">Capture exact raw bytes first, compute the HMAC with the endpoint webhook signing secret, normalize only the documented signature header format, then parse JSON after the digest matches.</p>
+        <pre><code>curl -X POST "$WEBHOOK_URL" \
+  -H "content-type: application/json" \
+  -H "x-signature: $SIGNATURE" \
+  --data-binary @fixture.json</code></pre>
+      </section>
+
+      <section>
+        <h2>Framework notes</h2>
+        <p>In Next.js App Router, call <code>await request.text()</code> before parsing. In Hono, read <code>await c.req.text()</code>. In Express, use route-specific raw body middleware instead of global JSON parsing for the webhook endpoint.</p>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Why does a webhook signature mismatch when the JSON looks identical?</h3>
+          <p>HMAC signatures are computed over exact raw bytes. Parsing JSON and re-stringifying it can change whitespace, ordering, encoding, or line endings, which makes the digest different even when the data looks identical.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What should I test after fixing a webhook signature mismatch?</h3>
+          <p>Keep a fixture file, sign the exact fixture bytes, verify the route accepts that signature, and add a negative test for a changed body or wrong secret.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit verifies pasted signatures locally in the browser and exports a Markdown mismatch report for webhook route reviews.
+      </footer>
+    </main>
+  </body>
+</html>

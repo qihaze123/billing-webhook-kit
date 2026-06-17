@@ -46,6 +46,7 @@ const tabs: Array<{ id: OutputTab; label: string; icon: typeof FileJson }> = [
 const guideLinks = [
   { href: "guides/lemon-squeezy-webhook-test.html", label: "Test Lemon Squeezy webhooks locally" },
   { href: "guides/lemon-squeezy-webhook-signature.html", label: "Verify Lemon Squeezy signatures" },
+  { href: "guides/webhook-signature-mismatch-debugger.html", label: "Webhook signature mismatch debugger" },
   { href: "guides/lemon-squeezy-webhook-idempotency.html", label: "Lemon Squeezy idempotency" },
   { href: "guides/nextjs-lemon-squeezy-webhook-handler.html", label: "Next.js Lemon Squeezy handler" },
   { href: "guides/hono-lemon-squeezy-webhook-handler.html", label: "Hono Lemon Squeezy handler" },
@@ -84,14 +85,42 @@ const proArtifacts = [
 
 const integrationSignals = [
   "Raw-body HMAC checks",
+  "Signature mismatch debugger",
   "Idempotent retry fixtures",
   "Duplicate replay simulator",
-  "Provider mapping examples",
-  "CI-ready test command"
+  "Provider mapping examples"
 ];
 
 const defaultEndpoint = "https://yourapp.com/api/webhooks/lemonsqueezy";
 const productUrl = "https://qihaze123.github.io/billing-webhook-kit/";
+
+const signatureSymptoms = [
+  {
+    id: "raw_body_changed",
+    label: "Raw body changed before HMAC",
+    signal: "The computed digest is stable locally, but the provider dashboard still reports a signature mismatch."
+  },
+  {
+    id: "wrong_secret",
+    label: "Wrong signing secret",
+    signal: "The handler uses a checkout API key, product key, or old webhook secret instead of the endpoint signing secret."
+  },
+  {
+    id: "header_format",
+    label: "Header format mismatch",
+    signal: "The received header includes sha256=, uppercase hex, whitespace, or the wrong provider signature header."
+  },
+  {
+    id: "framework_parser",
+    label: "Framework body parser issue",
+    signal: "The route works for test JSON but fails for real provider deliveries after middleware or request parsing."
+  },
+  {
+    id: "local_replay",
+    label: "cURL replay mismatch",
+    signal: "A copied payload fails when replayed from terminal or CI, even with the expected secret."
+  }
+] as const;
 
 const entitlementRows = [
   {
@@ -191,6 +220,17 @@ type ReplayAttempt = {
   decision: "process" | "skip";
   status: string;
   note: string;
+};
+
+type SignatureSymptomId = (typeof signatureSymptoms)[number]["id"];
+
+type SignatureDiagnosis = {
+  severity: string;
+  summary: string;
+  primaryFix: string;
+  frameworkFix: string;
+  checks: string[];
+  testCommand: string;
 };
 
 const proKitReferenceUsd = 9.7;
@@ -514,6 +554,154 @@ ${rows}
 Release rule: verify the signature first, persist an idempotency key, then run the entitlement decision once. Duplicate deliveries should return success without repeating the side effect.`;
 }
 
+function frameworkRawBodyFix(framework: FrameworkId) {
+  if (framework === "next") {
+    return "In Next.js App Router, call await request.text() once and verify that exact string before JSON.parse. Do not call request.json() before HMAC verification.";
+  }
+
+  if (framework === "hono") {
+    return "In Hono, read await c.req.text() for verification and parse JSON only after the digest matches. Avoid middleware that consumes or rewrites the body first.";
+  }
+
+  return "In Express, use express.raw({ type: 'application/json' }) on the webhook route, then verify req.body bytes before JSON.parse. Do not use express.json() before HMAC verification.";
+}
+
+function buildSignatureDiagnosis(
+  symptom: SignatureSymptomId,
+  framework: FrameworkId,
+  verification: VerificationState
+): SignatureDiagnosis {
+  const frameworkFix = frameworkRawBodyFix(framework);
+  const baseChecks = [
+    "Capture the exact raw request body bytes from the webhook route before parsing.",
+    "Normalize the signature header by trimming whitespace and removing a leading sha256= prefix only when the provider uses that form.",
+    "Compare against the endpoint webhook signing secret, not the Lemon Squeezy API key or checkout URL.",
+    "Keep a fixture and one signature test in CI so the route fails fast when parsing changes."
+  ];
+
+  if (verification.status === "match") {
+    return {
+      severity: "Verifier passed",
+      summary: "The pasted raw body, signature header, and secret match in the browser verifier. The bug is likely in the server route, middleware order, or a different production secret.",
+      primaryFix: "Copy the exact raw body fixture into your route test and compare the server-computed digest against the browser-computed digest.",
+      frameworkFix,
+      checks: baseChecks,
+      testCommand: "npm test -- webhook-signature"
+    };
+  }
+
+  const symptomMap: Record<SignatureSymptomId, SignatureDiagnosis> = {
+    raw_body_changed: {
+      severity: "High probability",
+      summary: "Signature mismatches usually happen because JSON was parsed, re-stringified, pretty-printed, trimmed, or transcoded before HMAC verification.",
+      primaryFix: "Verify the HMAC against the exact raw request body string or bytes received from the provider, then parse JSON only after the signature matches.",
+      frameworkFix,
+      checks: [
+        "Do not call JSON.stringify(payload) to rebuild the signed body.",
+        "Do not trim trailing newlines, change spacing, sort keys, or decode and re-encode the request before verification.",
+        ...baseChecks
+      ],
+      testCommand: "npm test -- raw-body-signature"
+    },
+    wrong_secret: {
+      severity: "High probability",
+      summary: "The signature can be computed correctly and still fail when the route uses the wrong secret source.",
+      primaryFix: "Load the webhook endpoint signing secret from environment configuration and verify it differs from API keys, store IDs, variant IDs, and checkout URLs.",
+      frameworkFix,
+      checks: [
+        "Check that staging and production webhook endpoints use the matching environment secret.",
+        "Rotate old copied secrets out of local .env files and deployment settings.",
+        ...baseChecks
+      ],
+      testCommand: "npm test -- signing-secret"
+    },
+    header_format: {
+      severity: "Medium probability",
+      summary: "Header mismatches often come from comparing the wrong header value format rather than the digest itself.",
+      primaryFix: "Read the provider's signature header exactly, strip only documented prefixes, lowercase hex for comparison, and use constant-time comparison in the handler.",
+      frameworkFix,
+      checks: [
+        "Confirm the route reads x-signature for Lemon Squeezy fixtures.",
+        "Reject missing or non-hex signatures before running business logic.",
+        ...baseChecks
+      ],
+      testCommand: "npm test -- signature-header"
+    },
+    framework_parser: {
+      severity: "High probability",
+      summary: "Framework defaults often parse the body before your handler sees it, which destroys the bytes the provider signed.",
+      primaryFix: "Move signature verification to the first route-specific step and disable or bypass generic JSON parsing middleware for the webhook endpoint.",
+      frameworkFix,
+      checks: [
+        "Keep webhook routes separate from normal authenticated JSON API routes.",
+        "Add a test that fails if the raw body is consumed before verification.",
+        ...baseChecks
+      ],
+      testCommand: "npm test -- webhook-route-parser"
+    },
+    local_replay: {
+      severity: "Medium probability",
+      summary: "cURL replay mismatches usually come from shell escaping, changed file bytes, or a signature generated for a different payload.",
+      primaryFix: "Save the payload to a fixture file, sign that exact file content, and replay with --data-binary instead of inline shell JSON.",
+      frameworkFix,
+      checks: [
+        "Use --data-binary @fixture.json so cURL does not alter the request body.",
+        "Regenerate the signature after every fixture edit.",
+        ...baseChecks
+      ],
+      testCommand: "npm test -- webhook-replay"
+    }
+  };
+
+  return symptomMap[symptom];
+}
+
+function buildSignatureDiagnosisMarkdown(params: {
+  framework: FrameworkId;
+  symptom: SignatureSymptomId;
+  verification: VerificationState;
+  diagnosis: SignatureDiagnosis;
+}) {
+  const symptom = signatureSymptoms.find((item) => item.id === params.symptom) ?? signatureSymptoms[0];
+  const checks = params.diagnosis.checks.map((check) => `- ${check}`).join("\n");
+
+  return `# Webhook Signature Mismatch Debug Report
+
+Generated by BillingWebhookKit
+${productUrl}
+
+## Symptom
+
+- Framework: ${params.framework}
+- Selected symptom: ${symptom.label}
+- Signal: ${symptom.signal}
+- Browser verifier state: ${params.verification.status.toUpperCase()} - ${params.verification.message}
+
+## Diagnosis
+
+- Severity: ${params.diagnosis.severity}
+- Summary: ${params.diagnosis.summary}
+- Primary fix: ${params.diagnosis.primaryFix}
+
+## Framework Fix
+
+${params.diagnosis.frameworkFix}
+
+## Checks
+
+${checks}
+
+## Regression Test
+
+Run or add a focused signature test:
+
+\`\`\`bash
+${params.diagnosis.testCommand}
+\`\`\`
+
+Keep this report with the webhook route PR. Re-run the verifier after changing middleware, request parsing, deployment secrets, or provider endpoint settings.`;
+}
+
 export function App() {
   const [eventId, setEventId] = useState<EventId>("order_created");
   const [framework, setFramework] = useState<FrameworkId>("next");
@@ -530,6 +718,8 @@ export function App() {
   const [reportCopied, setReportCopied] = useState(false);
   const [replayCopied, setReplayCopied] = useState(false);
   const [matrixCopied, setMatrixCopied] = useState(false);
+  const [diagnosisCopied, setDiagnosisCopied] = useState(false);
+  const [signatureSymptom, setSignatureSymptom] = useState<SignatureSymptomId>("raw_body_changed");
   const [hourlyRate, setHourlyRate] = useState(75);
   const [debugHours, setDebugHours] = useState(4);
   const [billingLaunches, setBillingLaunches] = useState(2);
@@ -653,6 +843,20 @@ Header casing: x-signature / X-Signature`,
     [eventId, payloadInsight]
   );
   const entitlementMatrixMarkdown = useMemo(() => buildEntitlementMatrixMarkdown(), []);
+  const signatureDiagnosis = useMemo(
+    () => buildSignatureDiagnosis(signatureSymptom, framework, verification),
+    [framework, signatureSymptom, verification]
+  );
+  const signatureDiagnosisMarkdown = useMemo(
+    () =>
+      buildSignatureDiagnosisMarkdown({
+        framework,
+        symptom: signatureSymptom,
+        verification,
+        diagnosis: signatureDiagnosis
+      }),
+    [framework, signatureDiagnosis, signatureSymptom, verification]
+  );
   const annualDebugCost = hourlyRate * debugHours * billingLaunches;
   const breakEvenMinutes = hourlyRate > 0 ? (proKitReferenceUsd / hourlyRate) * 60 : 0;
   const estimatedMultiple = proKitReferenceUsd > 0 ? annualDebugCost / proKitReferenceUsd : 0;
@@ -706,6 +910,16 @@ Header casing: x-signature / X-Signature`,
 
   function downloadEntitlementMatrix() {
     downloadText("billing-webhook-entitlement-decision-matrix.md", entitlementMatrixMarkdown, "text/markdown");
+  }
+
+  async function copySignatureDiagnosis() {
+    await copyTextToClipboard(signatureDiagnosisMarkdown);
+    setDiagnosisCopied(true);
+    window.setTimeout(() => setDiagnosisCopied(false), 1400);
+  }
+
+  function downloadSignatureDiagnosis() {
+    downloadText("webhook-signature-mismatch-debug-report.md", signatureDiagnosisMarkdown, "text/markdown");
   }
 
   function loadGeneratedPayloadForVerification() {
@@ -1057,6 +1271,70 @@ Header casing: x-signature / X-Signature`,
               <code>{verifyExpectedSignature || "Computed HMAC will appear here"}</code>
             </pre>
           </div>
+        </div>
+      </section>
+
+      <section className="diagnosis-panel" aria-label="Webhook signature mismatch debugger">
+        <div className="diagnosis-panel__copy">
+          <p className="eyebrow">Mismatch Debugger</p>
+          <h2>Turn a failed signature check into a focused route fix</h2>
+          <p>
+            Pick the symptom closest to your failing webhook route. The debugger combines the
+            browser verifier result with the selected framework to produce a prioritized raw-body,
+            secret, header, middleware, or replay fix.
+          </p>
+          <div className="review-actions">
+            <button type="button" onClick={copySignatureDiagnosis} title="Copy signature debug report">
+              {diagnosisCopied ? <Check size={17} aria-hidden="true" /> : <Clipboard size={17} aria-hidden="true" />}
+              {diagnosisCopied ? "Copied" : "Copy report"}
+            </button>
+            <button type="button" onClick={downloadSignatureDiagnosis} title="Download signature debug report">
+              <Download size={17} aria-hidden="true" />
+              Download .md
+            </button>
+          </div>
+        </div>
+
+        <div className="diagnosis-grid">
+          <label className="diagnosis-select">
+            <span>Failure symptom</span>
+            <select
+              value={signatureSymptom}
+              onChange={(event) => setSignatureSymptom(event.target.value as SignatureSymptomId)}
+            >
+              {signatureSymptoms.map((symptom) => (
+                <option key={symptom.id} value={symptom.id}>
+                  {symptom.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="diagnosis-card diagnosis-card--summary">
+            <span>{signatureDiagnosis.severity}</span>
+            <strong>{signatureDiagnosis.summary}</strong>
+            <p>{signatureSymptoms.find((symptom) => symptom.id === signatureSymptom)?.signal}</p>
+          </div>
+
+          <div className="diagnosis-card">
+            <span>Primary fix</span>
+            <p>{signatureDiagnosis.primaryFix}</p>
+          </div>
+
+          <div className="diagnosis-card">
+            <span>{framework} route fix</span>
+            <p>{signatureDiagnosis.frameworkFix}</p>
+          </div>
+
+          <ul className="diagnosis-checks" aria-label="Signature mismatch checks">
+            {signatureDiagnosis.checks.map((check) => (
+              <li key={check}>{check}</li>
+            ))}
+          </ul>
+
+          <pre className="diagnosis-command" aria-label="Suggested signature regression test">
+            <code>{signatureDiagnosis.testCommand}</code>
+          </pre>
         </div>
       </section>
 

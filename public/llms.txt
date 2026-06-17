@@ -2,7 +2,7 @@
 
 > Browser-only Lemon Squeezy webhook test generator for payment webhook fixtures, raw-body HMAC signature verification, payload inspection, duplicate replay simulation, debugging cost estimates, review report export, cURL replay commands, and framework handlers.
 
-BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, inspects raw webhook bodies for trusted billing fields, recommends idempotency keys, simulates duplicate webhook replays, maps events to entitlement decisions, estimates webhook debugging cost, exports PR-ready Markdown review reports, and does not upload webhook signing secrets.
+BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, debugs signature mismatches, inspects raw webhook bodies for trusted billing fields, recommends idempotency keys, simulates duplicate webhook replays, maps events to entitlement decisions, estimates webhook debugging cost, exports PR-ready Markdown review reports, and does not upload webhook signing secrets.
 
 ## URLs
 
@@ -17,6 +17,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Generate Lemon Squeezy `order_created`, subscription, cancellation, payment success, and license key webhook payloads.
 - Generate and verify HMAC SHA-256 signatures for local webhook tests.
 - Compare received `x-signature` header values against exact raw request bodies.
+- Debug webhook signature mismatches caused by changed raw bodies, wrong endpoint secrets, header format issues, framework body parsers, and cURL replay mistakes.
 - Inspect pasted or generated webhook payloads for event name, object ID, status, amount, customer, target record, and recommended handler action.
 - Extract a stable webhook idempotency key pattern before writing billing side effects.
 - Simulate three duplicate webhook deliveries and export a process-once/skip-duplicate Vitest snippet.
@@ -33,6 +34,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Lemon Squeezy webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
 - Lemon Squeezy signature verification: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
+- Webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - Billing webhook cost calculator: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html

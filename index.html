@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Browser-only Lemon Squeezy webhook test tool for generating payment fixtures, verifying raw-body HMAC signatures, mapping entitlement decisions, simulating duplicate replays, estimating debugging cost, and exporting PR-ready reports."
+      content="Browser-only Lemon Squeezy webhook test tool for generating payment fixtures, verifying raw-body HMAC signatures, debugging signature mismatches, mapping entitlement decisions, simulating duplicate replays, estimating debugging cost, and exporting PR-ready reports."
     />
     <meta
       name="keywords"
-      content="Lemon Squeezy webhook test, webhook signature verifier, raw body signature verification, webhook payload inspector, webhook entitlement decision matrix, duplicate webhook replay, webhook debugging cost calculator, webhook review report, webhook idempotency key, payment webhook fixtures, webhook replay curl, billing webhook CI tests"
+      content="Lemon Squeezy webhook test, webhook signature verifier, webhook signature mismatch, raw body signature verification, webhook payload inspector, webhook entitlement decision matrix, duplicate webhook replay, webhook debugging cost calculator, webhook review report, webhook idempotency key, payment webhook fixtures, webhook replay curl, billing webhook CI tests"
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/" />
@@ -20,7 +20,7 @@
     <meta property="og:title" content="BillingWebhookKit - Lemon Squeezy webhook test generator" />
     <meta
       property="og:description"
-      content="Generate Lemon Squeezy webhook payloads, verify raw-body HMAC signatures, inspect trusted billing fields, simulate duplicate retries, and export review reports in your browser."
+      content="Generate Lemon Squeezy webhook payloads, verify raw-body HMAC signatures, debug signature mismatches, inspect trusted billing fields, simulate duplicate retries, and export review reports in your browser."
     />
     <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
@@ -30,7 +30,7 @@
     <meta name="twitter:title" content="BillingWebhookKit - Lemon Squeezy webhook test generator" />
     <meta
       name="twitter:description"
-      content="Browser-only payment webhook fixture generator, signature verifier, entitlement matrix, duplicate replay simulator, debugging cost calculator, and review report exporter."
+      content="Browser-only payment webhook fixture generator, signature verifier, mismatch debugger, entitlement matrix, duplicate replay simulator, debugging cost calculator, and review report exporter."
     />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <script type="application/ld+json">
@@ -42,10 +42,11 @@
         "operatingSystem": "Web",
         "url": "https://qihaze123.github.io/billing-webhook-kit/",
         "screenshot": "https://qihaze123.github.io/billing-webhook-kit/product-screenshot.png",
-        "description": "Browser-only Lemon Squeezy webhook test tool for generating payment webhook fixtures, verifying raw-body HMAC signatures, inspecting payload fields, mapping entitlement decisions, simulating duplicate replays, estimating debugging cost, exporting review reports, cURL replay commands, and framework handlers.",
+        "description": "Browser-only Lemon Squeezy webhook test tool for generating payment webhook fixtures, verifying raw-body HMAC signatures, debugging signature mismatches, inspecting payload fields, mapping entitlement decisions, simulating duplicate replays, estimating debugging cost, exporting review reports, cURL replay commands, and framework handlers.",
         "featureList": [
           "Lemon Squeezy webhook fixture generation",
           "Raw request body HMAC SHA-256 verification",
+          "Webhook signature mismatch debugging",
           "Payment webhook payload inspection",
           "Recommended webhook idempotency key extraction",
           "Payment webhook entitlement decision matrix",
@@ -73,13 +74,15 @@
         <h1>BillingWebhookKit</h1>
         <p>
           Browser-only Lemon Squeezy webhook test generator for payment payload fixtures, raw-body HMAC
-          signature verification, payload inspection, entitlement decision mapping, duplicate replay simulation,
-          debugging cost estimates, idempotency keys, PR-ready review reports, cURL replay commands, and starter webhook handlers.
+          signature verification, signature mismatch debugging, payload inspection, entitlement decision mapping,
+          duplicate replay simulation, debugging cost estimates, idempotency keys, PR-ready review reports,
+          cURL replay commands, and starter webhook handlers.
         </p>
         <p>
           Guides:
           <a href="/billing-webhook-kit/pro-kit.html">Pro Kit preview</a>,
           <a href="/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html">Lemon Squeezy webhook test</a>,
+          <a href="/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html">webhook signature mismatch debugger</a>,
           <a href="/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html">Lemon Squeezy webhook idempotency</a>,
           <a href="/billing-webhook-kit/guides/payment-webhook-ci-tests.html">payment webhook CI tests</a>,
           <a href="/billing-webhook-kit/guides/billing-webhook-cost-calculator.html">billing webhook cost calculator</a>,
