@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webhook Review Checklist | BillingWebhookKit</title>
+    <meta name="description" content="A PR-ready checklist for reviewing payment webhook routes before billing changes ship." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Review Checklist" />
+    <meta property="og:description" content="A PR-ready checklist for reviewing payment webhook routes before billing changes ship." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Webhook Review Checklist" />
+    <meta name="twitter:description" content="A PR-ready checklist for reviewing payment webhook routes before billing changes ship." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Webhook Review Checklist","description":"A PR-ready checklist for reviewing payment webhook routes before billing changes ship.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What should a webhook PR reviewer check first?","acceptedAnswer":{"@type":"Answer","text":"The signature gate should be first. If raw-body verification is wrong, every downstream billing field is untrusted."}},{"@type":"Question","name":"Why attach a webhook review report?","acceptedAnswer":{"@type":"Answer","text":"A short report makes the route decision auditable and helps future reviewers understand why an event grants access, renews a subscription, or schedules cancellation."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Webhook review checklist</h1>
+      <p class="lead">Before merging billing route changes, reviewers need a compact way to check signature verification, trusted fields, idempotency, and retry behavior.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <section>
+        <h2>Start with the signature gate</h2>
+        <p>Confirm the route reads the exact raw request body, verifies the provider signature, rejects malformed signatures, and only parses business fields after verification succeeds.</p>
+      </section>
+<section>
+        <h2>Inspect trusted billing fields</h2>
+        <p>Record the event name, object ID, customer mapping, payment status, amount, and target entitlement record so the reviewer can see which fields drive side effects.</p>
+      </section>
+<section>
+        <h2>Attach a review report</h2>
+        <p>Include a Markdown report in the pull request or release checklist with the idempotency key, handler decision, and duplicate-retry safety checks.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>What should a webhook PR reviewer check first?</h3>
+          <p>The signature gate should be first. If raw-body verification is wrong, every downstream billing field is untrusted.</p>
+        </div>
+<div class="faq-item">
+          <h3>Why attach a webhook review report?</h3>
+          <p>A short report makes the route decision auditable and helps future reviewers understand why an event grants access, renews a subscription, or schedules cancellation.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

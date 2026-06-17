@@ -56,5 +56,12 @@
       <description>A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.</description>
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>Webhook Review Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</guid>
+      <description>A PR-ready checklist for reviewing payment webhook routes before billing changes ship.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>
