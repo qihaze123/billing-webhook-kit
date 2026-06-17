@@ -354,6 +354,42 @@
         margin-top: 18px;
       }
 
+      .decision-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .decision-item {
+        min-width: 0;
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 16px;
+      }
+
+      .decision-item span {
+        display: block;
+        color: var(--acid);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .decision-item strong {
+        display: block;
+        margin-top: 8px;
+        color: #f8faef;
+        font-size: 1rem;
+        line-height: 1.3;
+      }
+
+      .decision-item p {
+        margin-top: 8px;
+      }
+
       .delivery-step {
         border: 1px solid rgba(248, 250, 239, 0.24);
         border-radius: 8px;
@@ -439,6 +475,7 @@
         .hero,
         .grid,
         .trust-strip,
+        .decision-grid,
         .delivery-grid,
         .checklist,
         .faq,
@@ -500,6 +537,14 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "The free sample shows the structure with a Lemon Squeezy fixture, handler, signature test, contract test, duplicate replay test, review report, and CI skeleton. The Pro Kit expands this into a larger copy-ready package with more provider fixtures, framework handlers, tests, review templates, and launch notes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When is the Pro Kit worth buying instead of using the free sample?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use the free sample if you only need one Lemon Squeezy example. Buy the Pro Kit when you are close to launch and need multiple provider fixtures, framework handlers, duplicate replay tests, contract tests, CI workflow examples, and review templates in one copy-ready package."
             }
           },
           {
@@ -615,6 +660,32 @@
         </article>
       </section>
 
+      <section class="section" aria-label="Pro Kit buying decision">
+        <p class="eyebrow">When It Pays Off</p>
+        <h2>Buy it when the free sample stops being enough</h2>
+        <p>
+          The free sample is enough for a first Lemon Squeezy route. The Pro Kit is aimed at the point where a launch needs
+          repeatable billing checks across provider payloads, framework handlers, retries, and PR review notes.
+        </p>
+        <div class="decision-grid">
+          <article class="decision-item">
+            <span>Launch Risk</span>
+            <strong>You are about to accept real payments.</strong>
+            <p>Use the fixtures and tests to catch signature, mapping, duplicate replay, and entitlement mistakes before checkout opens.</p>
+          </article>
+          <article class="decision-item">
+            <span>Build Time</span>
+            <strong>You do not want to assemble webhook test assets from scratch.</strong>
+            <p>Start from a 29-file package with route templates, CI examples, contract tests, and review documentation already organized.</p>
+          </article>
+          <article class="decision-item">
+            <span>Team Review</span>
+            <strong>You need a pull-request artifact for billing changes.</strong>
+            <p>Attach the included review report templates so future maintainers can see what event, field, and idempotency path grants access.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="section" aria-label="Pro Kit package preview">
         <p class="eyebrow">Package Preview</p>
         <h2>What the download is organized around</h2>
@@ -722,6 +793,10 @@ docs/integration-checklist.md</code></pre>
           <article class="qa">
             <h3>What is different from the free sample?</h3>
             <p>The sample shows the format. The Pro Kit adds more provider fixtures, framework handlers, tests, review templates, and launch notes.</p>
+          </article>
+          <article class="qa">
+            <h3>When should I buy the Pro Kit?</h3>
+            <p>Use the free sample for one route. Buy Pro when you need multiple provider fixtures, handlers, CI tests, duplicate replay checks, and PR review templates together.</p>
           </article>
           <article class="qa">
             <h3>Why is checkout opening soon?</h3>
