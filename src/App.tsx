@@ -38,6 +38,10 @@ const tabs: Array<{ id: OutputTab; label: string; icon: typeof FileJson }> = [
 
 const defaultEndpoint = "https://yourapp.com/api/webhooks/lemonsqueezy";
 
+type CheckoutConfig = {
+  checkoutUrl?: string;
+};
+
 export function App() {
   const [eventId, setEventId] = useState<EventId>("order_created");
   const [framework, setFramework] = useState<FrameworkId>("next");
@@ -46,11 +50,29 @@ export function App() {
   const [endpoint, setEndpoint] = useState(defaultEndpoint);
   const [signature, setSignature] = useState("");
   const [copied, setCopied] = useState(false);
+  const [runtimeCheckoutUrl, setRuntimeCheckoutUrl] = useState("");
 
-  const checkoutUrl = import.meta.env.VITE_LEMON_CHECKOUT_URL || "";
+  const checkoutUrl = runtimeCheckoutUrl || import.meta.env.VITE_LEMON_CHECKOUT_URL || "";
   const selectedEvent = lemonEvents.find((event) => event.id === eventId) ?? lemonEvents[0];
   const payload = useMemo(() => buildLemonPayload(eventId), [eventId]);
   const payloadJson = useMemo(() => asJson(payload), [payload]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch(`${import.meta.env.BASE_URL}checkout.json`, { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((config: CheckoutConfig | null) => {
+        if (!cancelled && config?.checkoutUrl) {
+          setRuntimeCheckoutUrl(config.checkoutUrl);
+        }
+      })
+      .catch(() => undefined);
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -280,4 +302,3 @@ Header casing: x-signature / X-Signature`,
     </main>
   );
 }
-
