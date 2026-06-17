@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BillingWebhookKit Pro - payment webhook fixture pack</title>
+    <meta
+      name="description"
+      content="Preview BillingWebhookKit Pro: copy-ready Lemon Squeezy, Stripe, Paddle, and Polar webhook fixtures, handlers, tests, CI workflow, and launch checklist."
+    />
+    <meta
+      name="keywords"
+      content="payment webhook fixture pack, Lemon Squeezy webhook templates, billing webhook tests, SaaS webhook CI, webhook idempotency checklist"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="product" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="BillingWebhookKit Pro - payment webhook fixture pack" />
+    <meta
+      property="og:description"
+      content="Copy-ready billing webhook fixtures, route handlers, tests, GitHub Actions checks, and integration notes for indie SaaS launches."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BillingWebhookKit Pro - payment webhook fixture pack" />
+    <meta
+      name="twitter:description"
+      content="A CN¥69 digital pack for testing Lemon Squeezy, Stripe, Paddle, and Polar billing webhooks without paid API calls."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1120px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .brand {
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .nav a:not(.brand) {
+        font-weight: 800;
+        text-underline-offset: 3px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        font-size: clamp(2.35rem, 7vw, 5.5rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 760px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.12rem;
+        line-height: 1.65;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .button {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 16px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .button.disabled {
+        opacity: 0.64;
+        box-shadow: none;
+        pointer-events: none;
+      }
+
+      .price-card {
+        display: grid;
+        align-content: start;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.12);
+      }
+
+      .price-card header {
+        padding: 18px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .price {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px;
+      }
+
+      .price strong {
+        font-size: 3.2rem;
+        line-height: 0.9;
+      }
+
+      .price span,
+      .note {
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .price-card ul {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0 20px 20px 36px;
+        line-height: 1.35;
+      }
+
+      .price-card li::marker {
+        color: var(--green);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .tile {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 18px;
+      }
+
+      .tile p,
+      .section p {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .section {
+        margin-top: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 20px;
+      }
+
+      .section p {
+        color: #d9dfcf;
+      }
+
+      .file-tree {
+        margin: 18px 0 0;
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: #0e100d;
+        color: var(--acid);
+        padding: 16px;
+        overflow: auto;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 0.84rem;
+        line-height: 1.7;
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .checklist span {
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 7px;
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.06);
+        font-weight: 800;
+      }
+
+      footer {
+        margin-top: 28px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 820px) {
+        .hero,
+        .grid,
+        .checklist {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "BillingWebhookKit Pro",
+        "description": "A digital pack of payment webhook fixtures, handlers, tests, CI workflow, and launch checklists for indie SaaS billing integrations.",
+        "brand": {
+          "@type": "Brand",
+          "name": "BillingWebhookKit"
+        },
+        "image": "https://qihaze123.github.io/billing-webhook-kit/og-image.png",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/pro-kit.html",
+        "offers": {
+          "@type": "Offer",
+          "price": "69",
+          "priceCurrency": "CNY",
+          "availability": "https://schema.org/PreOrder"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/sitemap.xml">Sitemap</a>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Digital Download</p>
+          <h1>Billing webhook fixtures that save the launch week.</h1>
+          <p class="lead">
+            BillingWebhookKit Pro is a copy-ready pack for small SaaS teams wiring Lemon Squeezy,
+            Stripe, Paddle, or Polar webhooks. It focuses on signature checks, idempotent retries,
+            provider mapping, and CI release gates.
+          </p>
+          <div class="actions">
+            <a id="checkout-link" class="button disabled" href="#" aria-disabled="true">Checkout opening soon</a>
+            <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/">Open free generator</a>
+          </div>
+        </div>
+
+        <aside class="price-card" aria-label="BillingWebhookKit Pro purchase summary">
+          <header>
+            <p class="eyebrow">Launch Price</p>
+            <h2>One-time Pro pack</h2>
+          </header>
+          <div class="price">
+            <span>CN¥</span>
+            <strong>69</strong>
+          </div>
+          <ul>
+            <li>Lemon Squeezy fixture library</li>
+            <li>Stripe, Paddle, and Polar starter events</li>
+            <li>Next.js, Hono, Express, and Workers handlers</li>
+            <li>Vitest signature verification suite</li>
+            <li>GitHub Actions billing webhook workflow</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="grid" aria-label="Who BillingWebhookKit Pro helps">
+        <article class="tile">
+          <h2>Indie SaaS</h2>
+          <p>Validate purchase, renewal, cancellation, license, and failed payment paths before a real customer hits checkout.</p>
+        </article>
+        <article class="tile">
+          <h2>Framework Teams</h2>
+          <p>Drop raw-body webhook handlers into Next.js, Hono, Express, or Cloudflare Workers with provider-specific verification notes.</p>
+        </article>
+        <article class="tile">
+          <h2>Release Checks</h2>
+          <p>Run fixture-driven tests in CI so billing changes fail before entitlements or customer access are affected.</p>
+        </article>
+      </section>
+
+      <section class="section" aria-label="Pro Kit package preview">
+        <p class="eyebrow">Package Preview</p>
+        <h2>What the download is organized around</h2>
+        <p>
+          The pack is not a hosted service and does not call paid APIs. It is a local engineering asset:
+          fixtures, handlers, test helpers, CI workflow, and short integration notes that can be copied into a product repo.
+        </p>
+        <pre class="file-tree"><code>fixtures/
+  lemon/order_created.json
+  lemon/subscription_payment_success.json
+  stripe/checkout_session_completed.json
+  paddle/transaction_completed.json
+  polar/order_paid.json
+src/
+  handlers/next-app-router.ts
+  handlers/hono.ts
+  handlers/express.ts
+  handlers/cloudflare-worker.ts
+tests/
+  lemon-signature.test.ts
+  idempotency-replay.test.ts
+.github/workflows/webhook-checks.yml
+README.md
+integration-checklist.md</code></pre>
+      </section>
+
+      <section class="section" aria-label="Integration checklist">
+        <p class="eyebrow">Launch Checklist</p>
+        <h2>Practical failure modes covered</h2>
+        <div class="checklist">
+          <span>Raw body HMAC verification</span>
+          <span>Duplicate event replay</span>
+          <span>Provider field mapping</span>
+          <span>License and subscription states</span>
+          <span>CI command examples</span>
+          <span>Webhook route hardening notes</span>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit Pro is currently prepared for production checkout activation. Until the live Lemon Squeezy key is connected,
+        this page keeps the public checkout button in a waiting state.
+      </footer>
+    </main>
+
+    <script>
+      fetch("checkout.json", { cache: "no-store" })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((config) => {
+          const link = document.getElementById("checkout-link");
+          if (!link || !config || !config.checkoutUrl) return;
+          link.href = config.checkoutUrl;
+          link.textContent = "Buy BillingWebhookKit Pro";
+          link.classList.remove("disabled");
+          link.removeAttribute("aria-disabled");
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noreferrer");
+        })
+        .catch(() => undefined);
+    </script>
+  </body>
+</html>

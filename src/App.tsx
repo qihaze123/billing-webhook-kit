@@ -160,8 +160,8 @@ Header casing: x-signature / X-Signature`,
           <h1>BillingWebhookKit</h1>
         </div>
         <div className="topbar__actions">
-          <a className="ghost-link" href="#pro-kit">
-            Pro Kit
+          <a className="ghost-link" href="pro-kit.html">
+            Pro Kit preview
           </a>
           {checkoutUrl ? (
             <a className="buy-button" href={checkoutUrl} target="_blank" rel="noreferrer">
@@ -325,6 +325,10 @@ Header casing: x-signature / X-Signature`,
             </button>
           )}
 
+          <a className="wide-cta wide-cta--secondary" href="pro-kit.html">
+            Preview contents
+          </a>
+
           <div className="trust-row">
             <span>Browser-only generator</span>
             <span>No account required</span>
@@ -345,6 +349,9 @@ Header casing: x-signature / X-Signature`,
               <span key={signal}>{signal}</span>
             ))}
           </div>
+          <a className="inline-cta" href="pro-kit.html">
+            View the Pro Kit package preview
+          </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">
           <code>{proArtifacts.join("\n")}</code>

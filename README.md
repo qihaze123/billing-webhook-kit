@@ -27,6 +27,8 @@ The paid Pro Kit launch price is CN¥69 and adds copy-ready billing webhook asse
 - GitHub Actions billing webhook CI checks
 - Integration checklist and replay notes
 
+Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+
 ## Guides
 
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
