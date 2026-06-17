@@ -1,6 +1,6 @@
 # BillingWebhookKit
 
-Browser-only payment webhook fixture generator for SaaS billing integrations.
+Browser-only payment webhook fixture generator and signature verifier for SaaS billing integrations.
 
 Live tool: https://qihaze123.github.io/billing-webhook-kit/
 
@@ -8,12 +8,13 @@ Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
-The free tool generates Lemon Squeezy webhook payloads, HMAC signatures, cURL replay commands, and starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
+The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
 
 ## What It Helps Test
 
 - Lemon Squeezy `order_created` and subscription events
 - HMAC SHA-256 webhook signature verification
+- Received `x-signature` headers against exact raw request bodies
 - cURL webhook replay into local, tunnel, staging, or CI routes
 - Next.js, Hono, and Express raw-body handler patterns
 - Billing webhook idempotency and retry behavior

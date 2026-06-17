@@ -1,8 +1,8 @@
 # BillingWebhookKit
 
-> Browser-only Lemon Squeezy webhook test generator for payment webhook fixtures, HMAC signatures, cURL replay commands, and framework handlers.
+> Browser-only Lemon Squeezy webhook test generator for payment webhook fixtures, HMAC signature verification, cURL replay commands, and framework handlers.
 
-BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser and does not upload webhook signing secrets.
+BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, and does not upload webhook signing secrets.
 
 ## URLs
 
@@ -15,7 +15,8 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 ## Core Use Cases
 
 - Generate Lemon Squeezy `order_created`, subscription, cancellation, payment success, and license key webhook payloads.
-- Generate HMAC SHA-256 signatures for local webhook tests.
+- Generate and verify HMAC SHA-256 signatures for local webhook tests.
+- Compare received `x-signature` header values against exact raw request bodies.
 - Generate cURL replay commands for local, tunnel, staging, and CI routes.
 - Copy starter webhook handlers for Next.js, Hono, and Express.
 - Learn billing webhook idempotency and CI test patterns.
