@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stripe Webhook Fixture Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate fake Stripe webhook fixtures, Stripe-Signature headers, cURL replay commands, and contract test notes in your browser. No backend, no Stripe account, no uploaded secrets."
+    />
+    <meta
+      name="keywords"
+      content="Stripe webhook fixture generator, Stripe-Signature generator, Stripe webhook test payload, checkout.session.completed fixture, invoice.paid webhook test"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Stripe Webhook Fixture Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only fake Stripe webhook payload, Stripe-Signature header, and cURL replay generator for local billing tests."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stripe Webhook Fixture Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate fake Stripe webhook fixtures, Stripe-Signature headers, and cURL replay commands locally."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Stripe Webhook Fixture Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only fake Stripe webhook payload, Stripe-Signature header, and cURL replay generator."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Stripe Webhook Fixture Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1280px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .stat span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1030px;
+        font-size: clamp(2.25rem, 7vw, 5.4rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      .lead {
+        max-width: 830px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr) minmax(290px, 360px);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result,
+      .side-body {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 245px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.86rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 13px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .signature-card {
+        display: grid;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        padding: 16px;
+      }
+
+      .signature-card strong {
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      .signature-card p {
+        color: #d9dfcf;
+        line-height: 1.55;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tab {
+        min-height: 36px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--panel);
+        padding: 0 11px;
+        font-weight: 850;
+      }
+
+      .tab[aria-pressed="true"] {
+        background: var(--acid);
+      }
+
+      pre {
+        min-height: 360px;
+        max-height: 560px;
+        margin: 0;
+        overflow: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+        color: var(--ink);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 7px;
+        overflow-wrap: anywhere;
+        line-height: 1.25;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-list a {
+        display: block;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 12px;
+        font-weight: 850;
+        text-decoration: none;
+        line-height: 1.3;
+      }
+
+      .link-list span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 1040px) {
+        .workbench {
+          grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+        }
+
+        .side {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .workbench,
+        .stat-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1280px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html">Stripe guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Stripe webhook test tool</p>
+      <h1>Generate fake Stripe webhook fixtures without a Stripe account.</h1>
+      <p class="lead">
+        Build checkout, invoice, subscription, and payment intent fixtures with local Stripe-Signature headers, cURL replay commands, and contract test notes. Everything runs in the browser.
+      </p>
+
+      <section class="workbench" aria-label="Stripe webhook fixture generator">
+        <article class="panel">
+          <header>
+            <h2>Fixture controls</h2>
+            <p>event + object + route</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Stripe event</span>
+              <select id="eventType">
+                <option value="checkout.session.completed">checkout.session.completed</option>
+                <option value="invoice.paid">invoice.paid</option>
+                <option value="customer.subscription.deleted">customer.subscription.deleted</option>
+                <option value="payment_intent.succeeded">payment_intent.succeeded</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Signing secret</span>
+              <input id="secret" value="stripe_webhook_test_secret" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Endpoint URL</span>
+              <input id="endpoint" value="http://localhost:3000/api/webhooks/stripe" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Customer email</span>
+              <input id="email" value="buyer@example.com" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Amount</span>
+              <input id="amount" type="number" min="100" step="100" value="6900" />
+            </label>
+            <label class="field">
+              <span>Currency</span>
+              <select id="currency">
+                <option value="cny">CNY</option>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button class="button" type="button" id="copyOutput">Copy current tab</button>
+              <button class="button secondary" type="button" id="downloadPayload">Download payload</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Generated fixture</h2>
+            <p>payload, signature, replay, test note</p>
+          </header>
+          <div class="result">
+            <div class="tabs" aria-label="Output tabs">
+              <button class="tab" type="button" data-tab="payload" aria-pressed="true">Payload</button>
+              <button class="tab" type="button" data-tab="signature" aria-pressed="false">Signature</button>
+              <button class="tab" type="button" data-tab="curl" aria-pressed="false">cURL</button>
+              <button class="tab" type="button" data-tab="test" aria-pressed="false">Test note</button>
+            </div>
+            <pre id="output"></pre>
+          </div>
+        </article>
+
+        <aside class="panel side">
+          <header>
+            <h2>Safety and upgrade path</h2>
+            <p>local-only fixture work</p>
+          </header>
+          <div class="side-body">
+            <div class="signature-card">
+              <span class="output-label">Stripe-Signature header</span>
+              <strong id="signaturePreview"></strong>
+              <p>Generated from `timestamp.payload` with HMAC SHA-256 in Web Crypto. Use only fake payloads and fake endpoint secrets here.</p>
+            </div>
+            <div class="stat-grid">
+              <div class="stat">
+                <span>Privacy</span>
+                <strong>No account login or uploaded secrets</strong>
+              </div>
+              <div class="stat">
+                <span>Cost</span>
+                <strong>No Stripe API calls</strong>
+              </div>
+              <div class="stat">
+                <span>Use case</span>
+                <strong>Local billing route tests</strong>
+              </div>
+              <div class="stat">
+                <span>Package</span>
+                <strong>Free sample plus CNY 69 Pro Kit preview</strong>
+              </div>
+            </div>
+            <div class="link-list">
+              <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+                Download the free sample
+                <span>Inspect the package format before checkout is live.</span>
+              </a>
+              <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+                Preview the CNY 69 Pro Kit
+                <span>Review the 29-file package, 12 tests, provider fixtures, and launch runbooks.</span>
+              </a>
+              <a href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">
+                Generate idempotency keys
+                <span>Pair this fixture with retry-safe payment side effects.</span>
+              </a>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        eventType: document.getElementById("eventType"),
+        secret: document.getElementById("secret"),
+        endpoint: document.getElementById("endpoint"),
+        email: document.getElementById("email"),
+        amount: document.getElementById("amount"),
+        currency: document.getElementById("currency")
+      };
+      const output = document.getElementById("output");
+      const signaturePreview = document.getElementById("signaturePreview");
+      const tabs = [...document.querySelectorAll("[data-tab]")];
+      let activeTab = "payload";
+      let state = { payload: "", signature: "", curl: "", test: "" };
+
+      const encoder = new TextEncoder();
+
+      function stableId(prefix) {
+        return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+      }
+
+      function amountValue() {
+        const value = Number(fields.amount.value);
+        return Number.isFinite(value) && value > 0 ? Math.round(value) : 6900;
+      }
+
+      function baseObject() {
+        const amount = amountValue();
+        const currency = fields.currency.value;
+        return {
+          customer: "cus_test_billingwebhookkit",
+          customer_email: fields.email.value.trim() || "buyer@example.com",
+          currency,
+          amount_total: amount,
+          amount_paid: amount,
+          metadata: {
+            source: "billingwebhookkit",
+            fixture: "fake_data_only"
+          }
+        };
+      }
+
+      function buildStripeFixture() {
+        const eventType = fields.eventType.value;
+        const base = baseObject();
+        let object;
+
+        if (eventType === "invoice.paid") {
+          object = {
+            id: "in_test_1042",
+            object: "invoice",
+            customer: base.customer,
+            customer_email: base.customer_email,
+            currency: base.currency,
+            amount_paid: base.amount_paid,
+            billing_reason: "subscription_cycle",
+            subscription: "sub_test_1042",
+            status: "paid",
+            hosted_invoice_url: "https://example.com/fake-invoice",
+            metadata: base.metadata
+          };
+        } else if (eventType === "customer.subscription.deleted") {
+          object = {
+            id: "sub_test_1042",
+            object: "subscription",
+            customer: base.customer,
+            status: "canceled",
+            cancel_at_period_end: false,
+            current_period_end: 1798761600,
+            metadata: base.metadata
+          };
+        } else if (eventType === "payment_intent.succeeded") {
+          object = {
+            id: "pi_test_1042",
+            object: "payment_intent",
+            customer: base.customer,
+            receipt_email: base.customer_email,
+            currency: base.currency,
+            amount: base.amount_total,
+            status: "succeeded",
+            metadata: base.metadata
+          };
+        } else {
+          object = {
+            id: "cs_test_1042",
+            object: "checkout.session",
+            customer: base.customer,
+            customer_email: base.customer_email,
+            currency: base.currency,
+            amount_total: base.amount_total,
+            mode: "payment",
+            payment_status: "paid",
+            status: "complete",
+            metadata: base.metadata
+          };
+        }
+
+        return {
+          id: stableId("evt_test"),
+          object: "event",
+          api_version: "2025-10-29.clover",
+          created: Math.floor(Date.now() / 1000),
+          livemode: false,
+          pending_webhooks: 1,
+          request: {
+            id: null,
+            idempotency_key: null
+          },
+          type: eventType,
+          data: {
+            object
+          }
+        };
+      }
+
+      async function hmacSha256Hex(secret, message) {
+        const key = await crypto.subtle.importKey(
+          "raw",
+          encoder.encode(secret),
+          { name: "HMAC", hash: "SHA-256" },
+          false,
+          ["sign"]
+        );
+        const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(message));
+        return [...new Uint8Array(signature)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      function shellQuote(value) {
+        return `'${String(value).replace(/'/g, "'\\''")}'`;
+      }
+
+      function buildCurl(payload, signatureHeader) {
+        return `curl -X POST ${shellQuote(fields.endpoint.value.trim() || "http://localhost:3000/api/webhooks/stripe")} \\
+  -H 'content-type: application/json' \\
+  -H ${shellQuote(`Stripe-Signature: ${signatureHeader}`)} \\
+  --data-raw ${shellQuote(payload)}`;
+      }
+
+      function buildTestNote(payloadJson, signatureHeader) {
+        const event = JSON.parse(payloadJson);
+        const object = event.data.object;
+        const idempotencyKey = `stripe:${event.type}:${object.object}:${object.id}`;
+        return `# Stripe Webhook Fixture Review
+
+Generated by BillingWebhookKit
+https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html
+
+## Fixture
+
+- Event: ${event.type}
+- Object: ${object.object}:${object.id}
+- Customer: ${object.customer || "not_present"}
+- Status: ${object.status || object.payment_status || "not_present"}
+- Amount: ${object.amount_total || object.amount_paid || object.amount || "not_present"} ${object.currency || "not_present"}
+- Recommended idempotency key: ${idempotencyKey}
+
+## Signature Header
+
+${signatureHeader}
+
+## Release Checks
+
+- Verify the exact raw body before JSON parsing.
+- Persist the idempotency key before sending email, granting access, or writing entitlement state.
+- Replay this payload at least three times and expect one side effect.
+- Keep this fixture fake; do not paste production customer payloads into public logs or issues.`;
+      }
+
+      async function render() {
+        const fixture = buildStripeFixture();
+        const payload = JSON.stringify(fixture, null, 2);
+        const timestamp = Math.floor(Date.now() / 1000);
+        const digest = await hmacSha256Hex(fields.secret.value || "stripe_webhook_test_secret", `${timestamp}.${payload}`);
+        const signatureHeader = `t=${timestamp},v1=${digest}`;
+        state = {
+          payload,
+          signature: signatureHeader,
+          curl: buildCurl(payload, signatureHeader),
+          test: buildTestNote(payload, signatureHeader)
+        };
+        signaturePreview.textContent = signatureHeader;
+        output.textContent = state[activeTab];
+      }
+
+      async function copyText(value) {
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(value);
+            return;
+          } catch {
+            // Fall back for restricted preview browsers.
+          }
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.append(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      Object.values(fields).forEach((field) => {
+        field.addEventListener("input", render);
+        field.addEventListener("change", render);
+      });
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          activeTab = tab.dataset.tab;
+          tabs.forEach((item) => item.setAttribute("aria-pressed", String(item === tab)));
+          output.textContent = state[activeTab];
+        });
+      });
+
+      document.getElementById("copyOutput").addEventListener("click", async () => {
+        await copyText(output.textContent || "");
+        document.getElementById("copyOutput").textContent = "Copied";
+        setTimeout(() => {
+          document.getElementById("copyOutput").textContent = "Copy current tab";
+        }, 1200);
+      });
+
+      document.getElementById("downloadPayload").addEventListener("click", () => {
+        const blob = new Blob([state.payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "stripe-webhook-fixture.json";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

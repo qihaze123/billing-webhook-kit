@@ -29,6 +29,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Stripe Webhook Fixture Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html</guid>
+      <description>Generate fake Stripe webhook fixtures, Stripe-Signature headers, cURL replay commands, and contract test notes in the browser.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Test Lemon Squeezy Webhooks Locally</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</guid>

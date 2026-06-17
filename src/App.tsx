@@ -1389,6 +1389,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/webhook-idempotency-key-generator.html">
             Idempotency
           </a>
+          <a className="ghost-link" href="tools/stripe-webhook-fixture-generator.html">
+            Stripe
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -2234,6 +2237,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/webhook-idempotency-key-generator.html">
             Generate standalone idempotency keys
+          </a>
+          <a className="inline-cta" href="tools/stripe-webhook-fixture-generator.html">
+            Generate standalone Stripe fixtures
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">
