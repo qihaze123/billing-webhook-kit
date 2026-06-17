@@ -22,6 +22,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
   `${siteUrl}/guides/lemon-squeezy-order-created-fixture.html`,
+  `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
 
@@ -112,6 +113,7 @@ const [
   costCalculator,
   readinessScorecard,
   guideIndex,
+  stripeNextjsGuide,
   sitemap,
   robots,
   llms,
@@ -133,6 +135,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/guides/`),
+  fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
   fetchText(`${siteUrl}/llms.txt`),
@@ -173,11 +176,14 @@ const issues = [
     ? []
     : [`readiness scorecard page returned HTTP ${readinessScorecard.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
+  ...(stripeNextjsGuide.ok
+    ? []
+    : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 48 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 48.`]),
+  ...(sitemapUrls.length >= 49 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 49.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -215,6 +221,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`)
     ? []
     : ["llms.txt is missing the standalone launch readiness scorecard URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
+    ? []
+    : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -300,6 +309,12 @@ const issues = [
   readinessScorecard.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["readiness scorecard page is missing scorecard copy, report copy, or conversion links."]),
+  ...(stripeNextjsGuide.text.includes("Stripe webhook signature verification in Next.js") &&
+  stripeNextjsGuide.text.includes("request.text()") &&
+  stripeNextjsGuide.text.includes("Stripe-Signature") &&
+  stripeNextjsGuide.text.includes("View Pro Kit preview")
+    ? []
+    : ["Stripe Next.js signature guide is missing raw-body copy, Stripe signature copy, or conversion links."]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -351,6 +366,7 @@ const result = {
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
+    stripeNextjsGuide: stripeNextjsGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,

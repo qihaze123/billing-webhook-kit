@@ -22,38 +22,73 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy x-signature Verifier</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html</guid>
+      <description>Check a Lemon Squeezy raw body and received x-signature header locally in the browser.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lemon Squeezy Webhook Payload Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html</guid>
+      <description>Generate fake Lemon Squeezy webhook payloads, local HMAC signatures, and cURL replay commands.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Webhook Signature Mismatch Debugger</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html</guid>
+      <description>Diagnose raw-body mutation, signature header, wrong secret, JSON reserialization, CRLF, and parser mismatch causes.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Webhook Idempotency Key Generator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html</guid>
-      <description>Generate stable payment webhook idempotency keys, SQL constraints, handler guards, review notes, and duplicate replay tests in the browser.</description>
+      <description>Generate stable payment webhook idempotency keys, SQL constraints, handler guards, and duplicate replay tests.</description>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Stripe Webhook Fixture Generator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html</guid>
-      <description>Generate fake Stripe webhook fixtures, Stripe-Signature headers, cURL replay commands, and contract test notes in the browser.</description>
+      <description>Generate fake Stripe webhook fixtures, Stripe-Signature headers, cURL replay commands, and contract test notes.</description>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Webhook Replay cURL Generator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html</guid>
-      <description>Generate replayable cURL commands, provider signature headers, and duplicate delivery checks for payment webhook routes.</description>
+      <description>Generate replayable cURL commands, provider signature headers, and duplicate delivery checks.</description>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Next.js Webhook Handler Generator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html</guid>
-      <description>Generate Next.js App Router payment webhook handlers with raw-body signature verification, idempotency guards, env notes, and replay tests.</description>
+      <description>Generate Next.js App Router payment webhook handlers with raw-body signature verification and idempotency notes.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Webhook Entitlement Decision Matrix</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html</guid>
+      <description>Map payment webhook events to access grants, renewals, cancellations, failed-payment holds, and quarantine rules.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Billing Webhook Debug Cost Calculator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html</guid>
+      <description>Estimate avoidable billing webhook debugging cost and compare it with the CNY 69 Pro Kit reference price.</description>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Billing Webhook Launch Readiness Scorecard</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html</guid>
-      <description>Score payment webhook launch readiness across raw-body signatures, idempotency, replay tests, fixtures, entitlement rules, CI, and monitoring.</description>
+      <description>Score billing webhook launch readiness and export a PR-ready Markdown release report.</description>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
@@ -117,6 +152,13 @@
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html</guid>
       <description>Use payment webhook fixtures to test checkout.session.completed and invoice.paid flows before launch.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Stripe Webhook Signature Verification in Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html</guid>
+      <description>Verify Stripe webhook signatures in Next.js App Router with raw request bodies, signed fixtures, duplicate replay tests, and CI release gates.</description>
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>

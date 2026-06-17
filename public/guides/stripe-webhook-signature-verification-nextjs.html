@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Next.js Billing Webhook Test Suite | BillingWebhookKit</title>
-    <meta name="description" content="Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks." />
+    <title>Stripe Webhook Signature Verification in Next.js | BillingWebhookKit</title>
+    <meta name="description" content="Verify Stripe webhook signatures in Next.js App Router with raw request bodies, signed fixtures, duplicate replay tests, and CI release gates." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html" />
     <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
     <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="BillingWebhookKit" />
-    <meta property="og:title" content="Next.js Billing Webhook Test Suite" />
-    <meta property="og:description" content="Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks." />
-    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html" />
+    <meta property="og:title" content="Stripe Webhook Signature Verification in Next.js" />
+    <meta property="og:description" content="Verify Stripe webhook signatures in Next.js App Router with raw request bodies, signed fixtures, duplicate replay tests, and CI release gates." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Next.js Billing Webhook Test Suite" />
-    <meta name="twitter:description" content="Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks." />
+    <meta name="twitter:title" content="Stripe Webhook Signature Verification in Next.js" />
+    <meta name="twitter:description" content="Verify Stripe webhook signatures in Next.js App Router with raw request bodies, signed fixtures, duplicate replay tests, and CI release gates." />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
@@ -52,37 +52,41 @@
       @media (max-width: 720px) { .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Next.js Billing Webhook Test Suite","description":"Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html"}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Next.js App Router verify Lemon Squeezy webhooks?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use request.text() to preserve the raw body, compute HMAC SHA-256, and compare it before parsing."}},{"@type":"Question","name":"Should webhook tests mock the provider API?","acceptedAnswer":{"@type":"Answer","text":"Handler tests usually should not call provider APIs. Use local fixtures for route behavior and separate live checkout checks for provider configuration."}}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Next.js Billing Webhook Test Suite","item":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Stripe Webhook Signature Verification in Next.js","description":"Verify Stripe webhook signatures in Next.js App Router with raw request bodies, signed fixtures, duplicate replay tests, and CI release gates.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does Stripe webhook verification fail in Next.js?","acceptedAnswer":{"@type":"Answer","text":"The common cause is parsing or reserializing the request body before verification. The HMAC must be computed from the exact raw body that Stripe signed."}},{"@type":"Question","name":"Do local Stripe signature tests need a live Stripe account?","acceptedAnswer":{"@type":"Answer","text":"No. You can use fake JSON fixtures and fake signing secrets for route tests, then run a separate provider checkout smoke test before production launch."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Stripe Webhook Signature Verification in Next.js","item":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html"}]}</script>
   </head>
   <body>
     <main>
       <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
-      <h1>Next.js billing webhook test suite</h1>
-      <p class="lead">Next.js App Router webhook handlers need tests that protect raw-body signing and subscription state changes.</p>
+      <h1>Stripe webhook signature verification in Next.js</h1>
+      <p class="lead">Next.js teams often lose Stripe signature verification when a route parses JSON before checking the raw request body.</p>
       <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
       <section>
-        <h2>Read request.text once</h2>
-        <p>A Next.js handler should read the raw request body, verify the provider signature, then parse JSON only after verification succeeds.</p>
+        <h2>Read the raw body first</h2>
+        <p>In an App Router webhook route, read await request.text() and pass that exact string into signature verification before calling JSON.parse.</p>
       </section>
 <section>
-        <h2>Replay duplicate events</h2>
-        <p>Run the same signed payload twice and assert that account access, emails, and billing records are created once.</p>
+        <h2>Keep signed Stripe fixtures</h2>
+        <p>Store fake checkout.session.completed and invoice.paid payloads with test Stripe-Signature headers so CI protects the raw-body behavior.</p>
       </section>
 <section>
-        <h2>Cover unsupported events</h2>
-        <p>Return a clean 200 or 204 for known-but-unhandled events only after signature verification, and alert on events your billing model expects.</p>
+        <h2>Replay duplicates safely</h2>
+        <p>Run the same signed event multiple times and assert that access grants, subscription updates, invoices, and emails happen once.</p>
+      </section>
+<section>
+        <h2>Separate provider verification</h2>
+        <p>Verify Stripe's signature before normalizing the event into your internal billing model, just as you would keep Lemon Squeezy, Paddle, and Polar verification separate.</p>
       </section>
       <section class="faq">
         <h2>FAQ</h2>
         <div class="faq-item">
-          <h3>Can Next.js App Router verify Lemon Squeezy webhooks?</h3>
-          <p>Yes. Use request.text() to preserve the raw body, compute HMAC SHA-256, and compare it before parsing.</p>
+          <h3>Why does Stripe webhook verification fail in Next.js?</h3>
+          <p>The common cause is parsing or reserializing the request body before verification. The HMAC must be computed from the exact raw body that Stripe signed.</p>
         </div>
 <div class="faq-item">
-          <h3>Should webhook tests mock the provider API?</h3>
-          <p>Handler tests usually should not call provider APIs. Use local fixtures for route behavior and separate live checkout checks for provider configuration.</p>
+          <h3>Do local Stripe signature tests need a live Stripe account?</h3>
+          <p>No. You can use fake JSON fixtures and fake signing secrets for route tests, then run a separate provider checkout smoke test before production launch.</p>
         </div>
       </section>
       <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
@@ -111,11 +115,7 @@
             <strong>All payment webhook guides</strong>
             <span>Browse the full BillingWebhookKit guide index.</span>
           </a>
-          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html">
-            <strong>Stripe Webhook Signature Verification in Next.js</strong>
-            <span>Verify Stripe webhook signatures in Next.js App Router with raw request bodies, signed fixtures, duplicate replay tests, and CI release gates.</span>
-          </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
             <strong>Next.js Lemon Squeezy Webhook Handler</strong>
             <span>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</span>
           </a>
@@ -123,9 +123,13 @@
             <strong>Lemon Squeezy Webhook Raw Body in Next.js</strong>
             <span>Fix Lemon Squeezy webhook signature checks in Next.js by verifying the exact raw request body before JSON parsing.</span>
           </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html">
-            <strong>Payment Webhook Test Generator</strong>
-            <span>Generate payment webhook payloads, signatures, cURL replay commands, and framework handler examples for SaaS billing tests.</span>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html">
+            <strong>Next.js Billing Webhook Test Suite</strong>
+            <span>Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html">
+            <strong>Stripe Webhook Fixture Generator</strong>
+            <span>Use payment webhook fixtures to test checkout.session.completed and invoice.paid flows before launch.</span>
           </a>
         </div>
       </section>
