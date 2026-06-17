@@ -6,6 +6,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/`,
   `${siteUrl}/free-sample.html`,
   `${siteUrl}/pro-kit.html`,
+  `${siteUrl}/delivery-refund-support.html`,
   `${siteUrl}/status.html`,
   `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
@@ -104,6 +105,7 @@ function checkoutState(checkout) {
 const [
   home,
   proKit,
+  deliverySupport,
   freeSample,
   statusPage,
   toolIndex,
@@ -131,6 +133,7 @@ const [
 ] = await Promise.all([
   fetchText(`${siteUrl}/`),
   fetchText(`${siteUrl}/pro-kit.html`),
+  fetchText(`${siteUrl}/delivery-refund-support.html`),
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
   fetchText(`${siteUrl}/tools/`),
@@ -163,6 +166,7 @@ const sitemapUrls = [...sitemap.text.matchAll(/<loc>(.*?)<\/loc>/g)].map((match)
 const issues = [
   ...(home.ok ? [] : [`homepage returned HTTP ${home.status ?? "failed"}.`]),
   ...(proKit.ok ? [] : [`pro-kit page returned HTTP ${proKit.status ?? "failed"}.`]),
+  ...(deliverySupport.ok ? [] : [`delivery support page returned HTTP ${deliverySupport.status ?? "failed"}.`]),
   ...(freeSample.ok ? [] : [`free sample page returned HTTP ${freeSample.status ?? "failed"}.`]),
   ...(statusPage.ok ? [] : [`status page returned HTTP ${statusPage.status ?? "failed"}.`]),
   ...(toolIndex.ok ? [] : [`tool index page returned HTTP ${toolIndex.status ?? "failed"}.`]),
@@ -213,12 +217,15 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 54 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 54.`]),
+  ...(sitemapUrls.length >= 55 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 55.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
   ...(robots.text.includes(`Sitemap: ${siteUrl}/sitemap.xml`) ? [] : ["robots.txt is missing the sitemap directive."]),
   ...(llms.text.includes(`${siteUrl}/pro-kit.html`) ? [] : ["llms.txt is missing the Pro Kit URL."]),
+  ...(llms.text.includes(`${siteUrl}/delivery-refund-support.html`)
+    ? []
+    : ["llms.txt is missing the delivery, refund, and support policy URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/`) ? [] : ["llms.txt is missing the tool index URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`)
@@ -274,10 +281,21 @@ const issues = [
     : ["llms.txt is missing the public Site Health Check signal."]),
   ...(statusPage.text.includes("Checkout, package, and crawlability signals in one place.") &&
   statusPage.text.includes("pro-kit-manifest.json") &&
+  statusPage.text.includes("delivery-refund-support.html") &&
   statusPage.text.includes("sitemap.xml") &&
   statusPage.text.includes("Search Console")
     ? []
-    : ["status page is missing checkout, manifest, sitemap, or Search Console signals."]),
+    : ["status page is missing checkout, manifest, delivery support, sitemap, or Search Console signals."]),
+  ...(deliverySupport.text.includes("Delivery, refund, and support details before checkout.") &&
+  deliverySupport.text.includes("Private ZIP after live checkout") &&
+  deliverySupport.text.includes("Public manifest and SHA-256") &&
+  deliverySupport.text.includes("Refund Triggers") &&
+  deliverySupport.text.includes("No live secrets or customer data in public issues") &&
+  deliverySupport.text.includes("pro-kit.html") &&
+  deliverySupport.text.includes("free-sample.html") &&
+  deliverySupport.text.includes("status.html")
+    ? []
+    : ["delivery support page is missing buyer assurance, verification, refund, safety, or conversion links."]),
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
   toolIndex.text.includes("Checkout launch decision tools") &&
   toolIndex.text.includes("Launch lane") &&
@@ -396,6 +414,9 @@ const issues = [
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
+  ...(home.text.includes("delivery-refund-support.html")
+    ? []
+    : ["homepage is missing the delivery, refund, and support policy link."]),
   ...(home.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   home.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
   home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html")
@@ -404,6 +425,10 @@ const issues = [
   ...(proKit.text.includes("Buy it when the free sample stops being enough")
     ? []
     : ["Pro Kit page is missing the buying-decision section."]),
+  ...(proKit.text.includes("delivery-refund-support.html") &&
+  proKit.text.includes("support and refund")
+    ? []
+    : ["Pro Kit page is missing delivery, support, or refund policy links."]),
   ...(proKit.text.includes("Checkout Launch Gates") &&
   proKit.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   proKit.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -431,9 +456,10 @@ const issues = [
     : ["Pro Kit page exposes fewer than 7 FAQ schema questions."]),
   ...(freeSample.text.includes("Free sample to Pro Kit upgrade path") &&
   freeSample.text.includes("pro-kit.html") &&
-  freeSample.text.includes("pro-kit-manifest.json")
+  freeSample.text.includes("pro-kit-manifest.json") &&
+  freeSample.text.includes("delivery-refund-support.html")
     ? []
-    : ["Free sample page is missing the Pro Kit upgrade path or verification links."]),
+    : ["Free sample page is missing the Pro Kit upgrade path, delivery policy, or verification links."]),
   ...(freeSample.text.includes("Launch gates that point to the Pro Kit") &&
   freeSample.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   freeSample.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -451,6 +477,7 @@ const result = {
   pages: {
     home: home.status,
     proKit: proKit.status,
+    deliverySupport: deliverySupport.status,
     freeSample: freeSample.status,
     statusPage: statusPage.status,
     toolIndex: toolIndex.status,

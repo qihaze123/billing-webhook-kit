@@ -8,6 +8,7 @@ const manifestPath = join(publicDir, "pro-kit-manifest.json");
 const freeSampleZipPath = join(publicDir, "billing-webhook-kit-free-sample.zip");
 const freeSamplePath = join(publicDir, "free-sample.html");
 const proKitPath = join(publicDir, "pro-kit.html");
+const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
 const statusPath = join(publicDir, "status.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
@@ -36,6 +37,7 @@ if (!existsSync(manifestPath)) issues.push("Missing public/pro-kit-manifest.json
 if (!existsSync(freeSampleZipPath)) issues.push("Missing public/billing-webhook-kit-free-sample.zip.");
 if (!existsSync(freeSamplePath)) issues.push("Missing public/free-sample.html.");
 if (!existsSync(proKitPath)) issues.push("Missing public/pro-kit.html.");
+if (!existsSync(deliverySupportPath)) issues.push("Missing public/delivery-refund-support.html.");
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
 if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
@@ -46,6 +48,7 @@ const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
 const checkout = existsSync(checkoutPath) ? readJson(checkoutPath) : null;
 const freeSampleHtml = existsSync(freeSamplePath) ? readFileSync(freeSamplePath, "utf8") : "";
 const proKitHtml = existsSync(proKitPath) ? readFileSync(proKitPath, "utf8") : "";
+const deliverySupportHtml = existsSync(deliverySupportPath) ? readFileSync(deliverySupportPath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
@@ -107,8 +110,12 @@ if (checkout) {
 if (!freeSampleHtml.includes("billing-webhook-kit-free-sample.zip")) {
   issues.push("Free sample page does not link the public sample ZIP.");
 }
-if (!freeSampleHtml.includes("pro-kit.html") || !freeSampleHtml.includes("pro-kit-manifest.json")) {
-  issues.push("Free sample page does not link the Pro Kit preview and manifest.");
+if (
+  !freeSampleHtml.includes("pro-kit.html") ||
+  !freeSampleHtml.includes("pro-kit-manifest.json") ||
+  !freeSampleHtml.includes("delivery-refund-support.html")
+) {
+  issues.push("Free sample page does not link the Pro Kit preview, manifest, and delivery policy.");
 }
 if (
   !freeSampleHtml.includes("lemon-squeezy-checkout-smoke-test.html") ||
@@ -121,8 +128,23 @@ if (
 if (!proKitHtml.includes("pro-kit-manifest.json")) {
   issues.push("Pro Kit page does not link the public manifest.");
 }
+if (!proKitHtml.includes("delivery-refund-support.html") || !proKitHtml.includes("support and refund")) {
+  issues.push("Pro Kit page does not link delivery, support, or refund policy details.");
+}
 if (!proKitHtml.includes("29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8")) {
   issues.push("Pro Kit page does not expose the public ZIP verification hash.");
+}
+if (
+  !deliverySupportHtml.includes("Delivery, refund, and support details before checkout.") ||
+  !deliverySupportHtml.includes("Private ZIP after live checkout") ||
+  !deliverySupportHtml.includes("Public manifest and SHA-256") ||
+  !deliverySupportHtml.includes("Refund Triggers") ||
+  !deliverySupportHtml.includes("No live secrets or customer data in public issues") ||
+  !deliverySupportHtml.includes("pro-kit.html") ||
+  !deliverySupportHtml.includes("free-sample.html") ||
+  !deliverySupportHtml.includes("status.html")
+) {
+  issues.push("Delivery support page is missing buyer assurance, verification, refund, safety, or conversion links.");
 }
 if (
   !proKitHtml.includes("Checkout Launch Gates") ||
@@ -135,11 +157,12 @@ if (
 }
 if (
   !statusHtml.includes("pro-kit-manifest.json") ||
+  !statusHtml.includes("delivery-refund-support.html") ||
   !statusHtml.includes("8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b") ||
   !statusHtml.includes("29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8") ||
   !statusHtml.includes("Awaiting live key")
 ) {
-  issues.push("Status page does not expose manifest, sample hash, Pro Kit hash, and checkout waiting state.");
+  issues.push("Status page does not expose manifest, delivery policy, sample hash, Pro Kit hash, and checkout waiting state.");
 }
 if (
   !toolIndexHtml.includes("lemon-squeezy-webhook-payload-generator.html") ||
