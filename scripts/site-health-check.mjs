@@ -15,6 +15,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/webhook-replay-curl-generator.html`,
   `${siteUrl}/tools/nextjs-webhook-handler-generator.html`,
   `${siteUrl}/tools/webhook-entitlement-decision-matrix.html`,
+  `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
@@ -106,6 +107,7 @@ const [
   replayGenerator,
   nextjsGenerator,
   entitlementMatrix,
+  costCalculator,
   readinessScorecard,
   guideIndex,
   sitemap,
@@ -125,6 +127,7 @@ const [
   fetchText(`${siteUrl}/tools/webhook-replay-curl-generator.html`),
   fetchText(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`),
   fetchText(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`),
+  fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/sitemap.xml`),
@@ -157,6 +160,9 @@ const issues = [
   ...(entitlementMatrix.ok
     ? []
     : [`entitlement matrix page returned HTTP ${entitlementMatrix.status ?? "failed"}.`]),
+  ...(costCalculator.ok
+    ? []
+    : [`debug cost calculator page returned HTTP ${costCalculator.status ?? "failed"}.`]),
   ...(readinessScorecard.ok
     ? []
     : [`readiness scorecard page returned HTTP ${readinessScorecard.status ?? "failed"}.`]),
@@ -165,7 +171,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 46 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 46.`]),
+  ...(sitemapUrls.length >= 47 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 47.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -194,6 +200,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`)
     ? []
     : ["llms.txt is missing the standalone entitlement matrix URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`)
+    ? []
+    : ["llms.txt is missing the standalone debug cost calculator URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`)
     ? []
     : ["llms.txt is missing the standalone launch readiness scorecard URL."]),
@@ -214,6 +223,7 @@ const issues = [
   toolIndex.text.includes("Webhook replay cURL generator") &&
   toolIndex.text.includes("Next.js webhook handler generator") &&
   toolIndex.text.includes("Webhook entitlement decision matrix") &&
+  toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
   toolIndex.text.includes("Download the free sample") &&
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
@@ -262,6 +272,12 @@ const issues = [
   entitlementMatrix.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["entitlement matrix page is missing matrix copy, replay test copy, or conversion links."]),
+  ...(costCalculator.text.includes("Billing webhook debug cost calculator") &&
+  costCalculator.text.includes("calculateAvoidableCost") &&
+  costCalculator.text.includes("Break-even against CNY 69 Pro Kit") &&
+  costCalculator.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["debug cost calculator page is missing calculator copy, cost logic, or conversion links."]),
   ...(readinessScorecard.text.includes("Billing Webhook Launch Readiness Scorecard") &&
   readinessScorecard.text.includes("Launch readiness score") &&
   readinessScorecard.text.includes("PR-ready Markdown release report") &&
@@ -276,15 +292,17 @@ const issues = [
     : ["Pro Kit page is missing the buying-decision section."]),
   ...(proKit.text.includes("What the paid pack adds after the browser tools find the gap") &&
   proKit.text.includes("Tool-to-Pro Map") &&
+  proKit.text.includes("Entitlement matrix") &&
+  proKit.text.includes("Cost calculator") &&
   proKit.text.includes("Readiness scorecard")
     ? []
     : ["Pro Kit page is missing the tool-to-Pro upgrade map."]),
   ...((proKit.text.match(/class="decision-item"/g) || []).length === 3
     ? []
     : ["Pro Kit page does not expose 3 buying-decision cards."]),
-  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 6
+  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 8
     ? []
-    : ["Pro Kit page does not expose 6 tool-to-Pro map rows."]),
+    : ["Pro Kit page does not expose 8 tool-to-Pro map rows."]),
   ...((proKit.text.match(/"@type": "Question"/g) || []).length >= 7
     ? []
     : ["Pro Kit page exposes fewer than 7 FAQ schema questions."]),
@@ -313,6 +331,7 @@ const result = {
     replayGenerator: replayGenerator.status,
     nextjsGenerator: nextjsGenerator.status,
     entitlementMatrix: entitlementMatrix.status,
+    costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

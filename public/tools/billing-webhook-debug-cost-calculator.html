@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Billing Webhook Debug Cost Calculator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Calculate avoidable billing webhook debugging cost from raw-body signature failures, duplicate retries, entitlement bugs, and launch review time. Browser-only."
+    />
+    <meta
+      name="keywords"
+      content="billing webhook cost calculator, webhook debugging cost, Lemon Squeezy webhook debug cost, Stripe webhook debugging, payment webhook ROI calculator, SaaS webhook launch cost"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Billing Webhook Debug Cost Calculator" />
+    <meta
+      property="og:description"
+      content="Browser-only calculator for comparing webhook debugging exposure against a CNY 69 Pro Kit."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Billing Webhook Debug Cost Calculator" />
+    <meta
+      name="twitter:description"
+      content="Estimate raw-body, retry, idempotency, entitlement, and release-review debugging cost locally."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Billing Webhook Debug Cost Calculator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only calculator for estimating avoidable payment webhook debugging and launch review cost."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Billing Webhook Debug Cost Calculator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --cyan: #008c99;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1240px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .metric span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 870px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+        min-width: 0;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-width: 0;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 0 12px;
+        outline: none;
+      }
+
+      input[type="range"] {
+        display: block;
+        min-width: 0;
+        width: calc(100% - 2px);
+        margin: 0 1px;
+        padding: 0;
+        accent-color: var(--coral);
+      }
+
+      .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 88px;
+        gap: 10px;
+        align-items: center;
+        min-width: 0;
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-width: 0;
+        min-height: 132px;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 13px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 10px;
+        font-size: clamp(1.35rem, 4vw, 2.25rem);
+        line-height: 1;
+      }
+
+      .metric p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .metric.primary {
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      .metric.primary span,
+      .metric.primary strong {
+        color: var(--acid);
+      }
+
+      .metric.primary p {
+        color: #d9dfcf;
+      }
+
+      .bar {
+        display: grid;
+        gap: 8px;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 14px;
+      }
+
+      .bar-track {
+        position: relative;
+        height: 18px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--paper-2);
+      }
+
+      .bar-fill {
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, var(--cyan), var(--acid));
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 250px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #11130f;
+        color: #f8faef;
+        padding: 14px;
+        font: 0.84rem/1.55 "Andale Mono", "SFMono-Regular", Menlo, monospace;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fbfcf8;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 116px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 960px) {
+        .workbench,
+        .metric-grid,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1240px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .input-grid {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Debug cost calculator</p>
+      <h1>Billing webhook debug cost calculator.</h1>
+      <p class="lead">
+        Estimate avoidable engineering cost from raw-body signature failures, duplicate webhook retries, idempotency bugs, entitlement mistakes, and launch-review time. Everything runs locally in the browser.
+      </p>
+
+      <section class="workbench" aria-label="Billing webhook cost calculator">
+        <div class="panel">
+          <header>
+            <h2>Cost model</h2>
+            <p>Local calculator, no API calls</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Hourly rate currency</span>
+              <select id="currency">
+                <option value="CNY">CNY</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Developer hourly rate</span>
+              <div class="input-grid">
+                <input id="hourlyRateRange" type="range" min="80" max="1200" step="10" value="280" />
+                <input id="hourlyRate" type="number" min="0" step="10" value="280" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Debug hours per billing launch</span>
+              <div class="input-grid">
+                <input id="hoursRange" type="range" min="1" max="40" step="1" value="6" />
+                <input id="hours" type="number" min="0" step="1" value="6" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Billing launches or rewrites this year</span>
+              <div class="input-grid">
+                <input id="launchesRange" type="range" min="1" max="12" step="1" value="2" />
+                <input id="launches" type="number" min="1" step="1" value="2" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Avoidable setup share</span>
+              <div class="input-grid">
+                <input id="avoidableRange" type="range" min="10" max="90" step="5" value="45" />
+                <input id="avoidable" type="number" min="0" max="100" step="5" value="45" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Release risk</span>
+              <select id="risk">
+                <option value="1">Conservative: one route</option>
+                <option value="1.35" selected>Normal: checkout plus renewal</option>
+                <option value="1.7">High: subscriptions and licenses</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button type="button" id="copyReport">Copy report</button>
+              <button type="button" id="reset" class="secondary">Reset defaults</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Break-even against CNY 69 Pro Kit</h2>
+            <p>Quantify the buy-or-build decision</p>
+          </header>
+          <div class="result">
+            <div class="metric-grid" aria-label="Calculated cost summary">
+              <div class="metric primary">
+                <span>Avoidable cost</span>
+                <strong id="avoidableCost">CNY 0</strong>
+                <p>Estimated repeatable setup and debugging time that fixtures, tests, and review templates can reduce.</p>
+              </div>
+              <div class="metric">
+                <span>Total exposure</span>
+                <strong id="totalExposure">CNY 0</strong>
+                <p>Raw webhook debugging and launch review time before any tooling effect.</p>
+              </div>
+              <div class="metric">
+                <span>Break-even</span>
+                <strong id="breakEven">0.0x</strong>
+                <p>How many times the avoidable cost covers a CNY 69 reference kit price.</p>
+              </div>
+            </div>
+
+            <div class="bar" aria-label="Break-even ratio">
+              <div>
+                <span class="output-label">Break-even progress</span>
+                <p id="breakEvenCopy">Waiting for inputs.</p>
+              </div>
+              <div class="bar-track" aria-hidden="true">
+                <div class="bar-fill" id="barFill"></div>
+              </div>
+            </div>
+
+            <label class="field">
+              <span class="output-label">PR-ready cost note</span>
+              <textarea id="report" spellcheck="false"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Upgrade path">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake Lemon Squeezy fixtures, signature tests, duplicate replay tests, review report, and CI structure before buying.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Compare the calculated debugging exposure with copy-ready provider fixtures, handlers, contract tests, and review reports.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const kitReferencePriceCny = 69;
+      const currencySymbols = {
+        CNY: "CNY",
+        USD: "USD",
+        EUR: "EUR"
+      };
+      const exchangeToCny = {
+        CNY: 1,
+        USD: 7.2,
+        EUR: 7.8
+      };
+
+      const pairs = [
+        ["hourlyRateRange", "hourlyRate"],
+        ["hoursRange", "hours"],
+        ["launchesRange", "launches"],
+        ["avoidableRange", "avoidable"]
+      ];
+
+      function numberFrom(id) {
+        const value = Number.parseFloat(document.querySelector(`#${id}`).value);
+        return Number.isFinite(value) ? value : 0;
+      }
+
+      function money(value, currency) {
+        return `${currencySymbols[currency]} ${Math.round(value).toLocaleString("en-US")}`;
+      }
+
+      function calculateAvoidableCost() {
+        const currency = document.querySelector("#currency").value;
+        const hourlyRate = numberFrom("hourlyRate");
+        const hours = numberFrom("hours");
+        const launches = Math.max(1, numberFrom("launches"));
+        const avoidableShare = Math.max(0, Math.min(100, numberFrom("avoidable"))) / 100;
+        const riskMultiplier = Number.parseFloat(document.querySelector("#risk").value) || 1;
+        const totalExposure = hourlyRate * hours * launches * riskMultiplier;
+        const avoidableCost = totalExposure * avoidableShare;
+        const avoidableCostCny = avoidableCost * exchangeToCny[currency];
+        const breakEven = avoidableCostCny / kitReferencePriceCny;
+        return {
+          currency,
+          hourlyRate,
+          hours,
+          launches,
+          avoidableShare,
+          riskMultiplier,
+          totalExposure,
+          avoidableCost,
+          avoidableCostCny,
+          breakEven
+        };
+      }
+
+      function buildReport(result) {
+        return [
+          "# Billing webhook debugging cost estimate",
+          "",
+          `Hourly rate: ${money(result.hourlyRate, result.currency)}`,
+          `Debug hours per launch: ${result.hours}`,
+          `Launches or rewrites this year: ${result.launches}`,
+          `Release risk multiplier: ${result.riskMultiplier}x`,
+          `Avoidable setup share: ${Math.round(result.avoidableShare * 100)}%`,
+          "",
+          `Total exposure: ${money(result.totalExposure, result.currency)}`,
+          `Avoidable cost: ${money(result.avoidableCost, result.currency)}`,
+          `CNY-normalized avoidable cost: CNY ${Math.round(result.avoidableCostCny).toLocaleString("en-US")}`,
+          `Break-even against CNY 69 Pro Kit: ${result.breakEven.toFixed(1)}x`,
+          "",
+          "## Interpretation",
+          result.breakEven >= 1
+            ? "The estimated avoidable debugging cost is above the CNY 69 reference price, so a copy-ready fixture and test pack can pay back if it removes even one repeatable setup cycle."
+            : "The estimate is below the CNY 69 reference price. Use the free sample first and buy only when repeated launches, provider changes, or team review needs raise the avoidable cost.",
+          "",
+          "## Cost drivers to reduce",
+          "- raw-body signature mismatch setup",
+          "- duplicate webhook replay handling",
+          "- idempotency key design",
+          "- entitlement access mapping",
+          "- release review evidence"
+        ].join("\n");
+      }
+
+      function render() {
+        const result = calculateAvoidableCost();
+        document.querySelector("#totalExposure").textContent = money(result.totalExposure, result.currency);
+        document.querySelector("#avoidableCost").textContent = money(result.avoidableCost, result.currency);
+        document.querySelector("#breakEven").textContent = `${result.breakEven.toFixed(1)}x`;
+        document.querySelector("#breakEvenCopy").textContent =
+          result.breakEven >= 1
+            ? `The avoidable cost covers the CNY 69 reference price ${result.breakEven.toFixed(1)} times.`
+            : `The avoidable cost is ${result.breakEven.toFixed(1)}x of the CNY 69 reference price; use the free sample first.`;
+        document.querySelector("#barFill").style.width = `${Math.min(100, result.breakEven * 20)}%`;
+        document.querySelector("#report").value = buildReport(result);
+      }
+
+      pairs.forEach(([rangeId, numberId]) => {
+        const range = document.querySelector(`#${rangeId}`);
+        const number = document.querySelector(`#${numberId}`);
+        range.addEventListener("input", () => {
+          number.value = range.value;
+          render();
+        });
+        number.addEventListener("input", () => {
+          range.value = number.value;
+          render();
+        });
+      });
+
+      document.querySelector("#currency").addEventListener("input", render);
+      document.querySelector("#risk").addEventListener("input", render);
+      document.querySelector("#copyReport").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(document.querySelector("#report").value);
+      });
+      document.querySelector("#reset").addEventListener("click", () => {
+        document.querySelector("#currency").value = "CNY";
+        document.querySelector("#hourlyRateRange").value = "280";
+        document.querySelector("#hourlyRate").value = "280";
+        document.querySelector("#hoursRange").value = "6";
+        document.querySelector("#hours").value = "6";
+        document.querySelector("#launchesRange").value = "2";
+        document.querySelector("#launches").value = "2";
+        document.querySelector("#avoidableRange").value = "45";
+        document.querySelector("#avoidable").value = "45";
+        document.querySelector("#risk").value = "1.35";
+        render();
+      });
+
+      render();
+    </script>
+  </body>
+</html>
