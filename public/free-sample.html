@@ -205,6 +205,47 @@
         line-height: 1.3;
       }
 
+      .launch-gates {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .launch-gates a {
+        min-width: 0;
+        display: block;
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: rgba(216, 248, 79, 0.08);
+        color: #f8faef;
+        padding: 14px;
+        text-decoration: none;
+      }
+
+      .launch-gates span {
+        display: block;
+        color: var(--acid);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .launch-gates strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.3;
+      }
+
+      .launch-gates em {
+        display: block;
+        margin-top: 7px;
+        color: #d9dfcf;
+        font-style: normal;
+        line-height: 1.45;
+      }
+
       .upgrade-actions {
         display: flex;
         flex-wrap: wrap;
@@ -274,6 +315,7 @@
         .nav,
         .grid,
         .compare,
+        .launch-gates,
         .verify,
         .actions {
           display: grid;
@@ -402,6 +444,28 @@
             <span>Checkout</span>
             <strong>CN¥69 digital pack, disabled until live Lemon Squeezy config is connected</strong>
           </div>
+        </div>
+        <div class="launch-gates" aria-label="Launch gates that point to the Pro Kit">
+          <a href="guides/lemon-squeezy-checkout-smoke-test.html">
+            <span>Checkout gate</span>
+            <strong>You need proof that a paid checkout reaches the webhook route.</strong>
+            <em>Use this when the sample's local fixture is no longer enough and the public buy link is close.</em>
+          </a>
+          <a href="guides/lemon-squeezy-paypal-checkout-webhook-test.html">
+            <span>PayPal gate</span>
+            <strong>You need PayPal checkout, paid order, and fulfillment evidence.</strong>
+            <em>Pro Kit adds review templates and replay fixtures for the evidence packet.</em>
+          </a>
+          <a href="guides/lemon-squeezy-checkout-404-custom-price-currency.html">
+            <span>Currency gate</span>
+            <strong>You are debugging custom_price, CN¥69, or checkout 404 behavior.</strong>
+            <em>Pro Kit keeps the price, webhook, replay, and rollback checks together.</em>
+          </a>
+          <a href="tools/lemon-squeezy-checkout-smoke-test-report.html">
+            <span>Report gate</span>
+            <strong>You need a PR-ready checkout smoke test report before launch.</strong>
+            <em>Use the free report generator, then upgrade when the report needs copy-ready test files.</em>
+          </a>
         </div>
         <div class="upgrade-actions">
           <a href="pro-kit.html">View Pro Kit preview</a>

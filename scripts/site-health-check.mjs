@@ -410,6 +410,13 @@ const issues = [
   freeSample.text.includes("pro-kit-manifest.json")
     ? []
     : ["Free sample page is missing the Pro Kit upgrade path or verification links."]),
+  ...(freeSample.text.includes("Launch gates that point to the Pro Kit") &&
+  freeSample.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
+  freeSample.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
+  freeSample.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
+  freeSample.text.includes("lemon-squeezy-checkout-smoke-test-report.html")
+    ? []
+    : ["Free sample page is missing checkout launch gate upgrade links."]),
   ...checkoutEvaluation.issues.map((issue) => `checkout: ${issue}`)
 ];
 

@@ -110,6 +110,14 @@ if (!freeSampleHtml.includes("billing-webhook-kit-free-sample.zip")) {
 if (!freeSampleHtml.includes("pro-kit.html") || !freeSampleHtml.includes("pro-kit-manifest.json")) {
   issues.push("Free sample page does not link the Pro Kit preview and manifest.");
 }
+if (
+  !freeSampleHtml.includes("lemon-squeezy-checkout-smoke-test.html") ||
+  !freeSampleHtml.includes("lemon-squeezy-paypal-checkout-webhook-test.html") ||
+  !freeSampleHtml.includes("lemon-squeezy-checkout-404-custom-price-currency.html") ||
+  !freeSampleHtml.includes("lemon-squeezy-checkout-smoke-test-report.html")
+) {
+  issues.push("Free sample page does not expose checkout launch gate upgrade links.");
+}
 if (!proKitHtml.includes("pro-kit-manifest.json")) {
   issues.push("Pro Kit page does not link the public manifest.");
 }
