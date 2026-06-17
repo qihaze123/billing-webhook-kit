@@ -25,6 +25,12 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
 
+## Checklist
+
+Use the public Lemon Squeezy webhook test checklist for signature, contract, idempotency, and duplicate replay review:
+
+https://gist.github.com/qihaze123/3a13c5533c0e4fe69a3b0759668e9789
+
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
 The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures against exact raw request bodies, debugs signature mismatches, inspects trusted billing fields, builds idempotency keys, generates contract tests, recommends idempotency keys, maps events to entitlement decisions, scores launch readiness, simulates duplicate webhook replays, estimates webhook debugging cost, exports PR-ready Markdown review reports, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
