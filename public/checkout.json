@@ -2,7 +2,7 @@
   "checkoutUrl": "",
   "environment": "production",
   "status": "awaiting_live_key",
-  "priceCents": 13900,
+  "priceCents": 6900,
   "currencyPolicy": "inherit_store_or_variant_currency",
   "updatedAt": "2026-06-17T08:20:00.000Z"
 }

@@ -288,7 +288,7 @@ Header casing: x-signature / X-Signature`,
 
           <div className="price-block">
             <span>Launch price</span>
-            <strong>¥139</strong>
+            <strong>¥69</strong>
           </div>
 
           <ul className="pro-list">
