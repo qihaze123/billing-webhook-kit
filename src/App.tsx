@@ -157,7 +157,7 @@ Header casing: x-signature / X-Signature`,
           ) : (
             <button className="buy-button buy-button--disabled" disabled>
               <PackageCheck size={18} aria-hidden="true" />
-              Checkout pending
+              Checkout opening soon
             </button>
           )}
         </div>
@@ -306,7 +306,7 @@ Header casing: x-signature / X-Signature`,
             </a>
           ) : (
             <button className="wide-cta wide-cta--disabled" disabled>
-              Checkout link pending
+              Checkout opening soon
             </button>
           )}
 

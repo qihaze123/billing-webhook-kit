@@ -1,4 +1,8 @@
 {
-  "checkoutUrl": "https://xiongmaoge.lemonsqueezy.com/checkout/custom/cd0df95a-d1a0-482f-9c38-ea2d71a78706?signature=93abee12e52e54aa1f21bb79cc27479c179bd9a7dc398a7d9b31fa2ceacac8a8",
-  "updatedAt": "2026-06-17T06:58:00.853Z"
+  "checkoutUrl": "",
+  "environment": "production",
+  "status": "awaiting_live_key",
+  "priceCents": 13900,
+  "currencyPolicy": "inherit_store_or_variant_currency",
+  "updatedAt": "2026-06-17T08:20:00.000Z"
 }

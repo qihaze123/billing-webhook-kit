@@ -86,23 +86,23 @@ export function buildLemonPayload(event: EventId): Record<string, unknown> {
           order_number: 1042,
           user_name: "Ada Lovelace",
           user_email: "ada@example.com",
-          currency: "USD",
-          currency_rate: "1.00000000",
-          subtotal: 1900,
+          currency: "CNY",
+          currency_rate: "0.14800000",
+          subtotal: 13900,
           discount_total: 0,
           tax: 0,
-          total: 1900,
-          subtotal_usd: 1900,
+          total: 13900,
+          subtotal_usd: 2057,
           discount_total_usd: 0,
           tax_usd: 0,
-          total_usd: 1900,
+          total_usd: 2057,
           status: "paid",
           status_formatted: "Paid",
           refunded: false,
           refunded_at: null,
           created_at: now,
           updated_at: now,
-          test_mode: true
+          test_mode: false
         }
       }
     };
@@ -133,7 +133,7 @@ export function buildLemonPayload(event: EventId): Record<string, unknown> {
           ends_at: null,
           trial_ends_at: null,
           cancelled: false,
-          test_mode: true,
+          test_mode: false,
           created_at: now,
           updated_at: now
         }
@@ -156,20 +156,20 @@ export function buildLemonPayload(event: EventId): Record<string, unknown> {
           billing_reason: "renewal",
           card_brand: "visa",
           card_last_four: "4242",
-          currency: "USD",
-          subtotal: 1900,
+          currency: "CNY",
+          subtotal: 13900,
           discount_total: 0,
           tax: 0,
-          total: 1900,
-          subtotal_usd: 1900,
+          total: 13900,
+          subtotal_usd: 2057,
           discount_total_usd: 0,
           tax_usd: 0,
-          total_usd: 1900,
+          total_usd: 2057,
           status: "paid",
           status_formatted: "Paid",
           refunded: false,
           refunded_at: null,
-          test_mode: true,
+          test_mode: false,
           created_at: now,
           updated_at: now
         }
@@ -197,7 +197,7 @@ export function buildLemonPayload(event: EventId): Record<string, unknown> {
           renews_at: null,
           ends_at: "2026-06-30T02:30:00.000000Z",
           cancelled: true,
-          test_mode: true,
+          test_mode: false,
           created_at: now,
           updated_at: now
         }
@@ -218,7 +218,7 @@ export function buildLemonPayload(event: EventId): Record<string, unknown> {
         product_id: 202601,
         user_name: "Ada Lovelace",
         user_email: "ada@example.com",
-        key: "BWHK-TEST-ABCD-1234",
+        key: "BWHK-LIVE-DEMO-1234",
         key_short: "BWHK-...-1234",
         activation_limit: 3,
         instances_count: 0,
@@ -226,11 +226,10 @@ export function buildLemonPayload(event: EventId): Record<string, unknown> {
         status: "inactive",
         status_formatted: "Inactive",
         expires_at: null,
-        test_mode: true,
+        test_mode: false,
         created_at: now,
         updated_at: now
       }
     }
   };
 }
-
