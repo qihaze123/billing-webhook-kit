@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BillingWebhookKit preview</title>
+  <desc id="desc">Browser-only Lemon Squeezy webhook fixture generator for payloads, signatures, cURL replay, and handlers.</desc>
+  <rect width="1200" height="630" fill="#f6f7ef"/>
+  <path d="M0 0h1200v630H0z" fill="url(#grid)"/>
+  <rect x="64" y="62" width="1072" height="506" rx="18" fill="#10120f" stroke="#12130f" stroke-width="4"/>
+  <rect x="90" y="92" width="1020" height="84" rx="12" fill="#d8f84f"/>
+  <text x="118" y="146" fill="#12130f" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="42" font-weight="900">BillingWebhookKit</text>
+  <text x="90" y="248" fill="#f6f7ef" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="64" font-weight="900">Lemon Squeezy webhook tests</text>
+  <text x="92" y="314" fill="#d9dfcf" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="34" font-weight="700">Fixtures · HMAC signatures · cURL replay · Handlers</text>
+  <g font-family="Andale Mono, Menlo, monospace" font-size="24" font-weight="700">
+    <rect x="94" y="378" width="254" height="54" rx="10" fill="#008c99"/>
+    <text x="120" y="413" fill="#ffffff">Next.js route</text>
+    <rect x="368" y="378" width="218" height="54" rx="10" fill="#f05f3b"/>
+    <text x="394" y="413" fill="#ffffff">Hono worker</text>
+    <rect x="606" y="378" width="252" height="54" rx="10" fill="#227a4c"/>
+    <text x="632" y="413" fill="#ffffff">Vitest checks</text>
+  </g>
+  <text x="94" y="504" fill="#d8f84f" font-family="Andale Mono, Menlo, monospace" font-size="26">qihaze123.github.io/billing-webhook-kit</text>
+  <defs>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0v34" fill="none" stroke="#12130f" stroke-opacity=".06" stroke-width="1"/>
+    </pattern>
+  </defs>
+</svg>

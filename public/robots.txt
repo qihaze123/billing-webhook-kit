@@ -1,3 +1,6 @@
 User-agent: *
 Allow: /
 Sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.xml
+# AI and feed discovery
+# https://qihaze123.github.io/billing-webhook-kit/llms.txt
+# https://qihaze123.github.io/billing-webhook-kit/feed.xml

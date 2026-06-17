@@ -1,0 +1,31 @@
+# BillingWebhookKit
+
+> Browser-only Lemon Squeezy webhook test generator for payment webhook fixtures, HMAC signatures, cURL replay commands, and framework handlers.
+
+BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser and does not upload webhook signing secrets.
+
+## URLs
+
+- Home: https://qihaze123.github.io/billing-webhook-kit/
+- Sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.xml
+- GitHub: https://github.com/qihaze123/billing-webhook-kit
+
+## Core Use Cases
+
+- Generate Lemon Squeezy `order_created`, subscription, cancellation, payment success, and license key webhook payloads.
+- Generate HMAC SHA-256 signatures for local webhook tests.
+- Generate cURL replay commands for local, tunnel, staging, and CI routes.
+- Copy starter webhook handlers for Next.js, Hono, and Express.
+- Learn billing webhook idempotency and CI test patterns.
+
+## Important Pages
+
+- Lemon Squeezy webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
+- Lemon Squeezy signature verification: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
+- Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
+- Webhook idempotency checklist: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
+- SaaS billing webhook test plan: https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html
+
+## Pro Kit
+
+BillingWebhookKit Pro is a CN¥69 digital download planned for developers who want copy-ready fixtures, route handlers, tests, GitHub Actions checks, and integration checklists.

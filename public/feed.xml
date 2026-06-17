@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BillingWebhookKit Guides</title>
+    <link>https://qihaze123.github.io/billing-webhook-kit/</link>
+    <description>Payment webhook testing guides for Lemon Squeezy, signatures, cURL replay, idempotency, and CI.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 17 Jun 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Test Lemon Squeezy Webhooks Locally</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</guid>
+      <description>Generate Lemon Squeezy webhook payloads, HMAC signatures, and cURL replay commands without sending secrets to a server.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Payment Webhook CI Tests</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html</guid>
+      <description>A practical CI checklist for testing payment webhook signatures, fixtures, retries, and idempotency.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Webhook Idempotency Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</guid>
+      <description>A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
