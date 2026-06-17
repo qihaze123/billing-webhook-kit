@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Next.js Webhook Handler Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a Next.js App Router payment webhook handler with raw-body signature verification, idempotency guard, env checklist, and Vitest replay test. Browser-only."
+    />
+    <meta
+      name="keywords"
+      content="Next.js webhook handler generator, Next.js Lemon Squeezy webhook handler, Next.js Stripe webhook handler, raw body webhook signature, payment webhook route"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Next.js Webhook Handler Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only Next.js App Router webhook handler generator for payment webhook signature checks and idempotency guards."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Next.js Webhook Handler Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate a raw-body-safe Next.js App Router payment webhook handler locally."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Next.js Webhook Handler Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only Next.js App Router payment webhook handler generator with raw-body signature verification and idempotency guards."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Next.js Webhook Handler Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .stat span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1020px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      .lead {
+        max-width: 840px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-width: 0;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 0 12px;
+        outline: none;
+      }
+
+      .button-row,
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button,
+      .tab {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 13px;
+        background: var(--panel);
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button {
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+      }
+
+      .tab[aria-pressed="true"] {
+        background: var(--acid);
+      }
+
+      pre {
+        min-height: 520px;
+        max-height: 680px;
+        margin: 0;
+        overflow: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+        color: var(--ink);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .stat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      .upgrade {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: 18px;
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 20px;
+      }
+
+      .upgrade p {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-list a {
+        display: block;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 12px;
+        font-weight: 850;
+        text-decoration: none;
+        line-height: 1.3;
+      }
+
+      .link-list span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 920px) {
+        .workbench,
+        .stat-strip,
+        .upgrade {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button,
+        .tab {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">Next.js guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Next.js route tool</p>
+      <h1>Generate a raw-body-safe Next.js payment webhook handler.</h1>
+      <p class="lead">
+        Pick a provider and copy an App Router handler with raw-body signature verification, event dispatch boundaries, idempotency guard notes, and a Vitest duplicate replay starter.
+      </p>
+
+      <section class="workbench" aria-label="Next.js webhook handler generator">
+        <article class="panel">
+          <header>
+            <h2>Handler inputs</h2>
+            <p>provider + route + storage</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Provider</span>
+              <select id="provider">
+                <option value="lemonsqueezy">Lemon Squeezy</option>
+                <option value="stripe">Stripe</option>
+                <option value="paddle">Paddle</option>
+                <option value="polar">Polar</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Route path</span>
+              <input id="routePath" value="app/api/webhooks/lemonsqueezy/route.ts" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Env secret name</span>
+              <input id="secretName" value="LEMONSQUEEZY_WEBHOOK_SECRET" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Database client</span>
+              <select id="database">
+                <option value="prisma">Prisma</option>
+                <option value="drizzle">Drizzle</option>
+                <option value="generic">Generic SQL</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button class="button" type="button" id="copyOutput">Copy current tab</button>
+              <button class="button" type="button" id="downloadOutput">Download handler</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Generated output</h2>
+            <p>handler, env, test, review</p>
+          </header>
+          <div class="result">
+            <div class="tabs">
+              <button class="tab" type="button" data-tab="handler" aria-pressed="true">Handler</button>
+              <button class="tab" type="button" data-tab="env" aria-pressed="false">Env</button>
+              <button class="tab" type="button" data-tab="test" aria-pressed="false">Test</button>
+              <button class="tab" type="button" data-tab="review" aria-pressed="false">Review</button>
+            </div>
+            <pre id="output"></pre>
+          </div>
+        </article>
+      </section>
+
+      <section class="stat-strip" aria-label="Next.js handler safety signals">
+        <div class="stat">
+          <span>Raw body</span>
+          <strong>Uses request.text() before JSON parsing</strong>
+        </div>
+        <div class="stat">
+          <span>Retry safety</span>
+          <strong>Idempotency key before side effects</strong>
+        </div>
+        <div class="stat">
+          <span>Cost</span>
+          <strong>No provider API calls</strong>
+        </div>
+        <div class="stat">
+          <span>Upgrade</span>
+          <strong>Free sample plus CNY 69 Pro Kit preview</strong>
+        </div>
+      </section>
+
+      <section class="upgrade" aria-label="Pro Kit upgrade path">
+        <div>
+          <p class="eyebrow">From route to release</p>
+          <h2>Use the generator for one route, then upgrade when the launch needs fixtures and CI.</h2>
+          <p>
+            The Pro Kit packages route handlers, fake provider fixtures, signature tests, duplicate replay tests, review templates, and launch checklists so a payment webhook change can ship with less manual glue.
+          </p>
+        </div>
+        <div class="link-list">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            Download the free sample
+            <span>Inspect one fake Lemon Squeezy fixture, one Next.js handler, and three local tests.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            Preview the CNY 69 Pro Kit
+            <span>Review the 29-file package, 12 verified tests, manifest, checksum, and runbooks before live checkout is connected.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html">
+            Generate replay cURL commands
+            <span>Replay the generated handler with signed fake payloads.</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        provider: document.getElementById("provider"),
+        routePath: document.getElementById("routePath"),
+        secretName: document.getElementById("secretName"),
+        database: document.getElementById("database")
+      };
+      const output = document.getElementById("output");
+      const tabs = [...document.querySelectorAll("[data-tab]")];
+      let activeTab = "handler";
+      let state = {};
+
+      const providerDefaults = {
+        lemonsqueezy: {
+          routePath: "app/api/webhooks/lemonsqueezy/route.ts",
+          secretName: "LEMONSQUEEZY_WEBHOOK_SECRET",
+          header: "x-signature",
+          eventPath: "payload.meta?.event_name",
+          objectPath: "payload.data?.id",
+          signer: "rawBody"
+        },
+        stripe: {
+          routePath: "app/api/webhooks/stripe/route.ts",
+          secretName: "STRIPE_WEBHOOK_SECRET",
+          header: "stripe-signature",
+          eventPath: "payload.type",
+          objectPath: "payload.data?.object?.id",
+          signer: "timestamp.rawBody"
+        },
+        paddle: {
+          routePath: "app/api/webhooks/paddle/route.ts",
+          secretName: "PADDLE_WEBHOOK_SECRET",
+          header: "paddle-signature",
+          eventPath: "payload.event_type",
+          objectPath: "payload.data?.id",
+          signer: "timestamp:rawBody"
+        },
+        polar: {
+          routePath: "app/api/webhooks/polar/route.ts",
+          secretName: "POLAR_WEBHOOK_SECRET",
+          header: "webhook-signature",
+          eventPath: "payload.type",
+          objectPath: "payload.data?.id",
+          signer: "timestamp.rawBody"
+        }
+      };
+
+      function titleCase(value) {
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
+      function dbGuard(database) {
+        if (database === "drizzle") {
+          return `const inserted = await db.insert(processedWebhooks).values({
+    idempotencyKey,
+    provider,
+    eventName,
+    objectId
+  }).onConflictDoNothing();
+
+  if (!inserted) {
+    return Response.json({ ok: true, duplicate: true });
+  }`;
+        }
+        if (database === "generic") {
+          return `const inserted = await insertProcessedWebhookIfAbsent({
+    idempotencyKey,
+    provider,
+    eventName,
+    objectId
+  });
+
+  if (!inserted) {
+    return Response.json({ ok: true, duplicate: true });
+  }`;
+        }
+        return `const inserted = await prisma.processedWebhook.createMany({
+    data: { idempotencyKey, provider, eventName, objectId },
+    skipDuplicates: true
+  });
+
+  if (inserted.count === 0) {
+    return Response.json({ ok: true, duplicate: true });
+  }`;
+      }
+
+      function buildSignatureHelper(provider) {
+        const defaults = providerDefaults[provider];
+        if (provider === "stripe") {
+          return `function signedPayload(rawBody: string, header: string, secret: string) {
+  const parts = Object.fromEntries(header.split(",").map((part) => part.split("=")));
+  const timestamp = parts.t;
+  const received = parts.v1;
+  return { message: \`\${timestamp}.\${rawBody}\`, received };
+}`;
+        }
+        if (provider === "paddle") {
+          return `function signedPayload(rawBody: string, header: string, secret: string) {
+  const parts = Object.fromEntries(header.split(";").map((part) => part.split("=")));
+  const timestamp = parts.ts;
+  const received = parts.h1;
+  return { message: \`\${timestamp}:\${rawBody}\`, received };
+}`;
+        }
+        if (provider === "polar") {
+          return `function signedPayload(rawBody: string, header: string, secret: string) {
+  const parts = Object.fromEntries(header.split(",").map((part) => part.split("=")));
+  const timestamp = parts.t;
+  const received = parts.v1;
+  return { message: \`\${timestamp}.\${rawBody}\`, received };
+}`;
+        }
+        return `function signedPayload(rawBody: string, header: string, secret: string) {
+  return { message: rawBody, received: header };
+}`;
+      }
+
+      function buildHandler() {
+        const provider = fields.provider.value;
+        const defaults = providerDefaults[provider];
+        const secretName = fields.secretName.value.trim() || defaults.secretName;
+        return `import { createHmac, timingSafeEqual } from "node:crypto";
+import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
+
+${buildSignatureHelper(provider)}
+
+function verifySignature(rawBody: string, header: string | null, secret: string) {
+  if (!header) return false;
+  const { message, received } = signedPayload(rawBody, header, secret);
+  const expected = createHmac("sha256", secret).update(message).digest("hex");
+  const receivedBuffer = Buffer.from(String(received || ""), "hex");
+  const expectedBuffer = Buffer.from(expected, "hex");
+
+  return receivedBuffer.length === expectedBuffer.length && timingSafeEqual(receivedBuffer, expectedBuffer);
+}
+
+export async function POST(request: Request) {
+  const secret = process.env.${secretName};
+  if (!secret) {
+    return NextResponse.json({ error: "Missing webhook secret" }, { status: 500 });
+  }
+
+  const rawBody = await request.text();
+  const signature = request.headers.get("${defaults.header}");
+
+  if (!verifySignature(rawBody, signature, secret)) {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+  }
+
+  const payload = JSON.parse(rawBody);
+  const provider = "${provider}";
+  const eventName = ${defaults.eventPath} || "unknown_event";
+  const objectId = String(${defaults.objectPath} || "missing_object");
+  const idempotencyKey = \`\${provider}:\${eventName}:\${objectId}\`;
+
+  ${dbGuard(fields.database.value)}
+
+  switch (eventName) {
+    case "order_created":
+    case "checkout.session.completed":
+    case "transaction.completed":
+    case "order.paid":
+      await grantAccessOnce(payload);
+      break;
+    default:
+      await storeWebhookForReview(payload);
+  }
+
+  return NextResponse.json({ ok: true });
+}
+
+async function grantAccessOnce(payload: unknown) {
+  // Replace with your purchase, license, or entitlement write.
+}
+
+async function storeWebhookForReview(payload: unknown) {
+  // Keep unknown events observable without running billing side effects.
+}`;
+      }
+
+      function buildEnv() {
+        const defaults = providerDefaults[fields.provider.value];
+        const secretName = fields.secretName.value.trim() || defaults.secretName;
+        return `# ${fields.routePath.value || defaults.routePath}
+${secretName}=replace_with_provider_webhook_endpoint_secret
+
+# Required release checks
+- Store this secret in production environment variables only.
+- Verify raw body with request.text() before JSON parsing.
+- Add a unique index on processed_webhooks.idempotency_key.
+- Replay the same signed payload three times and expect one side effect.
+- Do not log full production payloads, signing secrets, or license keys.`;
+      }
+
+      function buildTest() {
+        const provider = fields.provider.value;
+        return `import { describe, expect, it } from "vitest";
+
+describe("${provider} Next.js webhook handler", () => {
+  it("processes duplicate webhook deliveries once", async () => {
+    const processed = new Set<string>();
+    let sideEffects = 0;
+
+    for (const delivery of [1, 2, 3]) {
+      const idempotencyKey = "${provider}:event:test_object";
+
+      if (processed.has(idempotencyKey)) {
+        continue;
+      }
+
+      processed.add(idempotencyKey);
+      sideEffects += 1;
+    }
+
+    expect(sideEffects).toBe(1);
+  });
+});`;
+      }
+
+      function buildReview() {
+        const provider = fields.provider.value;
+        return `# Next.js Webhook Handler Review
+
+Generated by BillingWebhookKit
+https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
+
+## Route
+
+- Provider: ${provider}
+- File: ${fields.routePath.value}
+- Secret: ${fields.secretName.value}
+- Database guard: ${fields.database.value}
+
+## Must Pass Before Release
+
+- Raw body is read with request.text() before JSON.parse.
+- Signature verification happens before event dispatch.
+- Idempotency key is inserted before access, license, email, or invoice side effects.
+- Duplicate replay test expects one side effect after three identical deliveries.
+- Unknown events are acknowledged and stored for review without granting access.
+
+Upgrade path: the CNY 69 Pro Kit adds provider fixtures, route handlers, CI workflow, and review templates once live checkout is connected.`;
+      }
+
+      function render() {
+        state = {
+          handler: buildHandler(),
+          env: buildEnv(),
+          test: buildTest(),
+          review: buildReview()
+        };
+        output.textContent = state[activeTab];
+      }
+
+      async function copyText(value) {
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(value);
+            return;
+          } catch {
+            // Fall back for restricted preview browsers.
+          }
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.append(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      fields.provider.addEventListener("change", () => {
+        const defaults = providerDefaults[fields.provider.value];
+        fields.routePath.value = defaults.routePath;
+        fields.secretName.value = defaults.secretName;
+        render();
+      });
+      Object.values(fields).forEach((field) => field.addEventListener("input", render));
+      Object.values(fields).forEach((field) => field.addEventListener("change", render));
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          activeTab = tab.dataset.tab;
+          tabs.forEach((item) => item.setAttribute("aria-pressed", String(item === tab)));
+          render();
+        });
+      });
+      document.getElementById("copyOutput").addEventListener("click", async () => {
+        await copyText(output.textContent || "");
+        document.getElementById("copyOutput").textContent = "Copied";
+        setTimeout(() => {
+          document.getElementById("copyOutput").textContent = "Copy current tab";
+        }, 1200);
+      });
+      document.getElementById("downloadOutput").addEventListener("click", () => {
+        const blob = new Blob([state.handler], { type: "text/typescript" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "route.ts";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

@@ -43,6 +43,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Next.js Webhook Handler Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html</guid>
+      <description>Generate Next.js App Router payment webhook handlers with raw-body signature verification, idempotency guards, env notes, and replay tests.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Test Lemon Squeezy Webhooks Locally</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</guid>
