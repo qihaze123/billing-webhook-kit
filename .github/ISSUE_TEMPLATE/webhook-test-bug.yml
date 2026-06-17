@@ -1,0 +1,63 @@
+name: Webhook test bug
+description: Report a bug in generated fixtures, signatures, handlers, reports, or test snippets.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a BillingWebhookKit issue.
+
+        Do not include real webhook signing secrets, production API keys, customer emails, order identifiers, private checkout URLs, or raw production webhook payloads. Use fake fixtures and fake secrets only.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Fixture generator
+        - Signature verifier
+        - Signature mismatch debugger
+        - Payload inspector
+        - Idempotency key builder
+        - Contract test generator
+        - Duplicate replay simulator
+        - Review report exporter
+        - Framework handler
+        - Free sample
+        - Pro Kit preview
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Describe what should have happened.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Describe what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction with fake data
+      description: Use fake payloads, fake IDs, and fake signing secrets only.
+      placeholder: |
+        1. Open ...
+        2. Paste this fake payload ...
+        3. Click ...
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public-data safety
+      options:
+        - label: I did not include real webhook signing secrets, production API keys, customer emails, order identifiers, private checkout URLs, or raw production webhook payloads.
+          required: true

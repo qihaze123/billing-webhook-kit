@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Open the free tool
+    url: https://qihaze123.github.io/billing-webhook-kit/
+    about: Generate fixtures, signatures, cURL replay commands, reports, and test snippets in the browser.
+  - name: Download the free sample
+    url: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
+    about: Inspect the sample fixture, handler, tests, review report, and CI skeleton.
+  - name: Read the webhook test checklist
+    url: https://gist.github.com/qihaze123/3a13c5533c0e4fe69a3b0759668e9789
+    about: Review signature, contract, idempotency, and duplicate replay checks.
+  - name: Security policy
+    url: https://github.com/qihaze123/billing-webhook-kit/security/policy
+    about: Read what not to disclose in public issues.
