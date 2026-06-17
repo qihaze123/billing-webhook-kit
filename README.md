@@ -35,6 +35,10 @@ Use the public Lemon Squeezy webhook test checklist for signature, contract, ide
 
 https://gist.github.com/qihaze123/3a13c5533c0e4fe69a3b0759668e9789
 
+Use the Next.js raw-body checklist when `x-signature` verification fails after parsing request JSON:
+
+https://gist.github.com/qihaze123/2454b3cf56333186eb3f6de89cc51927
+
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
 The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures against exact raw request bodies, debugs signature mismatches, inspects trusted billing fields, builds idempotency keys, generates contract tests, recommends idempotency keys, maps events to entitlement decisions, scores launch readiness, simulates duplicate webhook replays, estimates webhook debugging cost, exports PR-ready Markdown review reports, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.

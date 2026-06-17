@@ -14,6 +14,8 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 - Sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.xml
 - GitHub: https://github.com/qihaze123/billing-webhook-kit
+- Lemon Squeezy webhook checklist Gist: https://gist.github.com/qihaze123/3a13c5533c0e4fe69a3b0759668e9789
+- Next.js Lemon Squeezy raw-body checklist Gist: https://gist.github.com/qihaze123/2454b3cf56333186eb3f6de89cc51927
 
 ## Core Use Cases
 
