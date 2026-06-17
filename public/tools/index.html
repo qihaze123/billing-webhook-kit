@@ -47,68 +47,68 @@
             {
               "@type": "ListItem",
               "position": 1,
-              "name": "Lemon Squeezy Webhook Payload Generator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html"
+              "name": "Lemon Squeezy Checkout Smoke Test Report",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html"
             },
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Lemon Squeezy Webhook Signature Verifier",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "Webhook Signature Mismatch Debugger",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 4,
-              "name": "Webhook Idempotency Key Generator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 5,
-              "name": "Stripe Webhook Fixture Generator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 6,
-              "name": "Webhook Replay cURL Generator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 7,
-              "name": "Next.js Webhook Handler Generator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 8,
-              "name": "Webhook Entitlement Decision Matrix Generator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 9,
-              "name": "Billing Webhook Debug Cost Calculator",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html"
-            },
-            {
-              "@type": "ListItem",
-              "position": 10,
               "name": "Billing Webhook Launch Readiness Scorecard",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html"
             },
             {
               "@type": "ListItem",
+              "position": 3,
+              "name": "Billing Webhook Debug Cost Calculator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Lemon Squeezy Webhook Payload Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Lemon Squeezy Webhook Signature Verifier",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Webhook Signature Mismatch Debugger",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "name": "Webhook Idempotency Key Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "name": "Stripe Webhook Fixture Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "name": "Webhook Replay cURL Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "name": "Next.js Webhook Handler Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html"
+            },
+            {
+              "@type": "ListItem",
               "position": 11,
-              "name": "Lemon Squeezy Checkout Smoke Test Report",
-              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html"
+              "name": "Webhook Entitlement Decision Matrix Generator",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html"
             },
             {
               "@type": "ListItem",
@@ -230,6 +230,13 @@
         margin-top: 26px;
       }
 
+      .launch-lane {
+        display: grid;
+        grid-template-columns: 1.2fr 0.9fr 0.9fr;
+        gap: 14px;
+        margin-top: 26px;
+      }
+
       .tool-card {
         min-width: 0;
         display: grid;
@@ -283,6 +290,11 @@
       .tool-card.primary strong {
         background: var(--acid);
         color: var(--ink);
+      }
+
+      .tool-card.launch {
+        min-height: 260px;
+        box-shadow: 10px 10px 0 rgba(18, 19, 15, 0.14);
       }
 
       .stat-strip {
@@ -354,6 +366,7 @@
 
       @media (max-width: 900px) {
         .tool-grid,
+        .launch-lane,
         .stat-strip,
         .section {
           grid-template-columns: 1fr;
@@ -403,6 +416,27 @@
       <p class="lead">
         Browser-only utilities for generating fake Lemon Squeezy and Stripe fixtures, checking HMAC signatures, debugging signature mismatches, producing checkout smoke test reports, deriving idempotency keys, mapping entitlement decisions, calculating debugging cost, replaying webhook requests, and deciding whether the Pro Kit is worth buying.
       </p>
+
+      <section class="launch-lane" aria-label="Checkout launch decision tools">
+        <a class="tool-card primary launch" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">
+          <span>Launch lane</span>
+          <h2>Lemon Squeezy checkout smoke test report</h2>
+          <p>Start here when the buy link is close. Generate a release-ready report for CN¥69 price visibility, checkout URL, paid webhook delivery, signature gate, duplicate replay, fulfillment evidence, and rollback notes.</p>
+          <strong>Open smoke report</strong>
+        </a>
+        <a class="tool-card launch" href="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html">
+          <span>Launch score</span>
+          <h2>Billing webhook launch readiness scorecard</h2>
+          <p>Score raw-body signatures, idempotency, duplicate replay, fixtures, entitlement rules, env secrets, CI, monitoring, and checkout smoke evidence before real payments go live.</p>
+          <strong>Open scorecard</strong>
+        </a>
+        <a class="tool-card launch" href="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html">
+          <span>Buy decision</span>
+          <h2>Billing webhook debug cost calculator</h2>
+          <p>Estimate avoidable debugging exposure and compare it against the CNY 69 Pro Kit reference price before spending more time hand-assembling fixtures and review notes.</p>
+          <strong>Open cost calculator</strong>
+        </a>
+      </section>
 
       <section class="tool-grid" aria-label="BillingWebhookKit standalone tools">
         <a class="tool-card primary" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html">

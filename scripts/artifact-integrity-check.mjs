@@ -144,11 +144,16 @@ if (
 if (
   !toolIndexHtml.includes("lemon-squeezy-webhook-payload-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-signature-verifier.html") ||
+  !toolIndexHtml.includes("Checkout launch decision tools") ||
+  !toolIndexHtml.includes("Launch lane") ||
+  !toolIndexHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
+  !toolIndexHtml.includes("billing-webhook-launch-readiness-scorecard.html") ||
+  !toolIndexHtml.includes("billing-webhook-debug-cost-calculator.html") ||
   !toolIndexHtml.includes("free-sample.html") ||
   !toolIndexHtml.includes("pro-kit.html") ||
   !toolIndexHtml.includes("Browser-only")
 ) {
-  issues.push("Tool index is missing standalone tool links, conversion links, or browser-only safety copy.");
+  issues.push("Tool index is missing launch-lane links, standalone tool links, conversion links, or browser-only safety copy.");
 }
 if (
   !signatureVerifierHtml.includes("crypto.subtle") ||

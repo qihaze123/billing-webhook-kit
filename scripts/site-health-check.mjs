@@ -270,6 +270,8 @@ const issues = [
     ? []
     : ["status page is missing checkout, manifest, sitemap, or Search Console signals."]),
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
+  toolIndex.text.includes("Checkout launch decision tools") &&
+  toolIndex.text.includes("Launch lane") &&
   toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
   toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
   toolIndex.text.includes("Webhook signature mismatch debugger") &&

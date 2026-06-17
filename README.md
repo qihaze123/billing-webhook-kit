@@ -17,13 +17,15 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
+- Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
+- Standalone billing webhook launch readiness scorecard: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
+- Standalone billing webhook debug cost calculator: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html
 - Standalone Lemon Squeezy payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - Standalone Lemon Squeezy x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - Standalone webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html
 - Standalone Stripe webhook fixture generator: https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html
 - Standalone webhook replay cURL generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html
 - Standalone Next.js webhook handler generator: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
-- Standalone billing webhook launch readiness scorecard: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
 - Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
@@ -33,20 +35,21 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Lemon Squeezy checkout smoke test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html
 - Fix Lemon Squeezy checkout 404 from custom price or currency mismatch: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html
 - Lemon Squeezy PayPal checkout webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html
-- Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
 
 ## Trust Signals
 
 - Browser-only: webhook signing secrets stay local and are processed with Web Crypto.
 - No backend: the hosted tool does not upload pasted payloads or secrets.
-- Tool index: one scannable entry point for the standalone payload generator, signature verifier, idempotency key generator, Stripe fixture generator, replay cURL generator, Next.js handler generator, launch readiness scorecard, full app, free sample, and Pro Kit preview.
+- Tool index: one scannable entry point with a launch lane for the checkout smoke report, launch readiness scorecard, debug cost calculator, standalone generators, full app, free sample, and Pro Kit preview.
+- Standalone checkout smoke report: release-ready evidence for CN¥69 price visibility, checkout URL, paid webhook delivery, duplicate replay, fulfillment, and rollback notes.
+- Standalone launch scorecard: production readiness scoring and PR-ready Markdown reports for billing webhook releases.
+- Standalone debug cost calculator: estimate avoidable billing webhook debugging cost before hand-assembling fixtures and review notes.
 - Standalone payload generator: fake Lemon Squeezy webhook fixtures, HMAC signatures, and cURL replay commands.
 - Standalone verifier: a focused Lemon Squeezy `x-signature` page for raw-body HMAC checks without account login.
 - Standalone idempotency generator: stable retry keys, SQL constraints, handler guards, duplicate replay tests, and review notes for payment webhook side effects.
 - Standalone Stripe generator: fake Stripe checkout, invoice, subscription, and payment intent fixtures with local Stripe-Signature headers and cURL replay commands.
 - Standalone replay generator: signed cURL replay commands for Lemon Squeezy, Stripe, Paddle, and Polar local webhook route tests.
 - Standalone Next.js generator: App Router route handlers with raw-body signature checks, idempotency guard notes, env checklists, and duplicate replay tests.
-- Standalone launch scorecard: production readiness scoring and PR-ready Markdown reports for billing webhook releases.
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
