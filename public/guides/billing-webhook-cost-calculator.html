@@ -46,10 +46,18 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Billing Webhook Cost Calculator","description":"Estimate the engineering cost of debugging billing webhooks, duplicate retries, raw-body signatures, and idempotency before launch.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-17","dateModified":"2026-06-17","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes billing webhook debugging expensive?","acceptedAnswer":{"@type":"Answer","text":"Raw-body signature mismatches, duplicate deliveries, idempotency bugs, provider field mapping, and entitlement side effects often require multiple local and staging replay cycles."}},{"@type":"Question","name":"Can a fixture kit replace integration testing?","acceptedAnswer":{"@type":"Answer","text":"No. A fixture kit reduces setup time and gives repeatable tests, but teams should still verify the live provider dashboard, webhook endpoint, and production checkout before launch."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Billing Webhook Cost Calculator","item":"https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html"}]}</script>
   </head>
   <body>
     <main>
@@ -80,6 +88,35 @@
           <p>No. A fixture kit reduces setup time and gives repeatable tests, but teams should still verify the live provider dashboard, webhook endpoint, and production checkout before launch.</p>
         </div>
       </section>
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            <strong>All payment webhook guides</strong>
+            <span>Browse the full BillingWebhookKit guide index.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html">
+            <strong>Billing Webhook Launch Readiness Checklist</strong>
+            <span>Payment webhook testing guide for SaaS billing integrations.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html">
+            <strong>Lemon Squeezy Webhook Idempotency</strong>
+            <span>Payment webhook testing guide for SaaS billing integrations.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html">
+            <strong>Payment Webhook Contract Test Generator</strong>
+            <span>Generate payment webhook contract tests that lock event names, object IDs, status fields, customer mapping, and idempotency keys before billing side effects.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html">
+            <strong>Webhook Duplicate Replay Test</strong>
+            <span>Payment webhook testing guide for SaaS billing integrations.</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         BillingWebhookKit is a browser-only payment webhook fixture generator. Estimates are planning aids, not revenue or savings guarantees.
       </footer>

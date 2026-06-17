@@ -37,10 +37,18 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Cloudflare Worker Webhook Handler","description":"Build a low-cost payment webhook handler on Cloudflare Workers with Web Crypto signature verification.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can Workers verify Lemon Squeezy webhooks?","acceptedAnswer":{"@type":"Answer","text":"Yes. Web Crypto can compute the HMAC digest needed for signature verification."}},{"@type":"Question","name":"Is a Worker required for BillingWebhookKit?","acceptedAnswer":{"@type":"Answer","text":"No. The free generator is browser-only; Workers are one deployment option for your own app."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Cloudflare Worker Webhook Handler","item":"https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html"}]}</script>
   </head>
   <body>
     <main>
@@ -71,6 +79,35 @@
           <p>No. The free generator is browser-only; Workers are one deployment option for your own app.</p>
         </div>
       </section>
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            <strong>All payment webhook guides</strong>
+            <span>Browse the full BillingWebhookKit guide index.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html">
+            <strong>Hono Lemon Squeezy Webhook Handler</strong>
+            <span>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
+            <strong>Next.js Lemon Squeezy Webhook Handler</strong>
+            <span>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html">
+            <strong>SaaS Billing Webhook Test Plan</strong>
+            <span>A launch checklist for testing SaaS billing webhooks across purchase, subscription, cancellation, refund, and license flows.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html">
+            <strong>Webhook Review Checklist</strong>
+            <span>A PR-ready checklist for reviewing payment webhook routes before billing changes ship.</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
       </footer>

@@ -37,10 +37,18 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Payment Webhook Test Generator","description":"Generate payment webhook payloads, signatures, cURL replay commands, and framework handler examples for SaaS billing tests.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this require a backend account?","acceptedAnswer":{"@type":"Answer","text":"No. BillingWebhookKit's free generator runs in the browser and does not upload signing secrets."}},{"@type":"Question","name":"Can generated events replace real checkout tests?","acceptedAnswer":{"@type":"Answer","text":"No. They cover handler logic; real checkout tests still verify provider delivery and store configuration."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Payment Webhook Test Generator","item":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html"}]}</script>
   </head>
   <body>
     <main>
@@ -71,6 +79,35 @@
           <p>No. They cover handler logic; real checkout tests still verify provider delivery and store configuration.</p>
         </div>
       </section>
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            <strong>All payment webhook guides</strong>
+            <span>Browse the full BillingWebhookKit guide index.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html">
+            <strong>Next.js Billing Webhook Test Suite</strong>
+            <span>Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html">
+            <strong>SaaS Billing Webhook Test Plan</strong>
+            <span>A launch checklist for testing SaaS billing webhooks across purchase, subscription, cancellation, refund, and license flows.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html">
+            <strong>Lemon Squeezy License Key Webhook Test</strong>
+            <span>Generate and test Lemon Squeezy license key webhook payloads for desktop apps, plugins, and downloadable products.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html">
+            <strong>Paddle Webhook Test Payloads</strong>
+            <span>Generate and organize Paddle webhook test payloads for SaaS billing integration tests.</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
       </footer>

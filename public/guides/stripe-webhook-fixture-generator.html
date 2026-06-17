@@ -37,10 +37,18 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Stripe Webhook Fixture Generator","description":"Use payment webhook fixtures to test checkout.session.completed and invoice.paid flows before launch.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this a Stripe API wrapper?","acceptedAnswer":{"@type":"Answer","text":"No. It is a fixture and test workflow for local development."}},{"@type":"Question","name":"Why include multiple providers?","acceptedAnswer":{"@type":"Answer","text":"Provider-specific fixtures help small SaaS teams migrate or support multiple billing providers with less brittle code."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Stripe Webhook Fixture Generator","item":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html"}]}</script>
   </head>
   <body>
     <main>
@@ -71,6 +79,35 @@
           <p>Provider-specific fixtures help small SaaS teams migrate or support multiple billing providers with less brittle code.</p>
         </div>
       </section>
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            <strong>All payment webhook guides</strong>
+            <span>Browse the full BillingWebhookKit guide index.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html">
+            <strong>Payment Webhook Test Generator</strong>
+            <span>Generate payment webhook payloads, signatures, cURL replay commands, and framework handler examples for SaaS billing tests.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html">
+            <strong>Hono Lemon Squeezy Webhook Handler</strong>
+            <span>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html">
+            <strong>Paddle Webhook Test Payloads</strong>
+            <span>Generate and organize Paddle webhook test payloads for SaaS billing integration tests.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
+            <strong>Next.js Lemon Squeezy Webhook Handler</strong>
+            <span>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
       </footer>

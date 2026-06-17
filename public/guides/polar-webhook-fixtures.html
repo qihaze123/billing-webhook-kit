@@ -37,10 +37,18 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Polar Webhook Fixtures","description":"Organize Polar order and subscription webhook fixtures alongside Stripe, Paddle, and Lemon Squeezy tests.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are Polar fixtures included in the free tool?","acceptedAnswer":{"@type":"Answer","text":"The free tool focuses on Lemon Squeezy. The Pro Kit includes additional provider starter fixtures."}},{"@type":"Question","name":"Why test multiple providers?","acceptedAnswer":{"@type":"Answer","text":"Provider-neutral tests make migrations and regional checkout experiments less risky."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Polar Webhook Fixtures","item":"https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html"}]}</script>
   </head>
   <body>
     <main>
@@ -71,6 +79,35 @@
           <p>Provider-neutral tests make migrations and regional checkout experiments less risky.</p>
         </div>
       </section>
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            <strong>All payment webhook guides</strong>
+            <span>Browse the full BillingWebhookKit guide index.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html">
+            <strong>Lemon Squeezy Webhook Fixtures</strong>
+            <span>Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/subscription-payment-success-webhook.html">
+            <strong>Subscription Payment Success Webhook</strong>
+            <span>Test subscription_payment_success webhook handling for renewals, entitlement extension, and billing email workflows.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html">
+            <strong>Webhook Idempotency Checklist</strong>
+            <span>A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html">
+            <strong>Lemon Squeezy License Key Webhook Test</strong>
+            <span>Generate and test Lemon Squeezy license key webhook payloads for desktop apps, plugins, and downloadable products.</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
       </footer>

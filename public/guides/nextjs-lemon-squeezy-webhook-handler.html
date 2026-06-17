@@ -37,10 +37,18 @@
       .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
       .faq h2 { color: var(--coral); }
       .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Next.js Lemon Squeezy Webhook Handler","description":"Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I use request.json() first?","acceptedAnswer":{"@type":"Answer","text":"No. Parse JSON only after computing the signature from request.text()."}},{"@type":"Question","name":"Do retries matter?","acceptedAnswer":{"@type":"Answer","text":"Yes. Webhook delivery can retry; your billing side effects should be idempotent."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Next.js Lemon Squeezy Webhook Handler","item":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html"}]}</script>
   </head>
   <body>
     <main>
@@ -71,6 +79,35 @@
           <p>Yes. Webhook delivery can retry; your billing side effects should be idempotent.</p>
         </div>
       </section>
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">
+            <strong>All payment webhook guides</strong>
+            <span>Browse the full BillingWebhookKit guide index.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html">
+            <strong>Hono Lemon Squeezy Webhook Handler</strong>
+            <span>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html">
+            <strong>Lemon Squeezy Webhook Test Checklist</strong>
+            <span>A launch checklist for Lemon Squeezy webhook signature verification, contract fields, idempotency keys, duplicate replay, and entitlement decisions.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html">
+            <strong>Verify Lemon Squeezy Webhook Signatures</strong>
+            <span>A practical checklist for validating Lemon Squeezy webhook HMAC signatures in SaaS apps.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html">
+            <strong>Test Lemon Squeezy Webhooks Locally</strong>
+            <span>Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server.</span>
+          </a>
+        </div>
+      </section>
+
       <footer>
         BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
       </footer>
