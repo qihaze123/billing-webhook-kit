@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Verify Lemon Squeezy Webhook Signatures | BillingWebhookKit</title>
+    <meta name="description" content="A practical checklist for validating Lemon Squeezy webhook HMAC signatures in SaaS apps." />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which algorithm is used?","acceptedAnswer":{"@type":"Answer","text":"Lemon Squeezy webhook signing uses HMAC SHA-256."}},{"@type":"Question","name":"Where should verification happen?","acceptedAnswer":{"@type":"Answer","text":"At the first line of your webhook route, before parsing business-specific event fields."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Verify Lemon Squeezy webhook signatures</h1>
+      <p class="lead">Webhook routes should reject forged events before they touch billing state.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <section>
+        <h2>Read the raw body</h2>
+        <p>Compute the HMAC from the exact raw request bytes, not from a parsed and reserialized JSON object.</p>
+      </section>
+<section>
+        <h2>Compare signatures safely</h2>
+        <p>Use a timing-safe compare in server runtimes where it is available, and reject missing or malformed signatures.</p>
+      </section>
+<section>
+        <h2>Test failure paths</h2>
+        <p>Keep fixtures for valid, invalid, missing, and stale webhook signatures so CI catches accidental verification bypasses.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Which algorithm is used?</h3>
+          <p>Lemon Squeezy webhook signing uses HMAC SHA-256.</p>
+        </div>
+<div class="faq-item">
+          <h3>Where should verification happen?</h3>
+          <p>At the first line of your webhook route, before parsing business-specific event fields.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

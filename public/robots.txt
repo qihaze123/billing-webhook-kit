@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.xml

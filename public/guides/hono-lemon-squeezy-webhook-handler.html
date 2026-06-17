@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hono Lemon Squeezy Webhook Handler | BillingWebhookKit</title>
+    <meta name="description" content="A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes." />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this work on Cloudflare Workers?","acceptedAnswer":{"@type":"Answer","text":"Yes, the same Web Crypto signing helper works in Workers-compatible runtimes."}},{"@type":"Question","name":"Should the handler call paid APIs?","acceptedAnswer":{"@type":"Answer","text":"No. Keep the webhook route focused on verification and state changes in your own app."}}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Hono Lemon Squeezy webhook handler</h1>
+      <p class="lead">Hono is a good fit for low-cost webhook endpoints when the route is small, explicit, and covered by fixtures.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <section>
+        <h2>Read request text</h2>
+        <p>Use await c.req.text() and verify the x-signature header before parsing the payload.</p>
+      </section>
+<section>
+        <h2>Use Web Crypto</h2>
+        <p>On Workers-style runtimes, crypto.subtle can compute HMAC SHA-256 without adding a heavy dependency.</p>
+      </section>
+<section>
+        <h2>Return fast</h2>
+        <p>Acknowledge valid events quickly and move slow billing synchronization into a queue or idempotent background job when needed.</p>
+      </section>
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Does this work on Cloudflare Workers?</h3>
+          <p>Yes, the same Web Crypto signing helper works in Workers-compatible runtimes.</p>
+        </div>
+<div class="faq-item">
+          <h3>Should the handler call paid APIs?</h3>
+          <p>No. Keep the webhook route focused on verification and state changes in your own app.</p>
+        </div>
+      </section>
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use test secrets only and keep production billing credentials out of local examples.
+      </footer>
+    </main>
+  </body>
+</html>

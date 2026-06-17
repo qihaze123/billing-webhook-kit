@@ -36,6 +36,15 @@ const tabs: Array<{ id: OutputTab; label: string; icon: typeof FileJson }> = [
   { id: "test", label: "Test", icon: Play }
 ];
 
+const guideLinks = [
+  { href: "guides/lemon-squeezy-webhook-test.html", label: "Test Lemon Squeezy webhooks locally" },
+  { href: "guides/lemon-squeezy-webhook-signature.html", label: "Verify Lemon Squeezy signatures" },
+  { href: "guides/nextjs-lemon-squeezy-webhook-handler.html", label: "Next.js Lemon Squeezy handler" },
+  { href: "guides/hono-lemon-squeezy-webhook-handler.html", label: "Hono Lemon Squeezy handler" },
+  { href: "guides/stripe-webhook-fixture-generator.html", label: "Stripe webhook fixtures" },
+  { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" }
+];
+
 const defaultEndpoint = "https://yourapp.com/api/webhooks/lemonsqueezy";
 
 type CheckoutConfig = {
@@ -298,6 +307,20 @@ Header casing: x-signature / X-Signature`,
             <span>No account required</span>
           </div>
         </aside>
+      </section>
+
+      <section className="guide-panel" aria-label="Billing webhook integration guides">
+        <div>
+          <p className="eyebrow">Webhook Guides</p>
+          <h2>Focused references for search-heavy billing integration jobs</h2>
+        </div>
+        <div className="guide-grid">
+          {guideLinks.map((guide) => (
+            <a key={guide.href} href={guide.href}>
+              {guide.label}
+            </a>
+          ))}
+        </div>
       </section>
     </main>
   );
