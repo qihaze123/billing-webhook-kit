@@ -7,6 +7,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 ## URLs
 
 - Home: https://qihaze123.github.io/billing-webhook-kit/
+- Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
@@ -36,6 +37,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 ## Important Pages
 
 - BillingWebhookKit Pro preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+- BillingWebhookKit guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - BillingWebhookKit free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - BillingWebhookKit free sample release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Lemon Squeezy webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html

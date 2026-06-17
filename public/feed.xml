@@ -3,79 +3,191 @@
   <channel>
     <title>BillingWebhookKit Guides</title>
     <link>https://qihaze123.github.io/billing-webhook-kit/</link>
-    <description>Payment webhook testing guides for Lemon Squeezy, signatures, cURL replay, idempotency, and CI.</description>
+    <description>Payment webhook testing guides for Lemon Squeezy, signatures, idempotency, cURL replay, contract tests, and CI.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 17 Jun 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>BillingWebhookKit Free Sample</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/free-sample.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/free-sample.html</guid>
-      <description>Download a free sample with a Lemon Squeezy fixture, Next.js handler, Vitest signature test, and GitHub Actions workflow.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Lemon Squeezy Webhook Fixtures</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html</guid>
-      <description>Copy-ready Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Lemon Squeezy Webhook Idempotency</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html</guid>
-      <description>Make Lemon Squeezy webhook handlers safe against retries, duplicate deliveries, and repeated billing side effects.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Webhook Idempotency Key Generator</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html</guid>
-      <description>Generate stable payment webhook idempotency keys, unique constraints, and process-once handler guards for provider retries.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Payment Webhook Test Generator</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</guid>
-      <description>Generate payment webhook payloads, signatures, cURL replay commands, and framework handler examples for SaaS billing tests.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Download a free sample with a Lemon Squeezy fixture, Next.js handler, Vitest signature test, contract test, replay test, and GitHub Actions workflow.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>BillingWebhookKit Pro Preview</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/pro-kit.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/pro-kit.html</guid>
-      <description>Preview the CN¥69 digital pack: payment webhook fixtures, handlers, tests, CI workflow, and launch checklist.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Preview the CN¥69 digital pack: payment webhook fixtures, route handlers, tests, CI workflow, idempotency runbook, and launch checklist.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Test Lemon Squeezy Webhooks Locally</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html</guid>
-      <description>Generate Lemon Squeezy webhook payloads, HMAC signatures, and cURL replay commands without sending secrets to a server.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Verify Lemon Squeezy Webhook Signatures</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html</guid>
+      <description>A practical checklist for validating Lemon Squeezy webhook HMAC signatures in SaaS apps.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Lemon Squeezy Webhook Test Checklist</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html</guid>
       <description>A launch checklist for Lemon Squeezy webhook signature verification, contract fields, idempotency keys, duplicate replay, and entitlement decisions.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>Webhook Signature Mismatch Debugger</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html</guid>
-      <description>Debug payment webhook signature mismatches caused by raw-body changes, wrong secrets, header formats, framework parsers, and cURL replay mistakes.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <title>Next.js Lemon Squeezy Webhook Handler</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</guid>
+      <description>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hono Lemon Squeezy Webhook Handler</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html</guid>
+      <description>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Stripe Webhook Fixture Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html</guid>
+      <description>Use payment webhook fixtures to test checkout.session.completed and invoice.paid flows before launch.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Paddle Webhook Test Payloads</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html</guid>
+      <description>Generate and organize Paddle webhook test payloads for SaaS billing integration tests.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Replay Payment Webhooks with cURL</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html</guid>
+      <description>Generate repeatable cURL commands for payment webhook development without exposing signing secrets to a hosted service.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Payment Webhook CI Tests</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html</guid>
       <description>A practical CI checklist for testing payment webhook signatures, fixtures, retries, and idempotency.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lemon Squeezy License Key Webhook Test</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html</guid>
+      <description>Generate and test Lemon Squeezy license key webhook payloads for desktop apps, plugins, and downloadable products.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Subscription Payment Success Webhook</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/subscription-payment-success-webhook.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/subscription-payment-success-webhook.html</guid>
+      <description>Test subscription_payment_success webhook handling for renewals, entitlement extension, and billing email workflows.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Polar Webhook Fixtures</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html</guid>
+      <description>Organize Polar order and subscription webhook fixtures alongside Stripe, Paddle, and Lemon Squeezy tests.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Webhook Idempotency Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</guid>
+      <description>A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Webhook Review Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</guid>
+      <description>A PR-ready checklist for reviewing payment webhook routes before billing changes ship.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cloudflare Worker Webhook Handler</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html</guid>
+      <description>Build a low-cost payment webhook handler on Cloudflare Workers with Web Crypto signature verification.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>SaaS Billing Webhook Test Plan</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html</guid>
+      <description>A launch checklist for testing SaaS billing webhooks across purchase, subscription, cancellation, refund, and license flows.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lemon Squeezy Webhook Fixtures</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html</guid>
+      <description>Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Payment Webhook Test Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</guid>
+      <description>Generate payment webhook payloads, signatures, cURL replay commands, and framework handler examples for SaaS billing tests.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Billing Webhook Starter Kit</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html</guid>
+      <description>A practical billing webhook starter kit structure for fixtures, raw-body handlers, signature tests, idempotency checks, and CI workflows.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Next.js Billing Webhook Test Suite</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html</guid>
+      <description>Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>SaaS Webhook Release Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html</guid>
+      <description>A release checklist for SaaS teams shipping checkout, subscription, cancellation, refund, and license webhook changes.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Billing Webhook Cost Calculator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html</guid>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Billing Webhook Launch Readiness Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</guid>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lemon Squeezy Webhook Idempotency</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html</guid>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Payment Webhook Contract Test Generator</title>
@@ -85,46 +197,32 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>Billing Webhook Launch Readiness Checklist</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</guid>
-      <description>Score payment webhook launch risk across signature tests, duplicate replay, entitlement decisions, secrets, smoke tests, review artifacts, and monitoring.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Billing Webhook Cost Calculator</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html</guid>
-      <description>Estimate the engineering cost of debugging payment webhook signatures, retries, idempotency, and release review.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <title>Webhook Duplicate Replay Test</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html</guid>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Webhook Entitlement Decision Matrix</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html</guid>
-      <description>Map payment webhook events to SaaS access grants, subscription renewals, license delivery, cancellation scheduling, and quarantine decisions.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>Webhook Idempotency Checklist</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</guid>
-      <description>A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <title>Webhook Idempotency Key Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html</guid>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>Webhook Duplicate Replay Test</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html</guid>
-      <description>Test duplicate payment webhook deliveries with an idempotency key and a process-once Vitest replay check.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Webhook Review Checklist</title>
-      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</link>
-      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html</guid>
-      <description>A PR-ready checklist for reviewing payment webhook routes before billing changes ship.</description>
-      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+      <title>Webhook Signature Mismatch Debugger</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html</guid>
+      <description>Payment webhook testing guide for SaaS billing integrations.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

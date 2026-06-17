@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment Webhook Testing Guides | BillingWebhookKit</title>
+    <meta name="description" content="Payment webhook testing guides for Lemon Squeezy, Stripe, Paddle, Polar, raw-body signatures, idempotency, contract tests, duplicate replay, CI checks, and billing launch readiness." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Payment Webhook Testing Guides" />
+    <meta property="og:description" content="A searchable guide index for payment webhook signatures, fixtures, idempotency, replay tests, CI checks, and launch readiness." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Payment Webhook Testing Guides" />
+    <meta name="twitter:description" content="Find BillingWebhookKit guides for Lemon Squeezy webhook tests, signatures, idempotency, contract tests, replay, CI, and launch readiness." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --soft:#fff; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(1080px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 64px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 26px; font-weight: 850; }
+      h1 { margin: 0; max-width: 880px; font-size: clamp(2.2rem, 7vw, 5.1rem); line-height: .94; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.13rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .guide { display: block; min-height: 150px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--soft); text-decoration: none; box-shadow: 4px 4px 0 rgba(17,19,15,.16); }
+      .guide h2 { margin: 0 0 8px; font-size: 1.08rem; line-height: 1.25; }
+      .guide p { margin: 0; color: var(--muted); line-height: 1.55; font-size: .96rem; }
+      footer { margin-top: 34px; color: var(--muted); line-height: 1.6; }
+      @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .guide { min-height: 0; } }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"BillingWebhookKit payment webhook guides","description":"Searchable payment webhook testing guides for Lemon Squeezy, Stripe, Paddle, Polar, signature verification, idempotency, contract tests, duplicate replay, CI, and launch readiness.","url":"https://qihaze123.github.io/billing-webhook-kit/guides/","mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Test Lemon Squeezy Webhooks Locally","url":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html"},{"@type":"ListItem","position":2,"name":"Verify Lemon Squeezy Webhook Signatures","url":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html"},{"@type":"ListItem","position":3,"name":"Lemon Squeezy Webhook Test Checklist","url":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html"},{"@type":"ListItem","position":4,"name":"Next.js Lemon Squeezy Webhook Handler","url":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html"},{"@type":"ListItem","position":5,"name":"Hono Lemon Squeezy Webhook Handler","url":"https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html"},{"@type":"ListItem","position":6,"name":"Stripe Webhook Fixture Generator","url":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html"},{"@type":"ListItem","position":7,"name":"Paddle Webhook Test Payloads","url":"https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html"},{"@type":"ListItem","position":8,"name":"Replay Payment Webhooks with cURL","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html"},{"@type":"ListItem","position":9,"name":"Payment Webhook CI Tests","url":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html"},{"@type":"ListItem","position":10,"name":"Lemon Squeezy License Key Webhook Test","url":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html"},{"@type":"ListItem","position":11,"name":"Subscription Payment Success Webhook","url":"https://qihaze123.github.io/billing-webhook-kit/guides/subscription-payment-success-webhook.html"},{"@type":"ListItem","position":12,"name":"Polar Webhook Fixtures","url":"https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html"},{"@type":"ListItem","position":13,"name":"Webhook Idempotency Checklist","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html"},{"@type":"ListItem","position":14,"name":"Webhook Review Checklist","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html"},{"@type":"ListItem","position":15,"name":"Cloudflare Worker Webhook Handler","url":"https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html"},{"@type":"ListItem","position":16,"name":"SaaS Billing Webhook Test Plan","url":"https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html"},{"@type":"ListItem","position":17,"name":"Lemon Squeezy Webhook Fixtures","url":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html"},{"@type":"ListItem","position":18,"name":"Payment Webhook Test Generator","url":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html"},{"@type":"ListItem","position":19,"name":"Billing Webhook Starter Kit","url":"https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html"},{"@type":"ListItem","position":20,"name":"Next.js Billing Webhook Test Suite","url":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html"},{"@type":"ListItem","position":21,"name":"SaaS Webhook Release Checklist","url":"https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html"},{"@type":"ListItem","position":22,"name":"Billing Webhook Cost Calculator","url":"https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html"},{"@type":"ListItem","position":23,"name":"Billing Webhook Launch Readiness Checklist","url":"https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html"},{"@type":"ListItem","position":24,"name":"Lemon Squeezy Webhook Idempotency","url":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html"},{"@type":"ListItem","position":25,"name":"Payment Webhook Contract Test Generator","url":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html"},{"@type":"ListItem","position":26,"name":"Webhook Duplicate Replay Test","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html"},{"@type":"ListItem","position":27,"name":"Webhook Entitlement Decision Matrix","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html"},{"@type":"ListItem","position":28,"name":"Webhook Idempotency Key Generator","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html"},{"@type":"ListItem","position":29,"name":"Webhook Signature Mismatch Debugger","url":"https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html"}]}}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Payment webhook testing guides</h1>
+      <p class="lead">Find practical references for Lemon Squeezy webhook tests, raw-body HMAC signatures, idempotency keys, duplicate replay checks, CI contract tests, and launch readiness.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
+      <div class="grid">
+        <a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html">
+          <h2>Test Lemon Squeezy Webhooks Locally</h2>
+          <p>Generate Lemon Squeezy webhook payloads, HMAC signatures, and curl replay commands without sending secrets to a server.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html">
+          <h2>Verify Lemon Squeezy Webhook Signatures</h2>
+          <p>A practical checklist for validating Lemon Squeezy webhook HMAC signatures in SaaS apps.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html">
+          <h2>Lemon Squeezy Webhook Test Checklist</h2>
+          <p>A launch checklist for Lemon Squeezy webhook signature verification, contract fields, idempotency keys, duplicate replay, and entitlement decisions.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
+          <h2>Next.js Lemon Squeezy Webhook Handler</h2>
+          <p>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html">
+          <h2>Hono Lemon Squeezy Webhook Handler</h2>
+          <p>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-fixture-generator.html">
+          <h2>Stripe Webhook Fixture Generator</h2>
+          <p>Use payment webhook fixtures to test checkout.session.completed and invoice.paid flows before launch.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-payload.html">
+          <h2>Paddle Webhook Test Payloads</h2>
+          <p>Generate and organize Paddle webhook test payloads for SaaS billing integration tests.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-replay-curl-command.html">
+          <h2>Replay Payment Webhooks with cURL</h2>
+          <p>Generate repeatable cURL commands for payment webhook development without exposing signing secrets to a hosted service.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html">
+          <h2>Payment Webhook CI Tests</h2>
+          <p>A practical CI checklist for testing payment webhook signatures, fixtures, retries, and idempotency.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html">
+          <h2>Lemon Squeezy License Key Webhook Test</h2>
+          <p>Generate and test Lemon Squeezy license key webhook payloads for desktop apps, plugins, and downloadable products.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/subscription-payment-success-webhook.html">
+          <h2>Subscription Payment Success Webhook</h2>
+          <p>Test subscription_payment_success webhook handling for renewals, entitlement extension, and billing email workflows.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/polar-webhook-fixtures.html">
+          <h2>Polar Webhook Fixtures</h2>
+          <p>Organize Polar order and subscription webhook fixtures alongside Stripe, Paddle, and Lemon Squeezy tests.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html">
+          <h2>Webhook Idempotency Checklist</h2>
+          <p>A compact checklist for making payment webhook handlers safe against retries, duplicated events, and out-of-order delivery.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html">
+          <h2>Webhook Review Checklist</h2>
+          <p>A PR-ready checklist for reviewing payment webhook routes before billing changes ship.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/cloudflare-worker-webhook-handler.html">
+          <h2>Cloudflare Worker Webhook Handler</h2>
+          <p>Build a low-cost payment webhook handler on Cloudflare Workers with Web Crypto signature verification.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html">
+          <h2>SaaS Billing Webhook Test Plan</h2>
+          <p>A launch checklist for testing SaaS billing webhooks across purchase, subscription, cancellation, refund, and license flows.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html">
+          <h2>Lemon Squeezy Webhook Fixtures</h2>
+          <p>Downloadable and browser-generated Lemon Squeezy webhook fixtures for order, subscription, license, cancellation, and payment success tests.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html">
+          <h2>Payment Webhook Test Generator</h2>
+          <p>Generate payment webhook payloads, signatures, cURL replay commands, and framework handler examples for SaaS billing tests.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html">
+          <h2>Billing Webhook Starter Kit</h2>
+          <p>A practical billing webhook starter kit structure for fixtures, raw-body handlers, signature tests, idempotency checks, and CI workflows.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html">
+          <h2>Next.js Billing Webhook Test Suite</h2>
+          <p>Build a Next.js billing webhook test suite with raw request body signing, Lemon Squeezy fixtures, idempotency replay, and CI checks.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html">
+          <h2>SaaS Webhook Release Checklist</h2>
+          <p>A release checklist for SaaS teams shipping checkout, subscription, cancellation, refund, and license webhook changes.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html">
+          <h2>Billing Webhook Cost Calculator</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html">
+          <h2>Billing Webhook Launch Readiness Checklist</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html">
+          <h2>Lemon Squeezy Webhook Idempotency</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html">
+          <h2>Payment Webhook Contract Test Generator</h2>
+          <p>Generate payment webhook contract tests that lock event names, object IDs, status fields, customer mapping, and idempotency keys before billing side effects.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html">
+          <h2>Webhook Duplicate Replay Test</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html">
+          <h2>Webhook Entitlement Decision Matrix</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html">
+          <h2>Webhook Idempotency Key Generator</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+<a class="guide" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html">
+          <h2>Webhook Signature Mismatch Debugger</h2>
+          <p>Payment webhook testing guide for SaaS billing integrations.</p>
+        </a>
+      </div>
+      <footer>
+        Use fake fixtures and fake signing secrets in public examples. Keep production API keys, webhook secrets, customer data, and private checkout links out of shared reports.
+      </footer>
+    </main>
+  </body>
+</html>

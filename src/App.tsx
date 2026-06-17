@@ -2207,6 +2207,9 @@ Header casing: x-signature / X-Signature`,
         <div>
           <p className="eyebrow">Webhook Guides</p>
           <h2>Focused references for search-heavy billing integration jobs</h2>
+          <a className="inline-cta" href="guides/">
+            Browse all payment webhook guides
+          </a>
         </div>
         <div className="guide-grid">
           {guideLinks.map((guide) => (

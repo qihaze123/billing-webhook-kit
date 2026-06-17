@@ -14,6 +14,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Live tool: https://qihaze123.github.io/billing-webhook-kit/
 - Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
+- Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 
@@ -77,6 +78,7 @@ Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit
 
 ## Guides
 
+- https://qihaze123.github.io/billing-webhook-kit/guides/
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html
