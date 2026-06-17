@@ -13,6 +13,7 @@ import {
   ListChecks,
   PackageCheck,
   Play,
+  Repeat2,
   ShieldCheck,
   Terminal,
   XCircle
@@ -76,6 +77,7 @@ const proArtifacts = [
 const integrationSignals = [
   "Raw-body HMAC checks",
   "Idempotent retry fixtures",
+  "Duplicate replay simulator",
   "Provider mapping examples",
   "CI-ready test command"
 ];
@@ -107,6 +109,13 @@ type PayloadInsight = {
   targetRecord: string;
   recommendedAction: string;
   riskChecks: string[];
+};
+
+type ReplayAttempt = {
+  attempt: number;
+  decision: "process" | "skip";
+  status: string;
+  note: string;
 };
 
 function normalizeSignatureInput(value: string) {
@@ -310,6 +319,88 @@ ${checks}
 Keep this report with the route PR or release checklist. Re-run it after changing raw-body parsing, signature verification, event mapping, entitlement writes, or retry handling.`;
 }
 
+function buildReplayAttempts(insight: PayloadInsight): ReplayAttempt[] {
+  if (insight.parseError) {
+    return [
+      {
+        attempt: 1,
+        decision: "skip",
+        status: "Reject malformed payload",
+        note: "Do not write billing side effects until the raw body parses after signature verification."
+      },
+      {
+        attempt: 2,
+        decision: "skip",
+        status: "Still rejected",
+        note: "Repeated invalid payloads should stay quarantined and should not create processed-event records."
+      },
+      {
+        attempt: 3,
+        decision: "skip",
+        status: "Still rejected",
+        note: "Alert or sample logs without leaking webhook secrets or raw production payloads."
+      }
+    ];
+  }
+
+  return [
+    {
+      attempt: 1,
+      decision: "process",
+      status: "Process once",
+      note: `Store ${insight.idempotencyKey}, then run the handler side effect.`
+    },
+    {
+      attempt: 2,
+      decision: "skip",
+      status: "Skip duplicate",
+      note: "Return a successful response after confirming the stored idempotency key already ran."
+    },
+    {
+      attempt: 3,
+      decision: "skip",
+      status: "Skip duplicate",
+      note: "Do not send another email, grant access twice, or rewrite billing state."
+    }
+  ];
+}
+
+function buildReplayTestSnippet(insight: PayloadInsight, eventId: EventId) {
+  const idempotencyKey = insight.parseError ? "invalid-payload" : insight.idempotencyKey;
+  const expectedSideEffects = insight.parseError ? 0 : 1;
+  const expectedDuplicates = insight.parseError ? 0 : 2;
+
+  return `import { describe, expect, it } from "vitest";
+import fixture from "./fixtures/lemon-${eventId}.json";
+
+function idempotencyKey() {
+  return "${idempotencyKey}";
+}
+
+describe("Lemon Squeezy ${eventId} duplicate replay", () => {
+  it("runs the billing side effect only once", async () => {
+    const processed = new Set<string>();
+    let sideEffects = 0;
+    let duplicates = 0;
+
+    for (const _delivery of [fixture, fixture, fixture]) {
+      const key = idempotencyKey();
+
+      if (processed.has(key)) {
+        duplicates += 1;
+        continue;
+      }
+
+      processed.add(key);
+      sideEffects += 1;
+    }
+
+    expect(sideEffects).toBe(${expectedSideEffects});
+    expect(duplicates).toBe(${expectedDuplicates});
+  });
+});`;
+}
+
 export function App() {
   const [eventId, setEventId] = useState<EventId>("order_created");
   const [framework, setFramework] = useState<FrameworkId>("next");
@@ -324,6 +415,7 @@ export function App() {
   const [copied, setCopied] = useState(false);
   const [insightCopied, setInsightCopied] = useState(false);
   const [reportCopied, setReportCopied] = useState(false);
+  const [replayCopied, setReplayCopied] = useState(false);
   const [runtimeCheckoutUrl, setRuntimeCheckoutUrl] = useState("");
 
   const checkoutUrl = runtimeCheckoutUrl || import.meta.env.VITE_LEMON_CHECKOUT_URL || "";
@@ -438,6 +530,11 @@ Header casing: x-signature / X-Signature`,
       }),
     [endpoint, eventId, framework, payloadInsight, signature, verification]
   );
+  const replayAttempts = useMemo(() => buildReplayAttempts(payloadInsight), [payloadInsight]);
+  const replayTestSnippet = useMemo(
+    () => buildReplayTestSnippet(payloadInsight, eventId),
+    [eventId, payloadInsight]
+  );
 
   async function copyCurrentOutput() {
     await copyTextToClipboard(currentOutput);
@@ -468,6 +565,16 @@ Header casing: x-signature / X-Signature`,
 
   function downloadReviewReport() {
     downloadText(`billing-webhook-kit-${eventId}-review.md`, reviewReport, "text/markdown");
+  }
+
+  async function copyReplayTest() {
+    await copyTextToClipboard(replayTestSnippet);
+    setReplayCopied(true);
+    window.setTimeout(() => setReplayCopied(false), 1400);
+  }
+
+  function downloadReplayTest() {
+    downloadText(`billing-webhook-kit-${eventId}-replay.test.ts`, replayTestSnippet, "text/typescript");
   }
 
   function loadGeneratedPayloadForVerification() {
@@ -819,6 +926,56 @@ Header casing: x-signature / X-Signature`,
               <code>{verifyExpectedSignature || "Computed HMAC will appear here"}</code>
             </pre>
           </div>
+        </div>
+      </section>
+
+      <section className="replay-panel" aria-label="Webhook duplicate replay simulator">
+        <div className="replay-panel__copy">
+          <p className="eyebrow">Duplicate Replay Simulator</p>
+          <h2>Model what should happen when the same webhook is delivered three times</h2>
+          <p>
+            Payment providers retry events. Use the recommended idempotency key to process the first
+            delivery and skip duplicates without repeating emails, license delivery, or entitlement writes.
+          </p>
+          <div className="review-actions">
+            <button type="button" onClick={copyReplayTest} title="Copy duplicate replay test">
+              {replayCopied ? <Check size={17} aria-hidden="true" /> : <Clipboard size={17} aria-hidden="true" />}
+              {replayCopied ? "Copied" : "Copy test"}
+            </button>
+            <button type="button" onClick={downloadReplayTest} title="Download duplicate replay test">
+              <Download size={17} aria-hidden="true" />
+              Download test
+            </button>
+          </div>
+        </div>
+
+        <div className="replay-grid">
+          <div className="replay-key">
+            <span>Replay key</span>
+            <strong>{payloadInsight.idempotencyKey}</strong>
+          </div>
+
+          <div className="replay-timeline" aria-label="Duplicate delivery attempts">
+            {replayAttempts.map((attempt) => (
+              <article
+                className={`replay-attempt replay-attempt--${attempt.decision}`}
+                key={`${attempt.attempt}-${attempt.status}`}
+              >
+                <div className="replay-attempt__index">
+                  <Repeat2 size={16} aria-hidden="true" />
+                  <span>Attempt {attempt.attempt}</span>
+                </div>
+                <div>
+                  <strong>{attempt.status}</strong>
+                  <p>{attempt.note}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <pre className="replay-code" aria-label="Duplicate replay test preview">
+            <code>{replayTestSnippet}</code>
+          </pre>
         </div>
       </section>
 
