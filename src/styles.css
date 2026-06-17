@@ -498,6 +498,164 @@ h2 {
   line-height: 1.65;
 }
 
+.verifier-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fbfcf8;
+  box-shadow: var(--shadow);
+}
+
+.verifier-panel h2 {
+  max-width: 520px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.verifier-panel p:not(.eyebrow) {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.inline-tool-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--acid);
+  color: var(--ink);
+  padding: 0 12px;
+  font-weight: 850;
+}
+
+.verifier-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+  gap: 12px;
+  min-width: 0;
+}
+
+.verify-stack {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.verify-field {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.verify-field span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.verify-field input,
+.verify-field textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+  font-size: 0.82rem;
+}
+
+.verify-field input {
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+.verify-field textarea {
+  min-height: 286px;
+  resize: vertical;
+  padding: 12px;
+  line-height: 1.55;
+}
+
+.verify-field input:focus,
+.verify-field textarea:focus {
+  box-shadow: 0 0 0 3px rgba(0, 140, 153, 0.18);
+}
+
+.verify-result {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--paper-2);
+}
+
+.verify-result svg {
+  margin-top: 1px;
+}
+
+.verify-result strong {
+  display: block;
+  font-size: 0.96rem;
+}
+
+.verify-result p {
+  margin-top: 4px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.verify-result--match {
+  border-color: var(--green);
+  background: rgba(34, 122, 76, 0.1);
+}
+
+.verify-result--match svg {
+  color: var(--green);
+}
+
+.verify-result--mismatch,
+.verify-result--invalid {
+  border-color: var(--coral);
+  background: rgba(240, 95, 59, 0.1);
+}
+
+.verify-result--mismatch svg,
+.verify-result--invalid svg {
+  color: var(--coral);
+}
+
+.verify-digest {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #10120f;
+  color: var(--acid);
+  padding: 12px;
+  overflow: auto;
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .guide-panel {
   display: grid;
   grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
@@ -553,7 +711,9 @@ h2 {
 
   .guide-panel,
   .guide-grid,
-  .evidence-panel {
+  .evidence-panel,
+  .verifier-panel,
+  .verifier-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -628,6 +788,11 @@ h2 {
   }
 
   .evidence-panel {
+    margin-top: 14px;
+    padding: 14px;
+  }
+
+  .verifier-panel {
     margin-top: 14px;
     padding: 14px;
   }

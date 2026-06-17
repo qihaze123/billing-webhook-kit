@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import {
+  AlertTriangle,
   Check,
+  CheckCircle2,
   Clipboard,
   Code2,
   Download,
@@ -10,7 +12,8 @@ import {
   PackageCheck,
   Play,
   ShieldCheck,
-  Terminal
+  Terminal,
+  XCircle
 } from "lucide-react";
 import {
   buildLemonPayload,
@@ -79,6 +82,16 @@ type CheckoutConfig = {
   checkoutUrl?: string;
 };
 
+type VerificationState =
+  | { status: "empty"; message: string }
+  | { status: "invalid"; message: string }
+  | { status: "match"; message: string }
+  | { status: "mismatch"; message: string };
+
+function normalizeSignatureInput(value: string) {
+  return value.trim().replace(/^sha256=/i, "").toLowerCase();
+}
+
 export function App() {
   const [eventId, setEventId] = useState<EventId>("order_created");
   const [framework, setFramework] = useState<FrameworkId>("next");
@@ -86,6 +99,10 @@ export function App() {
   const [secret, setSecret] = useState("test_webhook_secret");
   const [endpoint, setEndpoint] = useState(defaultEndpoint);
   const [signature, setSignature] = useState("");
+  const [verifyPayload, setVerifyPayload] = useState("");
+  const [verifySecret, setVerifySecret] = useState("test_webhook_secret");
+  const [verifySignature, setVerifySignature] = useState("");
+  const [verifyExpectedSignature, setVerifyExpectedSignature] = useState("");
   const [copied, setCopied] = useState(false);
   const [runtimeCheckoutUrl, setRuntimeCheckoutUrl] = useState("");
 
@@ -131,6 +148,34 @@ export function App() {
     };
   }, [payloadJson, secret]);
 
+  useEffect(() => {
+    let cancelled = false;
+    const body = verifyPayload;
+
+    if (!body || !verifySecret) {
+      setVerifyExpectedSignature("");
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    hmacSha256Hex(verifySecret, body)
+      .then((nextSignature) => {
+        if (!cancelled) {
+          setVerifyExpectedSignature(nextSignature);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setVerifyExpectedSignature("");
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [verifyPayload, verifySecret]);
+
   const outputs: Record<OutputTab, string> = {
     payload: payloadJson,
     signature: `X-Signature: ${signature || "GENERATING_SIGNATURE"}
@@ -145,6 +190,16 @@ Header casing: x-signature / X-Signature`,
   };
 
   const currentOutput = outputs[activeTab];
+  const normalizedVerifySignature = normalizeSignatureInput(verifySignature);
+  const verification: VerificationState = !verifyPayload.trim()
+    ? { status: "empty", message: "Paste the exact raw request body to verify a webhook signature." }
+    : !normalizedVerifySignature
+      ? { status: "empty", message: "Paste the x-signature header value to compare against the computed HMAC." }
+      : !/^[a-f0-9]{64}$/.test(normalizedVerifySignature)
+        ? { status: "invalid", message: "Signature must be a 64-character SHA-256 hex digest." }
+        : verifyExpectedSignature && normalizedVerifySignature === verifyExpectedSignature
+          ? { status: "match", message: "Signature matches this raw body and secret." }
+          : { status: "mismatch", message: "Signature does not match. Check raw body bytes, secret, and header value." };
 
   async function copyCurrentOutput() {
     await navigator.clipboard.writeText(currentOutput);
@@ -155,6 +210,12 @@ Header casing: x-signature / X-Signature`,
   function downloadCurrentOutput() {
     const extension = activeTab === "payload" ? "json" : "txt";
     downloadText(`billing-webhook-kit-${eventId}-${activeTab}.${extension}`, currentOutput);
+  }
+
+  function loadGeneratedPayloadForVerification() {
+    setVerifyPayload(payloadJson);
+    setVerifySecret(secret);
+    setVerifySignature(signature);
   }
 
   return (
@@ -346,6 +407,82 @@ Header casing: x-signature / X-Signature`,
             <span>No account required</span>
           </div>
         </aside>
+      </section>
+
+      <section className="verifier-panel" aria-label="Webhook signature verifier">
+        <div className="verifier-panel__copy">
+          <p className="eyebrow">Signature Verifier</p>
+          <h2>Check whether a received webhook signature matches the exact raw body</h2>
+          <p>
+            Paste the raw request body, signing secret, and x-signature header. Verification runs locally
+            in the browser with Web Crypto, so the secret never leaves this page.
+          </p>
+          <button className="inline-tool-button" type="button" onClick={loadGeneratedPayloadForVerification}>
+            <FileJson size={16} aria-hidden="true" />
+            Use generated fixture
+          </button>
+        </div>
+
+        <div className="verifier-grid">
+          <label className="verify-field verify-field--body">
+            <span>Raw request body</span>
+            <textarea
+              value={verifyPayload}
+              onChange={(event) => setVerifyPayload(event.target.value)}
+              spellCheck={false}
+              placeholder='{"meta":{"event_name":"order_created"},"data":{...}}'
+            />
+          </label>
+
+          <div className="verify-stack">
+            <label className="verify-field">
+              <span>Signing secret</span>
+              <input
+                value={verifySecret}
+                onChange={(event) => setVerifySecret(event.target.value)}
+                spellCheck={false}
+                autoComplete="off"
+              />
+            </label>
+
+            <label className="verify-field">
+              <span>x-signature header</span>
+              <input
+                value={verifySignature}
+                onChange={(event) => setVerifySignature(event.target.value)}
+                spellCheck={false}
+                autoComplete="off"
+                placeholder="64-character hex digest"
+              />
+            </label>
+
+            <div className={`verify-result verify-result--${verification.status}`} aria-live="polite">
+              {verification.status === "match" ? (
+                <CheckCircle2 size={20} aria-hidden="true" />
+              ) : verification.status === "mismatch" ? (
+                <XCircle size={20} aria-hidden="true" />
+              ) : (
+                <AlertTriangle size={20} aria-hidden="true" />
+              )}
+              <div>
+                <strong>
+                  {verification.status === "match"
+                    ? "Verified"
+                    : verification.status === "mismatch"
+                      ? "Mismatch"
+                      : verification.status === "invalid"
+                        ? "Invalid"
+                        : "Waiting"}
+                </strong>
+                <p>{verification.message}</p>
+              </div>
+            </div>
+
+            <pre className="verify-digest" aria-label="Computed signature">
+              <code>{verifyExpectedSignature || "Computed HMAC will appear here"}</code>
+            </pre>
+          </div>
+        </div>
       </section>
 
       <section className="evidence-panel" aria-label="Pro Kit contents">
