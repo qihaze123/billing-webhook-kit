@@ -1,6 +1,6 @@
 # BillingWebhookKit
 
-Browser-only payment webhook fixture generator, raw-body signature verifier, payload inspector, duplicate replay simulator, and review report exporter for SaaS billing integrations.
+Browser-only payment webhook fixture generator, raw-body signature verifier, payload inspector, duplicate replay simulator, debugging cost calculator, and review report exporter for SaaS billing integrations.
 
 Live tool: https://qihaze123.github.io/billing-webhook-kit/
 
@@ -8,7 +8,7 @@ Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
-The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures against exact raw request bodies, inspects trusted billing fields, recommends idempotency keys, simulates duplicate webhook replays, exports PR-ready Markdown review reports, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
+The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures against exact raw request bodies, inspects trusted billing fields, recommends idempotency keys, simulates duplicate webhook replays, estimates webhook debugging cost, exports PR-ready Markdown review reports, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
 
 ## What It Helps Test
 
@@ -18,6 +18,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - Payload inspection for event name, object ID, customer, status, amount, and target record
 - Recommended idempotency keys for safe webhook retries
 - Duplicate replay behavior for process-once/skip-duplicate tests
+- Webhook debugging cost estimates for launch planning
 - PR-ready Markdown reports for webhook route review and release checklists
 - cURL webhook replay into local, tunnel, staging, or CI routes
 - Next.js, Hono, and Express raw-body handler patterns
@@ -45,6 +46,7 @@ Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.ht
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-review-checklist.html

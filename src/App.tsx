@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
+  Calculator,
   Check,
   CheckCircle2,
   Clipboard,
@@ -52,6 +53,7 @@ const guideLinks = [
   { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" },
   { href: "guides/webhook-replay-curl-command.html", label: "Replay webhooks with cURL" },
   { href: "guides/payment-webhook-ci-tests.html", label: "Payment webhook CI tests" },
+  { href: "guides/billing-webhook-cost-calculator.html", label: "Billing webhook cost calculator" },
   { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
   { href: "guides/polar-webhook-fixtures.html", label: "Polar webhook fixtures" },
@@ -123,6 +125,8 @@ type ReplayAttempt = {
   note: string;
 };
 
+const proKitReferenceUsd = 9.7;
+
 function normalizeSignatureInput(value: string) {
   return value.trim().replace(/^sha256=/i, "").toLowerCase();
 }
@@ -170,6 +174,23 @@ function formatMinorAmount(total: unknown, currency: unknown) {
   }
   const code = asDisplayValue(currency, "CNY").toUpperCase();
   return `${code} ${(total / 100).toFixed(2)}`;
+}
+
+function formatUsd(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: value >= 100 ? 0 : 2
+  }).format(value);
+}
+
+function formatHours(value: number) {
+  return `${value.toFixed(value % 1 === 0 ? 0 : 1)}h`;
+}
+
+function clampNumber(value: number, min: number, max: number) {
+  if (!Number.isFinite(value)) return min;
+  return Math.min(max, Math.max(min, value));
 }
 
 function invalidPayloadInsight(sourceLabel: string, error: unknown): PayloadInsight {
@@ -421,6 +442,9 @@ export function App() {
   const [insightCopied, setInsightCopied] = useState(false);
   const [reportCopied, setReportCopied] = useState(false);
   const [replayCopied, setReplayCopied] = useState(false);
+  const [hourlyRate, setHourlyRate] = useState(75);
+  const [debugHours, setDebugHours] = useState(4);
+  const [billingLaunches, setBillingLaunches] = useState(2);
   const [runtimeCheckoutUrl, setRuntimeCheckoutUrl] = useState("");
 
   const checkoutUrl = runtimeCheckoutUrl || import.meta.env.VITE_LEMON_CHECKOUT_URL || "";
@@ -540,6 +564,9 @@ Header casing: x-signature / X-Signature`,
     () => buildReplayTestSnippet(payloadInsight, eventId),
     [eventId, payloadInsight]
   );
+  const annualDebugCost = hourlyRate * debugHours * billingLaunches;
+  const breakEvenMinutes = hourlyRate > 0 ? (proKitReferenceUsd / hourlyRate) * 60 : 0;
+  const estimatedMultiple = proKitReferenceUsd > 0 ? annualDebugCost / proKitReferenceUsd : 0;
 
   async function copyCurrentOutput() {
     await copyTextToClipboard(currentOutput);
@@ -981,6 +1008,109 @@ Header casing: x-signature / X-Signature`,
           <pre className="replay-code" aria-label="Duplicate replay test preview">
             <code>{replayTestSnippet}</code>
           </pre>
+        </div>
+      </section>
+
+      <section className="cost-panel" aria-label="Webhook debugging cost calculator">
+        <div className="cost-panel__copy">
+          <p className="eyebrow">Launch Cost Calculator</p>
+          <h2>Check whether a small webhook kit is cheaper than one debugging session</h2>
+          <p>
+            Estimate the engineering time normally spent on raw-body signatures, duplicate retries,
+            idempotency, and release review before billing goes live.
+          </p>
+        </div>
+
+        <div className="cost-grid">
+          <div className="range-field">
+            <div className="range-field__top">
+              <span>Developer hourly rate</span>
+              <input
+                aria-label="Developer hourly rate"
+                type="number"
+                min="25"
+                max="200"
+                step="5"
+                value={hourlyRate}
+                onChange={(event) => setHourlyRate(clampNumber(Number(event.target.value), 25, 200))}
+              />
+            </div>
+            <strong>{formatUsd(hourlyRate)}</strong>
+            <input
+              aria-label="Developer hourly rate slider"
+              type="range"
+              min="25"
+              max="200"
+              step="5"
+              value={hourlyRate}
+              onChange={(event) => setHourlyRate(Number(event.target.value))}
+            />
+          </div>
+
+          <div className="range-field">
+            <div className="range-field__top">
+              <span>Webhook debug hours per launch</span>
+              <input
+                aria-label="Webhook debug hours per launch"
+                type="number"
+                min="1"
+                max="16"
+                step="0.5"
+                value={debugHours}
+                onChange={(event) => setDebugHours(clampNumber(Number(event.target.value), 1, 16))}
+              />
+            </div>
+            <strong>{formatHours(debugHours)}</strong>
+            <input
+              aria-label="Webhook debug hours slider"
+              type="range"
+              min="1"
+              max="16"
+              step="0.5"
+              value={debugHours}
+              onChange={(event) => setDebugHours(Number(event.target.value))}
+            />
+          </div>
+
+          <div className="range-field">
+            <div className="range-field__top">
+              <span>Billing launches or rewires per year</span>
+              <input
+                aria-label="Billing launches or rewires per year"
+                type="number"
+                min="1"
+                max="8"
+                step="1"
+                value={billingLaunches}
+                onChange={(event) => setBillingLaunches(clampNumber(Number(event.target.value), 1, 8))}
+              />
+            </div>
+            <strong>{billingLaunches}</strong>
+            <input
+              aria-label="Billing launches slider"
+              type="range"
+              min="1"
+              max="8"
+              step="1"
+              value={billingLaunches}
+              onChange={(event) => setBillingLaunches(Number(event.target.value))}
+            />
+          </div>
+
+          <div className="cost-result">
+            <div className="cost-result__icon">
+              <Calculator size={20} aria-hidden="true" />
+            </div>
+            <div>
+              <span>Estimated avoidable debugging exposure</span>
+              <strong>{formatUsd(annualDebugCost)}</strong>
+              <p>
+                CN¥69 is roughly US$9.70 at the launch reference price. At this rate, the kit breaks even
+                after about {Math.max(1, Math.round(breakEvenMinutes))} minutes and is a {estimatedMultiple.toFixed(1)}x
+                reference multiple against the estimated debugging exposure.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
