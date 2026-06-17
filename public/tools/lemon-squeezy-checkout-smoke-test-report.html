@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Checkout Smoke Test Report | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only Lemon Squeezy checkout smoke test report for product price, checkout URL, paid webhook delivery, duplicate replay, fulfillment, and release evidence."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy checkout smoke test, Lemon Squeezy launch checklist, checkout webhook test report, paid order webhook verification, billing release report"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Checkout Smoke Test Report" />
+    <meta
+      property="og:description"
+      content="Browser-only report generator for checking a Lemon Squeezy checkout before a paid buy link goes public."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Checkout Smoke Test Report" />
+    <meta
+      name="twitter:description"
+      content="Generate a release-ready Lemon Squeezy checkout smoke test report without uploading checkout data."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Checkout Smoke Test Report",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only tool for generating a Lemon Squeezy checkout smoke test report before launch."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lemon Squeezy Checkout Smoke Test Report",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --green: #227a4c;
+        --amber: #a96d00;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .metric span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 870px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 136px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fbfcf8;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 13px;
+      }
+
+      .metric.primary {
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      .metric.primary span,
+      .metric.primary strong {
+        color: var(--acid);
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.2;
+      }
+
+      .metric p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .metric.primary p {
+        color: #d9dfcf;
+      }
+
+      .gate-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .gate {
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 13px;
+      }
+
+      .gate strong {
+        display: block;
+        line-height: 1.25;
+      }
+
+      .gate p {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.52;
+      }
+
+      .gate.pass strong {
+        color: var(--green);
+      }
+
+      .gate.warn strong {
+        color: var(--amber);
+      }
+
+      .gate.block strong {
+        color: var(--coral);
+      }
+
+      .report {
+        min-height: 300px;
+        background: #11130f;
+        color: #f8faef;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 116px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 960px) {
+        .workbench,
+        .metrics,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Checkout smoke test</p>
+      <h1>Lemon Squeezy checkout smoke test report.</h1>
+      <p class="lead">
+        Build a release-ready checklist before a paid Lemon Squeezy checkout link goes public. Everything runs locally in the browser: product price, checkout URL, webhook delivery, signature gate, duplicate replay, fulfillment, and rollback evidence.
+      </p>
+
+      <section class="workbench" aria-label="Lemon Squeezy checkout smoke test report generator">
+        <div class="panel">
+          <header>
+            <h2>Release evidence</h2>
+            <p>Browser-only checklist</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Product or kit name</span>
+              <input id="productName" value="BillingWebhookKit Pro" />
+            </label>
+            <label class="field">
+              <span>Expected price</span>
+              <input id="expectedPrice" value="CN¥69.00" />
+            </label>
+            <label class="field">
+              <span>Checkout URL state</span>
+              <select id="checkoutState">
+                <option value="waiting" selected>Awaiting live key</option>
+                <option value="ready">Ready and private-reviewed</option>
+                <option value="missing">Missing or disabled</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Checkout URL or status note</span>
+              <input id="checkoutNote" value="awaiting_live_key until production API key is connected" />
+            </label>
+            <label class="field">
+              <span>Paid webhook event</span>
+              <select id="eventName">
+                <option value="order_created">order_created</option>
+                <option value="subscription_payment_success">subscription_payment_success</option>
+                <option value="license_key_created">license_key_created</option>
+                <option value="not_received">Not received yet</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Signature gate</span>
+              <select id="signatureGate">
+                <option value="pass">Passes raw-body verification</option>
+                <option value="missing">Not tested yet</option>
+                <option value="fail">Failing or bypassed</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Duplicate replay</span>
+              <select id="duplicateReplay">
+                <option value="pass">Same event processes once</option>
+                <option value="missing">Not tested yet</option>
+                <option value="fail">Duplicates side effects</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Fulfillment result</span>
+              <select id="fulfillment">
+                <option value="pass">Access or download delivered once</option>
+                <option value="missing">Not verified yet</option>
+                <option value="fail">Wrong or duplicated delivery</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Release identifiers</span>
+              <textarea id="releaseIds" spellcheck="false">order_id: pending
+event_id: pending
+idempotency_key: lemon:order_created:pending
+rollback: keep public checkout disabled until live verification passes</textarea>
+            </label>
+            <div class="button-row">
+              <button type="button" id="loadLaunchReady">Load launch-ready sample</button>
+              <button type="button" id="copyReport" class="secondary">Copy report</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Smoke test result</h2>
+            <p>Release gates and PR report</p>
+          </header>
+          <div class="result">
+            <div class="metrics" aria-label="Checkout smoke test summary">
+              <div class="metric primary">
+                <span>Verdict</span>
+                <strong id="verdict">Checking...</strong>
+                <p id="verdictCopy">Waiting for inputs.</p>
+              </div>
+              <div class="metric">
+                <span>Passed gates</span>
+                <strong id="passedGates">0 / 6</strong>
+                <p>Minimum public-launch threshold is all six gates passing.</p>
+              </div>
+              <div class="metric">
+                <span>Blockers</span>
+                <strong id="blockerCount">0</strong>
+                <p>Blockers should stay in the release report until fixed.</p>
+              </div>
+            </div>
+
+            <div class="gate-list" id="gateList" aria-label="Checkout smoke test gates"></div>
+
+            <label class="field">
+              <span class="output-label">PR-ready checkout smoke test report</span>
+              <textarea id="report" class="report" spellcheck="false"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Upgrade path">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake Lemon Squeezy fixtures, signature tests, duplicate replay tests, and CI structure before buying.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Turn a one-off smoke test report into route handlers, fixtures, contract tests, CI checks, and review templates.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        productName: document.querySelector("#productName"),
+        expectedPrice: document.querySelector("#expectedPrice"),
+        checkoutState: document.querySelector("#checkoutState"),
+        checkoutNote: document.querySelector("#checkoutNote"),
+        eventName: document.querySelector("#eventName"),
+        signatureGate: document.querySelector("#signatureGate"),
+        duplicateReplay: document.querySelector("#duplicateReplay"),
+        fulfillment: document.querySelector("#fulfillment"),
+        releaseIds: document.querySelector("#releaseIds")
+      };
+
+      const verdictEl = document.querySelector("#verdict");
+      const verdictCopyEl = document.querySelector("#verdictCopy");
+      const passedGatesEl = document.querySelector("#passedGates");
+      const blockerCountEl = document.querySelector("#blockerCount");
+      const gateListEl = document.querySelector("#gateList");
+      const reportEl = document.querySelector("#report");
+
+      function gate(status, title, detail, fix) {
+        return { status, title, detail, fix };
+      }
+
+      function statusClass(status) {
+        if (status === "pass") return "pass";
+        if (status === "block") return "block";
+        return "warn";
+      }
+
+      function buildCheckoutSmokeReport(input) {
+        const gates = [];
+        const priceReady = /69(?:\.00)?/.test(input.expectedPrice) && /CN¥|CNY|RMB|¥/.test(input.expectedPrice);
+        gates.push(
+          gate(
+            priceReady ? "pass" : "warn",
+            "Product price and currency",
+            priceReady
+              ? `Expected price is recorded as ${input.expectedPrice}.`
+              : "Price should explicitly match the live checkout currency and amount.",
+            "Record the final Lemon Squeezy variant price before launch."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.checkoutState === "ready" ? "pass" : input.checkoutState === "waiting" ? "warn" : "block",
+            "Checkout URL state",
+            input.checkoutState === "ready"
+              ? "Checkout URL exists and has been privately reviewed."
+              : input.checkoutState === "waiting"
+                ? "Public checkout is intentionally disabled while live credentials are missing."
+                : "Checkout URL is missing or disabled without a release reason.",
+            "Connect the live Lemon Squeezy key and verify the generated checkout page."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.eventName === "not_received" ? "block" : "pass",
+            "Paid webhook event",
+            input.eventName === "not_received"
+              ? "No paid webhook event has been observed yet."
+              : `Expected paid webhook event recorded as ${input.eventName}.`,
+            "Perform a controlled purchase and capture the provider event ID."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.signatureGate === "pass" ? "pass" : input.signatureGate === "fail" ? "block" : "warn",
+            "Raw-body signature gate",
+            input.signatureGate === "pass"
+              ? "Webhook route verifies the exact raw body before parsing."
+              : input.signatureGate === "fail"
+                ? "Signature verification is failing or bypassed."
+                : "Signature gate has not been tested with the checkout event yet.",
+            "Replay a signed fixture through the production route and keep the verification evidence."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.duplicateReplay === "pass" ? "pass" : input.duplicateReplay === "fail" ? "block" : "warn",
+            "Duplicate replay safety",
+            input.duplicateReplay === "pass"
+              ? "Same event can be replayed without repeating side effects."
+              : input.duplicateReplay === "fail"
+                ? "Duplicate replay repeats side effects."
+                : "Duplicate replay has not been tested yet.",
+            "Persist an idempotency key before access grants, emails, or downloads."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.fulfillment === "pass" ? "pass" : input.fulfillment === "fail" ? "block" : "warn",
+            "Fulfillment result",
+            input.fulfillment === "pass"
+              ? "Access or download delivery is verified once."
+              : input.fulfillment === "fail"
+                ? "Fulfillment is wrong, missing, or duplicated."
+                : "Fulfillment has not been verified from the paid event.",
+            "Map the paid event to the expected customer, product, and entitlement before public launch."
+          )
+        );
+
+        const passed = gates.filter((item) => item.status === "pass").length;
+        const blockers = gates.filter((item) => item.status === "block");
+        const warnings = gates.filter((item) => item.status === "warn");
+        const verdict = blockers.length > 0 ? "Blocked" : warnings.length > 0 ? "Review" : "Ready";
+        return { gates, passed, blockers, warnings, verdict };
+      }
+
+      function buildMarkdown(input, result) {
+        return [
+          "# Lemon Squeezy checkout smoke test report",
+          "",
+          `Product: ${input.productName}`,
+          `Expected price: ${input.expectedPrice}`,
+          `Checkout state: ${fields.checkoutState.options[fields.checkoutState.selectedIndex].text}`,
+          `Checkout note: ${input.checkoutNote}`,
+          `Paid webhook event: ${fields.eventName.options[fields.eventName.selectedIndex].text}`,
+          `Verdict: ${result.verdict.toLowerCase()}`,
+          `Passed gates: ${result.passed} / ${result.gates.length}`,
+          "",
+          "## Gate results",
+          "",
+          ...result.gates.map((item) => `- ${item.status.toUpperCase()} - ${item.title}: ${item.detail} Fix: ${item.fix}`),
+          "",
+          "## Release identifiers",
+          "",
+          input.releaseIds || "(none recorded)",
+          "",
+          "## Public launch rule",
+          "",
+          "- Do not expose the public buy button until price, checkout URL, paid webhook delivery, raw-body signature verification, duplicate replay, and fulfillment all pass.",
+          "- Keep production API keys, webhook signing secrets, private checkout links, and customer data out of public reports."
+        ].join("\n");
+      }
+
+      function readInput() {
+        return Object.fromEntries(Object.entries(fields).map(([key, element]) => [key, element.value]));
+      }
+
+      function render() {
+        const input = readInput();
+        const result = buildCheckoutSmokeReport(input);
+        verdictEl.textContent = result.verdict;
+        verdictCopyEl.textContent =
+          result.verdict === "Ready"
+            ? "All launch gates pass for the recorded evidence."
+            : result.verdict === "Review"
+              ? "No hard blockers, but launch evidence is incomplete."
+              : "Hard blockers remain before public checkout can go live.";
+        passedGatesEl.textContent = `${result.passed} / ${result.gates.length}`;
+        blockerCountEl.textContent = String(result.blockers.length);
+        gateListEl.innerHTML = result.gates
+          .map(
+            (item) => `<div class="gate ${statusClass(item.status)}">
+              <strong>${item.status.toUpperCase()} - ${item.title}</strong>
+              <p>${item.detail} ${item.fix}</p>
+            </div>`
+          )
+          .join("");
+        reportEl.value = buildMarkdown(input, result);
+      }
+
+      function loadLaunchReadySample() {
+        fields.productName.value = "BillingWebhookKit Pro";
+        fields.expectedPrice.value = "CN¥69.00";
+        fields.checkoutState.value = "ready";
+        fields.checkoutNote.value = "private live checkout smoke test passed; public button can be enabled after review";
+        fields.eventName.value = "order_created";
+        fields.signatureGate.value = "pass";
+        fields.duplicateReplay.value = "pass";
+        fields.fulfillment.value = "pass";
+        fields.releaseIds.value = [
+          "order_id: ord_live_review_123",
+          "event_id: evt_order_created_review_123",
+          "idempotency_key: lemon:order_created:ord_live_review_123",
+          "rollback: disable public checkout button and keep Pro Kit download private"
+        ].join("\n");
+        render();
+      }
+
+      document.querySelectorAll("input, select, textarea").forEach((element) => {
+        element.addEventListener("input", render);
+      });
+      document.querySelector("#loadLaunchReady").addEventListener("click", loadLaunchReadySample);
+      document.querySelector("#copyReport").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(reportEl.value);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

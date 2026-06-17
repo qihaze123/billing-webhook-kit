@@ -18,6 +18,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/webhook-entitlement-decision-matrix.html`,
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
+  `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -113,6 +114,7 @@ const [
   entitlementMatrix,
   costCalculator,
   readinessScorecard,
+  checkoutSmokeReport,
   guideIndex,
   checkoutSmokeGuide,
   stripeNextjsGuide,
@@ -136,6 +138,7 @@ const [
   fetchText(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
@@ -178,6 +181,9 @@ const issues = [
   ...(readinessScorecard.ok
     ? []
     : [`readiness scorecard page returned HTTP ${readinessScorecard.status ?? "failed"}.`]),
+  ...(checkoutSmokeReport.ok
+    ? []
+    : [`checkout smoke test report page returned HTTP ${checkoutSmokeReport.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(checkoutSmokeGuide.ok
     ? []
@@ -189,7 +195,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 50 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 50.`]),
+  ...(sitemapUrls.length >= 51 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 51.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -227,6 +233,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`)
     ? []
     : ["llms.txt is missing the standalone launch readiness scorecard URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`)
+    ? []
+    : ["llms.txt is missing the standalone checkout smoke test report URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy checkout smoke test guide URL."]),
@@ -253,6 +262,7 @@ const issues = [
   toolIndex.text.includes("Webhook entitlement decision matrix") &&
   toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
+  toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
   toolIndex.text.includes("Download the free sample") &&
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
     ? []
@@ -318,6 +328,12 @@ const issues = [
   readinessScorecard.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["readiness scorecard page is missing scorecard copy, report copy, or conversion links."]),
+  ...(checkoutSmokeReport.text.includes("Lemon Squeezy checkout smoke test report") &&
+  checkoutSmokeReport.text.includes("buildCheckoutSmokeReport") &&
+  checkoutSmokeReport.text.includes("PR-ready checkout smoke test report") &&
+  checkoutSmokeReport.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["checkout smoke test report page is missing report copy, report logic, or conversion links."]),
   ...(checkoutSmokeGuide.text.includes("Lemon Squeezy checkout smoke test") &&
   checkoutSmokeGuide.text.includes("CN¥69 price") &&
   checkoutSmokeGuide.text.includes("order_created") &&
@@ -341,15 +357,16 @@ const issues = [
   proKit.text.includes("Mismatch debugger") &&
   proKit.text.includes("Entitlement matrix") &&
   proKit.text.includes("Cost calculator") &&
-  proKit.text.includes("Readiness scorecard")
+  proKit.text.includes("Readiness scorecard") &&
+  proKit.text.includes("Checkout smoke report")
     ? []
     : ["Pro Kit page is missing the tool-to-Pro upgrade map."]),
   ...((proKit.text.match(/class="decision-item"/g) || []).length === 3
     ? []
     : ["Pro Kit page does not expose 3 buying-decision cards."]),
-  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 9
+  ...((proKit.text.match(/class="tool-map-row"/g) || []).length === 10
     ? []
-    : ["Pro Kit page does not expose 9 tool-to-Pro map rows."]),
+    : ["Pro Kit page does not expose 10 tool-to-Pro map rows."]),
   ...((proKit.text.match(/"@type": "Question"/g) || []).length >= 7
     ? []
     : ["Pro Kit page exposes fewer than 7 FAQ schema questions."]),
@@ -381,6 +398,7 @@ const result = {
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
+    checkoutSmokeReport: checkoutSmokeReport.status,
     checkoutSmokeGuide: checkoutSmokeGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     guideIndex: guideIndex.status,
