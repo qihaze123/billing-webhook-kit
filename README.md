@@ -68,6 +68,8 @@ The paid Pro Kit launch price is CN¥69 and adds copy-ready billing webhook asse
 - Webhook review report templates and release checklist notes
 - Idempotency runbook, integration checklist, and replay notes
 
+Use the free sample to validate the format first. It includes one Lemon Squeezy fixture, one Next.js handler, signature/contract/duplicate-replay tests, a review report sample, and a CI skeleton. Upgrade when you need the full 29-file package, more Lemon Squeezy lifecycle fixtures, Stripe/Paddle/Polar starter events, four route handlers, and 12 verified local tests.
+
 Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 
 Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
@@ -75,6 +77,8 @@ Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.ht
 Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 
 Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
+
+Current checkout state: public checkout is disabled until live Lemon Squeezy production configuration is connected. The Pro Kit archive stays private; the manifest exposes file count, test count, checksum, and safety flags for pre-purchase inspection.
 
 ## Guides
 
