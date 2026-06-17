@@ -25,6 +25,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-order-created-fixture.html`,
   `${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`,
   `${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`,
+  `${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
@@ -119,6 +120,7 @@ const [
   guideIndex,
   checkoutSmokeGuide,
   checkout404Guide,
+  paypalCheckoutGuide,
   stripeNextjsGuide,
   sitemap,
   robots,
@@ -144,6 +146,7 @@ const [
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -194,6 +197,9 @@ const issues = [
   ...(checkout404Guide.ok
     ? []
     : [`Lemon Squeezy checkout 404 guide returned HTTP ${checkout404Guide.status ?? "failed"}.`]),
+  ...(paypalCheckoutGuide.ok
+    ? []
+    : [`Lemon Squeezy PayPal checkout webhook guide returned HTTP ${paypalCheckoutGuide.status ?? "failed"}.`]),
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
@@ -201,7 +207,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 52 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 52.`]),
+  ...(sitemapUrls.length >= 53 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 53.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -248,6 +254,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy checkout 404 custom price currency guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy PayPal checkout webhook test guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
@@ -355,6 +364,12 @@ const issues = [
   checkout404Guide.text.includes("View Pro Kit preview")
     ? []
     : ["Lemon Squeezy checkout 404 guide is missing custom price, currency, or conversion copy."]),
+  ...(paypalCheckoutGuide.text.includes("Lemon Squeezy PayPal checkout webhook test") &&
+  paypalCheckoutGuide.text.includes("PayPal") &&
+  paypalCheckoutGuide.text.includes("order_created") &&
+  paypalCheckoutGuide.text.includes("View Pro Kit preview")
+    ? []
+    : ["Lemon Squeezy PayPal checkout webhook guide is missing PayPal, paid-order, or conversion copy."]),
   ...(stripeNextjsGuide.text.includes("Stripe webhook signature verification in Next.js") &&
   stripeNextjsGuide.text.includes("request.text()") &&
   stripeNextjsGuide.text.includes("Stripe-Signature") &&
@@ -416,6 +431,7 @@ const result = {
     checkoutSmokeReport: checkoutSmokeReport.status,
     checkoutSmokeGuide: checkoutSmokeGuide.status,
     checkout404Guide: checkout404Guide.status,
+    paypalCheckoutGuide: paypalCheckoutGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

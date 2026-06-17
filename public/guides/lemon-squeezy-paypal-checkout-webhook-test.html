@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hono Lemon Squeezy Webhook Handler | BillingWebhookKit</title>
-    <meta name="description" content="A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes." />
+    <title>Lemon Squeezy PayPal Checkout Webhook Test | BillingWebhookKit</title>
+    <meta name="description" content="Test a Lemon Squeezy PayPal checkout before launch: live checkout page, paid order webhook, signature gate, duplicate replay, and fulfillment evidence." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html" />
     <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
     <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="BillingWebhookKit" />
-    <meta property="og:title" content="Hono Lemon Squeezy Webhook Handler" />
-    <meta property="og:description" content="A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes." />
-    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html" />
+    <meta property="og:title" content="Lemon Squeezy PayPal Checkout Webhook Test" />
+    <meta property="og:description" content="Test a Lemon Squeezy PayPal checkout before launch: live checkout page, paid order webhook, signature gate, duplicate replay, and fulfillment evidence." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Hono Lemon Squeezy Webhook Handler" />
-    <meta name="twitter:description" content="A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes." />
+    <meta name="twitter:title" content="Lemon Squeezy PayPal Checkout Webhook Test" />
+    <meta name="twitter:description" content="Test a Lemon Squeezy PayPal checkout before launch: live checkout page, paid order webhook, signature gate, duplicate replay, and fulfillment evidence." />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
@@ -52,37 +52,41 @@
       @media (max-width: 720px) { .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Hono Lemon Squeezy Webhook Handler","description":"A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html"}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this work on Cloudflare Workers?","acceptedAnswer":{"@type":"Answer","text":"Yes, the same Web Crypto signing helper works in Workers-compatible runtimes."}},{"@type":"Question","name":"Should the handler call paid APIs?","acceptedAnswer":{"@type":"Answer","text":"No. Keep the webhook route focused on verification and state changes in your own app."}}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Hono Lemon Squeezy Webhook Handler","item":"https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Lemon Squeezy PayPal Checkout Webhook Test","description":"Test a Lemon Squeezy PayPal checkout before launch: live checkout page, paid order webhook, signature gate, duplicate replay, and fulfillment evidence.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is PayPal activation enough to launch a Lemon Squeezy product?","acceptedAnswer":{"@type":"Answer","text":"No. PayPal can be active while webhook delivery, signature verification, duplicate replay, or fulfillment is still broken. Treat payment method visibility as one gate, not the whole launch."}},{"@type":"Question","name":"Can I test this without exposing the public buy button?","acceptedAnswer":{"@type":"Answer","text":"Yes. Keep the public checkout state disabled, use a private generated checkout URL for the controlled purchase, then publish the buy link only after webhook and fulfillment evidence pass."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Lemon Squeezy PayPal Checkout Webhook Test","item":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html"}]}</script>
   </head>
   <body>
     <main>
       <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
-      <h1>Hono Lemon Squeezy webhook handler</h1>
-      <p class="lead">Hono is a good fit for low-cost webhook endpoints when the route is small, explicit, and covered by fixtures.</p>
+      <h1>Lemon Squeezy PayPal checkout webhook test</h1>
+      <p class="lead">When PayPal is the active Lemon Squeezy payment rail, the launch check must prove that checkout, paid webhook delivery, and product fulfillment all work together.</p>
       <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
       <section>
-        <h2>Read request text</h2>
-        <p>Use await c.req.text() and verify the x-signature header before parsing the payload.</p>
+        <h2>Confirm PayPal appears on the checkout</h2>
+        <p>Open the generated Lemon Squeezy checkout URL in a browser and verify the product, variant, CN¥69 price, store currency, success redirect, and PayPal payment option before linking it publicly.</p>
       </section>
 <section>
-        <h2>Use Web Crypto</h2>
-        <p>On Workers-style runtimes, crypto.subtle can compute HMAC SHA-256 without adding a heavy dependency.</p>
+        <h2>Watch the paid order webhook</h2>
+        <p>After a controlled purchase, confirm the order_created event reaches the production webhook route, passes x-signature verification, and maps to the expected customer and product entitlement.</p>
       </section>
 <section>
-        <h2>Return fast</h2>
-        <p>Acknowledge valid events quickly and move slow billing synchronization into a queue or idempotent background job when needed.</p>
+        <h2>Replay the same event safely</h2>
+        <p>Run the signed paid-order fixture through the route more than once and prove the download, license, email, and entitlement writes happen once.</p>
+      </section>
+<section>
+        <h2>Attach launch evidence</h2>
+        <p>Record the checkout URL, order ID, event ID, PayPal payment method signal, idempotency key, fulfillment result, and rollback note in the release report before sending traffic.</p>
       </section>
       <section class="faq">
         <h2>FAQ</h2>
         <div class="faq-item">
-          <h3>Does this work on Cloudflare Workers?</h3>
-          <p>Yes, the same Web Crypto signing helper works in Workers-compatible runtimes.</p>
+          <h3>Is PayPal activation enough to launch a Lemon Squeezy product?</h3>
+          <p>No. PayPal can be active while webhook delivery, signature verification, duplicate replay, or fulfillment is still broken. Treat payment method visibility as one gate, not the whole launch.</p>
         </div>
 <div class="faq-item">
-          <h3>Should the handler call paid APIs?</h3>
-          <p>No. Keep the webhook route focused on verification and state changes in your own app.</p>
+          <h3>Can I test this without exposing the public buy button?</h3>
+          <p>Yes. Keep the public checkout state disabled, use a private generated checkout URL for the controlled purchase, then publish the buy link only after webhook and fulfillment evidence pass.</p>
         </div>
       </section>
       <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
@@ -111,21 +115,21 @@
             <strong>All payment webhook guides</strong>
             <span>Browse the full BillingWebhookKit guide index.</span>
           </a>
-          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html">
-            <strong>Next.js Lemon Squeezy Webhook Handler</strong>
-            <span>Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.</span>
-          </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html">
-            <strong>Lemon Squeezy PayPal Checkout Webhook Test</strong>
-            <span>Test a Lemon Squeezy PayPal checkout before launch: live checkout page, paid order webhook, signature gate, duplicate replay, and fulfillment evidence.</span>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html">
+            <strong>Lemon Squeezy Checkout Smoke Test</strong>
+            <span>Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks.</span>
           </a>
 <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html">
             <strong>Fix Lemon Squeezy Checkout 404 from Custom Price or Currency Mismatch</strong>
             <span>Debug Lemon Squeezy checkout 404 errors caused by custom_price minor units, store currency, unpublished variants, and live checkout configuration.</span>
           </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html">
-            <strong>Lemon Squeezy Checkout Smoke Test</strong>
-            <span>Run a Lemon Squeezy checkout smoke test before launch: product price, checkout URL, paid order webhook, duplicate replay, and fulfillment checks.</span>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html">
+            <strong>Lemon Squeezy Webhook Test Checklist</strong>
+            <span>A launch checklist for Lemon Squeezy webhook signature verification, contract fields, idempotency keys, duplicate replay, and entitlement decisions.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-license-key-webhook.html">
+            <strong>Lemon Squeezy License Key Webhook Test</strong>
+            <span>Generate and test Lemon Squeezy license key webhook payloads for desktop apps, plugins, and downloadable products.</span>
           </a>
         </div>
       </section>

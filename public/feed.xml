@@ -155,6 +155,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy PayPal Checkout Webhook Test</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html</guid>
+      <description>Test a Lemon Squeezy PayPal checkout before launch: live checkout page, paid order webhook, signature gate, duplicate replay, and fulfillment evidence.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Next.js Lemon Squeezy Webhook Handler</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</guid>
