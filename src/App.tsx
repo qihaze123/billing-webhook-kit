@@ -54,6 +54,7 @@ const guideLinks = [
   { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" },
   { href: "guides/webhook-replay-curl-command.html", label: "Replay webhooks with cURL" },
   { href: "guides/payment-webhook-ci-tests.html", label: "Payment webhook CI tests" },
+  { href: "guides/billing-webhook-launch-readiness-checklist.html", label: "Billing webhook launch readiness" },
   { href: "guides/billing-webhook-cost-calculator.html", label: "Billing webhook cost calculator" },
   { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
@@ -119,6 +120,73 @@ const signatureSymptoms = [
     id: "local_replay",
     label: "cURL replay mismatch",
     signal: "A copied payload fails when replayed from terminal or CI, even with the expected secret."
+  }
+] as const;
+
+const readinessItems = [
+  {
+    id: "raw_signature_test",
+    area: "Signature gate",
+    label: "Raw-body signature test passes",
+    weight: 18,
+    evidence: "A fixture test verifies the exact raw request body before JSON parsing.",
+    risk: "Provider deliveries can fail or forged requests can reach billing logic."
+  },
+  {
+    id: "duplicate_replay",
+    area: "Retry safety",
+    label: "Duplicate replay only runs side effects once",
+    weight: 16,
+    evidence: "A replay test sends the same event at least three times and expects one side effect.",
+    risk: "Retries can send duplicate emails, licenses, invoices, or entitlement writes."
+  },
+  {
+    id: "entitlement_matrix",
+    area: "Access policy",
+    label: "Event-to-entitlement matrix is reviewed",
+    weight: 15,
+    evidence: "Paid orders, renewals, cancellations, failed payments, and unknown events have explicit decisions.",
+    risk: "Paid users may be blocked, unpaid users may get access, or cancellations may revoke too early."
+  },
+  {
+    id: "fixture_library",
+    area: "Provider coverage",
+    label: "Happy and failure fixtures exist",
+    weight: 13,
+    evidence: "The route has fixtures for order, subscription, payment success, cancellation, license, and malformed events.",
+    risk: "The integration only works for the one webhook shape tested manually."
+  },
+  {
+    id: "secret_environments",
+    area: "Deployment config",
+    label: "Staging and production secrets are separated",
+    weight: 12,
+    evidence: "Webhook signing secrets, API keys, store IDs, and variant IDs are stored per environment.",
+    risk: "Production can silently verify against a stale or staging webhook secret."
+  },
+  {
+    id: "checkout_smoke",
+    area: "Revenue path",
+    label: "Checkout-to-webhook smoke test is complete",
+    weight: 11,
+    evidence: "A real checkout event reaches the deployed webhook endpoint and creates the expected billing record.",
+    risk: "The public purchase path may work while fulfillment or access delivery fails."
+  },
+  {
+    id: "review_report",
+    area: "Release review",
+    label: "Webhook review report is attached to the PR",
+    weight: 8,
+    evidence: "The route PR includes signature gate, idempotency key, trusted fields, decision, and retry checks.",
+    risk: "Future edits can weaken billing safety without a release artifact to compare against."
+  },
+  {
+    id: "monitoring_plan",
+    area: "Operations",
+    label: "Failure monitoring and replay plan exists",
+    weight: 7,
+    evidence: "Rejected signatures, unknown events, duplicate deliveries, and failed side effects are observable.",
+    risk: "Billing errors will be found by customers instead of logs, alerts, or replayable event samples."
   }
 ] as const;
 
@@ -223,6 +291,7 @@ type ReplayAttempt = {
 };
 
 type SignatureSymptomId = (typeof signatureSymptoms)[number]["id"];
+type ReadinessItemId = (typeof readinessItems)[number]["id"];
 
 type SignatureDiagnosis = {
   severity: string;
@@ -702,6 +771,70 @@ ${params.diagnosis.testCommand}
 Keep this report with the webhook route PR. Re-run the verifier after changing middleware, request parsing, deployment secrets, or provider endpoint settings.`;
 }
 
+function readinessLevel(score: number) {
+  if (score >= 85) {
+    return {
+      label: "Launch-ready",
+      summary: "Core billing failure modes have evidence. Run the live checkout smoke test before opening paid traffic."
+    };
+  }
+
+  if (score >= 65) {
+    return {
+      label: "Needs focused review",
+      summary: "The route has useful coverage, but at least one launch-critical gap remains."
+    };
+  }
+
+  if (score >= 40) {
+    return {
+      label: "High launch risk",
+      summary: "The integration still depends on manual confidence for several billing safety checks."
+    };
+  }
+
+  return {
+    label: "Not ready",
+    summary: "Do not launch paid checkout until signature, retry, entitlement, and smoke-test evidence exists."
+  };
+}
+
+function buildReadinessReport(selectedIds: ReadinessItemId[], score: number) {
+  const selected = new Set(selectedIds);
+  const level = readinessLevel(score);
+  const complete = readinessItems.filter((item) => selected.has(item.id));
+  const missing = readinessItems.filter((item) => !selected.has(item.id));
+  const completeLines = complete.length
+    ? complete.map((item) => `- [x] ${item.area}: ${item.label} - ${item.evidence}`).join("\n")
+    : "- None yet.";
+  const missingLines = missing.length
+    ? missing.map((item) => `- [ ] ${item.area}: ${item.label} - Risk: ${item.risk}`).join("\n")
+    : "- No missing launch gates in this checklist.";
+
+  return `# Billing Webhook Launch Readiness Report
+
+Generated by BillingWebhookKit
+${productUrl}
+
+## Score
+
+- Score: ${score}/100
+- Level: ${level.label}
+- Summary: ${level.summary}
+
+## Evidence Present
+
+${completeLines}
+
+## Missing Gates
+
+${missingLines}
+
+## Release Rule
+
+Launch paid checkout only after the deployed route has a signature fixture test, duplicate replay test, entitlement decision matrix, environment-specific secrets, and a checkout-to-webhook smoke test.`;
+}
+
 export function App() {
   const [eventId, setEventId] = useState<EventId>("order_created");
   const [framework, setFramework] = useState<FrameworkId>("next");
@@ -719,7 +852,14 @@ export function App() {
   const [replayCopied, setReplayCopied] = useState(false);
   const [matrixCopied, setMatrixCopied] = useState(false);
   const [diagnosisCopied, setDiagnosisCopied] = useState(false);
+  const [readinessCopied, setReadinessCopied] = useState(false);
   const [signatureSymptom, setSignatureSymptom] = useState<SignatureSymptomId>("raw_body_changed");
+  const [readinessSelected, setReadinessSelected] = useState<ReadinessItemId[]>([
+    "raw_signature_test",
+    "duplicate_replay",
+    "entitlement_matrix",
+    "review_report"
+  ]);
   const [hourlyRate, setHourlyRate] = useState(75);
   const [debugHours, setDebugHours] = useState(4);
   const [billingLaunches, setBillingLaunches] = useState(2);
@@ -857,6 +997,15 @@ Header casing: x-signature / X-Signature`,
       }),
     [framework, signatureDiagnosis, signatureSymptom, verification]
   );
+  const readinessScore = useMemo(() => {
+    const selected = new Set(readinessSelected);
+    return readinessItems.reduce((total, item) => total + (selected.has(item.id) ? item.weight : 0), 0);
+  }, [readinessSelected]);
+  const currentReadinessLevel = readinessLevel(readinessScore);
+  const readinessReport = useMemo(
+    () => buildReadinessReport(readinessSelected, readinessScore),
+    [readinessScore, readinessSelected]
+  );
   const annualDebugCost = hourlyRate * debugHours * billingLaunches;
   const breakEvenMinutes = hourlyRate > 0 ? (proKitReferenceUsd / hourlyRate) * 60 : 0;
   const estimatedMultiple = proKitReferenceUsd > 0 ? annualDebugCost / proKitReferenceUsd : 0;
@@ -920,6 +1069,22 @@ Header casing: x-signature / X-Signature`,
 
   function downloadSignatureDiagnosis() {
     downloadText("webhook-signature-mismatch-debug-report.md", signatureDiagnosisMarkdown, "text/markdown");
+  }
+
+  function toggleReadinessItem(id: ReadinessItemId) {
+    setReadinessSelected((current) =>
+      current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
+    );
+  }
+
+  async function copyReadinessReport() {
+    await copyTextToClipboard(readinessReport);
+    setReadinessCopied(true);
+    window.setTimeout(() => setReadinessCopied(false), 1400);
+  }
+
+  function downloadReadinessReport() {
+    downloadText("billing-webhook-launch-readiness-report.md", readinessReport, "text/markdown");
   }
 
   function loadGeneratedPayloadForVerification() {
@@ -1435,6 +1600,57 @@ Header casing: x-signature / X-Signature`,
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <section className="readiness-panel" aria-label="Billing webhook launch readiness scorecard">
+        <div className="readiness-panel__copy">
+          <p className="eyebrow">Launch Readiness</p>
+          <h2>Score whether this billing route is safe enough for paid checkout traffic</h2>
+          <p>
+            Check the evidence you already have before launch. The scorecard turns signature,
+            retry, entitlement, secret, smoke-test, review, and monitoring gaps into a compact
+            release report.
+          </p>
+          <div className="review-actions">
+            <button type="button" onClick={copyReadinessReport} title="Copy launch readiness report">
+              {readinessCopied ? <Check size={17} aria-hidden="true" /> : <Clipboard size={17} aria-hidden="true" />}
+              {readinessCopied ? "Copied" : "Copy report"}
+            </button>
+            <button type="button" onClick={downloadReadinessReport} title="Download launch readiness report">
+              <Download size={17} aria-hidden="true" />
+              Download .md
+            </button>
+          </div>
+        </div>
+
+        <div className="readiness-grid">
+          <div className="readiness-score">
+            <span>Readiness score</span>
+            <strong>{readinessScore}/100</strong>
+            <p>
+              {currentReadinessLevel.label}: {currentReadinessLevel.summary}
+            </p>
+          </div>
+
+          <div className="readiness-checklist" aria-label="Launch readiness checklist">
+            {readinessItems.map((item) => {
+              const checked = readinessSelected.includes(item.id);
+              return (
+                <label className={`readiness-item ${checked ? "readiness-item--checked" : ""}`} key={item.id}>
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => toggleReadinessItem(item.id)}
+                  />
+                  <span>{item.area}</span>
+                  <strong>{item.label}</strong>
+                  <p>{checked ? item.evidence : item.risk}</p>
+                  <em>{item.weight} pts</em>
+                </label>
+              );
+            })}
+          </div>
         </div>
       </section>
 

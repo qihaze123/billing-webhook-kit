@@ -64,6 +64,13 @@
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Billing Webhook Launch Readiness Checklist</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</guid>
+      <description>Score payment webhook launch risk across signature tests, duplicate replay, entitlement decisions, secrets, smoke tests, review artifacts, and monitoring.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Billing Webhook Cost Calculator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html</guid>

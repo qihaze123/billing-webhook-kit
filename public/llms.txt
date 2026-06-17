@@ -2,7 +2,7 @@
 
 > Browser-only Lemon Squeezy webhook test generator for payment webhook fixtures, raw-body HMAC signature verification, payload inspection, duplicate replay simulation, debugging cost estimates, review report export, cURL replay commands, and framework handlers.
 
-BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, debugs signature mismatches, inspects raw webhook bodies for trusted billing fields, recommends idempotency keys, simulates duplicate webhook replays, maps events to entitlement decisions, estimates webhook debugging cost, exports PR-ready Markdown review reports, and does not upload webhook signing secrets.
+BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, debugs signature mismatches, inspects raw webhook bodies for trusted billing fields, recommends idempotency keys, simulates duplicate webhook replays, maps events to entitlement decisions, scores launch readiness, estimates webhook debugging cost, exports PR-ready Markdown review reports, and does not upload webhook signing secrets.
 
 ## URLs
 
@@ -22,6 +22,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Extract a stable webhook idempotency key pattern before writing billing side effects.
 - Simulate three duplicate webhook deliveries and export a process-once/skip-duplicate Vitest snippet.
 - Map payment webhook events to entitlement decisions such as one-time access grants, license delivery, subscription activation, renewal extension, scheduled cancellation, failed-payment hold, and unknown-event quarantine.
+- Score billing webhook launch readiness across signature tests, duplicate replay, entitlement decisions, fixtures, deployment secrets, checkout smoke tests, review reports, and monitoring.
 - Estimate webhook debugging exposure from hourly rate, launch count, and debug hours.
 - Export a Markdown webhook review report for pull requests, release checklists, and billing route audits.
 - Generate cURL replay commands for local, tunnel, staging, and CI routes.
@@ -37,6 +38,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
+- Billing webhook launch readiness checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html
 - Billing webhook cost calculator: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html
 - Webhook entitlement decision matrix: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html
 - Webhook idempotency checklist: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
