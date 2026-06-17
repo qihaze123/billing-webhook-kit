@@ -2,7 +2,7 @@
 
 > Browser-only Lemon Squeezy webhook test generator for payment webhook fixtures, raw-body HMAC signature verification, payload inspection, duplicate replay simulation, debugging cost estimates, review report export, cURL replay commands, and framework handlers.
 
-BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, debugs signature mismatches, inspects raw webhook bodies for trusted billing fields, builds idempotency keys, recommends idempotency keys, simulates duplicate webhook replays, maps events to entitlement decisions, scores launch readiness, estimates webhook debugging cost, exports PR-ready Markdown review reports, and does not upload webhook signing secrets.
+BillingWebhookKit helps indie SaaS developers test billing webhook routes before launch. It runs in the browser, verifies pasted webhook signatures locally, debugs signature mismatches, inspects raw webhook bodies for trusted billing fields, builds idempotency keys, generates contract tests, recommends idempotency keys, simulates duplicate webhook replays, maps events to entitlement decisions, scores launch readiness, estimates webhook debugging cost, exports PR-ready Markdown review reports, and does not upload webhook signing secrets.
 
 ## URLs
 
@@ -20,6 +20,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Debug webhook signature mismatches caused by changed raw bodies, wrong endpoint secrets, header format issues, framework body parsers, and cURL replay mistakes.
 - Inspect pasted or generated webhook payloads for event name, object ID, status, amount, customer, target record, and recommended handler action.
 - Build stable webhook idempotency keys from provider, uniqueness scope, event name, and object ID.
+- Generate payment webhook contract tests from trusted event, object, status, customer, currency, and idempotency fields.
 - Extract a stable webhook idempotency key pattern before writing billing side effects.
 - Simulate three duplicate webhook deliveries and export a process-once/skip-duplicate Vitest snippet.
 - Map payment webhook events to entitlement decisions such as one-time access grants, license delivery, subscription activation, renewal extension, scheduled cancellation, failed-payment hold, and unknown-event quarantine.
@@ -39,6 +40,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html
+- Payment webhook contract test generator: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html
 - Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - Billing webhook launch readiness checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html
 - Billing webhook cost calculator: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html

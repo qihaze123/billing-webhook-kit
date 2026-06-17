@@ -71,6 +71,13 @@
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Payment Webhook Contract Test Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html</guid>
+      <description>Generate payment webhook contract tests that lock event names, object IDs, status fields, customer mapping, and idempotency keys before billing side effects.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Billing Webhook Launch Readiness Checklist</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html</guid>
