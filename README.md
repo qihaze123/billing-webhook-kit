@@ -25,6 +25,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - No backend: the hosted tool does not upload pasted payloads or secrets.
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
+- Artifact integrity: CI checks that the public sample ZIP hash matches release notes and the private Pro Kit ZIP is not published.
 - Site health: GitHub Actions checks live pages, sitemap, Pro Kit signals, free-sample upgrade links, and checkout safety after deployments.
 - Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
 - Support policy: use fake fixtures and fake secrets in public issues; see [SUPPORT.md](SUPPORT.md).

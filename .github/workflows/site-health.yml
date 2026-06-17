@@ -22,5 +22,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Check public artifact integrity
+        run: npm run health:artifacts
       - name: Check public site health
         run: npm run health:site
