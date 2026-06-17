@@ -80,8 +80,10 @@ const proArtifacts = [
   "src/handlers/next-app-router.ts",
   "src/handlers/cloudflare-worker.ts",
   "tests/lemon-signature.test.ts",
+  "tests/lemon-contract.test.ts",
   "tests/lemon-idempotency-replay.test.ts",
   "docs/idempotency-runbook.md",
+  "docs/contract-tests.md",
   "docs/webhook-review-report-template.md",
   ".github/workflows/webhook-checks.yml"
 ];

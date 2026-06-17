@@ -36,7 +36,7 @@ The paid Pro Kit launch price is CN¥69 and adds copy-ready billing webhook asse
 - Lemon Squeezy fixture library
 - Stripe, Paddle, and Polar starter fixtures
 - Next.js, Hono, Express, and Cloudflare Workers route templates
-- Vitest signature verification and duplicate replay tests
+- Vitest signature verification, contract, and duplicate replay tests
 - GitHub Actions billing webhook CI checks
 - Webhook review report templates and release checklist notes
 - Idempotency runbook, integration checklist, and replay notes
