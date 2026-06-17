@@ -64,6 +64,13 @@
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Webhook Entitlement Decision Matrix</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html</guid>
+      <description>Map payment webhook events to SaaS access grants, subscription renewals, license delivery, cancellation scheduling, and quarantine decisions.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Webhook Idempotency Checklist</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html</guid>

@@ -681,6 +681,89 @@ h2 {
   color: var(--coral);
 }
 
+.entitlement-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fbfcf8;
+  box-shadow: var(--shadow);
+}
+
+.entitlement-panel h2 {
+  max-width: 540px;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.entitlement-panel p:not(.eyebrow) {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.entitlement-table-wrap {
+  min-width: 0;
+  overflow: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.entitlement-table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.entitlement-table th,
+.entitlement-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.42;
+}
+
+.entitlement-table th {
+  position: sticky;
+  top: 0;
+  background: var(--charcoal);
+  color: #f8faef;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.entitlement-table td:first-child,
+.entitlement-table td:nth-child(2) {
+  font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.entitlement-table td:first-child {
+  color: var(--coral);
+  font-weight: 850;
+}
+
+.entitlement-table td strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.entitlement-table td span {
+  display: block;
+  color: var(--muted);
+}
+
+.entitlement-table tr:last-child td {
+  border-bottom: 0;
+}
+
 .verifier-panel {
   display: grid;
   grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
@@ -1223,6 +1306,7 @@ h2 {
   .evidence-panel,
   .inspector-panel,
   .inspector-grid,
+  .entitlement-panel,
   .verifier-panel,
   .verifier-grid,
   .replay-panel,
@@ -1326,6 +1410,15 @@ h2 {
   .verifier-panel {
     margin-top: 14px;
     padding: 14px;
+  }
+
+  .entitlement-panel {
+    margin-top: 14px;
+    padding: 14px;
+  }
+
+  .entitlement-table {
+    min-width: 760px;
   }
 
   .replay-panel {

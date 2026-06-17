@@ -60,6 +60,7 @@ const guideLinks = [
   { href: "guides/webhook-idempotency-checklist.html", label: "Webhook idempotency checklist" },
   { href: "guides/webhook-duplicate-replay-test.html", label: "Webhook duplicate replay test" },
   { href: "guides/webhook-review-checklist.html", label: "Webhook review checklist" },
+  { href: "guides/webhook-entitlement-decision-matrix.html", label: "Webhook entitlement decision matrix" },
   { href: "guides/cloudflare-worker-webhook-handler.html", label: "Cloudflare Worker handler" },
   { href: "guides/saas-billing-webhook-test-plan.html", label: "SaaS billing webhook test plan" },
   { href: "guides/lemon-squeezy-webhook-fixtures.html", label: "Lemon Squeezy webhook fixtures" },
@@ -91,6 +92,73 @@ const integrationSignals = [
 
 const defaultEndpoint = "https://yourapp.com/api/webhooks/lemonsqueezy";
 const productUrl = "https://qihaze123.github.io/billing-webhook-kit/";
+
+const entitlementRows = [
+  {
+    event: "order_created",
+    state: "paid",
+    decision: "Grant one-time access",
+    writeModel: "purchase entitlement + processed event",
+    customerMessage: "Send receipt and download/license instructions once.",
+    testCase: "Paid order grants exactly once under duplicate replay."
+  },
+  {
+    event: "order_created",
+    state: "pending, failed, refunded",
+    decision: "Hold or revoke access",
+    writeModel: "order audit record, no active entitlement",
+    customerMessage: "Do not promise access until payment state is final.",
+    testCase: "Unpaid or refunded order does not grant access."
+  },
+  {
+    event: "license_key_created",
+    state: "created",
+    decision: "Deliver license key",
+    writeModel: "license entitlement with redacted key reference",
+    customerMessage: "Email or display the license once; avoid logging full keys.",
+    testCase: "License delivery is idempotent and masks the key in logs."
+  },
+  {
+    event: "subscription_created",
+    state: "active or trialing",
+    decision: "Activate subscription",
+    writeModel: "subscription entitlement + current period",
+    customerMessage: "Confirm access is active for the plan period.",
+    testCase: "Subscription create maps customer to the correct plan."
+  },
+  {
+    event: "subscription_payment_success",
+    state: "paid",
+    decision: "Extend renewal",
+    writeModel: "invoice payment + renewed entitlement window",
+    customerMessage: "Send renewal receipt once if the product needs it.",
+    testCase: "Retrying the same invoice does not extend twice."
+  },
+  {
+    event: "subscription_cancelled",
+    state: "ends_at present",
+    decision: "Schedule cancellation",
+    writeModel: "subscription status + scheduled access end",
+    customerMessage: "Tell the user when access ends, not just that it ended.",
+    testCase: "Cancellation keeps access until the configured end date."
+  },
+  {
+    event: "payment_failed",
+    state: "past_due or failed",
+    decision: "Pause risky side effects",
+    writeModel: "dunning state, no destructive delete",
+    customerMessage: "Ask for payment update without deleting data immediately.",
+    testCase: "Failed payment does not erase entitlement history."
+  },
+  {
+    event: "unknown_event",
+    state: "unmapped",
+    decision: "Quarantine and acknowledge",
+    writeModel: "raw event sample + alert",
+    customerMessage: "No customer-facing message until the event is classified.",
+    testCase: "Unknown events are stored for review and do not run side effects."
+  }
+];
 
 type CheckoutConfig = {
   checkoutUrl?: string;
@@ -427,6 +495,25 @@ describe("Lemon Squeezy ${eventId} duplicate replay", () => {
 });`;
 }
 
+function buildEntitlementMatrixMarkdown() {
+  const rows = entitlementRows
+    .map(
+      (row) =>
+        `| ${row.event} | ${row.state} | ${row.decision} | ${row.writeModel} | ${row.testCase} |`
+    )
+    .join("\n");
+
+  return `# Payment Webhook Entitlement Decision Matrix
+
+Use this before a billing launch to decide which webhook events are allowed to grant, extend, revoke, or quarantine customer access.
+
+| Event | State | Handler decision | Write model | Regression test |
+| --- | --- | --- | --- | --- |
+${rows}
+
+Release rule: verify the signature first, persist an idempotency key, then run the entitlement decision once. Duplicate deliveries should return success without repeating the side effect.`;
+}
+
 export function App() {
   const [eventId, setEventId] = useState<EventId>("order_created");
   const [framework, setFramework] = useState<FrameworkId>("next");
@@ -442,6 +529,7 @@ export function App() {
   const [insightCopied, setInsightCopied] = useState(false);
   const [reportCopied, setReportCopied] = useState(false);
   const [replayCopied, setReplayCopied] = useState(false);
+  const [matrixCopied, setMatrixCopied] = useState(false);
   const [hourlyRate, setHourlyRate] = useState(75);
   const [debugHours, setDebugHours] = useState(4);
   const [billingLaunches, setBillingLaunches] = useState(2);
@@ -564,6 +652,7 @@ Header casing: x-signature / X-Signature`,
     () => buildReplayTestSnippet(payloadInsight, eventId),
     [eventId, payloadInsight]
   );
+  const entitlementMatrixMarkdown = useMemo(() => buildEntitlementMatrixMarkdown(), []);
   const annualDebugCost = hourlyRate * debugHours * billingLaunches;
   const breakEvenMinutes = hourlyRate > 0 ? (proKitReferenceUsd / hourlyRate) * 60 : 0;
   const estimatedMultiple = proKitReferenceUsd > 0 ? annualDebugCost / proKitReferenceUsd : 0;
@@ -607,6 +696,16 @@ Header casing: x-signature / X-Signature`,
 
   function downloadReplayTest() {
     downloadText(`billing-webhook-kit-${eventId}-replay.test.ts`, replayTestSnippet, "text/typescript");
+  }
+
+  async function copyEntitlementMatrix() {
+    await copyTextToClipboard(entitlementMatrixMarkdown);
+    setMatrixCopied(true);
+    window.setTimeout(() => setMatrixCopied(false), 1400);
+  }
+
+  function downloadEntitlementMatrix() {
+    downloadText("billing-webhook-entitlement-decision-matrix.md", entitlementMatrixMarkdown, "text/markdown");
   }
 
   function loadGeneratedPayloadForVerification() {
@@ -1008,6 +1107,56 @@ Header casing: x-signature / X-Signature`,
           <pre className="replay-code" aria-label="Duplicate replay test preview">
             <code>{replayTestSnippet}</code>
           </pre>
+        </div>
+      </section>
+
+      <section className="entitlement-panel" aria-label="Payment webhook entitlement decision matrix">
+        <div className="entitlement-panel__copy">
+          <p className="eyebrow">Entitlement Matrix</p>
+          <h2>Map billing events to the access change your app should make</h2>
+          <p>
+            Use this matrix before launch to separate paid grants, subscription renewals,
+            cancellation schedules, failed payments, and unknown events. It gives every webhook
+            event a handler decision, write model, customer message, and regression test.
+          </p>
+          <div className="review-actions">
+            <button type="button" onClick={copyEntitlementMatrix} title="Copy entitlement matrix">
+              {matrixCopied ? <Check size={17} aria-hidden="true" /> : <Clipboard size={17} aria-hidden="true" />}
+              {matrixCopied ? "Copied" : "Copy matrix"}
+            </button>
+            <button type="button" onClick={downloadEntitlementMatrix} title="Download entitlement matrix">
+              <Download size={17} aria-hidden="true" />
+              Download .md
+            </button>
+          </div>
+        </div>
+
+        <div className="entitlement-table-wrap">
+          <table className="entitlement-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>State</th>
+                <th>Decision</th>
+                <th>Write model</th>
+                <th>Regression test</th>
+              </tr>
+            </thead>
+            <tbody>
+              {entitlementRows.map((row) => (
+                <tr key={`${row.event}-${row.state}`}>
+                  <td>{row.event}</td>
+                  <td>{row.state}</td>
+                  <td>
+                    <strong>{row.decision}</strong>
+                    <span>{row.customerMessage}</span>
+                  </td>
+                  <td>{row.writeModel}</td>
+                  <td>{row.testCase}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
