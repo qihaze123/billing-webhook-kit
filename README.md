@@ -28,6 +28,13 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
 - Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 
+## Launch Checkout Guides
+
+- Lemon Squeezy checkout smoke test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html
+- Fix Lemon Squeezy checkout 404 from custom price or currency mismatch: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html
+- Lemon Squeezy PayPal checkout webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html
+- Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
+
 ## Trust Signals
 
 - Browser-only: webhook signing secrets stay local and are processed with Web Crypto.
@@ -124,6 +131,9 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-order-created-fixture.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html

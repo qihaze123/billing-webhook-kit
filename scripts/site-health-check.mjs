@@ -379,6 +379,11 @@ const issues = [
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
+  ...(home.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
+  home.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
+  home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html")
+    ? []
+    : ["homepage is missing checkout launch guide links in static discovery content."]),
   ...(proKit.text.includes("Buy it when the free sample stops being enough")
     ? []
     : ["Pro Kit page is missing the buying-decision section."]),
