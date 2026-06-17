@@ -24,6 +24,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Production checkout: intentionally disabled until the live Lemon Squeezy key and variant are ready.
+- Support policy: use fake fixtures and fake secrets in public issues; see [SUPPORT.md](SUPPORT.md).
 
 ## Checklist
 
