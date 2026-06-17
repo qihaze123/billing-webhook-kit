@@ -432,6 +432,47 @@
         margin-top: 8px;
       }
 
+      .launch-gates {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .launch-gates a {
+        min-width: 0;
+        display: block;
+        border: 1px solid rgba(248, 250, 239, 0.24);
+        border-radius: 8px;
+        background: rgba(216, 248, 79, 0.08);
+        color: #f8faef;
+        padding: 14px;
+        text-decoration: none;
+      }
+
+      .launch-gates span {
+        display: block;
+        color: var(--acid);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .launch-gates strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.3;
+      }
+
+      .launch-gates em {
+        display: block;
+        margin-top: 7px;
+        color: #d9dfcf;
+        font-style: normal;
+        line-height: 1.45;
+      }
+
       .delivery-step {
         border: 1px solid rgba(248, 250, 239, 0.24);
         border-radius: 8px;
@@ -518,6 +559,7 @@
         .grid,
         .trust-strip,
         .decision-grid,
+        .launch-gates,
         .delivery-grid,
         .checklist,
         .faq,
@@ -728,6 +770,37 @@
             <strong>You need a pull-request artifact for billing changes.</strong>
             <p>Attach the included review report templates so future maintainers can see what event, field, and idempotency path grants access.</p>
           </article>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Checkout launch gates covered by BillingWebhookKit Pro">
+        <p class="eyebrow">Checkout Launch Gates</p>
+        <h2>What must be proven before a public buy link is worth trusting</h2>
+        <p>
+          The Pro Kit is positioned for the last mile before real checkout traffic: price visibility,
+          paid webhook delivery, signature verification, duplicate replay, fulfillment evidence, and rollback notes.
+        </p>
+        <div class="launch-gates">
+          <a href="guides/lemon-squeezy-checkout-smoke-test.html">
+            <span>Checkout smoke test</span>
+            <strong>Prove the product page, CN¥69 checkout, paid order webhook, and fulfillment path together.</strong>
+            <em>Use the guide to run the live check; use Pro files to keep the evidence and regression tests in the repo.</em>
+          </a>
+          <a href="guides/lemon-squeezy-paypal-checkout-webhook-test.html">
+            <span>PayPal route</span>
+            <strong>Verify PayPal payment success still emits the webhook event your app trusts.</strong>
+            <em>The pack gives review report structure for PayPal checkout, order payload, duplicate replay, and fulfillment notes.</em>
+          </a>
+          <a href="guides/lemon-squeezy-checkout-404-custom-price-currency.html">
+            <span>Currency mismatch</span>
+            <strong>Catch custom_price, minor-unit, published variant, and live/test environment mistakes.</strong>
+            <em>The public guide explains the failure mode; Pro keeps the price and webhook checks attached to launch review.</em>
+          </a>
+          <a href="tools/lemon-squeezy-checkout-smoke-test-report.html">
+            <span>Release report</span>
+            <strong>Generate a PR-ready launch note before the checkout link is shared.</strong>
+            <em>The browser report covers the launch moment; Pro adds reusable files, fixtures, and CI checks for future billing changes.</em>
+          </a>
         </div>
       </section>
 

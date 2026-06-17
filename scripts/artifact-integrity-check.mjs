@@ -125,6 +125,15 @@ if (!proKitHtml.includes("29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c
   issues.push("Pro Kit page does not expose the public ZIP verification hash.");
 }
 if (
+  !proKitHtml.includes("Checkout Launch Gates") ||
+  !proKitHtml.includes("lemon-squeezy-checkout-smoke-test.html") ||
+  !proKitHtml.includes("lemon-squeezy-paypal-checkout-webhook-test.html") ||
+  !proKitHtml.includes("lemon-squeezy-checkout-404-custom-price-currency.html") ||
+  !proKitHtml.includes("lemon-squeezy-checkout-smoke-test-report.html")
+) {
+  issues.push("Pro Kit page does not expose checkout launch gate conversion links.");
+}
+if (
   !statusHtml.includes("pro-kit-manifest.json") ||
   !statusHtml.includes("8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b") ||
   !statusHtml.includes("29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8") ||

@@ -387,6 +387,13 @@ const issues = [
   ...(proKit.text.includes("Buy it when the free sample stops being enough")
     ? []
     : ["Pro Kit page is missing the buying-decision section."]),
+  ...(proKit.text.includes("Checkout Launch Gates") &&
+  proKit.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
+  proKit.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
+  proKit.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
+  proKit.text.includes("lemon-squeezy-checkout-smoke-test-report.html")
+    ? []
+    : ["Pro Kit page is missing checkout launch gate conversion links."]),
   ...(proKit.text.includes("What the paid pack adds after the browser tools find the gap") &&
   proKit.text.includes("Tool-to-Pro Map") &&
   proKit.text.includes("Mismatch debugger") &&
