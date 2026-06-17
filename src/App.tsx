@@ -69,6 +69,7 @@ const proArtifacts = [
   "src/handlers/next-app-router.ts",
   "src/handlers/cloudflare-worker.ts",
   "tests/lemon-signature.test.ts",
+  "docs/webhook-review-report-template.md",
   ".github/workflows/webhook-checks.yml"
 ];
 
@@ -637,6 +638,7 @@ Header casing: x-signature / X-Signature`,
             <li>Stripe, Paddle, Polar starter events</li>
             <li>Next.js, Hono, Express, Workers templates</li>
             <li>Vitest signature verification suite</li>
+            <li>PR-ready review report templates</li>
             <li>GitHub Actions billing webhook checks</li>
           </ul>
 
@@ -851,7 +853,7 @@ Header casing: x-signature / X-Signature`,
           <h2>Copy-ready billing webhook assets, not another blank starter repo</h2>
           <p>
             The paid pack is organized around the failure modes that usually break SaaS billing launches:
-            signature verification, duplicate retries, provider field mapping, and release-time CI checks.
+            signature verification, duplicate retries, provider field mapping, PR review reports, and release-time CI checks.
           </p>
           <div className="signal-row">
             {integrationSignals.map((signal) => (

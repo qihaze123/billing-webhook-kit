@@ -31,6 +31,7 @@ The paid Pro Kit launch price is CN¥69 and adds copy-ready billing webhook asse
 - Next.js, Hono, Express, and Cloudflare Workers route templates
 - Vitest signature verification tests
 - GitHub Actions billing webhook CI checks
+- Webhook review report templates and release checklist notes
 - Integration checklist and replay notes
 
 Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html

@@ -6,11 +6,11 @@
     <title>BillingWebhookKit Pro - payment webhook fixture pack</title>
     <meta
       name="description"
-      content="Preview BillingWebhookKit Pro: copy-ready Lemon Squeezy, Stripe, Paddle, and Polar webhook fixtures, handlers, tests, CI workflow, and launch checklist."
+      content="Preview BillingWebhookKit Pro: copy-ready Lemon Squeezy, Stripe, Paddle, and Polar webhook fixtures, handlers, tests, review reports, CI workflow, and launch checklist."
     />
     <meta
       name="keywords"
-      content="payment webhook fixture pack, Lemon Squeezy webhook templates, billing webhook tests, SaaS webhook CI, webhook idempotency checklist"
+      content="payment webhook fixture pack, Lemon Squeezy webhook templates, billing webhook tests, webhook review report, SaaS webhook CI, webhook idempotency checklist"
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html" />
@@ -21,7 +21,7 @@
     <meta property="og:title" content="BillingWebhookKit Pro - payment webhook fixture pack" />
     <meta
       property="og:description"
-      content="Copy-ready billing webhook fixtures, route handlers, tests, GitHub Actions checks, and integration notes for indie SaaS launches."
+      content="Copy-ready billing webhook fixtures, route handlers, tests, review report templates, GitHub Actions checks, and integration notes for indie SaaS launches."
     />
     <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
@@ -317,7 +317,7 @@
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "BillingWebhookKit Pro",
-        "description": "A digital pack of payment webhook fixtures, handlers, tests, CI workflow, and launch checklists for indie SaaS billing integrations.",
+        "description": "A digital pack of payment webhook fixtures, handlers, tests, review report templates, CI workflow, and launch checklists for indie SaaS billing integrations.",
         "brand": {
           "@type": "Brand",
           "name": "BillingWebhookKit"
@@ -347,7 +347,7 @@
           <p class="lead">
             BillingWebhookKit Pro is a copy-ready pack for small SaaS teams wiring Lemon Squeezy,
             Stripe, Paddle, or Polar webhooks. It focuses on signature checks, idempotent retries,
-            provider mapping, and CI release gates.
+            provider mapping, PR review reports, and CI release gates.
           </p>
           <div class="actions">
             <a id="checkout-link" class="button disabled" href="#" aria-disabled="true">Checkout opening soon</a>
@@ -370,6 +370,7 @@
             <li>Stripe, Paddle, and Polar starter events</li>
             <li>Next.js, Hono, Express, and Workers handlers</li>
             <li>Vitest signature verification suite</li>
+            <li>PR-ready review report templates</li>
             <li>GitHub Actions billing webhook workflow</li>
           </ul>
         </aside>
@@ -386,7 +387,7 @@
         </article>
         <article class="tile">
           <h2>Release Checks</h2>
-          <p>Run fixture-driven tests in CI so billing changes fail before entitlements or customer access are affected.</p>
+          <p>Run fixture-driven tests in CI and attach review reports so billing changes fail before entitlements or customer access are affected.</p>
         </article>
       </section>
 
@@ -395,7 +396,7 @@
         <h2>What the download is organized around</h2>
         <p>
           The pack is not a hosted service and does not call paid APIs. It is a local engineering asset:
-          fixtures, handlers, test helpers, CI workflow, and short integration notes that can be copied into a product repo.
+          fixtures, handlers, test helpers, review report templates, CI workflow, and short integration notes that can be copied into a product repo.
         </p>
         <pre class="file-tree"><code>fixtures/
   lemon/order_created.json
@@ -413,7 +414,9 @@ tests/
   idempotency-replay.test.ts
 .github/workflows/webhook-checks.yml
 README.md
-integration-checklist.md</code></pre>
+docs/webhook-review-checklist.md
+docs/webhook-review-report-template.md
+docs/integration-checklist.md</code></pre>
       </section>
 
       <section class="section" aria-label="Integration checklist">
@@ -423,6 +426,7 @@ integration-checklist.md</code></pre>
           <span>Raw body HMAC verification</span>
           <span>Duplicate event replay</span>
           <span>Provider field mapping</span>
+          <span>PR-ready review reports</span>
           <span>License and subscription states</span>
           <span>CI command examples</span>
           <span>Webhook route hardening notes</span>
