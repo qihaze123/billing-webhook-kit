@@ -43,6 +43,27 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy Webhook Raw Body in Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html</guid>
+      <description>Fix Lemon Squeezy webhook signature checks in Next.js by verifying the exact raw request body before JSON parsing.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Fix Invalid Lemon Squeezy x-signature Errors</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html</guid>
+      <description>Debug invalid Lemon Squeezy x-signature webhook errors caused by raw-body changes, wrong secrets, header formats, and framework body parsers.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Lemon Squeezy order_created Webhook Fixture</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-order-created-fixture.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-order-created-fixture.html</guid>
+      <description>Use a Lemon Squeezy order_created webhook fixture to test paid order access grants, customer mapping, and duplicate replay behavior.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Next.js Lemon Squeezy Webhook Handler</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html</guid>

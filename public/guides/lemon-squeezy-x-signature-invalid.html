@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Next.js Lemon Squeezy Webhook Handler | BillingWebhookKit</title>
-    <meta name="description" content="Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch." />
+    <title>Fix Invalid Lemon Squeezy x-signature Errors | BillingWebhookKit</title>
+    <meta name="description" content="Debug invalid Lemon Squeezy x-signature webhook errors caused by raw-body changes, wrong secrets, header formats, and framework body parsers." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html" />
     <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
     <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="BillingWebhookKit" />
-    <meta property="og:title" content="Next.js Lemon Squeezy Webhook Handler" />
-    <meta property="og:description" content="Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch." />
-    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html" />
+    <meta property="og:title" content="Fix Invalid Lemon Squeezy x-signature Errors" />
+    <meta property="og:description" content="Debug invalid Lemon Squeezy x-signature webhook errors caused by raw-body changes, wrong secrets, header formats, and framework body parsers." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html" />
     <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Next.js Lemon Squeezy Webhook Handler" />
-    <meta name="twitter:description" content="Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch." />
+    <meta name="twitter:title" content="Fix Invalid Lemon Squeezy x-signature Errors" />
+    <meta name="twitter:description" content="Debug invalid Lemon Squeezy x-signature webhook errors caused by raw-body changes, wrong secrets, header formats, and framework body parsers." />
     <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
     <style>
       :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
@@ -52,37 +52,37 @@
       @media (max-width: 720px) { .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } }
       footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
     </style>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Next.js Lemon Squeezy Webhook Handler","description":"Build a Next.js App Router webhook handler for Lemon Squeezy with raw body signing and event dispatch.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html"}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I use request.json() first?","acceptedAnswer":{"@type":"Answer","text":"No. Parse JSON only after computing the signature from request.text()."}},{"@type":"Question","name":"Do retries matter?","acceptedAnswer":{"@type":"Answer","text":"Yes. Webhook delivery can retry; your billing side effects should be idempotent."}}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Next.js Lemon Squeezy Webhook Handler","item":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-lemon-squeezy-webhook-handler.html"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Fix Invalid Lemon Squeezy x-signature Errors","description":"Debug invalid Lemon Squeezy x-signature webhook errors caused by raw-body changes, wrong secrets, header formats, and framework body parsers.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can a valid event still fail signature verification?","acceptedAnswer":{"@type":"Answer","text":"Yes. A valid provider event fails if your framework changes the raw body before verification or if the route uses the wrong endpoint secret."}},{"@type":"Question","name":"Should I log production webhook secrets while debugging?","acceptedAnswer":{"@type":"Answer","text":"No. Use fake secrets and fixtures in reports, and log only non-sensitive request IDs or event IDs."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Fix Invalid Lemon Squeezy x-signature Errors","item":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html"}]}</script>
   </head>
   <body>
     <main>
       <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
-      <h1>Next.js Lemon Squeezy webhook handler</h1>
-      <p class="lead">Next.js App Router can receive Lemon Squeezy webhooks if the route verifies the raw request body before dispatching events.</p>
+      <h1>Fix invalid Lemon Squeezy x-signature errors</h1>
+      <p class="lead">When Lemon Squeezy webhooks return invalid signature errors, teams need a fast way to isolate whether the body, secret, or header handling changed.</p>
       <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free generator</a>
       <section>
-        <h2>Create a route handler</h2>
-        <p>Use app/api/webhooks/lemonsqueezy/route.ts and read await request.text() so the signing payload remains exact.</p>
+        <h2>Check the raw body</h2>
+        <p>Compare the received raw request body against the exact body used to compute the expected HMAC SHA-256 digest.</p>
       </section>
 <section>
-        <h2>Verify before dispatch</h2>
-        <p>Return 401 for invalid signatures, then parse JSON and switch on meta.event_name.</p>
+        <h2>Check the endpoint secret</h2>
+        <p>Make sure the webhook signing secret belongs to the same Lemon Squeezy endpoint and environment that sent the event.</p>
       </section>
 <section>
-        <h2>Keep handlers idempotent</h2>
-        <p>Persist Lemon Squeezy event IDs or order IDs so retries do not duplicate entitlement changes.</p>
+        <h2>Check the header value</h2>
+        <p>Normalize the x-signature header carefully and reject missing, truncated, prefixed, or whitespace-damaged values.</p>
       </section>
       <section class="faq">
         <h2>FAQ</h2>
         <div class="faq-item">
-          <h3>Can I use request.json() first?</h3>
-          <p>No. Parse JSON only after computing the signature from request.text().</p>
+          <h3>Can a valid event still fail signature verification?</h3>
+          <p>Yes. A valid provider event fails if your framework changes the raw body before verification or if the route uses the wrong endpoint secret.</p>
         </div>
 <div class="faq-item">
-          <h3>Do retries matter?</h3>
-          <p>Yes. Webhook delivery can retry; your billing side effects should be idempotent.</p>
+          <h3>Should I log production webhook secrets while debugging?</h3>
+          <p>No. Use fake secrets and fixtures in reports, and log only non-sensitive request IDs or event IDs.</p>
         </div>
       </section>
       <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
@@ -111,21 +111,21 @@
             <strong>All payment webhook guides</strong>
             <span>Browse the full BillingWebhookKit guide index.</span>
           </a>
-          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html">
-            <strong>Lemon Squeezy Webhook Raw Body in Next.js</strong>
-            <span>Fix Lemon Squeezy webhook signature checks in Next.js by verifying the exact raw request body before JSON parsing.</span>
-          </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/hono-lemon-squeezy-webhook-handler.html">
-            <strong>Hono Lemon Squeezy Webhook Handler</strong>
-            <span>A Hono webhook route pattern for Lemon Squeezy apps running on Workers or serverless runtimes.</span>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html">
+            <strong>Verify Lemon Squeezy Webhook Signatures</strong>
+            <span>A practical checklist for validating Lemon Squeezy webhook HMAC signatures in SaaS apps.</span>
           </a>
 <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-order-created-fixture.html">
             <strong>Lemon Squeezy order_created Webhook Fixture</strong>
             <span>Use a Lemon Squeezy order_created webhook fixture to test paid order access grants, customer mapping, and duplicate replay behavior.</span>
           </a>
-<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html">
-            <strong>Fix Invalid Lemon Squeezy x-signature Errors</strong>
-            <span>Debug invalid Lemon Squeezy x-signature webhook errors caused by raw-body changes, wrong secrets, header formats, and framework body parsers.</span>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html">
+            <strong>Lemon Squeezy Webhook Raw Body in Next.js</strong>
+            <span>Fix Lemon Squeezy webhook signature checks in Next.js by verifying the exact raw request body before JSON parsing.</span>
+          </a>
+<a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html">
+            <strong>Lemon Squeezy Webhook Test Checklist</strong>
+            <span>A launch checklist for Lemon Squeezy webhook signature verification, contract fields, idempotency keys, duplicate replay, and entitlement decisions.</span>
           </a>
         </div>
       </section>

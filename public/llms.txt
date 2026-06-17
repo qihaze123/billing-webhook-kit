@@ -43,6 +43,9 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Lemon Squeezy webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
 - Lemon Squeezy signature verification: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
 - Lemon Squeezy webhook test checklist: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test-checklist.html
+- Lemon Squeezy webhook raw body in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html
+- Invalid Lemon Squeezy x-signature debugger: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-x-signature-invalid.html
+- Lemon Squeezy order_created webhook fixture: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-order-created-fixture.html
 - Webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html
