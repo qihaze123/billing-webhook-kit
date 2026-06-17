@@ -6,6 +6,8 @@ Live tool: https://qihaze123.github.io/billing-webhook-kit/
 
 Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
+Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
+
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
 The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures against exact raw request bodies, debugs signature mismatches, inspects trusted billing fields, builds idempotency keys, generates contract tests, recommends idempotency keys, maps events to entitlement decisions, scores launch readiness, simulates duplicate webhook replays, estimates webhook debugging cost, exports PR-ready Markdown review reports, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
@@ -44,6 +46,8 @@ The paid Pro Kit launch price is CN¥69 and adds copy-ready billing webhook asse
 Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 
 Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
+
+Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 
 Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 
