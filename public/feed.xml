@@ -29,6 +29,13 @@
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Webhook Idempotency Key Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html</guid>
+      <description>Generate stable payment webhook idempotency keys, unique constraints, and process-once handler guards for provider retries.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Payment Webhook Test Generator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</guid>
