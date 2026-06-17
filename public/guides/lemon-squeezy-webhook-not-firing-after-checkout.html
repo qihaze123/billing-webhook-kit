@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Webhook Not Firing After Checkout | BillingWebhookKit</title>
+    <meta name="description" content="Debug a Lemon Squeezy webhook not firing after checkout: live/test mismatch, webhook endpoint URL, subscribed events, 2xx responses, signature failures, retries, and fulfillment checks." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Webhook Not Firing After Checkout" />
+    <meta property="og:description" content="Debug a Lemon Squeezy webhook not firing after checkout: live/test mismatch, endpoint URL, subscribed events, 2xx responses, signature failures, retries, and fulfillment checks." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Webhook Not Firing After Checkout" />
+    <meta name="twitter:description" content="Debug a Lemon Squeezy webhook not firing after checkout with launch-safe checks for endpoint URL, event subscriptions, live/test mode, 2xx responses, signatures, and retries." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 800; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      p { margin: 0; line-height: 1.72; }
+      code { font-family: Andale Mono, SFMono-Regular, Menlo, Consolas, monospace; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .conversion-panel { background: #10120f; color: #f7faed; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a { display: block; min-height: 126px; border: 1px solid #f7faed; border-radius: 7px; padding: 14px; text-decoration: none; background: #1d2119; }
+      .conversion-actions strong { display: block; margin-bottom: 8px; color: var(--accent); line-height: 1.25; }
+      .conversion-actions span { display: block; color: #dfe6d6; font-size: .93rem; line-height: 1.5; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .related-grid a { display: block; min-height: 118px; border: 1px solid #cfd6c5; border-radius: 7px; padding: 14px; text-decoration: none; background: #f9faf4; }
+      .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .related-grid span { display: block; color: var(--muted); font-size: .93rem; line-height: 1.5; }
+      @media (max-width: 720px) { .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Lemon Squeezy Webhook Not Firing After Checkout","description":"Debug a Lemon Squeezy webhook not firing after checkout: live/test mismatch, webhook endpoint URL, subscribed events, 2xx responses, signature failures, retries, and fulfillment checks.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why did my Lemon Squeezy checkout succeed but no webhook arrived?","acceptedAnswer":{"@type":"Answer","text":"Common causes include checking the wrong live/test environment, using a stale endpoint URL, not subscribing to order_created or subscription events, returning a non-2xx response, rejecting the request during signature verification, or mapping only a different product or variant."}},{"@type":"Question","name":"Should I expose the public buy link before fixing webhook delivery?","acceptedAnswer":{"@type":"Answer","text":"No. Keep the public checkout link disabled until a controlled paid checkout produces a signed webhook event, the route returns 2xx, fulfillment runs once, and duplicate replay is safe."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Lemon Squeezy Webhook Not Firing After Checkout","item":"https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html"}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Lemon Squeezy webhook not firing after checkout</h1>
+      <p class="lead">When checkout succeeds but the app never grants access, debug delivery before blaming fulfillment code. The safest launch path is to prove environment, endpoint, event, signature, and retry behavior in order.</p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">Open the checkout smoke report</a>
+
+      <section>
+        <h2>Confirm live/test mode and endpoint URL</h2>
+        <p>Match the checkout environment, store, product, variant, and webhook endpoint. A live checkout will not prove delivery to a test-only endpoint, and a stale tunnel URL can silently make every paid order miss the app.</p>
+      </section>
+      <section>
+        <h2>Check subscribed events before the handler</h2>
+        <p>For one-time products, the route usually needs <code>order_created</code>. For subscriptions, it may also need subscription payment, renewal, cancellation, or failed-payment events. If the event is not selected, the app cannot receive it.</p>
+      </section>
+      <section>
+        <h2>Return 2xx only after signature verification</h2>
+        <p>Read the exact raw request body, verify the <code>x-signature</code>, then parse JSON. Log the event ID, object ID, product or variant ID, and idempotency key, but keep secrets and customer data out of public reports.</p>
+      </section>
+      <section>
+        <h2>Replay the paid event before publishing checkout</h2>
+        <p>Use the signed paid-order fixture to prove duplicate delivery skips fulfillment, download delivery, license generation, and emails after the first successful write.</p>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Why did my Lemon Squeezy checkout succeed but no webhook arrived?</h3>
+          <p>Common causes include checking the wrong live/test environment, using a stale endpoint URL, not subscribing to <code>order_created</code> or subscription events, returning a non-2xx response, rejecting the request during signature verification, or mapping only a different product or variant.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Should I expose the public buy link before fixing webhook delivery?</h3>
+          <p>No. Keep the public checkout link disabled until a controlled paid checkout produces a signed webhook event, the route returns 2xx, fulfillment runs once, and duplicate replay is safe.</p>
+        </div>
+      </section>
+
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Turn the failed checkout into release evidence</h2>
+          <p>Use the free sample to inspect fake fixtures and local tests. Use the Pro Kit preview when you need copy-ready handlers, replay tests, review reports, and launch checklists for a real billing route.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download free sample</strong>
+            <span>Inspect one Lemon Squeezy fixture, raw-body handler, signature test, contract test, replay test, and CI skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CN¥69 digital kit; checkout stays disabled until live Lemon Squeezy configuration is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Continue with adjacent checks before a billing route accepts paid checkout traffic.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-smoke-test.html">
+            <strong>Lemon Squeezy Checkout Smoke Test</strong>
+            <span>Prove product price, checkout URL, paid order webhook, duplicate replay, and fulfillment before launch.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-paypal-checkout-webhook-test.html">
+            <strong>Lemon Squeezy PayPal Checkout Webhook Test</strong>
+            <span>Verify PayPal checkout, paid order webhook delivery, signature gate, and fulfillment evidence.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html">
+            <strong>Fix Lemon Squeezy Checkout 404</strong>
+            <span>Debug checkout 404 errors caused by custom_price minor units, store currency, unpublished variants, or live/test mismatch.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html">
+            <strong>Lemon Squeezy Webhook Raw Body in Next.js</strong>
+            <span>Preserve the exact raw request body before JSON parsing so x-signature verification can pass.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use fake fixtures and fake signing secrets in public examples.
+      </footer>
+    </main>
+  </body>
+</html>
