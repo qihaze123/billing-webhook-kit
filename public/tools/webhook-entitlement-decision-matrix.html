@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webhook Entitlement Decision Matrix Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a SaaS payment webhook entitlement decision matrix for Lemon Squeezy, Stripe, Paddle, and Polar events. Browser-only, no account login, no API calls."
+    />
+    <meta
+      name="keywords"
+      content="webhook entitlement decision matrix, SaaS entitlement webhook, payment webhook access grant, Lemon Squeezy entitlement, Stripe subscription entitlement, billing webhook tests"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Webhook Entitlement Decision Matrix Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only matrix generator for mapping payment webhook events to SaaS access grants, renewal extension, cancellation, failed-payment holds, and quarantine rules."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Webhook Entitlement Decision Matrix Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate a PR-ready payment webhook entitlement decision matrix locally in the browser."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Webhook Entitlement Decision Matrix Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only payment webhook entitlement decision matrix generator for SaaS billing access rules."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Webhook Entitlement Decision Matrix Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .stat span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      .lead {
+        max-width: 860px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-width: 0;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 0 12px;
+        outline: none;
+      }
+
+      .button-row,
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fbfcf8;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: var(--paper-2);
+        padding: 12px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 6px;
+        line-height: 1.25;
+      }
+
+      .matrix-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+      }
+
+      table {
+        width: 100%;
+        min-width: 880px;
+        border-collapse: collapse;
+        background: #fbfcf8;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid #d8ded2;
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+        line-height: 1.45;
+      }
+
+      th {
+        background: var(--charcoal);
+        color: #f8faef;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+      }
+
+      td:first-child {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .output-tabs {
+        display: grid;
+        gap: 10px;
+      }
+
+      .tab-button[aria-selected="true"] {
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 320px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #11130f;
+        color: #f8faef;
+        padding: 14px;
+        font: 0.84rem/1.55 "Andale Mono", "SFMono-Regular", Menlo, monospace;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 116px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 960px) {
+        .workbench,
+        .stat-grid,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Entitlement matrix</p>
+      <h1>Webhook entitlement decision matrix generator.</h1>
+      <p class="lead">
+        Generate provider-specific access decisions from billing webhook events to SaaS access rules: one-time grants, license delivery, renewal extension, scheduled cancellation, failed-payment holds, and unknown-event quarantine. Everything runs in the browser.
+      </p>
+
+      <section class="workbench" aria-label="Webhook entitlement workbench">
+        <div class="panel">
+          <header>
+            <h2>Inputs</h2>
+            <p>No provider API calls</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Provider</span>
+              <select id="provider">
+                <option value="lemon">Lemon Squeezy</option>
+                <option value="stripe">Stripe</option>
+                <option value="paddle">Paddle</option>
+                <option value="polar">Polar</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Product model</span>
+              <select id="model">
+                <option value="hybrid">One-time kit plus subscription</option>
+                <option value="one-time">One-time digital product</option>
+                <option value="subscription">Subscription SaaS</option>
+                <option value="license">License-key product</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Internal user key</span>
+              <input id="userKey" value="billing_customer_id" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Idempotency column</span>
+              <input id="idempotencyColumn" value="provider_event_id" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Cancellation policy</span>
+              <select id="cancelPolicy">
+                <option value="end-date">Keep access until provider period end</option>
+                <option value="immediate">Revoke access immediately</option>
+                <option value="manual-review">Hold for manual review</option>
+              </select>
+            </label>
+            <div class="button-row">
+              <button type="button" id="copyMarkdown">Copy Markdown</button>
+              <button type="button" id="downloadJson" class="secondary">Download JSON</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Generated entitlement plan</h2>
+            <p>Matrix, tests, and review notes</p>
+          </header>
+          <div class="result">
+            <div class="stat-grid" aria-label="Generated plan stats">
+              <div class="stat">
+                <span>Rows</span>
+                <strong id="rowCount">0 decision rows</strong>
+              </div>
+              <div class="stat">
+                <span>Critical tests</span>
+                <strong id="testCount">0 replay checks</strong>
+              </div>
+              <div class="stat">
+                <span>Release gate</span>
+                <strong>signature, idempotency, entitlement</strong>
+              </div>
+            </div>
+
+            <div class="matrix-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Incoming state</th>
+                    <th>Entitlement decision</th>
+                    <th>Persistent writes</th>
+                    <th>Replay test</th>
+                  </tr>
+                </thead>
+                <tbody id="matrixBody"></tbody>
+              </table>
+            </div>
+
+            <div class="output-tabs">
+              <div class="tabs" role="tablist" aria-label="Generated output">
+                <button type="button" class="tab-button" data-tab="markdown" aria-selected="true">Markdown</button>
+                <button type="button" class="tab-button secondary" data-tab="json" aria-selected="false">JSON</button>
+                <button type="button" class="tab-button secondary" data-tab="test" aria-selected="false">Test checklist</button>
+              </div>
+              <label class="field">
+                <span class="output-label" id="outputLabel">PR-ready Markdown release note</span>
+                <textarea id="output" spellcheck="false"></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Upgrade path">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake Lemon Squeezy fixtures, signature tests, duplicate replay tests, and CI structure before buying.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Move from a generated matrix to copy-ready provider fixtures, handlers, contract tests, and review reports.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const providerEvents = {
+        lemon: {
+          label: "Lemon Squeezy",
+          oneTime: "order_created",
+          license: "license_key_created",
+          subscriptionCreated: "subscription_created",
+          renewal: "subscription_payment_success",
+          cancelled: "subscription_cancelled",
+          failed: "subscription_payment_failed",
+          idField: "data.id"
+        },
+        stripe: {
+          label: "Stripe",
+          oneTime: "checkout.session.completed",
+          license: "checkout.session.completed",
+          subscriptionCreated: "customer.subscription.created",
+          renewal: "invoice.paid",
+          cancelled: "customer.subscription.deleted",
+          failed: "invoice.payment_failed",
+          idField: "event.id"
+        },
+        paddle: {
+          label: "Paddle",
+          oneTime: "transaction.completed",
+          license: "transaction.completed",
+          subscriptionCreated: "subscription.created",
+          renewal: "transaction.completed",
+          cancelled: "subscription.canceled",
+          failed: "transaction.payment_failed",
+          idField: "event_id"
+        },
+        polar: {
+          label: "Polar",
+          oneTime: "order.paid",
+          license: "benefit_grant.created",
+          subscriptionCreated: "subscription.created",
+          renewal: "subscription.active",
+          cancelled: "subscription.canceled",
+          failed: "subscription.revoked",
+          idField: "id"
+        }
+      };
+
+      const providerEl = document.querySelector("#provider");
+      const modelEl = document.querySelector("#model");
+      const userKeyEl = document.querySelector("#userKey");
+      const idempotencyColumnEl = document.querySelector("#idempotencyColumn");
+      const cancelPolicyEl = document.querySelector("#cancelPolicy");
+      const matrixBodyEl = document.querySelector("#matrixBody");
+      const rowCountEl = document.querySelector("#rowCount");
+      const testCountEl = document.querySelector("#testCount");
+      const outputEl = document.querySelector("#output");
+      const outputLabelEl = document.querySelector("#outputLabel");
+      let activeTab = "markdown";
+      let currentPlan = null;
+
+      function cancelDecision(policy) {
+        if (policy === "immediate") return "revoke active access immediately after the signed cancellation event";
+        if (policy === "manual-review") return "place the account in manual-review hold and avoid destructive deletes";
+        return "schedule access to end at the provider period end";
+      }
+
+      function baseRows(provider, model, userKey, idempotencyColumn, cancelPolicy) {
+        const config = providerEvents[provider];
+        const rows = [
+          {
+            event: config.oneTime,
+            state: "paid or completed",
+            decision: "grant one-time product access exactly once",
+            writes: `${userKey}, entitlement slug, purchase id, ${idempotencyColumn}`,
+            test: "duplicate delivery returns success without creating a second entitlement"
+          },
+          {
+            event: config.oneTime,
+            state: "pending, failed, refunded, or disputed",
+            decision: "record audit state but do not grant active access",
+            writes: `order audit row, payment status, ${idempotencyColumn}`,
+            test: "unpaid or refunded payload leaves entitlement inactive"
+          },
+          {
+            event: config.subscriptionCreated,
+            state: "active or trialing",
+            decision: "activate subscription entitlement for the mapped customer",
+            writes: `${userKey}, plan id, provider subscription id, period window, ${idempotencyColumn}`,
+            test: "subscription create maps to one account and one active plan"
+          },
+          {
+            event: config.renewal,
+            state: "paid renewal",
+            decision: "extend the current entitlement window once",
+            writes: `invoice id, renewal period, paid amount, ${idempotencyColumn}`,
+            test: "replaying the same paid invoice does not extend the window twice"
+          },
+          {
+            event: config.cancelled,
+            state: "cancelled with effective date",
+            decision: cancelDecision(cancelPolicy),
+            writes: `subscription status, cancellation source, effective end, ${idempotencyColumn}`,
+            test: "cancellation keeps or revokes access according to the selected policy"
+          },
+          {
+            event: config.failed,
+            state: "past_due, failed, revoked, or payment_failed",
+            decision: "pause risky side effects and mark billing as needs action",
+            writes: `dunning state, failed invoice id, alert marker, ${idempotencyColumn}`,
+            test: "failed payment does not delete entitlement history or deliver paid assets"
+          },
+          {
+            event: "unknown_event",
+            state: "unmapped but signed",
+            decision: "quarantine raw sample and acknowledge without customer-facing side effects",
+            writes: `raw event sample, provider label, ${idempotencyColumn}`,
+            test: "unknown event is stored for review and never grants access"
+          }
+        ];
+
+        if (model === "one-time") return rows.filter((row) => [config.oneTime, "unknown_event"].includes(row.event));
+        if (model === "subscription") {
+          return rows.filter((row) =>
+            [config.subscriptionCreated, config.renewal, config.cancelled, config.failed, "unknown_event"].includes(row.event)
+          );
+        }
+        if (model === "license") {
+          return [
+            rows[0],
+            {
+              event: config.license,
+              state: "license created or benefit granted",
+              decision: "deliver license access while masking sensitive key material in logs",
+              writes: `${userKey}, license reference, entitlement slug, ${idempotencyColumn}`,
+              test: "duplicate license event does not send two fulfillment emails"
+            },
+            rows[1],
+            rows[6]
+          ];
+        }
+        return rows;
+      }
+
+      function buildPlan() {
+        const provider = providerEl.value;
+        const config = providerEvents[provider];
+        const model = modelEl.value;
+        const userKey = userKeyEl.value.trim() || "billing_customer_id";
+        const idempotencyColumn = idempotencyColumnEl.value.trim() || "provider_event_id";
+        const rows = baseRows(provider, model, userKey, idempotencyColumn, cancelPolicyEl.value);
+        return {
+          provider: config.label,
+          providerEventIdField: config.idField,
+          productModel: model,
+          userKey,
+          idempotencyColumn,
+          releaseGate: ["verify raw-body signature", "persist idempotency key", "run entitlement decision once"],
+          rows
+        };
+      }
+
+      function toMarkdown(plan) {
+        const lines = [
+          `# ${plan.provider} webhook entitlement decision matrix`,
+          "",
+          `Product model: ${plan.productModel}`,
+          `User mapping key: ${plan.userKey}`,
+          `Provider event id field: ${plan.providerEventIdField}`,
+          `Idempotency column: ${plan.idempotencyColumn}`,
+          "",
+          "## Release gate",
+          "",
+          ...plan.releaseGate.map((gate) => `- ${gate}`),
+          "",
+          "## Matrix",
+          "",
+          "| Event | Incoming state | Entitlement decision | Persistent writes | Replay test |",
+          "| --- | --- | --- | --- | --- |",
+          ...plan.rows.map((row) =>
+            `| ${row.event} | ${row.state} | ${row.decision} | ${row.writes} | ${row.test} |`
+          ),
+          "",
+          "## CI checklist",
+          "",
+          ...plan.rows.map((row) => `- Fixture for \`${row.event}\`: ${row.test}.`)
+        ];
+        return lines.join("\n");
+      }
+
+      function toTestChecklist(plan) {
+        return plan.rows
+          .map(
+            (row, index) =>
+              `${index + 1}. ${row.event}\n   - state: ${row.state}\n   - expected decision: ${row.decision}\n   - duplicate replay assertion: ${row.test}`
+          )
+          .join("\n\n");
+      }
+
+      function renderOutput() {
+        if (!currentPlan) return;
+        if (activeTab === "json") {
+          outputLabelEl.textContent = "JSON decision artifact";
+          outputEl.value = JSON.stringify(currentPlan, null, 2);
+          return;
+        }
+        if (activeTab === "test") {
+          outputLabelEl.textContent = "Duplicate replay test checklist";
+          outputEl.value = toTestChecklist(currentPlan);
+          return;
+        }
+        outputLabelEl.textContent = "PR-ready Markdown release note";
+        outputEl.value = toMarkdown(currentPlan);
+      }
+
+      function render() {
+        currentPlan = buildPlan();
+        matrixBodyEl.innerHTML = currentPlan.rows
+          .map(
+            (row) => `<tr>
+              <td>${row.event}</td>
+              <td>${row.state}</td>
+              <td>${row.decision}</td>
+              <td>${row.writes}</td>
+              <td>${row.test}</td>
+            </tr>`
+          )
+          .join("");
+        rowCountEl.textContent = `${currentPlan.rows.length} decision rows`;
+        testCountEl.textContent = `${currentPlan.rows.length} replay checks`;
+        renderOutput();
+      }
+
+      document.querySelectorAll("select, input").forEach((input) => input.addEventListener("input", render));
+      document.querySelectorAll(".tab-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeTab = button.dataset.tab;
+          document.querySelectorAll(".tab-button").forEach((candidate) => {
+            const selected = candidate.dataset.tab === activeTab;
+            candidate.setAttribute("aria-selected", String(selected));
+            candidate.classList.toggle("secondary", !selected);
+          });
+          renderOutput();
+        });
+      });
+
+      document.querySelector("#copyMarkdown").addEventListener("click", async () => {
+        const text = toMarkdown(currentPlan || buildPlan());
+        await navigator.clipboard.writeText(text);
+      });
+
+      document.querySelector("#downloadJson").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(currentPlan || buildPlan(), null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "webhook-entitlement-decision-matrix.json";
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      render();
+    </script>
+  </body>
+</html>
