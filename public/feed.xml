@@ -22,6 +22,13 @@
       <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy Webhook Idempotency</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html</guid>
+      <description>Make Lemon Squeezy webhook handlers safe against retries, duplicate deliveries, and repeated billing side effects.</description>
+      <pubDate>Wed, 17 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Payment Webhook Test Generator</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html</guid>

@@ -31,6 +31,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Lemon Squeezy webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html
 - Lemon Squeezy signature verification: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-signature.html
+- Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - Webhook idempotency checklist: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
 - Webhook duplicate replay test: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html
