@@ -408,11 +408,12 @@ const issues = [
   ...(statusPage.text.includes("Checkout, package, and crawlability signals in one place.") &&
   statusPage.text.includes("pro-kit-manifest.json") &&
   statusPage.text.includes("delivery-refund-support.html") &&
+  statusPage.text.includes("billing-webhook-kit-pricing-roi.html") &&
   statusPage.text.includes("sitemap.xml") &&
   statusPage.text.includes("Search Console") &&
   statusPage.text.includes("search-console-sitemap-submission.html")
     ? []
-    : ["status page is missing checkout, manifest, delivery support, sitemap, or Search Console signals."]),
+    : ["status page is missing checkout, manifest, delivery support, pricing ROI, sitemap, or Search Console signals."]),
   ...(searchConsoleHandoff.text.includes("Google Search Console sitemap submission") &&
   searchConsoleHandoff.text.includes("URL prefix") &&
   searchConsoleHandoff.text.includes("https://qihaze123.github.io/billing-webhook-kit/") &&
@@ -719,9 +720,10 @@ const issues = [
     : ["Pro Kit page is missing the buying-decision section."]),
   ...(proKit.text.includes("delivery-refund-support.html") &&
   proKit.text.includes("support and refund") &&
-  proKit.text.includes("billing-webhook-launch-evidence-pack.html")
+  proKit.text.includes("billing-webhook-launch-evidence-pack.html") &&
+  proKit.text.includes("billing-webhook-kit-pricing-roi.html")
     ? []
-    : ["Pro Kit page is missing delivery, support, refund policy, or launch evidence links."]),
+    : ["Pro Kit page is missing delivery, support, refund policy, pricing ROI, or launch evidence links."]),
   ...(proKit.text.includes("Checkout Launch Gates") &&
   proKit.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   proKit.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -751,9 +753,10 @@ const issues = [
   freeSample.text.includes("pro-kit.html") &&
   freeSample.text.includes("pro-kit-manifest.json") &&
   freeSample.text.includes("delivery-refund-support.html") &&
-  freeSample.text.includes("billing-webhook-launch-evidence-pack.html")
+  freeSample.text.includes("billing-webhook-launch-evidence-pack.html") &&
+  freeSample.text.includes("billing-webhook-kit-pricing-roi.html")
     ? []
-    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, delivery policy, or verification links."]),
+    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, pricing ROI, delivery policy, or verification links."]),
   ...(freeSample.text.includes("Launch gates that point to the Pro Kit") &&
   freeSample.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   freeSample.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
