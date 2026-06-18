@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Billing Webhook Launch Evidence Pack | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Build a billing webhook launch evidence pack before accepting payments: checkout smoke report, event coverage, fulfillment proof, refund rollback, delivery emails, duplicate replay, and Pro Kit upgrade path."
+    />
+    <meta
+      name="keywords"
+      content="billing webhook launch evidence, webhook launch checklist, Lemon Squeezy checkout evidence, payment webhook release report, billing webhook audit pack"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Billing Webhook Launch Evidence Pack" />
+    <meta
+      property="og:description"
+      content="A practical launch evidence path for checkout smoke tests, webhook event coverage, fulfillment proof, refund rollback, delivery emails, duplicate replay, and Pro Kit review."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Billing Webhook Launch Evidence Pack" />
+    <meta
+      name="twitter:description"
+      content="Collect checkout, webhook, fulfillment, refund, and delivery evidence before a public billing launch."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Billing Webhook Launch Evidence Pack",
+        "description": "Build a billing webhook launch evidence pack before accepting payments: checkout smoke report, event coverage, fulfillment proof, refund rollback, delivery emails, duplicate replay, and Pro Kit upgrade path.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Launch Evidence Pack", "item": "https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html" }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+      body { min-width: 320px; margin: 0; color: var(--ink); }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .page { width: min(1180px, calc(100vw - 32px)); margin: 0 auto; padding: 28px 0 56px; }
+      .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; font-weight: 850; }
+      .brand { font-weight: 950; text-decoration: none; }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-end; }
+      .eyebrow, .step span, .metric span, .packet-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+      h1, h2, p { margin: 0; }
+      h1 { max-width: 980px; font-size: clamp(2.25rem, 7vw, 5.4rem); line-height: 0.93; font-weight: 950; letter-spacing: 0; }
+      h2 { font-size: 1.26rem; line-height: 1.18; }
+      .lead { max-width: 820px; margin-top: 18px; color: var(--muted); font-size: 1.1rem; line-height: 1.62; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        padding: 0 16px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+      .button.secondary { background: var(--panel); }
+      .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+      .metric { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px; }
+      .metric strong { display: block; margin-top: 7px; line-height: 1.25; }
+      .packet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 390px); gap: 14px; margin-top: 24px; align-items: start; }
+      .steps { display: grid; gap: 12px; }
+      .step {
+        display: grid;
+        grid-template-columns: 54px minmax(0, 1fr);
+        gap: 14px;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 16px;
+        box-shadow: 8px 8px 0 rgba(18, 19, 15, 0.1);
+        text-decoration: none;
+      }
+      .step-number {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--charcoal);
+        color: var(--acid);
+        font-weight: 950;
+      }
+      .step p { margin-top: 8px; color: var(--muted); line-height: 1.55; }
+      .side-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        box-shadow: 12px 12px 0 rgba(18, 19, 15, 0.12);
+        padding: 18px;
+      }
+      .side-panel p { margin-top: 10px; color: #dbe2d2; line-height: 1.55; }
+      .side-panel ul { display: grid; gap: 10px; margin: 18px 0 0; padding-left: 20px; line-height: 1.45; }
+      .side-panel a { color: var(--acid); }
+      .conversion { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+      .conversion a {
+        display: block;
+        min-height: 128px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 16px;
+        text-decoration: none;
+      }
+      .conversion strong { display: block; line-height: 1.25; }
+      .conversion span { display: block; margin-top: 8px; color: var(--muted); line-height: 1.5; font-size: 0.93rem; }
+      footer { margin-top: 30px; color: var(--muted); font-size: 0.92rem; line-height: 1.55; }
+      @media (max-width: 900px) {
+        .metrics, .packet, .conversion { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 640px) {
+        .page { width: min(100vw - 24px, 1180px); padding-top: 22px; }
+        .nav { align-items: flex-start; flex-direction: column; }
+        .nav-links { justify-content: flex-start; }
+        .step { grid-template-columns: 1fr; }
+        .button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">Guides</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Launch evidence</p>
+      <h1>Billing webhook launch evidence pack</h1>
+      <p class="lead">
+        A payment page is not launch evidence. Before exposing a public buy link, collect proof that checkout loads, paid webhooks arrive, signature gates hold, delivery runs once, refund rollback is safe, and the support path is clear.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">Start with checkout evidence</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Preview CN¥69 Pro Kit</a>
+      </div>
+
+      <section class="metrics" aria-label="Evidence pack status">
+        <div class="metric">
+          <span>Cost</span>
+          <strong>Browser-only tools, no paid API calls</strong>
+        </div>
+        <div class="metric">
+          <span>Checkout</span>
+          <strong>Public buy link waits for live key</strong>
+        </div>
+        <div class="metric">
+          <span>Evidence</span>
+          <strong>Markdown reports for PR review</strong>
+        </div>
+        <div class="metric">
+          <span>Upgrade</span>
+          <strong>Free sample before Pro Kit</strong>
+        </div>
+      </section>
+
+      <section class="packet" aria-label="Launch evidence packet steps">
+        <div class="steps">
+          <a class="step" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">
+            <div class="step-number">01</div>
+            <div>
+              <span>Checkout smoke</span>
+              <h2>Prove the checkout page, price, and paid event path.</h2>
+              <p>Generate a release-ready report for product price, checkout URL, paid webhook delivery, signature gate, duplicate replay, fulfillment, and rollback notes.</p>
+            </div>
+          </a>
+          <a class="step" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html">
+            <div class="step-number">02</div>
+            <div>
+              <span>Event coverage</span>
+              <h2>List the webhook events your launch actually depends on.</h2>
+              <p>Map order, subscription, license, paid-state, signature, idempotency, and duplicate replay coverage before production traffic starts.</p>
+            </div>
+          </a>
+          <a class="step" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">
+            <div class="step-number">03</div>
+            <div>
+              <span>Fulfillment proof</span>
+              <h2>Show what happens after the buyer pays.</h2>
+              <p>Create evidence for signed paid events, private ZIP or license delivery, live variant checks, idempotency, checksum records, and support policy links.</p>
+            </div>
+          </a>
+          <a class="step" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html">
+            <div class="step-number">04</div>
+            <div>
+              <span>Refund rollback</span>
+              <h2>Prove access changes do not repeat on refund retries.</h2>
+              <p>Generate secret-free evidence for signed refund webhooks, entitlement revocation, duplicate replay safety, support notes, and release review.</p>
+            </div>
+          </a>
+          <a class="step" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html">
+            <div class="step-number">05</div>
+            <div>
+              <span>Buyer communication</span>
+              <h2>Prepare delivery, resend, and support messages.</h2>
+              <p>Draft buyer-facing emails with private ZIP safety, checksum evidence, refund boundaries, support policy links, and no public secret leakage.</p>
+            </div>
+          </a>
+        </div>
+
+        <aside class="side-panel">
+          <p class="packet-label">What the packet proves</p>
+          <h2>Enough evidence to stop guessing at launch time.</h2>
+          <p>
+            This pack is meant for indie SaaS and digital product builders who are about to expose checkout. It creates review artifacts before the first real buyer depends on your webhook route.
+          </p>
+          <ul>
+            <li>Checkout page and price are visible.</li>
+            <li>Signed paid event reaches the route.</li>
+            <li>Duplicate replay does not repeat side effects.</li>
+            <li>Private delivery and checksum evidence are documented.</li>
+            <li>Refund rollback has a repeat-safe decision.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="conversion" aria-label="Evidence pack next steps">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect a fake Lemon Squeezy fixture, handler, signature test, contract test, duplicate replay test, and CI skeleton.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CN¥69 Pro Kit</strong>
+          <span>Review the paid package manifest, checksum, 29-file structure, and 12 verified local tests before live checkout is connected.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html">
+          <strong>Read delivery and refund policy</strong>
+          <span>Check private delivery, support scope, duplicate purchase handling, broken archive handling, and safe issue reporting.</span>
+        </a>
+      </section>
+
+      <footer>
+        Use fake fixtures and fake signing secrets in public reports. Keep production API keys, webhook secrets, customer data, private checkout URLs, and private download links out of shared examples.
+      </footer>
+    </main>
+  </body>
+</html>

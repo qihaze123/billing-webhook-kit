@@ -1383,6 +1383,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="delivery-refund-support.html">
             Delivery
           </a>
+          <a className="ghost-link" href="billing-webhook-launch-evidence-pack.html">
+            Evidence
+          </a>
           <a className="ghost-link" href="tools/">
             Tools
           </a>
@@ -1583,6 +1586,10 @@ Header casing: x-signature / X-Signature`,
 
           <a className="wide-cta wide-cta--secondary" href="delivery-refund-support.html">
             Delivery, refund, and support
+          </a>
+
+          <a className="wide-cta wide-cta--secondary" href="billing-webhook-launch-evidence-pack.html">
+            Review launch evidence
           </a>
 
           <a className="wide-cta wide-cta--secondary" href="status.html">
@@ -2244,6 +2251,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="delivery-refund-support.html">
             Read delivery, refund, and support details
+          </a>
+          <a className="inline-cta" href="billing-webhook-launch-evidence-pack.html">
+            Review the launch evidence pack
           </a>
           <a className="inline-cta" href="status.html">
             Verify checkout and package status

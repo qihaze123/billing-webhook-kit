@@ -9,6 +9,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/delivery-refund-support.html`,
   `${siteUrl}/status.html`,
   `${siteUrl}/search-console-sitemap-submission.html`,
+  `${siteUrl}/billing-webhook-launch-evidence-pack.html`,
   `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`,
@@ -116,6 +117,7 @@ const [
   freeSample,
   statusPage,
   searchConsoleHandoff,
+  launchEvidencePack,
   toolIndex,
   signatureVerifier,
   payloadGenerator,
@@ -151,6 +153,7 @@ const [
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
   fetchText(`${siteUrl}/search-console-sitemap-submission.html`),
+  fetchText(`${siteUrl}/billing-webhook-launch-evidence-pack.html`),
   fetchText(`${siteUrl}/tools/`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`),
@@ -193,6 +196,9 @@ const issues = [
   ...(searchConsoleHandoff.ok
     ? []
     : [`Search Console sitemap handoff page returned HTTP ${searchConsoleHandoff.status ?? "failed"}.`]),
+  ...(launchEvidencePack.ok
+    ? []
+    : [`launch evidence pack page returned HTTP ${launchEvidencePack.status ?? "failed"}.`]),
   ...(toolIndex.ok ? [] : [`tool index page returned HTTP ${toolIndex.status ?? "failed"}.`]),
   ...(signatureVerifier.ok
     ? []
@@ -259,7 +265,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 62 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 62.`]),
+  ...(sitemapUrls.length >= 63 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 63.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -269,6 +275,9 @@ const issues = [
     ? []
     : ["llms.txt is missing the delivery, refund, and support policy URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
+  ...(llms.text.includes(`${siteUrl}/billing-webhook-launch-evidence-pack.html`)
+    ? []
+    : ["llms.txt is missing the launch evidence pack URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/`) ? [] : ["llms.txt is missing the tool index URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`)
     ? []
@@ -356,6 +365,16 @@ const issues = [
   searchConsoleHandoff.text.includes("llms.txt")
     ? []
     : ["Search Console sitemap handoff page is missing owner handoff values, crawl files, or manual-boundary copy."]),
+  ...(launchEvidencePack.text.includes("Billing webhook launch evidence pack") &&
+  launchEvidencePack.text.includes("checkout smoke") &&
+  launchEvidencePack.text.includes("event coverage") &&
+  launchEvidencePack.text.includes("fulfillment proof") &&
+  launchEvidencePack.text.includes("refund rollback") &&
+  launchEvidencePack.text.includes("delivery email") &&
+  launchEvidencePack.text.includes("free-sample.html") &&
+  launchEvidencePack.text.includes("pro-kit.html")
+    ? []
+    : ["launch evidence pack page is missing key evidence steps or conversion links."]),
   ...(deliverySupport.text.includes("Delivery, refund, and support details before checkout.") &&
   deliverySupport.text.includes("Private ZIP after live checkout") &&
   deliverySupport.text.includes("Public manifest and SHA-256") &&
@@ -368,6 +387,7 @@ const issues = [
     : ["delivery support page is missing buyer assurance, verification, refund, safety, or conversion links."]),
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
   toolIndex.text.includes("Checkout and fulfillment launch decision tools") &&
+  toolIndex.text.includes("Billing webhook launch evidence pack") &&
   toolIndex.text.includes("Launch lane") &&
   toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
   toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
@@ -552,6 +572,9 @@ const issues = [
   ...(home.text.includes("delivery-refund-support.html")
     ? []
     : ["homepage is missing the delivery, refund, and support policy link."]),
+  ...(home.text.includes("billing-webhook-launch-evidence-pack.html")
+    ? []
+    : ["homepage is missing the launch evidence pack link."]),
   ...(home.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   home.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
   home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html")
@@ -561,9 +584,10 @@ const issues = [
     ? []
     : ["Pro Kit page is missing the buying-decision section."]),
   ...(proKit.text.includes("delivery-refund-support.html") &&
-  proKit.text.includes("support and refund")
+  proKit.text.includes("support and refund") &&
+  proKit.text.includes("billing-webhook-launch-evidence-pack.html")
     ? []
-    : ["Pro Kit page is missing delivery, support, or refund policy links."]),
+    : ["Pro Kit page is missing delivery, support, refund policy, or launch evidence links."]),
   ...(proKit.text.includes("Checkout Launch Gates") &&
   proKit.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   proKit.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -592,9 +616,10 @@ const issues = [
   ...(freeSample.text.includes("Free sample to Pro Kit upgrade path") &&
   freeSample.text.includes("pro-kit.html") &&
   freeSample.text.includes("pro-kit-manifest.json") &&
-  freeSample.text.includes("delivery-refund-support.html")
+  freeSample.text.includes("delivery-refund-support.html") &&
+  freeSample.text.includes("billing-webhook-launch-evidence-pack.html")
     ? []
-    : ["Free sample page is missing the Pro Kit upgrade path, delivery policy, or verification links."]),
+    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, delivery policy, or verification links."]),
   ...(freeSample.text.includes("Launch gates that point to the Pro Kit") &&
   freeSample.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   freeSample.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -616,6 +641,7 @@ const result = {
     freeSample: freeSample.status,
     statusPage: statusPage.status,
     searchConsoleHandoff: searchConsoleHandoff.status,
+    launchEvidencePack: launchEvidencePack.status,
     toolIndex: toolIndex.status,
     signatureVerifier: signatureVerifier.status,
     payloadGenerator: payloadGenerator.status,

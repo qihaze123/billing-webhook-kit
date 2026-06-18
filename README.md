@@ -17,6 +17,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
+- Launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 - Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
 - Lemon Squeezy fulfillment checklist generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html
 - Lemon Squeezy refund rollback report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html
@@ -63,6 +64,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Search Console sitemap handoff: exact URL-prefix property, sitemap path, live crawl files, and owner-only submission boundary for Google Search Console.
+- Launch evidence pack: purchase-adjacent checklist tying checkout smoke, event coverage, fulfillment proof, refund rollback, delivery emails, the free sample, and Pro Kit preview together before a public billing launch.
 - Delivery and support page: private ZIP delivery flow, checksum verification, support scope, refund triggers, and safe issue-reporting policy.
 - Digital delivery guide: fulfillment checklist for private ZIP delivery, signed webhooks, paid-state checks, idempotency, checksum evidence, and duplicate replay safety.
 - Refund webhook guide: signed refund event verification, entitlement rollback, duplicate replay safety, buyer support evidence, and secret-free refund reports.
@@ -134,6 +136,8 @@ Use the free sample to validate the format first. It includes one Lemon Squeezy 
 
 Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 
+Launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
+
 Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
 Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
@@ -152,6 +156,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 
 - https://qihaze123.github.io/billing-webhook-kit/guides/
 - https://qihaze123.github.io/billing-webhook-kit/tools/
+- https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html
