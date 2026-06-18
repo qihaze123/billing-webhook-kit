@@ -11,6 +11,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/status.html`,
   `${siteUrl}/sitemap.html`,
   `${siteUrl}/search-console-sitemap-submission.html`,
+  `${siteUrl}/google-indexing-priority.html`,
   `${siteUrl}/troubleshooting.html`,
   `${siteUrl}/billing-webhook-launch-evidence-pack.html`,
   `${siteUrl}/tools/`,
@@ -157,6 +158,7 @@ const [
   statusPage,
   sitemapHtml,
   searchConsoleHandoff,
+  googleIndexingPriority,
   troubleshootingHub,
   launchEvidencePack,
   toolIndex,
@@ -231,6 +233,7 @@ const [
   fetchText(`${siteUrl}/status.html`),
   fetchText(`${siteUrl}/sitemap.html`),
   fetchText(`${siteUrl}/search-console-sitemap-submission.html`),
+  fetchText(`${siteUrl}/google-indexing-priority.html`),
   fetchText(`${siteUrl}/troubleshooting.html`),
   fetchText(`${siteUrl}/billing-webhook-launch-evidence-pack.html`),
   fetchText(`${siteUrl}/tools/`),
@@ -314,6 +317,9 @@ const issues = [
   ...(searchConsoleHandoff.ok
     ? []
     : [`Search Console sitemap handoff page returned HTTP ${searchConsoleHandoff.status ?? "failed"}.`]),
+  ...(googleIndexingPriority.ok
+    ? []
+    : [`Google indexing priority page returned HTTP ${googleIndexingPriority.status ?? "failed"}.`]),
   ...(troubleshootingHub.ok
     ? []
     : [`troubleshooting hub returned HTTP ${troubleshootingHub.status ?? "failed"}.`]),
@@ -552,6 +558,9 @@ const issues = [
     ? []
     : ["llms.txt is missing the delivery, refund, and support policy URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
+  ...(llms.text.includes(`${siteUrl}/google-indexing-priority.html`)
+    ? []
+    : ["llms.txt is missing the Google indexing priority URL."]),
   ...(llms.text.includes(`${siteUrl}/sitemap.html`) ? [] : ["llms.txt is missing the HTML sitemap URL."]),
   ...(llms.text.includes(`${siteUrl}/troubleshooting.html`)
     ? []
@@ -730,6 +739,7 @@ const issues = [
   sitemapHtml.text.includes("lemon-squeezy-vs-stripe-webhooks-ai-saas.html") &&
   sitemapHtml.text.includes("billing-webhook-kit-buyer-checklist.html") &&
   sitemapHtml.text.includes("pro-kit.html") &&
+  sitemapHtml.text.includes("google-indexing-priority.html") &&
   sitemapHtml.text.includes("sitemap.xml")
     ? []
     : ["HTML sitemap is missing core sections, tool links, guide links, conversion links, or XML sitemap link."]),
@@ -752,9 +762,20 @@ const issues = [
   searchConsoleHandoff.text.includes("owner actions") &&
   searchConsoleHandoff.text.includes("robots.txt") &&
   searchConsoleHandoff.text.includes("sitemap.html") &&
+  searchConsoleHandoff.text.includes("google-indexing-priority.html") &&
   searchConsoleHandoff.text.includes("llms.txt")
     ? []
     : ["Search Console sitemap handoff page is missing owner handoff values, crawl files, or manual-boundary copy."]),
+  ...(googleIndexingPriority.text.includes("Google indexing priority queue") &&
+  googleIndexingPriority.text.includes("lemon squeezy webhook test generator") &&
+  googleIndexingPriority.text.includes("lemon-squeezy-webhook-payload-generator.html") &&
+  googleIndexingPriority.text.includes("lemon-squeezy-signature-verifier.html") &&
+  googleIndexingPriority.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
+  googleIndexingPriority.text.includes("pro-kit.html") &&
+  googleIndexingPriority.text.includes("Search Console action order") &&
+  googleIndexingPriority.text.includes("owner-only actions")
+    ? []
+    : ["Google indexing priority page is missing priority URLs, search intent copy, Search Console action order, or owner-only boundary copy."]),
   ...(launchEvidencePack.text.includes("Billing webhook launch evidence pack") &&
   launchEvidencePack.text.includes("checkout smoke") &&
   launchEvidencePack.text.includes("production checkout readiness") &&
@@ -1557,6 +1578,7 @@ const result = {
     lemonSqueezyVsStripeAiSaasGuide: lemonSqueezyVsStripeAiSaasGuide.status,
     pricingRoiGuide: pricingRoiGuide.status,
     buyerChecklistGuide: buyerChecklistGuide.status,
+    googleIndexingPriority: googleIndexingPriority.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,

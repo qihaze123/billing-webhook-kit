@@ -15,6 +15,7 @@ const webhook500GuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-500
 const retryIdempotencyGuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-retry-idempotency.html");
 const alternativesGuidePath = join(publicDir, "guides", "payment-webhook-test-tool-alternatives.html");
 const statusPath = join(publicDir, "status.html");
+const googleIndexingPriorityPath = join(publicDir, "google-indexing-priority.html");
 const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
@@ -66,6 +67,7 @@ if (!existsSync(alternativesGuidePath)) {
   issues.push("Missing public/guides/payment-webhook-test-tool-alternatives.html.");
 }
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
+if (!existsSync(googleIndexingPriorityPath)) issues.push("Missing public/google-indexing-priority.html.");
 if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshooting.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
 if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
@@ -105,6 +107,9 @@ const retryIdempotencyGuideHtml = existsSync(retryIdempotencyGuidePath)
   : "";
 const alternativesGuideHtml = existsSync(alternativesGuidePath) ? readFileSync(alternativesGuidePath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
+const googleIndexingPriorityHtml = existsSync(googleIndexingPriorityPath)
+  ? readFileSync(googleIndexingPriorityPath, "utf8")
+  : "";
 const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troubleshootingPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
@@ -300,6 +305,17 @@ if (
   !statusHtml.includes("Awaiting live key")
 ) {
   issues.push("Status page does not expose manifest, delivery policy, sample hash, Pro Kit hash, and checkout waiting state.");
+}
+if (
+  !googleIndexingPriorityHtml.includes("Google indexing priority queue") ||
+  !googleIndexingPriorityHtml.includes("lemon squeezy webhook test generator") ||
+  !googleIndexingPriorityHtml.includes("lemon-squeezy-webhook-payload-generator.html") ||
+  !googleIndexingPriorityHtml.includes("lemon-squeezy-signature-verifier.html") ||
+  !googleIndexingPriorityHtml.includes("lemon-squeezy-checkout-404-custom-price-currency.html") ||
+  !googleIndexingPriorityHtml.includes("search-console-sitemap-submission.html") ||
+  !googleIndexingPriorityHtml.includes("owner-only actions")
+) {
+  issues.push("Google indexing priority page is missing search intent copy, priority links, handoff links, or owner-only boundary copy.");
 }
 if (
   !toolIndexHtml.includes("lemon-squeezy-webhook-payload-generator.html") ||

@@ -59,6 +59,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
 - Search Console sitemap submission handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
+- Google indexing priority queue: https://qihaze123.github.io/billing-webhook-kit/google-indexing-priority.html
 - HTML sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.html
 - Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 
@@ -101,6 +102,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Search Console sitemap handoff: exact URL-prefix property, sitemap path, live crawl files, and owner-only submission boundary for Google Search Console.
+- Google indexing priority queue: top URLs, target search intents, URL Inspection order, and post-submit monitoring notes for Search Console.
 - HTML sitemap: a crawlable page linking the buyer path, standalone tools, and guide pages from one public URL.
 - Troubleshooting hub: a crawlable router from common Lemon Squeezy failures to the right tool or guide, including Vercel 404, Next.js 405, invalid x-signature, checkout 404, and webhook-not-firing cases.
 - Pricing ROI guide: buyer decision page for comparing the free tools, the CN¥69 Pro Kit, manual setup time, duplicate replay tests, launch evidence, and break-even math.
@@ -261,6 +263,8 @@ Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhoo
 Public checkout and package status: https://qihaze123.github.io/billing-webhook-kit/status.html
 
 Search Console sitemap handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
+
+Google indexing priority queue: https://qihaze123.github.io/billing-webhook-kit/google-indexing-priority.html
 
 HTML sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.html
 
