@@ -11,6 +11,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/status.html`,
   `${siteUrl}/sitemap.html`,
   `${siteUrl}/search-console-sitemap-submission.html`,
+  `${siteUrl}/troubleshooting.html`,
   `${siteUrl}/billing-webhook-launch-evidence-pack.html`,
   `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
@@ -133,6 +134,7 @@ const [
   statusPage,
   sitemapHtml,
   searchConsoleHandoff,
+  troubleshootingHub,
   launchEvidencePack,
   toolIndex,
   signatureVerifier,
@@ -183,6 +185,7 @@ const [
   fetchText(`${siteUrl}/status.html`),
   fetchText(`${siteUrl}/sitemap.html`),
   fetchText(`${siteUrl}/search-console-sitemap-submission.html`),
+  fetchText(`${siteUrl}/troubleshooting.html`),
   fetchText(`${siteUrl}/billing-webhook-launch-evidence-pack.html`),
   fetchText(`${siteUrl}/tools/`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
@@ -242,6 +245,9 @@ const issues = [
   ...(searchConsoleHandoff.ok
     ? []
     : [`Search Console sitemap handoff page returned HTTP ${searchConsoleHandoff.status ?? "failed"}.`]),
+  ...(troubleshootingHub.ok
+    ? []
+    : [`troubleshooting hub returned HTTP ${troubleshootingHub.status ?? "failed"}.`]),
   ...(launchEvidencePack.ok
     ? []
     : [`launch evidence pack page returned HTTP ${launchEvidencePack.status ?? "failed"}.`]),
@@ -385,6 +391,9 @@ const issues = [
     : ["llms.txt is missing the delivery, refund, and support policy URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
   ...(llms.text.includes(`${siteUrl}/sitemap.html`) ? [] : ["llms.txt is missing the HTML sitemap URL."]),
+  ...(llms.text.includes(`${siteUrl}/troubleshooting.html`)
+    ? []
+    : ["llms.txt is missing the troubleshooting hub URL."]),
   ...(llms.text.includes(`${siteUrl}/billing-webhook-launch-evidence-pack.html`)
     ? []
     : ["llms.txt is missing the launch evidence pack URL."]),
@@ -509,6 +518,7 @@ const issues = [
   sitemapHtml.text.includes("Browser-only webhook tools") &&
   sitemapHtml.text.includes("Guides and search landing pages") &&
   sitemapHtml.text.includes("checkout-provider-decision-matrix.html") &&
+  sitemapHtml.text.includes("troubleshooting.html") &&
   sitemapHtml.text.includes("billing-webhook-kit-pro-sample-report.html") &&
   sitemapHtml.text.includes("lemon-squeezy-vs-stripe-webhooks-ai-saas.html") &&
   sitemapHtml.text.includes("billing-webhook-kit-buyer-checklist.html") &&
@@ -516,6 +526,18 @@ const issues = [
   sitemapHtml.text.includes("sitemap.xml")
     ? []
     : ["HTML sitemap is missing core sections, tool links, guide links, conversion links, or XML sitemap link."]),
+  ...(troubleshootingHub.text.includes("Lemon Squeezy Webhook Troubleshooting Hub") &&
+  troubleshootingHub.text.includes("Lemon Squeezy webhook not firing after checkout") &&
+  troubleshootingHub.text.includes("Lemon Squeezy webhook Vercel 404") &&
+  troubleshootingHub.text.includes("Next.js webhook 405") &&
+  troubleshootingHub.text.includes("Lemon Squeezy x-signature invalid") &&
+  troubleshootingHub.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
+  troubleshootingHub.text.includes("vercel-lemon-squeezy-webhook-debugger.html") &&
+  troubleshootingHub.text.includes("nextjs-lemon-squeezy-raw-body-audit.html") &&
+  troubleshootingHub.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
+  troubleshootingHub.text.includes("No API key")
+    ? []
+    : ["troubleshooting hub is missing symptom copy, target links, or browser-only safety copy."]),
   ...(searchConsoleHandoff.text.includes("Google Search Console sitemap submission") &&
   searchConsoleHandoff.text.includes("URL prefix") &&
   searchConsoleHandoff.text.includes("https://qihaze123.github.io/billing-webhook-kit/") &&

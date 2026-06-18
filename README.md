@@ -17,6 +17,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
+- Lemon Squeezy webhook troubleshooting hub: https://qihaze123.github.io/billing-webhook-kit/troubleshooting.html
 - Launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 - Pro sample report: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html
 - Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
@@ -83,6 +84,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Search Console sitemap handoff: exact URL-prefix property, sitemap path, live crawl files, and owner-only submission boundary for Google Search Console.
 - HTML sitemap: a crawlable page linking the buyer path, standalone tools, and guide pages from one public URL.
+- Troubleshooting hub: a crawlable router from common Lemon Squeezy failures to the right tool or guide, including Vercel 404, Next.js 405, invalid x-signature, checkout 404, and webhook-not-firing cases.
 - Pricing ROI guide: buyer decision page for comparing the free tools, the CN¥69 Pro Kit, manual setup time, duplicate replay tests, launch evidence, and break-even math.
 - Buyer checklist: pre-purchase page for checking free tools, sample files, manifest, launch evidence, delivery policy, refund boundaries, and when Pro is worth buying.
 - Pro sample report: public example of the PR-ready webhook review evidence the paid pack is designed to produce, including signature, duplicate replay, entitlement, CI, and launch notes.

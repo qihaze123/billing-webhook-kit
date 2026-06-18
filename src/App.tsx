@@ -44,6 +44,7 @@ const tabs: Array<{ id: OutputTab; label: string; icon: typeof FileJson }> = [
 ];
 
 const guideLinks = [
+  { href: "troubleshooting.html", label: "Lemon Squeezy webhook troubleshooting hub" },
   { href: "guides/lemon-squeezy-webhook-test.html", label: "Test Lemon Squeezy webhooks locally" },
   { href: "guides/lemon-squeezy-webhook-signature.html", label: "Verify Lemon Squeezy signatures" },
   { href: "guides/lemon-squeezy-webhook-test-checklist.html", label: "Lemon Squeezy webhook test checklist" },
@@ -1402,6 +1403,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/">
             Tools
           </a>
+          <a className="ghost-link" href="troubleshooting.html">
+            Troubleshoot
+          </a>
           <a className="ghost-link" href="tools/lemon-squeezy-signature-verifier.html">
             Verifier
           </a>
@@ -2302,6 +2306,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/">
             Browse standalone webhook tools
+          </a>
+          <a className="inline-cta" href="troubleshooting.html">
+            Pick a Lemon Squeezy troubleshooting path
           </a>
           <a className="inline-cta" href="tools/lemon-squeezy-signature-verifier.html">
             Open standalone signature verifier

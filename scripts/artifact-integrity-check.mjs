@@ -11,6 +11,7 @@ const proKitPath = join(publicDir, "pro-kit.html");
 const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
 const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digital-download-fulfillment.html");
 const statusPath = join(publicDir, "status.html");
+const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
 const payloadGeneratorPath = join(publicDir, "tools", "lemon-squeezy-webhook-payload-generator.html");
@@ -48,6 +49,7 @@ if (!existsSync(digitalDownloadGuidePath)) {
   issues.push("Missing public/guides/lemon-squeezy-digital-download-fulfillment.html.");
 }
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
+if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshooting.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
 if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
 if (!existsSync(payloadGeneratorPath)) issues.push("Missing public/tools/lemon-squeezy-webhook-payload-generator.html.");
@@ -77,6 +79,7 @@ const digitalDownloadGuideHtml = existsSync(digitalDownloadGuidePath)
   ? readFileSync(digitalDownloadGuidePath, "utf8")
   : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
+const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troubleshootingPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
 const payloadGeneratorHtml = existsSync(payloadGeneratorPath) ? readFileSync(payloadGeneratorPath, "utf8") : "";
@@ -235,6 +238,20 @@ if (
   !toolIndexHtml.includes("Browser-only")
 ) {
   issues.push("Tool index is missing launch-lane links, standalone tool links, conversion links, or browser-only safety copy.");
+}
+if (
+  !troubleshootingHtml.includes("Lemon Squeezy Webhook Troubleshooting Hub") ||
+  !troubleshootingHtml.includes("Lemon Squeezy webhook not firing after checkout") ||
+  !troubleshootingHtml.includes("Lemon Squeezy webhook Vercel 404") ||
+  !troubleshootingHtml.includes("Next.js webhook 405") ||
+  !troubleshootingHtml.includes("Lemon Squeezy x-signature invalid") ||
+  !troubleshootingHtml.includes("lemon-squeezy-checkout-404-custom-price-currency.html") ||
+  !troubleshootingHtml.includes("vercel-lemon-squeezy-webhook-debugger.html") ||
+  !troubleshootingHtml.includes("nextjs-lemon-squeezy-raw-body-audit.html") ||
+  !troubleshootingHtml.includes("lemon-squeezy-production-checkout-readiness-report.html") ||
+  !troubleshootingHtml.includes("No API key") && !troubleshootingHtml.includes("No API key, webhook secret")
+) {
+  issues.push("Troubleshooting hub is missing symptom copy, target links, or browser-only safety copy.");
 }
 if (
   !signatureVerifierHtml.includes("crypto.subtle") ||
