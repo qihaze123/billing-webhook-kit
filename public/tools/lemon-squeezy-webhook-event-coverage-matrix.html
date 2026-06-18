@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Webhook Event Coverage Matrix | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only Lemon Squeezy webhook event coverage matrix for digital products, subscriptions, license keys, paid fulfillment, idempotency, x-signature verification, duplicate replay, and live checkout launch checks."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy webhook events, Lemon Squeezy order_created, Lemon Squeezy subscription webhook, Lemon Squeezy license key webhook, webhook event coverage matrix, Lemon Squeezy webhook checklist"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Webhook Event Coverage Matrix" />
+    <meta
+      property="og:description"
+      content="Browser-only event coverage matrix for Lemon Squeezy order, subscription, license, fulfillment, signature, and duplicate replay tests."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Webhook Event Coverage Matrix" />
+    <meta
+      name="twitter:description"
+      content="Generate a local Lemon Squeezy webhook event subscription and test coverage matrix before live checkout."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Webhook Event Coverage Matrix",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only tool for planning Lemon Squeezy webhook event coverage, idempotency, signature verification, and fulfillment checks."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lemon Squeezy Webhook Event Coverage Matrix",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f7f4eb;
+        --paper-2: #ece7d9;
+        --ink: #17140f;
+        --muted: #675f50;
+        --line: #17140f;
+        --soft-line: #d2c9b8;
+        --panel: #fffdf7;
+        --charcoal: #171b18;
+        --green: #1c7a55;
+        --blue: #1a6985;
+        --red: #d24a32;
+        --acid: #e7f86b;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(23, 20, 15, 0.055) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(23, 20, 15, 0.055) 1px, transparent 1px),
+          var(--paper);
+        background-size: 30px 30px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .metric span,
+      .event span,
+      .output-label {
+        color: var(--red);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.75rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1080px;
+        font-size: clamp(2.05rem, 7vw, 5rem);
+        line-height: 0.94;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.16rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 900px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 405px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 13px 13px 0 rgba(23, 20, 15, 0.11);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fffefa;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 104px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .checks {
+        display: grid;
+        gap: 9px;
+      }
+
+      .check {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        line-height: 1.35;
+      }
+
+      .check input {
+        width: 18px;
+        min-width: 18px;
+        height: 18px;
+        min-height: 18px;
+        margin-top: 1px;
+        accent-color: var(--green);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fffefa;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 13px;
+      }
+
+      .metric.primary {
+        background: var(--charcoal);
+        color: #fbf8ed;
+      }
+
+      .metric.primary span,
+      .metric.primary strong {
+        color: var(--acid);
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.2;
+      }
+
+      .metric p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .metric.primary p {
+        color: #ded9cb;
+      }
+
+      .event-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .event {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fffefa;
+        padding: 13px;
+      }
+
+      .event strong {
+        display: block;
+        margin-top: 5px;
+        color: var(--blue);
+        line-height: 1.25;
+      }
+
+      .event p {
+        margin-top: 7px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .output {
+        min-height: 290px;
+        background: #11130f;
+        color: #fbf8ed;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 126px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #fbf8ed;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #ded9cb;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 980px) {
+        .workbench,
+        .metrics,
+        .event-grid,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-test.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Event coverage</p>
+      <h1>Lemon Squeezy webhook event coverage matrix.</h1>
+      <p class="lead">
+        Plan which Lemon Squeezy webhook events your billing route must subscribe to before checkout goes live. Generate a release-ready matrix for order_created fulfillment, subscription lifecycle changes, license keys, signed raw-body verification, idempotency, duplicate replay, and live/test environment checks.
+      </p>
+
+      <section class="workbench" aria-label="Lemon Squeezy webhook event coverage matrix generator">
+        <div class="panel">
+          <header>
+            <h2>Coverage inputs</h2>
+            <p>Browser-only launch matrix</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Project name</span>
+              <input id="projectName" value="BillingWebhookKit Pro" />
+            </label>
+            <label class="field">
+              <span>Checkout mode</span>
+              <select id="checkoutMode">
+                <option value="live" selected>Live checkout launch</option>
+                <option value="test">Test checkout rehearsal</option>
+                <option value="migration">Test to live migration</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Business model</span>
+              <select id="businessModel">
+                <option value="digital_download" selected>One-time digital download</option>
+                <option value="subscription">Subscription SaaS</option>
+                <option value="license">License key product</option>
+                <option value="hybrid">Hybrid product and subscription</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Fulfillment artifact</span>
+              <input id="artifactName" value="private ZIP download" />
+            </label>
+            <label class="field">
+              <span>Route path</span>
+              <input id="routePath" value="/api/lemon-squeezy/webhook" />
+            </label>
+            <label class="field">
+              <span>Persistent idempotency key</span>
+              <input id="idempotencyKey" value="lemon_squeezy:event_name:object_id" />
+            </label>
+            <label class="field">
+              <span>Launch evidence notes</span>
+              <textarea id="evidenceNotes" spellcheck="false">Verify exact raw body before JSON parsing.
+Store the idempotency key before fulfillment.
+Replay duplicate order_created and confirm side effects run once.
+Do not paste live API keys, webhook secrets, or customer data into public issues.</textarea>
+            </label>
+            <div class="checks" aria-label="Required launch checks">
+              <label class="check">
+                <input id="needsSignature" type="checkbox" checked />
+                <span>Require x-signature raw-body verification</span>
+              </label>
+              <label class="check">
+                <input id="needsPaidState" type="checkbox" checked />
+                <span>Require paid-state or active-state gate before access</span>
+              </label>
+              <label class="check">
+                <input id="needsDuplicateReplay" type="checkbox" checked />
+                <span>Require duplicate replay test evidence</span>
+              </label>
+              <label class="check">
+                <input id="needsRollback" type="checkbox" checked />
+                <span>Require rollback or public checkout disable plan</span>
+              </label>
+            </div>
+            <div class="button-row">
+              <button type="button" id="loadProKit">Load Pro Kit launch sample</button>
+              <button type="button" id="copyMatrix" class="secondary">Copy matrix</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Event matrix</h2>
+            <p>Subscriptions, tests, review notes</p>
+          </header>
+          <div class="result">
+            <div class="metrics" aria-label="Webhook event coverage summary">
+              <div class="metric primary">
+                <span>Events</span>
+                <strong id="eventCount">0</strong>
+                <p id="eventCopy">Required event coverage is generated locally.</p>
+              </div>
+              <div class="metric">
+                <span>Tests</span>
+                <strong id="testCount">0</strong>
+                <p>Signature, idempotency, duplicate replay, and fulfillment gates.</p>
+              </div>
+              <div class="metric">
+                <span>Risk</span>
+                <strong id="riskState">Review</strong>
+                <p>Live/test mismatch and missing replay tests are common launch blockers.</p>
+              </div>
+              <div class="metric">
+                <span>Privacy</span>
+                <strong>Local</strong>
+                <p>No provider API call, no upload, no account login.</p>
+              </div>
+            </div>
+
+            <div class="event-grid" id="eventGrid" aria-label="Covered Lemon Squeezy events"></div>
+
+            <label class="field">
+              <span class="output-label">Copy-ready webhook event coverage matrix</span>
+              <textarea id="matrix" class="output" spellcheck="false"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Related Lemon Squeezy webhook assets">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html">
+          <strong>Generate fake events</strong>
+          <span>Create local order, subscription, payment, and license payloads after choosing the event coverage.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect one fake Lemon Squeezy fixture, handler, signature test, contract test, replay test, and CI skeleton.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Use the paid package when you need prepared lifecycle fixtures, route handlers, CI checks, and review notes.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        projectName: document.querySelector("#projectName"),
+        checkoutMode: document.querySelector("#checkoutMode"),
+        businessModel: document.querySelector("#businessModel"),
+        artifactName: document.querySelector("#artifactName"),
+        routePath: document.querySelector("#routePath"),
+        idempotencyKey: document.querySelector("#idempotencyKey"),
+        evidenceNotes: document.querySelector("#evidenceNotes"),
+        needsSignature: document.querySelector("#needsSignature"),
+        needsPaidState: document.querySelector("#needsPaidState"),
+        needsDuplicateReplay: document.querySelector("#needsDuplicateReplay"),
+        needsRollback: document.querySelector("#needsRollback")
+      };
+
+      const eventCountEl = document.querySelector("#eventCount");
+      const eventCopyEl = document.querySelector("#eventCopy");
+      const testCountEl = document.querySelector("#testCount");
+      const riskStateEl = document.querySelector("#riskState");
+      const eventGridEl = document.querySelector("#eventGrid");
+      const matrixEl = document.querySelector("#matrix");
+
+      const eventLibrary = {
+        order_created: {
+          trigger: "One-time checkout is paid.",
+          action: "Grant access, queue private digital delivery, or write entitlement.",
+          test: "Replay a paid order_created fixture twice and confirm fulfillment runs once."
+        },
+        subscription_created: {
+          trigger: "A new subscription starts.",
+          action: "Create or activate the subscriber entitlement.",
+          test: "Assert active subscription creates one access record and stores provider IDs."
+        },
+        subscription_updated: {
+          trigger: "Plan, status, renewal, or cancellation fields change.",
+          action: "Sync plan, renewal date, cancellation status, and access state.",
+          test: "Replay active, paused, cancelled, and expired status fixtures."
+        },
+        subscription_cancelled: {
+          trigger: "A subscription cancellation becomes final.",
+          action: "Schedule or remove subscription access according to the policy.",
+          test: "Confirm cancellation does not delete unrelated one-time purchases."
+        },
+        subscription_payment_success: {
+          trigger: "Recurring invoice payment succeeds.",
+          action: "Extend entitlement and clear failed-payment hold.",
+          test: "Assert renewal extends access without duplicating seats or downloads."
+        },
+        subscription_payment_failed: {
+          trigger: "Recurring invoice payment fails.",
+          action: "Put account into grace, hold, or dunning state.",
+          test: "Confirm failed payment does not revoke lifetime purchases."
+        },
+        license_key_created: {
+          trigger: "License key is created for the paid order.",
+          action: "Attach license key to buyer delivery or activation record.",
+          test: "Assert license key delivery waits for signed paid event evidence."
+        },
+        license_key_updated: {
+          trigger: "License activation count, disabled state, or related metadata changes.",
+          action: "Sync activation limits and support status.",
+          test: "Replay disabled and active license fixtures."
+        }
+      };
+
+      function modelEvents(model) {
+        if (model === "subscription") {
+          return [
+            "subscription_created",
+            "subscription_updated",
+            "subscription_cancelled",
+            "subscription_payment_success",
+            "subscription_payment_failed"
+          ];
+        }
+        if (model === "license") {
+          return ["order_created", "license_key_created", "license_key_updated"];
+        }
+        if (model === "hybrid") {
+          return [
+            "order_created",
+            "subscription_created",
+            "subscription_updated",
+            "subscription_cancelled",
+            "subscription_payment_success",
+            "subscription_payment_failed",
+            "license_key_created"
+          ];
+        }
+        return ["order_created"];
+      }
+
+      function modeRisk(mode) {
+        return {
+          live: "Live checkout requires production webhook URL, production signing secret, published variant, and rollback plan.",
+          test: "Test checkout is useful for rehearsal but does not prove production signing secrets or live variant routing.",
+          migration: "Test-to-live migration must replace test secrets, test variant IDs, webhook URL settings, and stale checkout URLs."
+        }[mode];
+      }
+
+      function buildEventCoverageMatrix(input) {
+        const events = modelEvents(input.businessModel).map((name) => ({
+          name,
+          ...eventLibrary[name]
+        }));
+
+        const launchChecks = [
+          input.needsSignature ? "Verify x-signature against the exact raw request body before JSON parsing." : null,
+          input.needsPaidState ? "Gate fulfillment on paid, active, or valid license state before granting access." : null,
+          input.needsDuplicateReplay ? "Replay duplicate webhooks and prove idempotency skips repeated side effects." : null,
+          input.needsRollback ? "Document rollback: disable public checkout, pause fulfillment, and keep support response ready." : null,
+          "Keep API keys, webhook secrets, checkout URLs, and customer data out of public issues."
+        ].filter(Boolean);
+
+        const testRows = events.flatMap((event) => [
+          `- ${event.name}: ${event.test}`,
+          `  Handler action: ${event.action}`
+        ]);
+
+        const markdown = [
+          `# Lemon Squeezy Webhook Event Coverage Matrix`,
+          ``,
+          `Project: ${input.projectName || "Unnamed project"}`,
+          `Checkout mode: ${input.checkoutMode}`,
+          `Business model: ${input.businessModel}`,
+          `Webhook route: ${input.routePath || "/api/lemon-squeezy/webhook"}`,
+          `Idempotency key: ${input.idempotencyKey || "provider:event:object_id"}`,
+          `Fulfillment artifact: ${input.artifactName || "digital delivery"}`,
+          ``,
+          `## Subscribe to these events`,
+          ``,
+          `| Event | Trigger | Handler action | Required test |`,
+          `| --- | --- | --- | --- |`,
+          ...events.map(
+            (event) => `| ${event.name} | ${event.trigger} | ${event.action} | ${event.test} |`
+          ),
+          ``,
+          `## Launch checks`,
+          ``,
+          ...launchChecks.map((check) => `- [ ] ${check}`),
+          ``,
+          `## Test plan`,
+          ``,
+          ...testRows,
+          ``,
+          `## Environment risk`,
+          ``,
+          modeRisk(input.checkoutMode),
+          ``,
+          `## Evidence notes`,
+          ``,
+          input.evidenceNotes || "Add release evidence before launch.",
+          ``,
+          `## Upgrade path`,
+          ``,
+          `Use the free sample to inspect the fixture and handler shape. Use the CNY 69 Pro Kit when you need copy-ready Lemon Squeezy lifecycle fixtures, route handlers, CI checks, replay tests, review notes, and delivery checklists.`
+        ].join("\n");
+
+        return {
+          events,
+          launchChecks,
+          tests: testRows.length / 2 + launchChecks.length,
+          riskState:
+            input.needsSignature && input.needsPaidState && input.needsDuplicateReplay && input.needsRollback
+              ? "Covered"
+              : "Review",
+          markdown
+        };
+      }
+
+      function currentInput() {
+        return {
+          projectName: fields.projectName.value.trim(),
+          checkoutMode: fields.checkoutMode.value,
+          businessModel: fields.businessModel.value,
+          artifactName: fields.artifactName.value.trim(),
+          routePath: fields.routePath.value.trim(),
+          idempotencyKey: fields.idempotencyKey.value.trim(),
+          evidenceNotes: fields.evidenceNotes.value.trim(),
+          needsSignature: fields.needsSignature.checked,
+          needsPaidState: fields.needsPaidState.checked,
+          needsDuplicateReplay: fields.needsDuplicateReplay.checked,
+          needsRollback: fields.needsRollback.checked
+        };
+      }
+
+      function render() {
+        const result = buildEventCoverageMatrix(currentInput());
+        eventCountEl.textContent = `${result.events.length} events`;
+        eventCopyEl.textContent = "Required Lemon Squeezy event coverage is generated locally.";
+        testCountEl.textContent = `${result.tests} checks`;
+        riskStateEl.textContent = result.riskState;
+        eventGridEl.innerHTML = result.events
+          .map(
+            (event) =>
+              `<article class="event"><span>${event.name}</span><strong>${event.action}</strong><p>${event.test}</p></article>`
+          )
+          .join("");
+        matrixEl.value = result.markdown;
+      }
+
+      Object.values(fields).forEach((field) => field.addEventListener("input", render));
+      Object.values(fields).forEach((field) => field.addEventListener("change", render));
+
+      document.querySelector("#loadProKit").addEventListener("click", () => {
+        fields.projectName.value = "BillingWebhookKit Pro";
+        fields.checkoutMode.value = "live";
+        fields.businessModel.value = "digital_download";
+        fields.artifactName.value = "private BillingWebhookKit-Pro-0.1.0.zip delivery";
+        fields.routePath.value = "/api/lemon-squeezy/webhook";
+        fields.idempotencyKey.value = "lemon_squeezy:order_created:order_id";
+        fields.evidenceNotes.value =
+          "Production route must use the live Lemon Squeezy signing secret.\n" +
+          "The public checkout stays disabled until the live checkout URL is verified.\n" +
+          "Paid order_created must match the live variant before private ZIP delivery.\n" +
+          "Do not paste live API keys, webhook secrets, private ZIP URLs, or customer data into public issues.";
+        fields.needsSignature.checked = true;
+        fields.needsPaidState.checked = true;
+        fields.needsDuplicateReplay.checked = true;
+        fields.needsRollback.checked = true;
+        render();
+      });
+
+      document.querySelector("#copyMatrix").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(matrixEl.value);
+        } catch {
+          matrixEl.select();
+          document.execCommand("copy");
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>

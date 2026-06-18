@@ -22,6 +22,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
   `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
   `${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`,
+  `${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -125,6 +126,7 @@ const [
   checkoutSmokeReport,
   fulfillmentChecklist,
   deliveryEmailTemplates,
+  eventCoverageMatrix,
   guideIndex,
   checkoutSmokeGuide,
   checkout404Guide,
@@ -156,6 +158,7 @@ const [
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`),
@@ -212,6 +215,9 @@ const issues = [
   ...(deliveryEmailTemplates.ok
     ? []
     : [`delivery email template generator page returned HTTP ${deliveryEmailTemplates.status ?? "failed"}.`]),
+  ...(eventCoverageMatrix.ok
+    ? []
+    : [`webhook event coverage matrix page returned HTTP ${eventCoverageMatrix.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(checkoutSmokeGuide.ok
     ? []
@@ -235,7 +241,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 58 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 58.`]),
+  ...(sitemapUrls.length >= 59 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 59.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -285,6 +291,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`)
     ? []
     : ["llms.txt is missing the standalone delivery email template generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`)
+    ? []
+    : ["llms.txt is missing the standalone webhook event coverage matrix URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy checkout smoke test guide URL."]),
@@ -339,6 +348,7 @@ const issues = [
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
   toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   toolIndex.text.includes("Lemon Squeezy delivery email template generator") &&
+  toolIndex.text.includes("Lemon Squeezy webhook event coverage matrix") &&
   toolIndex.text.includes("Download the free sample") &&
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
     ? []
@@ -431,6 +441,18 @@ const issues = [
   deliveryEmailTemplates.text.includes("lemon-squeezy-fulfillment-checklist-generator.html")
     ? []
     : ["delivery email template generator page is missing template logic, delivery safety copy, policy copy, or conversion links."]),
+  ...(eventCoverageMatrix.text.includes("Lemon Squeezy webhook event coverage matrix") &&
+  eventCoverageMatrix.text.includes("buildEventCoverageMatrix") &&
+  eventCoverageMatrix.text.includes("order_created") &&
+  eventCoverageMatrix.text.includes("subscription_created") &&
+  eventCoverageMatrix.text.includes("license_key_created") &&
+  eventCoverageMatrix.text.includes("x-signature") &&
+  eventCoverageMatrix.text.includes("idempotency") &&
+  eventCoverageMatrix.text.includes("duplicate replay") &&
+  eventCoverageMatrix.text.includes("Preview the CNY 69 Pro Kit") &&
+  eventCoverageMatrix.text.includes("lemon-squeezy-webhook-payload-generator.html")
+    ? []
+    : ["webhook event coverage matrix page is missing matrix logic, event coverage copy, safety copy, or conversion links."]),
   ...(checkoutSmokeGuide.text.includes("Lemon Squeezy checkout smoke test") &&
   checkoutSmokeGuide.text.includes("CN¥69 price") &&
   checkoutSmokeGuide.text.includes("order_created") &&
@@ -553,6 +575,7 @@ const result = {
     checkoutSmokeReport: checkoutSmokeReport.status,
     fulfillmentChecklist: fulfillmentChecklist.status,
     deliveryEmailTemplates: deliveryEmailTemplates.status,
+    eventCoverageMatrix: eventCoverageMatrix.status,
     checkoutSmokeGuide: checkoutSmokeGuide.status,
     checkout404Guide: checkout404Guide.status,
     paypalCheckoutGuide: paypalCheckoutGuide.status,
