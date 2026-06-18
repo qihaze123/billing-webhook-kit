@@ -58,6 +58,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`,
   `${siteUrl}/guides/stripe-subscription-cancellation-webhook-nextjs.html`,
   `${siteUrl}/guides/stripe-invoice-paid-webhook-nextjs.html`,
+  `${siteUrl}/guides/stripe-invoice-payment-failed-webhook-nextjs.html`,
   `${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/nextjs-paddle-webhook-handler.html`,
   `${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`,
@@ -192,6 +193,7 @@ const [
   stripeRefundRollbackGuide,
   stripeCancellationGuide,
   stripeInvoicePaidGuide,
+  stripeInvoicePaymentFailedGuide,
   paddleNextjsSignatureGuide,
   nextjsPaddleWebhookHandlerGuide,
   paddleNextjsTestPlanGuide,
@@ -257,6 +259,7 @@ const [
   fetchText(`${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-subscription-cancellation-webhook-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-invoice-paid-webhook-nextjs.html`),
+  fetchText(`${siteUrl}/guides/stripe-invoice-payment-failed-webhook-nextjs.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/nextjs-paddle-webhook-handler.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`),
@@ -429,6 +432,13 @@ const issues = [
   ...(stripeInvoicePaidGuide.ok
     ? []
     : [`Stripe invoice paid guide returned HTTP ${stripeInvoicePaidGuide.status ?? "failed"}.`]),
+  ...(stripeInvoicePaymentFailedGuide.ok
+    ? []
+    : [
+        `Stripe invoice payment failed guide returned HTTP ${
+          stripeInvoicePaymentFailedGuide.status ?? "failed"
+        }.`
+      ]),
   ...(paddleNextjsSignatureGuide.ok
     ? []
     : [`Paddle Next.js signature guide returned HTTP ${paddleNextjsSignatureGuide.status ?? "failed"}.`]),
@@ -1113,6 +1123,19 @@ const issues = [
     : [
         "Stripe invoice paid guide is missing invoice, signature, billing_reason, replay, or conversion copy."
       ]),
+  ...(stripeInvoicePaymentFailedGuide.text.includes("Stripe invoice.payment_failed webhook in Next.js") &&
+  stripeInvoicePaymentFailedGuide.text.includes("invoice.payment_failed") &&
+  stripeInvoicePaymentFailedGuide.text.includes("customer.subscription.updated") &&
+  stripeInvoicePaymentFailedGuide.text.includes("billing_reason") &&
+  stripeInvoicePaymentFailedGuide.text.includes("Stripe-Signature") &&
+  stripeInvoicePaymentFailedGuide.text.includes("duplicate replay") &&
+  stripeInvoicePaymentFailedGuide.text.includes("stripe-webhook-fixture-generator.html") &&
+  stripeInvoicePaymentFailedGuide.text.includes("payment-webhook-test-plan-generator.html") &&
+  stripeInvoicePaymentFailedGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Stripe invoice payment failed guide is missing failed-payment, subscription, signature, replay, or conversion copy."
+      ]),
   ...(paddleNextjsSignatureGuide.text.includes("Paddle webhook signature verification in Next.js") &&
   paddleNextjsSignatureGuide.text.includes("Paddle-Signature") &&
   paddleNextjsSignatureGuide.text.includes("transaction.completed") &&
@@ -1344,6 +1367,7 @@ const result = {
     stripeRefundRollbackGuide: stripeRefundRollbackGuide.status,
     stripeCancellationGuide: stripeCancellationGuide.status,
     stripeInvoicePaidGuide: stripeInvoicePaidGuide.status,
+    stripeInvoicePaymentFailedGuide: stripeInvoicePaymentFailedGuide.status,
     paddleNextjsSignatureGuide: paddleNextjsSignatureGuide.status,
     nextjsPaddleWebhookHandlerGuide: nextjsPaddleWebhookHandlerGuide.status,
     paddleNextjsTestPlanGuide: paddleNextjsTestPlanGuide.status,

@@ -46,6 +46,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit buyer checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html
 - Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - Stripe invoice.paid webhook in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-paid-webhook-nextjs.html
+- Stripe invoice.payment_failed webhook in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-payment-failed-webhook-nextjs.html
 - Paddle webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
 - Next.js Paddle webhook handler: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
@@ -117,6 +118,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Test Stripe refund webhook rollback in Next.js with `charge.refunded`, `refund.created`, disputes, raw-body `Stripe-Signature` verification, idempotency, entitlement revocation, and CI evidence.
 - Test Stripe subscription cancellation webhooks in Next.js with `customer.subscription.deleted`, `customer.subscription.updated`, `cancel_at_period_end`, `invoice.payment_failed`, raw-body `Stripe-Signature` verification, idempotency, and entitlement decisions.
 - Test Stripe `invoice.paid` renewal webhooks in Next.js with raw-body `Stripe-Signature` verification, `billing_reason` checks, idempotent entitlement extension, duplicate replay, and CI evidence.
+- Test Stripe `invoice.payment_failed` webhooks in Next.js with raw-body `Stripe-Signature` verification, `billing_reason` checks, dunning state, entitlement holds, duplicate replay, and CI evidence.
 
 ## Important Pages
 
@@ -185,6 +187,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Stripe refund webhook rollback in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html
 - Stripe subscription cancellation webhook in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-subscription-cancellation-webhook-nextjs.html
 - Stripe invoice.paid webhook in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-paid-webhook-nextjs.html
+- Stripe invoice.payment_failed webhook in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-payment-failed-webhook-nextjs.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html
