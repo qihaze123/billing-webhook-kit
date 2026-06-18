@@ -15,6 +15,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Fix Next.js 405 for Lemon Squeezy Webhooks</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html</guid>
+      <description>Fix Next.js Method Not Allowed webhook failures with App Router POST exports, Vercel deployed route checks, middleware exclusions, curl smoke tests, raw-body x-signature verification, and duplicate replay safety.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Vercel Lemon Squeezy Webhook Debugger</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html</guid>

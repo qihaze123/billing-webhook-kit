@@ -44,6 +44,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`,
   `${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`,
+  `${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
@@ -164,6 +165,7 @@ const [
   paypalCheckoutGuide,
   productionCheckoutGoLiveGuide,
   productionWebhookTroubleshootingGuide,
+  nextjs405Guide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
   refundWebhookGuide,
@@ -215,6 +217,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`),
+  fetchText(`${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
@@ -341,6 +344,9 @@ const issues = [
           productionWebhookTroubleshootingGuide.status ?? "failed"
         }.`
       ]),
+  ...(nextjs405Guide.ok
+    ? []
+    : [`Next.js webhook 405 Lemon Squeezy guide returned HTTP ${nextjs405Guide.status ?? "failed"}.`]),
   ...(webhookNotFiringGuide.ok
     ? []
     : [`Lemon Squeezy webhook not firing guide returned HTTP ${webhookNotFiringGuide.status ?? "failed"}.`]),
@@ -476,6 +482,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy production webhook troubleshooting guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`)
+    ? []
+    : ["llms.txt is missing the Next.js webhook 405 Lemon Squeezy guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook not firing after checkout guide URL."]),
@@ -614,9 +623,11 @@ const issues = [
     ? []
     : ["tool index page is missing tool cards or conversion links."]),
   ...(guideIndex.text.includes("Lemon Squeezy Production Checkout Go-Live Checklist") &&
-  guideIndex.text.includes("lemon-squeezy-production-checkout-go-live.html")
+  guideIndex.text.includes("lemon-squeezy-production-checkout-go-live.html") &&
+  guideIndex.text.includes("Fix Next.js 405 for Lemon Squeezy Webhooks") &&
+  guideIndex.text.includes("nextjs-webhook-405-lemon-squeezy.html")
     ? []
-    : ["guide index is missing the Lemon Squeezy production checkout go-live guide."]),
+    : ["guide index is missing the Lemon Squeezy production checkout go-live or Next.js 405 guide."]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
   signatureVerifier.text.includes("Download the free sample") &&
@@ -829,6 +840,18 @@ const issues = [
     : [
         "Lemon Squeezy production webhook troubleshooting guide is missing paid event, signature, replay, fulfillment, refund, report, or conversion copy."
       ]),
+  ...(nextjs405Guide.text.includes("Fix Next.js 405 for Lemon Squeezy Webhooks") &&
+  nextjs405Guide.text.includes("Method Not Allowed") &&
+  nextjs405Guide.text.includes("export async function POST") &&
+  nextjs405Guide.text.includes("request.text()") &&
+  nextjs405Guide.text.includes("curl -i -X POST") &&
+  nextjs405Guide.text.includes("x-signature") &&
+  nextjs405Guide.text.includes("duplicate replay") &&
+  nextjs405Guide.text.includes("vercel-lemon-squeezy-webhook-debugger.html") &&
+  nextjs405Guide.text.includes("pro-kit.html") &&
+  nextjs405Guide.text.includes("Never paste Lemon Squeezy API keys")
+    ? []
+    : ["Next.js webhook 405 Lemon Squeezy guide is missing method, POST export, raw-body, cURL, replay, safety, or conversion copy."]),
   ...(webhookNotFiringGuide.text.includes("Lemon Squeezy webhook not firing after checkout") &&
   webhookNotFiringGuide.text.includes("live/test") &&
   webhookNotFiringGuide.text.includes("order_created") &&
@@ -1030,6 +1053,7 @@ const result = {
     paypalCheckoutGuide: paypalCheckoutGuide.status,
     productionCheckoutGoLiveGuide: productionCheckoutGoLiveGuide.status,
     productionWebhookTroubleshootingGuide: productionWebhookTroubleshootingGuide.status,
+    nextjs405Guide: nextjs405Guide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,

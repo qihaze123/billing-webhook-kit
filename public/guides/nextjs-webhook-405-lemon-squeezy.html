@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fix Next.js 405 for Lemon Squeezy Webhooks | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Fix Next.js 405 Method Not Allowed errors on Lemon Squeezy webhook routes. Check App Router POST exports, deployed route paths, Vercel runtime, middleware, curl smoke tests, raw-body x-signature verification, and duplicate replay safety."
+    />
+    <meta
+      name="keywords"
+      content="Next.js webhook 405 Lemon Squeezy, Lemon Squeezy webhook 405, Next.js POST export webhook, Vercel webhook 405, Next.js App Router Lemon Squeezy webhook, Method Not Allowed webhook Next.js, Lemon Squeezy x-signature raw body Next.js"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Fix Next.js 405 for Lemon Squeezy Webhooks" />
+    <meta
+      property="og:description"
+      content="A concrete checklist for Next.js Method Not Allowed webhook failures: route file location, POST export, Vercel deployment, raw body signing, curl smoke tests, and launch evidence."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fix Next.js 405 for Lemon Squeezy Webhooks" />
+    <meta
+      name="twitter:description"
+      content="Debug a Lemon Squeezy webhook returning 405 on Next.js or Vercel with POST exports, route paths, middleware checks, raw-body signatures, and cURL smoke tests."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --accent: #d8f84f;
+        --panel: #ffffff;
+        --dark: #10120f;
+        --coral: #f05f3b;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        color: var(--ink);
+      }
+
+      main {
+        width: min(940px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 38px 0 58px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .crumb {
+        display: inline-flex;
+        margin-bottom: 28px;
+        font-weight: 850;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 890px;
+        font-size: clamp(2.15rem, 7vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 790px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.13rem;
+        line-height: 1.66;
+      }
+
+      .cta-row,
+      .cards,
+      .related-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .cta-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 28px 0 34px;
+      }
+
+      .button,
+      .card,
+      .code-card,
+      .related-grid a,
+      .note {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 5px 5px 0 rgba(17, 19, 15, 0.14);
+      }
+
+      .button {
+        display: flex;
+        align-items: center;
+        min-height: 64px;
+        padding: 12px 14px;
+        background: var(--accent);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      section {
+        padding: 26px 0;
+        border-top: 1px solid #cfd6c5;
+      }
+
+      h2 {
+        margin-bottom: 12px;
+        font-size: clamp(1.45rem, 4vw, 2.35rem);
+        line-height: 1.05;
+      }
+
+      h3 {
+        font-size: 1.08rem;
+        line-height: 1.25;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.68;
+      }
+
+      ol,
+      ul {
+        margin: 12px 0 0;
+        padding-left: 22px;
+      }
+
+      code,
+      pre {
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .card {
+        min-height: 166px;
+        padding: 18px;
+        background: var(--panel);
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+      }
+
+      .code-card {
+        margin-top: 14px;
+        max-width: 100%;
+        overflow: auto;
+        background: var(--dark);
+      }
+
+      pre {
+        margin: 0;
+        min-width: 0;
+        padding: 18px;
+        color: #eef5df;
+        font-size: 0.88rem;
+        line-height: 1.58;
+        white-space: pre-wrap;
+      }
+
+      .note {
+        padding: 18px;
+        background: var(--accent);
+        font-weight: 850;
+        line-height: 1.55;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .related-grid a {
+        display: block;
+        min-height: 122px;
+        padding: 16px;
+        background: var(--panel);
+        text-decoration: none;
+      }
+
+      .related-grid strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .related-grid span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.5;
+      }
+
+      footer {
+        margin-top: 34px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .cta-row,
+        .cards,
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card,
+        .related-grid a {
+          min-height: 0;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Fix Next.js 405 for Lemon Squeezy Webhooks",
+        "description": "Fix Next.js 405 Method Not Allowed errors on Lemon Squeezy webhook routes with App Router POST exports, deployed route paths, Vercel runtime checks, middleware exclusions, cURL smoke tests, and raw-body x-signature verification.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does my Next.js Lemon Squeezy webhook return 405?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The most common causes are a missing App Router POST export, a route file in the wrong folder, using a GET-only route, middleware blocking POST, an auth redirect, or testing a different deployed path than the Lemon Squeezy webhook endpoint."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should I parse request.json() before verifying Lemon Squeezy x-signature?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Read the exact raw body with request.text(), verify the x-signature with the webhook signing secret, and only then parse JSON. Parsing first can change bytes and break HMAC verification."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Fix Next.js 405 for Lemon Squeezy Webhooks", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <p class="eyebrow">Next.js webhook 405 Lemon Squeezy</p>
+      <h1>Fix Next.js 405 Method Not Allowed for Lemon Squeezy webhooks</h1>
+      <p class="lead">
+        A 405 means the deployed route exists, but it is not accepting the HTTP method Lemon Squeezy is sending. For webhook launch work, fix this before signature debugging, fulfillment, or public checkout exposure.
+      </p>
+      <div class="cta-row" aria-label="Primary debugging actions">
+        <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html">Run Vercel debugger</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html">Audit raw-body signing</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html">Generate replay cURL</a>
+      </div>
+
+      <section>
+        <h2>405 diagnosis order</h2>
+        <div class="cards">
+          <article class="card">
+            <strong>Route file</strong>
+            <h3>Confirm App Router file location</h3>
+            <p>The route should live at a path such as <code>app/api/webhooks/lemonsqueezy/route.ts</code>. A page file, server action, or Pages Router path mismatch can make the deployed URL behave differently than expected.</p>
+          </article>
+          <article class="card">
+            <strong>HTTP method</strong>
+            <h3>Export <code>POST</code>, not only <code>GET</code></h3>
+            <p>Lemon Squeezy sends webhook events with POST. If your route only exports GET, or wraps the handler in a helper that only handles GET, Next.js can return 405.</p>
+          </article>
+          <article class="card">
+            <strong>Deployment</strong>
+            <h3>Test the deployed URL, not localhost</h3>
+            <p>Check the exact Vercel production endpoint configured in Lemon Squeezy. A preview deployment, stale tunnel, missing base path, or trailing segment mismatch can hide the real failing route.</p>
+          </article>
+          <article class="card">
+            <strong>Middleware</strong>
+            <h3>Exclude webhook routes from auth redirects</h3>
+            <p>Auth middleware, bot filters, rewrites, and redirect rules can convert a webhook POST into a blocked request. The route must accept unsigned network traffic long enough to perform its own HMAC verification.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Minimal App Router shape</h2>
+        <p>Start with a small route that proves POST delivery and raw body access. Add idempotency and fulfillment only after this returns 2xx for a signed fixture.</p>
+        <div class="code-card">
+          <pre><code>// app/api/webhooks/lemonsqueezy/route.ts
+export const runtime = "nodejs";
+
+export async function POST(request: Request) {
+  const rawBody = await request.text();
+  const signature = request.headers.get("x-signature");
+
+  if (!signature) {
+    return new Response("Missing Lemon Squeezy x-signature", { status: 400 });
+  }
+
+  // Verify HMAC with your webhook signing secret before JSON.parse(rawBody).
+  // Keep API keys, signing secrets, full customer payloads, and live order data out of logs.
+
+  const event = JSON.parse(rawBody);
+  return Response.json({
+    ok: true,
+    eventName: event?.meta?.event_name ?? "unknown"
+  });
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>cURL smoke test for 405</h2>
+        <p>Before opening a public checkout link, send a POST to the deployed webhook URL. A 405 here proves the method gate is still broken. A 2xx only proves route acceptance; signature, idempotency, and fulfillment still need separate checks.</p>
+        <div class="code-card">
+          <pre><code>curl -i -X POST "https://your-app.vercel.app/api/webhooks/lemonsqueezy" \
+  -H "content-type: application/json" \
+  -H "x-signature: fake_signature_for_route_smoke_test" \
+  --data '{"meta":{"event_name":"order_created"},"data":{"id":"order_fake_405"}}'</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>Do not stop at 405 fixed</h2>
+        <ol>
+          <li>Verify the exact raw request body with the Lemon Squeezy webhook signing secret.</li>
+          <li>Record an idempotency key from the provider event and target billing object.</li>
+          <li>Replay the same event at least three times and prove fulfillment runs once.</li>
+          <li>Attach a secret-free report to the PR before public checkout exposure.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>When to use the CN¥69 Pro Kit</h2>
+        <p>
+          Use the free browser tools first if you only need to find the 405. The Pro Kit is positioned for teams that want copy-ready fixtures, route handlers, raw-body tests, contract tests, duplicate replay checks, CI workflow, and a webhook review report template.
+        </p>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download free sample</strong>
+            <span>Inspect one fake Lemon Squeezy fixture, handler, signature test, replay test, and GitHub Actions skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Review the public manifest, file list, checksum signal, and CN¥69 package positioning before live checkout exists.</span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Related checks</h2>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/troubleshooting.html">
+            <strong>Lemon Squeezy troubleshooting hub</strong>
+            <span>Pick the right path for Vercel 404, Next.js 405, x-signature invalid, checkout 404, and webhook-not-firing cases.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html">
+            <strong>Raw body in Next.js</strong>
+            <span>Preserve request bytes before JSON parsing so Lemon Squeezy x-signature verification can pass.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html">
+            <strong>Vercel Lemon Squeezy webhook debugger</strong>
+            <span>Generate a report for 404, 405, 500, missing delivery, env vars, and weak release evidence.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">
+            <strong>Production checkout readiness report</strong>
+            <span>Check live key setup, CN¥69 price, PayPal checkout, signed paid webhooks, replay, delivery, and refund gates.</span>
+          </a>
+        </div>
+      </section>
+
+      <p class="note">
+        Safety boundary: use fake payloads and fake signing secrets in public reports. Never paste Lemon Squeezy API keys, webhook signing secrets, private checkout links, customer data, or full live order payloads into shared debugging artifacts.
+      </p>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook test workbench. It does not call Lemon Squeezy, Stripe, or paid provider APIs from this guide.
+      </footer>
+    </main>
+  </body>
+</html>

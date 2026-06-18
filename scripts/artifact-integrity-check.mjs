@@ -10,6 +10,7 @@ const freeSamplePath = join(publicDir, "free-sample.html");
 const proKitPath = join(publicDir, "pro-kit.html");
 const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
 const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digital-download-fulfillment.html");
+const nextjs405GuidePath = join(publicDir, "guides", "nextjs-webhook-405-lemon-squeezy.html");
 const statusPath = join(publicDir, "status.html");
 const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
@@ -48,6 +49,9 @@ if (!existsSync(deliverySupportPath)) issues.push("Missing public/delivery-refun
 if (!existsSync(digitalDownloadGuidePath)) {
   issues.push("Missing public/guides/lemon-squeezy-digital-download-fulfillment.html.");
 }
+if (!existsSync(nextjs405GuidePath)) {
+  issues.push("Missing public/guides/nextjs-webhook-405-lemon-squeezy.html.");
+}
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshooting.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
@@ -78,6 +82,7 @@ const deliverySupportHtml = existsSync(deliverySupportPath) ? readFileSync(deliv
 const digitalDownloadGuideHtml = existsSync(digitalDownloadGuidePath)
   ? readFileSync(digitalDownloadGuidePath, "utf8")
   : "";
+const nextjs405GuideHtml = existsSync(nextjs405GuidePath) ? readFileSync(nextjs405GuidePath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troubleshootingPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
@@ -199,6 +204,20 @@ if (
   !digitalDownloadGuideHtml.includes("free-sample.html")
 ) {
   issues.push("Digital download fulfillment guide is missing private delivery, signature, idempotency, policy, or conversion links.");
+}
+if (
+  !nextjs405GuideHtml.includes("Fix Next.js 405 for Lemon Squeezy Webhooks") ||
+  !nextjs405GuideHtml.includes("Method Not Allowed") ||
+  !nextjs405GuideHtml.includes("export async function POST") ||
+  !nextjs405GuideHtml.includes("request.text()") ||
+  !nextjs405GuideHtml.includes("curl -i -X POST") ||
+  !nextjs405GuideHtml.includes("x-signature") ||
+  !nextjs405GuideHtml.includes("duplicate replay") ||
+  !nextjs405GuideHtml.includes("vercel-lemon-squeezy-webhook-debugger.html") ||
+  !nextjs405GuideHtml.includes("pro-kit.html") ||
+  !nextjs405GuideHtml.includes("Never paste Lemon Squeezy API keys")
+) {
+  issues.push("Next.js 405 guide is missing method, POST export, raw-body, cURL, replay, safety, or conversion links.");
 }
 if (
   !proKitHtml.includes("Checkout Launch Gates") ||
