@@ -54,6 +54,7 @@ const guideLinks = [
   { href: "guides/nextjs-webhook-405-lemon-squeezy.html", label: "Fix Next.js 405 Lemon Squeezy webhooks" },
   { href: "guides/lemon-squeezy-webhook-500-vercel-nextjs.html", label: "Fix Lemon Squeezy webhook 500 on Vercel" },
   { href: "guides/lemon-squeezy-webhook-retry-idempotency.html", label: "Lemon Squeezy webhook retry idempotency" },
+  { href: "guides/payment-webhook-test-tool-alternatives.html", label: "Payment webhook test tool alternatives" },
   { href: "guides/lemon-squeezy-x-signature-invalid.html", label: "Fix invalid x-signature errors" },
   { href: "guides/lemon-squeezy-order-created-fixture.html", label: "order_created webhook fixture" },
   { href: "guides/lemon-squeezy-checkout-smoke-test.html", label: "Lemon Squeezy checkout smoke test" },
@@ -1442,6 +1443,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="guides/lemon-squeezy-webhook-retry-idempotency.html">
             Retry safety
           </a>
+          <a className="ghost-link" href="guides/payment-webhook-test-tool-alternatives.html">
+            Alternatives
+          </a>
           <a className="ghost-link" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score
           </a>
@@ -2354,6 +2358,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="guides/lemon-squeezy-webhook-retry-idempotency.html">
             Prevent duplicate fulfillment
+          </a>
+          <a className="inline-cta" href="guides/payment-webhook-test-tool-alternatives.html">
+            Compare webhook test tools
           </a>
           <a className="inline-cta" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score launch readiness

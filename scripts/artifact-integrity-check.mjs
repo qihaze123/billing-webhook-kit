@@ -13,6 +13,7 @@ const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digita
 const nextjs405GuidePath = join(publicDir, "guides", "nextjs-webhook-405-lemon-squeezy.html");
 const webhook500GuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-500-vercel-nextjs.html");
 const retryIdempotencyGuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-retry-idempotency.html");
+const alternativesGuidePath = join(publicDir, "guides", "payment-webhook-test-tool-alternatives.html");
 const statusPath = join(publicDir, "status.html");
 const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
@@ -60,6 +61,9 @@ if (!existsSync(webhook500GuidePath)) {
 if (!existsSync(retryIdempotencyGuidePath)) {
   issues.push("Missing public/guides/lemon-squeezy-webhook-retry-idempotency.html.");
 }
+if (!existsSync(alternativesGuidePath)) {
+  issues.push("Missing public/guides/payment-webhook-test-tool-alternatives.html.");
+}
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshooting.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
@@ -95,6 +99,7 @@ const webhook500GuideHtml = existsSync(webhook500GuidePath) ? readFileSync(webho
 const retryIdempotencyGuideHtml = existsSync(retryIdempotencyGuidePath)
   ? readFileSync(retryIdempotencyGuidePath, "utf8")
   : "";
+const alternativesGuideHtml = existsSync(alternativesGuidePath) ? readFileSync(alternativesGuidePath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troubleshootingPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
@@ -257,6 +262,19 @@ if (
   !retryIdempotencyGuideHtml.includes("Never paste Lemon Squeezy API keys")
 ) {
   issues.push("Retry idempotency guide is missing duplicate delivery, process-once, status-code, conversion, or safety copy.");
+}
+if (
+  !alternativesGuideHtml.includes("Payment Webhook Test Tool Alternatives") ||
+  !alternativesGuideHtml.includes("webhook inboxes") ||
+  !alternativesGuideHtml.includes("Provider CLIs") ||
+  !alternativesGuideHtml.includes("Manual JSON fixtures") ||
+  !alternativesGuideHtml.includes("BillingWebhookKit free path") ||
+  !alternativesGuideHtml.includes("BillingWebhookKit Pro") ||
+  !alternativesGuideHtml.includes("CN¥69") ||
+  !alternativesGuideHtml.includes("billing-webhook-kit-pricing-roi.html") ||
+  !alternativesGuideHtml.includes("pro-kit.html")
+) {
+  issues.push("Alternatives guide is missing comparison, provider-tooling, free-path, Pro Kit, price, or conversion copy.");
 }
 if (
   !proKitHtml.includes("Checkout Launch Gates") ||

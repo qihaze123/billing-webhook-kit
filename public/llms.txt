@@ -33,6 +33,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Fix Next.js 405 for Lemon Squeezy webhooks: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
 - Fix Lemon Squeezy webhook 500 on Vercel and Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
 - Lemon Squeezy webhook retry and idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
+- Payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
 - Standalone webhook entitlement decision matrix generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html
 - Free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
@@ -135,6 +136,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit Next.js webhook 405 Lemon Squeezy fix: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
 - BillingWebhookKit Lemon Squeezy webhook 500 Vercel fix: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
 - BillingWebhookKit Lemon Squeezy webhook retry idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
+- BillingWebhookKit payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
 - BillingWebhookKit standalone entitlement decision matrix: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html
 - BillingWebhookKit guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - BillingWebhookKit free sample: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
@@ -153,6 +155,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Next.js webhook 405 Lemon Squeezy fix: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
 - Lemon Squeezy webhook 500 Vercel fix: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
 - Lemon Squeezy webhook retry idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
+- Payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
 - Lemon Squeezy webhook not firing after checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html
 - Lemon Squeezy digital download fulfillment: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html
 - Webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
@@ -188,3 +191,4 @@ The Lemon Squeezy webhook troubleshooting hub is a search-oriented router for hi
 The Next.js webhook 405 Lemon Squeezy guide targets Method Not Allowed failures with App Router POST export checks, deployed Vercel route smoke tests, middleware exclusions, raw-body x-signature verification, and duplicate replay evidence.
 The Lemon Squeezy webhook 500 Vercel guide targets server crashes caused by missing env vars, raw-body x-signature failures, JSON parse errors, timingSafeEqual length errors, database or email side effects, and retry-unsafe fulfillment.
 The Lemon Squeezy webhook retry idempotency guide targets duplicate order_created delivery, process-once fulfillment, 2xx/500 retry decisions, and replay evidence before checkout launch.
+The payment webhook test tool alternatives guide compares webhook inboxes, provider CLIs, browser-only fixtures, CI contract tests, and the CN¥69 Pro Kit for small SaaS launch workflows.
