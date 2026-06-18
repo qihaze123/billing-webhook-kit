@@ -39,6 +39,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone Next.js webhook handler generator: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
 - Standalone Next.js Lemon Squeezy raw body audit: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html
 - Standalone Vercel Lemon Squeezy webhook debugger: https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html
+- Standalone payment webhook test plan generator: https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html
 - Fix Next.js 405 for Lemon Squeezy webhooks: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
 - Fix Lemon Squeezy webhook 500 on Vercel and Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
 - Lemon Squeezy webhook retry and idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
@@ -146,6 +147,10 @@ https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500
 Use the Lemon Squeezy webhook retry and idempotency guide when duplicate deliveries could repeat downloads, licenses, emails, or access grants:
 
 https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
+
+Use the payment webhook test plan generator when you need a PR-ready coverage plan across signatures, idempotency, replay, entitlement, fulfillment, refunds, and CI:
+
+https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html
 
 Use the payment webhook test tool alternatives guide when comparing webhook inboxes, provider CLIs, browser-only fixtures, CI tests, and the CN¥69 Pro Kit:
 

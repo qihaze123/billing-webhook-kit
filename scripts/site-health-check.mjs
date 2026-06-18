@@ -23,6 +23,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/nextjs-webhook-handler-generator.html`,
   `${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`,
   `${siteUrl}/tools/vercel-lemon-squeezy-webhook-debugger.html`,
+  `${siteUrl}/tools/payment-webhook-test-plan-generator.html`,
   `${siteUrl}/tools/webhook-entitlement-decision-matrix.html`,
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
@@ -150,6 +151,7 @@ const [
   nextjsGenerator,
   nextjsRawBodyAudit,
   vercelLemonSqueezyDebugger,
+  paymentWebhookTestPlan,
   entitlementMatrix,
   costCalculator,
   readinessScorecard,
@@ -205,6 +207,7 @@ const [
   fetchText(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`),
   fetchText(`${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`),
   fetchText(`${siteUrl}/tools/vercel-lemon-squeezy-webhook-debugger.html`),
+  fetchText(`${siteUrl}/tools/payment-webhook-test-plan-generator.html`),
   fetchText(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
@@ -285,6 +288,9 @@ const issues = [
   ...(vercelLemonSqueezyDebugger.ok
     ? []
     : [`Vercel Lemon Squeezy debugger page returned HTTP ${vercelLemonSqueezyDebugger.status ?? "failed"}.`]),
+  ...(paymentWebhookTestPlan.ok
+    ? []
+    : [`payment webhook test plan generator page returned HTTP ${paymentWebhookTestPlan.status ?? "failed"}.`]),
   ...(entitlementMatrix.ok
     ? []
     : [`entitlement matrix page returned HTTP ${entitlementMatrix.status ?? "failed"}.`]),
@@ -449,6 +455,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/vercel-lemon-squeezy-webhook-debugger.html`)
     ? []
     : ["llms.txt is missing the standalone Vercel Lemon Squeezy webhook debugger URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/payment-webhook-test-plan-generator.html`)
+    ? []
+    : ["llms.txt is missing the standalone payment webhook test plan generator URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`)
     ? []
     : ["llms.txt is missing the standalone entitlement matrix URL."]),
@@ -820,6 +829,20 @@ const issues = [
   deliveryEmailTemplates.text.includes("lemon-squeezy-fulfillment-checklist-generator.html")
     ? []
     : ["delivery email template generator page is missing template logic, delivery safety copy, policy copy, or conversion links."]),
+  ...(paymentWebhookTestPlan.text.includes("Payment Webhook Test Plan Generator") &&
+  paymentWebhookTestPlan.text.includes("buildPlan") &&
+  paymentWebhookTestPlan.text.includes("Raw-body signature verification") &&
+  paymentWebhookTestPlan.text.includes("Duplicate replay test") &&
+  paymentWebhookTestPlan.text.includes("Entitlement decision matrix") &&
+  paymentWebhookTestPlan.text.includes("Checkout-to-webhook smoke test") &&
+  paymentWebhookTestPlan.text.includes("Lemon Squeezy") &&
+  paymentWebhookTestPlan.text.includes("Stripe") &&
+  paymentWebhookTestPlan.text.includes("Paddle") &&
+  paymentWebhookTestPlan.text.includes("Polar") &&
+  paymentWebhookTestPlan.text.includes("Preview the CN¥69 Pro Kit") &&
+  paymentWebhookTestPlan.text.includes("free-sample.html")
+    ? []
+    : ["payment webhook test plan generator page is missing plan logic, provider coverage, launch gates, or conversion links."]),
   ...(eventCoverageMatrix.text.includes("Lemon Squeezy webhook event coverage matrix") &&
   eventCoverageMatrix.text.includes("buildEventCoverageMatrix") &&
   eventCoverageMatrix.text.includes("order_created") &&
@@ -1107,6 +1130,7 @@ const result = {
     nextjsGenerator: nextjsGenerator.status,
     nextjsRawBodyAudit: nextjsRawBodyAudit.status,
     vercelLemonSqueezyDebugger: vercelLemonSqueezyDebugger.status,
+    paymentWebhookTestPlan: paymentWebhookTestPlan.status,
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,

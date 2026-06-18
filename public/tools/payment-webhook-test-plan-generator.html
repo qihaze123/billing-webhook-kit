@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment Webhook Test Plan Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only payment webhook test plan for Lemon Squeezy, Stripe, Paddle, or Polar. Cover signatures, raw bodies, idempotency, duplicate replay, entitlement decisions, checkout smoke tests, fulfillment, refunds, and CI."
+    />
+    <meta
+      name="keywords"
+      content="payment webhook test plan generator, Lemon Squeezy webhook test plan, Stripe webhook test plan, billing webhook checklist, SaaS webhook test plan, webhook CI test plan"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Payment Webhook Test Plan Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only generator for release-ready payment webhook test plans, gap reports, and CI checklists."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Payment Webhook Test Plan Generator" />
+    <meta
+      name="twitter:description"
+      content="Build a payment webhook test plan for signatures, idempotency, duplicate replay, checkout smoke, fulfillment, refunds, and CI."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Payment Webhook Test Plan Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only payment webhook test plan generator with Markdown release plan export."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://qihaze123.github.io/billing-webhook-kit/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Payment Webhook Test Plan Generator", "item": "https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html" }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .gate span,
+      .metric span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 880px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 430px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .output {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      .field input,
+      .field select,
+      .field textarea {
+        min-height: 42px;
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 9px 10px;
+        color: var(--ink);
+      }
+
+      .field textarea {
+        min-height: 86px;
+        resize: vertical;
+      }
+
+      .gates {
+        display: grid;
+        gap: 10px;
+      }
+
+      .gate {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 10px;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 11px;
+      }
+
+      .gate input {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        accent-color: var(--green);
+      }
+
+      .gate strong {
+        display: block;
+        margin-top: 4px;
+        line-height: 1.25;
+      }
+
+      .gate p {
+        margin-top: 4px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 0 13px;
+        background: var(--acid);
+        box-shadow: 5px 5px 0 var(--line);
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 14px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      pre {
+        min-height: 420px;
+        max-height: 620px;
+        margin: 0;
+        overflow: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 12px;
+        color: var(--ink);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .upgrade {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        padding: 16px;
+      }
+
+      .upgrade p {
+        margin-top: 6px;
+        color: #d9dfcf;
+        line-height: 1.55;
+      }
+
+      .upgrade .button {
+        margin-top: 12px;
+      }
+
+      @media (max-width: 920px) {
+        .workbench,
+        .summary {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html">Alternatives</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Test plan generator</p>
+      <h1>Generate a payment webhook test plan before checkout goes live.</h1>
+      <p class="lead">
+        Pick your provider, framework, checkout model, and current coverage. The generator creates a PR-ready Markdown plan for signatures, raw bodies, duplicate replay, entitlement decisions, checkout smoke testing, fulfillment, refund rollback, and CI.
+      </p>
+
+      <section class="workbench" aria-label="Payment webhook test plan generator">
+        <article class="panel">
+          <header>
+            <h2>Project inputs</h2>
+            <p>browser-only, nothing uploaded</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Project or route name</span>
+              <input id="projectName" value="SaaS billing webhook" />
+            </label>
+            <label class="field">
+              <span>Provider</span>
+              <select id="provider">
+                <option>Lemon Squeezy</option>
+                <option>Stripe</option>
+                <option>Paddle</option>
+                <option>Polar</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Framework</span>
+              <select id="framework">
+                <option>Next.js App Router</option>
+                <option>Hono / Workers</option>
+                <option>Express</option>
+                <option>Fastify</option>
+                <option>Other serverless route</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Checkout model</span>
+              <select id="checkoutModel">
+                <option>Digital download</option>
+                <option>Subscription SaaS</option>
+                <option>License key</option>
+                <option>One-time access grant</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Required events</span>
+              <textarea id="events">order_created, subscription_payment_success, subscription_cancelled, refund_created</textarea>
+            </label>
+            <div class="gates" id="gates"></div>
+            <div class="button-row">
+              <button class="button" type="button" id="copyPlan">Copy test plan</button>
+              <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Download free sample</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Generated plan</h2>
+            <p>release checklist and gap report</p>
+          </header>
+          <div class="output">
+            <div class="summary">
+              <div class="metric">
+                <span>Covered</span>
+                <strong id="coveredCount">0 gates</strong>
+              </div>
+              <div class="metric">
+                <span>Missing</span>
+                <strong id="missingCount">0 gates</strong>
+              </div>
+              <div class="metric">
+                <span>Launch state</span>
+                <strong id="launchState">Needs work</strong>
+              </div>
+            </div>
+            <pre id="plan"></pre>
+            <div class="upgrade">
+              <strong>Shortcut when the missing list is long</strong>
+              <p>The free sample covers the shape of a fixture, handler, signature test, contract test, replay test, and GitHub Actions workflow. The CN¥69 Pro Kit preview shows the full copy-ready pack.</p>
+              <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Preview the CN¥69 Pro Kit</a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const gates = [
+        {
+          id: "raw_body_signature",
+          area: "Signature gate",
+          label: "Raw-body signature verification",
+          test: "Valid signed payload returns 2xx; mutated body or wrong signature returns 400 before side effects."
+        },
+        {
+          id: "contract_fields",
+          area: "Contract test",
+          label: "Trusted event fields locked",
+          test: "Fixture asserts event name, object ID, product or variant, customer, payment status, and currency fields."
+        },
+        {
+          id: "idempotency",
+          area: "Retry safety",
+          label: "Idempotency key stored before fulfillment",
+          test: "Provider-scoped key has a unique constraint and is written before email, license, access, or download delivery."
+        },
+        {
+          id: "duplicate_replay",
+          area: "Retry safety",
+          label: "Duplicate replay test",
+          test: "Same signed payload replayed three times returns success and runs side effects exactly once."
+        },
+        {
+          id: "entitlement_matrix",
+          area: "Access policy",
+          label: "Entitlement decision matrix",
+          test: "Paid, failed, cancelled, refunded, renewal, license, and unknown events map to explicit access decisions."
+        },
+        {
+          id: "checkout_smoke",
+          area: "Checkout",
+          label: "Checkout-to-webhook smoke test",
+          test: "Deployed checkout creates a paid event, reaches the production route, and records secret-free evidence."
+        },
+        {
+          id: "fulfillment",
+          area: "Delivery",
+          label: "Private fulfillment proof",
+          test: "Download, license, or access grant is private, checksum-backed where relevant, and resendable through support."
+        },
+        {
+          id: "refund_rollback",
+          area: "Rollback",
+          label: "Refund and cancellation rollback",
+          test: "Refund or cancellation event revokes access, records support evidence, and remains replay safe."
+        },
+        {
+          id: "ci",
+          area: "CI",
+          label: "Webhook tests run before deploy",
+          test: "Signature, contract, idempotency, duplicate replay, and entitlement tests run in CI."
+        }
+      ];
+
+      const providerEvents = {
+        "Lemon Squeezy": "order_created, subscription_payment_success, subscription_cancelled, refund_created",
+        Stripe: "checkout.session.completed, invoice.paid, customer.subscription.deleted, charge.refunded",
+        Paddle: "transaction.completed, subscription.activated, subscription.canceled, adjustment.created",
+        Polar: "order.paid, subscription.active, subscription.canceled, refund.created"
+      };
+
+      const gatesEl = document.getElementById("gates");
+      const planEl = document.getElementById("plan");
+      const coveredCount = document.getElementById("coveredCount");
+      const missingCount = document.getElementById("missingCount");
+      const launchState = document.getElementById("launchState");
+
+      function renderGates() {
+        gatesEl.innerHTML = gates
+          .map(
+            (gate) => `<label class="gate">
+              <input type="checkbox" value="${gate.id}" />
+              <span>
+                ${gate.area}
+                <strong>${gate.label}</strong>
+                <p>${gate.test}</p>
+              </span>
+            </label>`
+          )
+          .join("");
+        gatesEl.querySelectorAll("input").forEach((input) => input.addEventListener("change", render));
+      }
+
+      function selectedIds() {
+        return [...gatesEl.querySelectorAll("input:checked")].map((input) => input.value);
+      }
+
+      function stateFor(missing) {
+        if (missing.length === 0) return "Ready for smoke test";
+        if (missing.length <= 2) return "Close to launch";
+        if (missing.length <= 5) return "Needs coverage";
+        return "High risk";
+      }
+
+      function buildPlan() {
+        const projectName = document.getElementById("projectName").value.trim() || "SaaS billing webhook";
+        const provider = document.getElementById("provider").value;
+        const framework = document.getElementById("framework").value;
+        const checkoutModel = document.getElementById("checkoutModel").value;
+        const events = document.getElementById("events").value.trim();
+        const selected = selectedIds();
+        const covered = gates.filter((gate) => selected.includes(gate.id));
+        const missing = gates.filter((gate) => !selected.includes(gate.id));
+        const coveredLines = covered.map((gate) => `- [x] ${gate.area}: ${gate.label} - ${gate.test}`).join("\n");
+        const missingLines = missing.map((gate) => `- [ ] ${gate.area}: ${gate.label} - ${gate.test}`).join("\n");
+        const eventLines = events
+          .split(",")
+          .map((event) => event.trim())
+          .filter(Boolean)
+          .map((event) => `- ${event}`)
+          .join("\n");
+
+        return {
+          covered,
+          missing,
+          markdown: `# Payment Webhook Test Plan
+
+Generated by BillingWebhookKit
+https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html
+
+## Scope
+
+- Project: ${projectName}
+- Provider: ${provider}
+- Framework: ${framework}
+- Checkout model: ${checkoutModel}
+
+## Required Events
+
+${eventLines || "- Add provider events before launch"}
+
+## Covered Gates
+
+${coveredLines || "- None yet"}
+
+## Missing Gates Before Public Checkout
+
+${missingLines || "- No missing gates in this plan"}
+
+## Minimum Release Evidence
+
+- Signed happy-path fixture
+- Invalid signature rejection
+- Duplicate replay evidence
+- Entitlement decision matrix
+- Checkout smoke report
+- Fulfillment or access delivery proof
+- Refund or cancellation rollback proof
+- Secret-free PR or release note
+
+## Suggested Next Step
+
+${missing.length > 4
+  ? "Start with the free sample, then decide whether the CN¥69 Pro Kit is cheaper than assembling fixtures, handlers, CI checks, replay tests, and report templates manually."
+  : "Patch the remaining missing gates, run a deployed checkout smoke test, and keep this report with the release notes."}`
+        };
+      }
+
+      function render() {
+        const result = buildPlan();
+        coveredCount.textContent = `${result.covered.length} gates`;
+        missingCount.textContent = `${result.missing.length} gates`;
+        launchState.textContent = stateFor(result.missing);
+        planEl.textContent = result.markdown;
+      }
+
+      async function copyText(value) {
+        if (navigator.clipboard?.writeText) {
+          try {
+            await navigator.clipboard.writeText(value);
+            return;
+          } catch {
+            // Fall back for restricted preview browsers.
+          }
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.append(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      ["projectName", "framework", "checkoutModel", "events"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", render);
+      });
+      document.getElementById("provider").addEventListener("change", (event) => {
+        document.getElementById("events").value = providerEvents[event.target.value];
+        render();
+      });
+      document.getElementById("copyPlan").addEventListener("click", async () => {
+        await copyText(planEl.textContent || "");
+        document.getElementById("copyPlan").textContent = "Copied";
+        setTimeout(() => {
+          document.getElementById("copyPlan").textContent = "Copy test plan";
+        }, 1200);
+      });
+
+      renderGates();
+      render();
+    </script>
+  </body>
+</html>

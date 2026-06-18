@@ -24,6 +24,7 @@ const deliveryEmailTemplatesPath = join(publicDir, "tools", "lemon-squeezy-deliv
 const eventCoverageMatrixPath = join(publicDir, "tools", "lemon-squeezy-webhook-event-coverage-matrix.html");
 const paypalLiveCheckoutReportPath = join(publicDir, "tools", "lemon-squeezy-paypal-live-checkout-report.html");
 const vercelLemonSqueezyDebuggerPath = join(publicDir, "tools", "vercel-lemon-squeezy-webhook-debugger.html");
+const paymentWebhookTestPlanPath = join(publicDir, "tools", "payment-webhook-test-plan-generator.html");
 const checkoutPath = join(publicDir, "checkout.json");
 const expectedFreeSampleSha256 = "8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b";
 
@@ -84,6 +85,9 @@ if (!existsSync(paypalLiveCheckoutReportPath)) {
 if (!existsSync(vercelLemonSqueezyDebuggerPath)) {
   issues.push("Missing public/tools/vercel-lemon-squeezy-webhook-debugger.html.");
 }
+if (!existsSync(paymentWebhookTestPlanPath)) {
+  issues.push("Missing public/tools/payment-webhook-test-plan-generator.html.");
+}
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
@@ -117,6 +121,9 @@ const paypalLiveCheckoutReportHtml = existsSync(paypalLiveCheckoutReportPath)
   : "";
 const vercelLemonSqueezyDebuggerHtml = existsSync(vercelLemonSqueezyDebuggerPath)
   ? readFileSync(vercelLemonSqueezyDebuggerPath, "utf8")
+  : "";
+const paymentWebhookTestPlanHtml = existsSync(paymentWebhookTestPlanPath)
+  ? readFileSync(paymentWebhookTestPlanPath, "utf8")
   : "";
 const publicZipFiles = existsSync(publicDir)
   ? walkFiles(publicDir).filter((path) => path.toLowerCase().endsWith(".zip"))
@@ -306,6 +313,7 @@ if (
   !toolIndexHtml.includes("lemon-squeezy-delivery-email-template-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-webhook-event-coverage-matrix.html") ||
   !toolIndexHtml.includes("vercel-lemon-squeezy-webhook-debugger.html") ||
+  !toolIndexHtml.includes("payment-webhook-test-plan-generator.html") ||
   !toolIndexHtml.includes("billing-webhook-launch-readiness-scorecard.html") ||
   !toolIndexHtml.includes("billing-webhook-debug-cost-calculator.html") ||
   !toolIndexHtml.includes("nextjs-lemon-squeezy-raw-body-audit.html") ||
@@ -414,6 +422,23 @@ if (
   !eventCoverageMatrixHtml.includes("lemon-squeezy-webhook-payload-generator.html")
 ) {
   issues.push("Standalone webhook event coverage matrix is missing matrix logic, event copy, safety copy, or conversion links.");
+}
+if (
+  !paymentWebhookTestPlanHtml.includes("Payment Webhook Test Plan Generator") ||
+  !paymentWebhookTestPlanHtml.includes("buildPlan") ||
+  !paymentWebhookTestPlanHtml.includes("Raw-body signature verification") ||
+  !paymentWebhookTestPlanHtml.includes("Duplicate replay test") ||
+  !paymentWebhookTestPlanHtml.includes("Entitlement decision matrix") ||
+  !paymentWebhookTestPlanHtml.includes("Checkout-to-webhook smoke test") ||
+  !paymentWebhookTestPlanHtml.includes("Lemon Squeezy") ||
+  !paymentWebhookTestPlanHtml.includes("Stripe") ||
+  !paymentWebhookTestPlanHtml.includes("Paddle") ||
+  !paymentWebhookTestPlanHtml.includes("Polar") ||
+  !paymentWebhookTestPlanHtml.includes("pro-kit.html") ||
+  !paymentWebhookTestPlanHtml.includes("free-sample.html") ||
+  !paymentWebhookTestPlanHtml.includes("nothing uploaded")
+) {
+  issues.push("Standalone payment webhook test plan generator is missing plan logic, provider copy, browser-only safety copy, or conversion links.");
 }
 
 const result = {
