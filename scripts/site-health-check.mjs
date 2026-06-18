@@ -1423,6 +1423,7 @@ const result = {
     stripeCancellationGuide: stripeCancellationGuide.status,
     stripeInvoicePaidGuide: stripeInvoicePaidGuide.status,
     stripeInvoicePaymentFailedGuide: stripeInvoicePaymentFailedGuide.status,
+    stripeWebhookOrderGuide: stripeWebhookOrderGuide.status,
     paddleNextjsSignatureGuide: paddleNextjsSignatureGuide.status,
     nextjsPaddleWebhookHandlerGuide: nextjsPaddleWebhookHandlerGuide.status,
     paddleNextjsTestPlanGuide: paddleNextjsTestPlanGuide.status,
