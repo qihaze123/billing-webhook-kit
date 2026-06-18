@@ -18,6 +18,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Standalone Lemon Squeezy webhook event coverage matrix: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html
 - Standalone billing webhook launch readiness scorecard: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - Standalone billing webhook debug cost calculator: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html
+- Standalone checkout provider decision matrix: https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html
 - Standalone Lemon Squeezy payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - Standalone Lemon Squeezy x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - Standalone webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html
@@ -68,6 +69,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Calculate avoidable billing webhook debugging cost and compare it with the CNY 69 Pro Kit reference price.
 - Check AI-generated and vibe-coded SaaS billing routes before exposing Lemon Squeezy, Stripe, Paddle, or Polar checkout links.
 - Compare Lemon Squeezy and Stripe webhook launch checks for AI SaaS apps before committing to a checkout provider.
+- Generate a checkout provider decision matrix for AI SaaS teams comparing Lemon Squeezy, Stripe, Paddle, and Polar webhook launch risks.
 - Decide whether the CN¥69 Pro Kit is worth buying by comparing free tools, manual webhook test setup time, duplicate replay coverage, launch evidence, and break-even math.
 - Learn billing webhook idempotency and CI test patterns.
 - Run a Lemon Squeezy checkout smoke test before exposing a paid checkout link.
@@ -103,6 +105,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit standalone Lemon Squeezy webhook event coverage matrix: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html
 - BillingWebhookKit standalone launch readiness scorecard: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - BillingWebhookKit standalone debug cost calculator: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html
+- BillingWebhookKit standalone checkout provider decision matrix: https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html
 - BillingWebhookKit standalone payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - BillingWebhookKit standalone x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - BillingWebhookKit standalone signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html

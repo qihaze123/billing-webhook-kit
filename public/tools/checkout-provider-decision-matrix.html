@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout Provider Decision Matrix | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only checkout provider decision matrix for AI SaaS apps choosing Lemon Squeezy, Stripe, Paddle, or Polar. Compare webhook signature, idempotency, checkout smoke, fulfillment, refund, and launch-readiness risks."
+    />
+    <meta
+      name="keywords"
+      content="checkout provider decision matrix, Lemon Squeezy vs Stripe, AI SaaS checkout provider, SaaS billing provider comparison, payment webhook decision matrix, Stripe Lemon Squeezy Paddle Polar"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Checkout Provider Decision Matrix" />
+    <meta
+      property="og:description"
+      content="Browser-only matrix generator for AI SaaS teams comparing Lemon Squeezy, Stripe, Paddle, and Polar webhook launch risks."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Checkout Provider Decision Matrix" />
+    <meta
+      name="twitter:description"
+      content="Compare checkout provider webhook launch risks locally before choosing Lemon Squeezy, Stripe, Paddle, or Polar."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Checkout Provider Decision Matrix",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only checkout provider decision matrix for payment webhook launch readiness."
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .stat span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.12rem;
+        line-height: 1.18;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      .lead {
+        max-width: 860px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .controls,
+      .output {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      select,
+      input {
+        width: 100%;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 0 11px;
+      }
+
+      .checks {
+        display: grid;
+        gap: 8px;
+      }
+
+      label.check {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 10px;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      label.check input {
+        width: 16px;
+        min-height: 16px;
+        margin-top: 2px;
+      }
+
+      .actions {
+        display: grid;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 900;
+      }
+
+      .button.secondary {
+        background: #fff;
+        box-shadow: none;
+      }
+
+      .matrix {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .provider {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 14px;
+      }
+
+      .provider.recommended {
+        background: var(--charcoal);
+        color: #f7faed;
+      }
+
+      .provider.recommended p,
+      .provider.recommended li {
+        color: #d9dfcf;
+      }
+
+      .score {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 54px;
+        min-height: 34px;
+        margin: 10px 0;
+        border: 1px solid currentColor;
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        font-weight: 950;
+      }
+
+      .provider p,
+      .provider li {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .provider ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+
+      .report {
+        overflow: auto;
+        max-height: 430px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #10120f;
+        color: #f7faed;
+        padding: 14px;
+        white-space: pre-wrap;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.86rem;
+        line-height: 1.55;
+      }
+
+      .stat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .links a {
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 12px;
+        font-weight: 850;
+        text-decoration: none;
+        line-height: 1.3;
+      }
+
+      .links span {
+        display: block;
+        margin-top: 5px;
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 980px) {
+        .workbench,
+        .matrix,
+        .stat-strip,
+        .links {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/">Guides</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Browser-only tool</p>
+      <h1>Checkout provider decision matrix for AI SaaS.</h1>
+      <p class="lead">
+        Compare Lemon Squeezy, Stripe, Paddle, and Polar through the lens that usually breaks at launch: webhook
+        signatures, idempotency, paid-state mapping, checkout smoke evidence, private fulfillment, refunds, and
+        production readiness. No account login, no API calls, no uploaded secrets.
+      </p>
+
+      <div class="workbench">
+        <section class="panel" aria-label="Decision inputs">
+          <header>
+            <p class="eyebrow">Inputs</p>
+            <h2>Describe the launch path</h2>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Product model</span>
+              <select id="productModel">
+                <option value="digital">Digital download or template pack</option>
+                <option value="subscription">Subscription SaaS</option>
+                <option value="license">License key or desktop app</option>
+                <option value="marketplace">Multi-provider migration path</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Checkout priority</span>
+              <select id="priority">
+                <option value="fast">Fastest compliant launch</option>
+                <option value="custom">Maximum checkout control</option>
+                <option value="global">Global payment coverage</option>
+                <option value="migration">Provider portability</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Webhook stack</span>
+              <select id="stack">
+                <option value="next">Next.js App Router</option>
+                <option value="worker">Cloudflare Worker or Hono</option>
+                <option value="express">Express or Node server</option>
+                <option value="queue">Queue-backed worker</option>
+              </select>
+            </label>
+            <div class="field">
+              <span>Launch risks</span>
+              <div class="checks">
+                <label class="check"><input id="riskRefund" type="checkbox" checked /> Refund or cancellation must revoke access.</label>
+                <label class="check"><input id="riskDownload" type="checkbox" checked /> Paid users receive a private ZIP, license, or entitlement.</label>
+                <label class="check"><input id="riskRetry" type="checkbox" checked /> Provider retries must not duplicate side effects.</label>
+                <label class="check"><input id="riskAi" type="checkbox" checked /> Billing route was AI-generated or heavily AI-edited.</label>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="button" id="generate" type="button">Generate decision matrix</button>
+              <button class="button secondary" id="copy" type="button">Copy Markdown report</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="Decision output">
+          <header>
+            <p class="eyebrow">Output</p>
+            <h2>Provider fit and webhook test plan</h2>
+          </header>
+          <div class="output">
+            <div class="matrix" id="matrix"></div>
+            <div class="stat-strip" aria-label="Launch signals">
+              <div class="stat">
+                <span>Top pick</span>
+                <strong id="topPick">-</strong>
+              </div>
+              <div class="stat">
+                <span>Launch blocker</span>
+                <strong id="blockerCount">-</strong>
+              </div>
+              <div class="stat">
+                <span>Required tests</span>
+                <strong id="testCount">-</strong>
+              </div>
+              <div class="stat">
+                <span>Upgrade cue</span>
+                <strong>CN¥69 Pro Kit when manual setup is slower</strong>
+              </div>
+            </div>
+            <div>
+              <p class="output-label">Markdown report</p>
+              <pre class="report" id="report"></pre>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="links" aria-label="Next steps">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html">
+          Provider comparison guide
+          <span>Read the Lemon Squeezy vs Stripe webhook launch comparison for AI SaaS.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">
+          Idempotency key generator
+          <span>Build stable keys and duplicate replay tests before writing billing side effects.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          Preview the CN¥69 Pro Kit
+          <span>Copy-ready fixtures, handlers, tests, CI notes, and review templates.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const providers = [
+        {
+          id: "lemon",
+          name: "Lemon Squeezy",
+          base: 74,
+          strengths: ["merchant-of-record fit", "digital products", "license keys", "simple launch"],
+          tests: ["x-signature raw-body HMAC", "order_created paid-state contract", "refund rollback", "private delivery"]
+        },
+        {
+          id: "stripe",
+          name: "Stripe",
+          base: 72,
+          strengths: ["checkout control", "subscription depth", "custom billing model", "ecosystem"],
+          tests: ["Stripe-Signature raw-body check", "checkout.session.completed contract", "invoice paid replay", "refund event rollback"]
+        },
+        {
+          id: "paddle",
+          name: "Paddle",
+          base: 66,
+          strengths: ["merchant-of-record fit", "global SaaS sales", "subscription operations", "tax handling"],
+          tests: ["transaction completed contract", "subscription status mapping", "retry idempotency", "cancellation rollback"]
+        },
+        {
+          id: "polar",
+          name: "Polar",
+          base: 58,
+          strengths: ["developer products", "open-source buyer path", "simple order model", "creator tooling"],
+          tests: ["order paid contract", "customer entitlement mapping", "duplicate replay", "refund or revoke path"]
+        }
+      ];
+
+      const weights = {
+        digital: { lemon: 13, stripe: 3, paddle: 6, polar: 8 },
+        subscription: { lemon: 4, stripe: 13, paddle: 10, polar: 4 },
+        license: { lemon: 12, stripe: 5, paddle: 7, polar: 6 },
+        marketplace: { lemon: 4, stripe: 11, paddle: 8, polar: 9 },
+        fast: { lemon: 11, stripe: 2, paddle: 7, polar: 5 },
+        custom: { lemon: 2, stripe: 13, paddle: 4, polar: 4 },
+        global: { lemon: 7, stripe: 8, paddle: 12, polar: 4 },
+        migration: { lemon: 5, stripe: 10, paddle: 8, polar: 8 },
+        next: { lemon: 6, stripe: 8, paddle: 5, polar: 4 },
+        worker: { lemon: 7, stripe: 6, paddle: 5, polar: 5 },
+        express: { lemon: 5, stripe: 8, paddle: 5, polar: 4 },
+        queue: { lemon: 4, stripe: 10, paddle: 7, polar: 5 }
+      };
+
+      const riskTests = {
+        riskRefund: "Refund/cancellation rollback test",
+        riskDownload: "Private fulfillment or entitlement delivery proof",
+        riskRetry: "Duplicate replay process-once test",
+        riskAi: "AI-generated route review for raw-body, trusted fields, and secret handling"
+      };
+
+      function value(id) {
+        return document.getElementById(id).value;
+      }
+
+      function checked(id) {
+        return document.getElementById(id).checked;
+      }
+
+      function scoreProvider(provider, input) {
+        return (
+          provider.base +
+          (weights[input.productModel][provider.id] || 0) +
+          (weights[input.priority][provider.id] || 0) +
+          (weights[input.stack][provider.id] || 0)
+        );
+      }
+
+      function buildProviderMatrix() {
+        const input = {
+          productModel: value("productModel"),
+          priority: value("priority"),
+          stack: value("stack"),
+          risks: Object.keys(riskTests).filter(checked)
+        };
+        const scored = providers
+          .map((provider) => ({
+            ...provider,
+            score: scoreProvider(provider, input)
+          }))
+          .sort((a, b) => b.score - a.score);
+        const requiredTests = [
+          "Raw-body signature verification before JSON parsing",
+          "Trusted event contract assertions",
+          "Provider-scoped idempotency key",
+          "Checkout smoke test with price and currency",
+          ...input.risks.map((risk) => riskTests[risk])
+        ];
+        const blockers = requiredTests.slice(0, input.risks.length >= 3 ? 6 : 4);
+        return { input, scored, requiredTests, blockers };
+      }
+
+      function render() {
+        const result = buildProviderMatrix();
+        const top = result.scored[0];
+        document.getElementById("matrix").innerHTML = result.scored
+          .map(
+            (provider, index) => `
+              <article class="provider ${index === 0 ? "recommended" : ""}">
+                <h3>${provider.name}</h3>
+                <div class="score">${provider.score}</div>
+                <p>${index === 0 ? "Best fit for this launch profile." : "Secondary fit; test the gaps before launch."}</p>
+                <ul>
+                  ${provider.tests.slice(0, 3).map((test) => `<li>${test}</li>`).join("")}
+                </ul>
+              </article>
+            `
+          )
+          .join("");
+        document.getElementById("topPick").textContent = top.name;
+        document.getElementById("blockerCount").textContent = `${result.blockers.length} blockers to close`;
+        document.getElementById("testCount").textContent = `${result.requiredTests.length} tests`;
+        document.getElementById("report").textContent = markdownReport(result);
+      }
+
+      function markdownReport(result) {
+        const top = result.scored[0];
+        return `# Checkout Provider Decision Matrix
+
+Top pick: ${top.name}
+Product model: ${result.input.productModel}
+Checkout priority: ${result.input.priority}
+Webhook stack: ${result.input.stack}
+
+## Provider scores
+
+${result.scored.map((provider) => `- ${provider.name}: ${provider.score}`).join("\n")}
+
+## Launch blockers
+
+${result.blockers.map((blocker) => `- [ ] ${blocker}`).join("\n")}
+
+## Required webhook tests
+
+${result.requiredTests.map((test) => `- ${test}`).join("\n")}
+
+## Next steps
+
+- Run the free BillingWebhookKit browser tools with fake fixtures and fake secrets.
+- Keep production API keys, webhook secrets, and customer data out of public reports.
+- Use the CN¥69 Pro Kit when copy-ready fixtures, handlers, tests, CI notes, and review templates save more time than assembling them manually.
+`;
+      }
+
+      document.getElementById("generate").addEventListener("click", render);
+      document.getElementById("copy").addEventListener("click", async () => {
+        const text = document.getElementById("report").textContent;
+        await navigator.clipboard.writeText(text);
+      });
+      ["productModel", "priority", "stack", "riskRefund", "riskDownload", "riskRetry", "riskAi"].forEach((id) => {
+        document.getElementById(id).addEventListener("change", render);
+      });
+      render();
+    </script>
+  </body>
+</html>

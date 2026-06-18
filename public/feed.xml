@@ -43,6 +43,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Checkout Provider Decision Matrix</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html</guid>
+      <description>Generate a browser-only Lemon Squeezy vs Stripe vs Paddle vs Polar checkout provider matrix for AI SaaS webhook launch readiness.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Lemon Squeezy vs Stripe Webhooks for AI SaaS</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html</guid>

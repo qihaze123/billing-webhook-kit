@@ -21,6 +21,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/webhook-entitlement-decision-matrix.html`,
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
+  `${siteUrl}/tools/checkout-provider-decision-matrix.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
   `${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`,
   `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
@@ -136,6 +137,7 @@ const [
   entitlementMatrix,
   costCalculator,
   readinessScorecard,
+  checkoutProviderDecisionMatrix,
   checkoutSmokeReport,
   paypalLiveCheckoutReport,
   productionCheckoutReadinessReport,
@@ -179,6 +181,7 @@ const [
   fetchText(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
+  fetchText(`${siteUrl}/tools/checkout-provider-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
@@ -245,6 +248,13 @@ const issues = [
   ...(readinessScorecard.ok
     ? []
     : [`readiness scorecard page returned HTTP ${readinessScorecard.status ?? "failed"}.`]),
+  ...(checkoutProviderDecisionMatrix.ok
+    ? []
+    : [
+        `checkout provider decision matrix page returned HTTP ${
+          checkoutProviderDecisionMatrix.status ?? "failed"
+        }.`
+      ]),
   ...(checkoutSmokeReport.ok
     ? []
     : [`checkout smoke test report page returned HTTP ${checkoutSmokeReport.status ?? "failed"}.`]),
@@ -327,7 +337,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 70 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 70.`]),
+  ...(sitemapUrls.length >= 71 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 71.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -371,6 +381,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`)
     ? []
     : ["llms.txt is missing the standalone launch readiness scorecard URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/checkout-provider-decision-matrix.html`)
+    ? []
+    : ["llms.txt is missing the standalone checkout provider decision matrix URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`)
     ? []
     : ["llms.txt is missing the standalone checkout smoke test report URL."]),
@@ -485,6 +498,8 @@ const issues = [
   toolIndex.text.includes("Webhook entitlement decision matrix") &&
   toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
+  toolIndex.text.includes("Checkout provider decision matrix") &&
+  toolIndex.text.includes("checkout-provider-decision-matrix.html") &&
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
   toolIndex.text.includes("Lemon Squeezy PayPal live checkout report") &&
   toolIndex.text.includes("lemon-squeezy-paypal-live-checkout-report.html") &&
@@ -562,6 +577,16 @@ const issues = [
   readinessScorecard.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["readiness scorecard page is missing scorecard copy, report copy, or conversion links."]),
+  ...(checkoutProviderDecisionMatrix.text.includes("Checkout Provider Decision Matrix") &&
+  checkoutProviderDecisionMatrix.text.includes("buildProviderMatrix") &&
+  checkoutProviderDecisionMatrix.text.includes("Lemon Squeezy") &&
+  checkoutProviderDecisionMatrix.text.includes("Stripe") &&
+  checkoutProviderDecisionMatrix.text.includes("CN¥69 Pro Kit") &&
+  checkoutProviderDecisionMatrix.text.includes("pro-kit.html")
+    ? []
+    : [
+        "checkout provider decision matrix page is missing provider comparison logic, Lemon Squeezy, Stripe, Pro Kit, or conversion links."
+      ]),
   ...(checkoutSmokeReport.text.includes("Lemon Squeezy checkout smoke test report") &&
   checkoutSmokeReport.text.includes("buildCheckoutSmokeReport") &&
   checkoutSmokeReport.text.includes("PR-ready checkout smoke test report") &&
@@ -840,6 +865,7 @@ const result = {
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
+    checkoutProviderDecisionMatrix: checkoutProviderDecisionMatrix.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
     paypalLiveCheckoutReport: paypalLiveCheckoutReport.status,
     productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,

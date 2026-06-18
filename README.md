@@ -27,6 +27,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Lemon Squeezy webhook event coverage matrix: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html
 - Standalone billing webhook launch readiness scorecard: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - Standalone billing webhook debug cost calculator: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html
+- Standalone checkout provider decision matrix: https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html
 - Standalone Lemon Squeezy payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - Standalone Lemon Squeezy x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - Standalone webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html
@@ -127,6 +128,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - Launch readiness scoring for signature tests, duplicate replay, entitlement policy, fixtures, secrets, smoke tests, review reports, and monitoring
 - AI-generated and vibe-coded SaaS billing route checks before a Lemon Squeezy, Stripe, Paddle, or Polar checkout link goes public
 - Lemon Squeezy and Stripe webhook launch-plan comparison for AI SaaS teams choosing a checkout provider
+- Checkout provider decision matrices for AI SaaS teams comparing Lemon Squeezy, Stripe, Paddle, and Polar launch risks
 - Digital download fulfillment after Lemon Squeezy checkout with private ZIP delivery, paid-state checks, idempotency, checksum evidence, and support-policy links
 - PR-ready fulfillment checklist reports for signed paid events, private delivery, duplicate replay safety, buyer evidence, and rollback notes
 - PR-ready production checkout readiness reports for live key setup, CN¥69 price, PayPal checkout, paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence
