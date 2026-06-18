@@ -22,6 +22,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Fix Lemon Squeezy Webhook 500 on Vercel and Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html</guid>
+      <description>Debug Lemon Squeezy webhook 500 errors caused by missing env vars, raw-body x-signature failures, JSON parse crashes, timingSafeEqual length errors, side effects, duplicate replay, and unsafe fulfillment retries.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Vercel Lemon Squeezy Webhook Debugger</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html</guid>

@@ -45,6 +45,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`,
   `${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`,
   `${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`,
+  `${siteUrl}/guides/lemon-squeezy-webhook-500-vercel-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
@@ -166,6 +167,7 @@ const [
   productionCheckoutGoLiveGuide,
   productionWebhookTroubleshootingGuide,
   nextjs405Guide,
+  webhook500Guide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
   refundWebhookGuide,
@@ -218,6 +220,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`),
   fetchText(`${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-500-vercel-nextjs.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
@@ -347,6 +350,9 @@ const issues = [
   ...(nextjs405Guide.ok
     ? []
     : [`Next.js webhook 405 Lemon Squeezy guide returned HTTP ${nextjs405Guide.status ?? "failed"}.`]),
+  ...(webhook500Guide.ok
+    ? []
+    : [`Lemon Squeezy webhook 500 Vercel guide returned HTTP ${webhook500Guide.status ?? "failed"}.`]),
   ...(webhookNotFiringGuide.ok
     ? []
     : [`Lemon Squeezy webhook not firing guide returned HTTP ${webhookNotFiringGuide.status ?? "failed"}.`]),
@@ -485,6 +491,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`)
     ? []
     : ["llms.txt is missing the Next.js webhook 405 Lemon Squeezy guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-500-vercel-nextjs.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy webhook 500 Vercel guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook not firing after checkout guide URL."]),
@@ -625,9 +634,11 @@ const issues = [
   ...(guideIndex.text.includes("Lemon Squeezy Production Checkout Go-Live Checklist") &&
   guideIndex.text.includes("lemon-squeezy-production-checkout-go-live.html") &&
   guideIndex.text.includes("Fix Next.js 405 for Lemon Squeezy Webhooks") &&
-  guideIndex.text.includes("nextjs-webhook-405-lemon-squeezy.html")
+  guideIndex.text.includes("nextjs-webhook-405-lemon-squeezy.html") &&
+  guideIndex.text.includes("Fix Lemon Squeezy Webhook 500 on Vercel and Next.js") &&
+  guideIndex.text.includes("lemon-squeezy-webhook-500-vercel-nextjs.html")
     ? []
-    : ["guide index is missing the Lemon Squeezy production checkout go-live or Next.js 405 guide."]),
+    : ["guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, or webhook 500 guide."]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
   signatureVerifier.text.includes("Download the free sample") &&
@@ -852,6 +863,18 @@ const issues = [
   nextjs405Guide.text.includes("Never paste Lemon Squeezy API keys")
     ? []
     : ["Next.js webhook 405 Lemon Squeezy guide is missing method, POST export, raw-body, cURL, replay, safety, or conversion copy."]),
+  ...(webhook500Guide.text.includes("Fix Lemon Squeezy Webhook 500 on Vercel and Next.js") &&
+  webhook500Guide.text.includes("missing env vars") &&
+  webhook500Guide.text.includes("timingSafeEqual") &&
+  webhook500Guide.text.includes("request.text()") &&
+  webhook500Guide.text.includes("Retryable fulfillment failure") &&
+  webhook500Guide.text.includes("duplicate replay") &&
+  webhook500Guide.text.includes("vercel-lemon-squeezy-webhook-debugger.html") &&
+  webhook500Guide.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
+  webhook500Guide.text.includes("pro-kit.html") &&
+  webhook500Guide.text.includes("Never paste Lemon Squeezy API keys")
+    ? []
+    : ["Lemon Squeezy webhook 500 Vercel guide is missing env, timingSafeEqual, raw-body, retry, replay, safety, or conversion copy."]),
   ...(webhookNotFiringGuide.text.includes("Lemon Squeezy webhook not firing after checkout") &&
   webhookNotFiringGuide.text.includes("live/test") &&
   webhookNotFiringGuide.text.includes("order_created") &&
@@ -1054,6 +1077,7 @@ const result = {
     productionCheckoutGoLiveGuide: productionCheckoutGoLiveGuide.status,
     productionWebhookTroubleshootingGuide: productionWebhookTroubleshootingGuide.status,
     nextjs405Guide: nextjs405Guide.status,
+    webhook500Guide: webhook500Guide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,

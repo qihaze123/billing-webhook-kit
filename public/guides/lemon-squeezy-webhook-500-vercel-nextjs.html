@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fix Lemon Squeezy Webhook 500 on Vercel and Next.js | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Debug Lemon Squeezy webhook 500 errors on Vercel and Next.js. Check missing env vars, raw-body x-signature verification, JSON parse failures, timingSafeEqual length errors, database writes, email side effects, duplicate replay, and safe release reports."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy webhook 500 Vercel, Lemon Squeezy webhook 500 Next.js, Next.js webhook 500 Lemon Squeezy, Vercel webhook 500, Lemon Squeezy x-signature 500, timingSafeEqual webhook error, Lemon Squeezy webhook env vars"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Fix Lemon Squeezy Webhook 500 on Vercel and Next.js" />
+    <meta
+      property="og:description"
+      content="A production-focused checklist for Lemon Squeezy webhook 500s caused by missing env vars, raw-body signature failures, JSON parse errors, side effects, and retry unsafe handlers."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fix Lemon Squeezy Webhook 500 on Vercel and Next.js" />
+    <meta
+      name="twitter:description"
+      content="Debug Lemon Squeezy webhook 500 errors with env var checks, raw-body x-signature handling, Vercel logs, idempotency, duplicate replay, and safe launch evidence."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --panel: #ffffff;
+        --accent: #d8f84f;
+        --coral: #f05f3b;
+        --dark: #10120f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        color: var(--ink);
+      }
+
+      main {
+        width: min(960px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 38px 0 58px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .crumb {
+        display: inline-flex;
+        margin-bottom: 28px;
+        font-weight: 850;
+      }
+
+      .eyebrow,
+      .card strong {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin-top: 8px;
+        font-size: clamp(2.15rem, 7vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 790px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.13rem;
+        line-height: 1.66;
+      }
+
+      .cta-row,
+      .cards,
+      .related-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .cta-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 28px 0 34px;
+      }
+
+      .button,
+      .card,
+      .code-card,
+      .related-grid a,
+      .note {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 5px 5px 0 rgba(17, 19, 15, 0.14);
+      }
+
+      .button {
+        display: flex;
+        align-items: center;
+        min-height: 64px;
+        padding: 12px 14px;
+        background: var(--accent);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      section {
+        padding: 26px 0;
+        border-top: 1px solid #cfd6c5;
+      }
+
+      h2 {
+        margin-bottom: 12px;
+        font-size: clamp(1.45rem, 4vw, 2.35rem);
+        line-height: 1.05;
+      }
+
+      h3 {
+        font-size: 1.08rem;
+        line-height: 1.25;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.68;
+      }
+
+      ol,
+      ul {
+        margin: 12px 0 0;
+        padding-left: 22px;
+      }
+
+      code,
+      pre {
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .card {
+        min-height: 176px;
+        padding: 18px;
+        background: var(--panel);
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .code-card {
+        max-width: 100%;
+        margin-top: 14px;
+        overflow: auto;
+        background: var(--dark);
+      }
+
+      pre {
+        margin: 0;
+        padding: 18px;
+        color: #eef5df;
+        font-size: 0.88rem;
+        line-height: 1.58;
+        white-space: pre-wrap;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .related-grid a {
+        display: block;
+        min-height: 122px;
+        padding: 16px;
+        background: var(--panel);
+        text-decoration: none;
+      }
+
+      .related-grid strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .related-grid span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.5;
+      }
+
+      .note {
+        padding: 18px;
+        background: var(--accent);
+        font-weight: 850;
+        line-height: 1.55;
+      }
+
+      footer {
+        margin-top: 34px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .cta-row,
+        .cards,
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card,
+        .related-grid a {
+          min-height: 0;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Fix Lemon Squeezy Webhook 500 on Vercel and Next.js",
+        "description": "Debug Lemon Squeezy webhook 500 errors on Vercel and Next.js with missing env var checks, raw-body x-signature verification, JSON parse failures, timingSafeEqual length errors, database side effects, duplicate replay, and secret-free release reports.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does my Lemon Squeezy webhook return 500 on Vercel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Common causes include missing production environment variables, using the wrong webhook signing secret, calling timingSafeEqual with buffers of different lengths, parsing JSON before raw-body verification, throwing during database writes, or sending email and license side effects before idempotency is recorded."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should a webhook return 500 when fulfillment fails?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Only return 500 for retryable failures after the event is authenticated and the handler can safely retry. Avoid returning 2xx before durable idempotency is recorded, and avoid running duplicate side effects on Lemon Squeezy retries."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Fix Lemon Squeezy Webhook 500 on Vercel and Next.js", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <p class="eyebrow">Lemon Squeezy webhook 500 Vercel</p>
+      <h1>Fix Lemon Squeezy webhook 500s on Vercel and Next.js</h1>
+      <p class="lead">
+        A 500 means Lemon Squeezy reached your endpoint and the handler crashed or rejected the event after route matching. Fix this before exposing checkout, because retries can duplicate emails, licenses, downloads, and access grants.
+      </p>
+      <div class="cta-row" aria-label="Primary debugging actions">
+        <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html">Run Vercel debugger</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html">Debug x-signature</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">Check fulfillment</a>
+      </div>
+
+      <section>
+        <h2>Start with the failure boundary</h2>
+        <div class="cards">
+          <article class="card">
+            <strong>Before HMAC</strong>
+            <h3>Missing env vars or malformed headers</h3>
+            <p>Confirm the Vercel production deployment has the webhook signing secret, store or variant IDs, and any database or delivery credentials required by the handler. Log only boolean presence, never secret values.</p>
+          </article>
+          <article class="card">
+            <strong>Signature gate</strong>
+            <h3>Raw-body or timing-safe comparison crash</h3>
+            <p>Read <code>request.text()</code> once, compare equal-length HMAC buffers, and reject mismatches with 400. A length mismatch passed into <code>timingSafeEqual</code> can throw and become a 500.</p>
+          </article>
+          <article class="card">
+            <strong>Event parse</strong>
+            <h3>JSON shape is not what the code expects</h3>
+            <p>Validate <code>meta.event_name</code>, object ID, payment status, product or variant, and customer target before fulfillment. Unknown events should quarantine cleanly, not crash the route.</p>
+          </article>
+          <article class="card">
+            <strong>Side effects</strong>
+            <h3>Database, email, or license delivery throws</h3>
+            <p>Record idempotency before running side effects where possible. If a retry happens, the route must skip duplicate delivery instead of sending another download, email, or license key.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Safer error handling shape</h2>
+        <p>Separate unauthenticated failures, unsupported events, and retryable fulfillment failures. Do not let every exception become an uncontrolled 500.</p>
+        <div class="code-card">
+          <pre><code>export async function POST(request: Request) {
+  const rawBody = await request.text();
+  const signature = request.headers.get("x-signature");
+
+  if (!signature) return new Response("Missing x-signature", { status: 400 });
+  if (!process.env.LEMONSQUEEZY_WEBHOOK_SECRET) {
+    return new Response("Webhook secret not configured", { status: 500 });
+  }
+
+  const verified = await verifyLemonSignature(rawBody, signature);
+  if (!verified) return new Response("Invalid signature", { status: 400 });
+
+  const event = JSON.parse(rawBody);
+  const idempotencyKey = `lemonsqueezy:${event.meta?.event_name}:${event.data?.id}`;
+
+  try {
+    await processOnce(idempotencyKey, async () => {
+      await runPaidOrderFulfillment(event);
+    });
+    return Response.json({ ok: true });
+  } catch {
+    return new Response("Retryable fulfillment failure", { status: 500 });
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>What to capture before launch</h2>
+        <ol>
+          <li>Vercel production route URL and the exact Lemon Squeezy webhook endpoint path.</li>
+          <li>Boolean env-var presence for signing secret, store ID, variant ID, database URL, and delivery service config.</li>
+          <li>A signed fake payload proving raw-body verification returns 2xx.</li>
+          <li>A malformed signature proving the route returns 400 instead of crashing.</li>
+          <li>A duplicate replay test proving paid fulfillment runs once.</li>
+          <li>A secret-free report attached to the release or PR.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>When 500 is the correct response</h2>
+        <p>
+          Returning 500 can be correct when a verified paid event cannot be durably processed and Lemon Squeezy should retry. Returning 500 is not correct for bad signatures, unsupported events, wrong products, missing customer targets, or duplicate deliveries that have already been processed.
+        </p>
+      </section>
+
+      <section>
+        <h2>Convert the fix into launch evidence</h2>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html">
+            <strong>Vercel Lemon Squeezy webhook debugger</strong>
+            <span>Generate a report for 404, 405, 500, missing delivery, invalid x-signature, env vars, idempotency, and PR evidence.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">
+            <strong>Production checkout readiness report</strong>
+            <span>Check live key setup, CN¥69 price, PayPal checkout, signed paid webhooks, replay, private delivery, refund rollback, and support notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download free sample</strong>
+            <span>Inspect fake Lemon Squeezy fixtures, handler shape, signature test, duplicate replay test, and CI skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View CN¥69 Pro Kit preview</strong>
+            <span>Review copy-ready fixtures, route handlers, contract tests, duplicate replay checks, and report templates before live checkout is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <p class="note">
+        Safety boundary: use fake payloads and redacted logs in public reports. Never paste Lemon Squeezy API keys, webhook signing secrets, private checkout links, customer data, database URLs, or full live order payloads into shared debugging artifacts.
+      </p>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook test workbench. This guide does not call Lemon Squeezy, Vercel, Stripe, or paid provider APIs.
+      </footer>
+    </main>
+  </body>
+</html>

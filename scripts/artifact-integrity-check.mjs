@@ -11,6 +11,7 @@ const proKitPath = join(publicDir, "pro-kit.html");
 const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
 const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digital-download-fulfillment.html");
 const nextjs405GuidePath = join(publicDir, "guides", "nextjs-webhook-405-lemon-squeezy.html");
+const webhook500GuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-500-vercel-nextjs.html");
 const statusPath = join(publicDir, "status.html");
 const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
@@ -52,6 +53,9 @@ if (!existsSync(digitalDownloadGuidePath)) {
 if (!existsSync(nextjs405GuidePath)) {
   issues.push("Missing public/guides/nextjs-webhook-405-lemon-squeezy.html.");
 }
+if (!existsSync(webhook500GuidePath)) {
+  issues.push("Missing public/guides/lemon-squeezy-webhook-500-vercel-nextjs.html.");
+}
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshooting.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
@@ -83,6 +87,7 @@ const digitalDownloadGuideHtml = existsSync(digitalDownloadGuidePath)
   ? readFileSync(digitalDownloadGuidePath, "utf8")
   : "";
 const nextjs405GuideHtml = existsSync(nextjs405GuidePath) ? readFileSync(nextjs405GuidePath, "utf8") : "";
+const webhook500GuideHtml = existsSync(webhook500GuidePath) ? readFileSync(webhook500GuidePath, "utf8") : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troubleshootingPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
@@ -218,6 +223,20 @@ if (
   !nextjs405GuideHtml.includes("Never paste Lemon Squeezy API keys")
 ) {
   issues.push("Next.js 405 guide is missing method, POST export, raw-body, cURL, replay, safety, or conversion links.");
+}
+if (
+  !webhook500GuideHtml.includes("Fix Lemon Squeezy Webhook 500 on Vercel and Next.js") ||
+  !webhook500GuideHtml.includes("missing env vars") ||
+  !webhook500GuideHtml.includes("timingSafeEqual") ||
+  !webhook500GuideHtml.includes("request.text()") ||
+  !webhook500GuideHtml.includes("Retryable fulfillment failure") ||
+  !webhook500GuideHtml.includes("duplicate replay") ||
+  !webhook500GuideHtml.includes("vercel-lemon-squeezy-webhook-debugger.html") ||
+  !webhook500GuideHtml.includes("lemon-squeezy-production-checkout-readiness-report.html") ||
+  !webhook500GuideHtml.includes("pro-kit.html") ||
+  !webhook500GuideHtml.includes("Never paste Lemon Squeezy API keys")
+) {
+  issues.push("Webhook 500 guide is missing env, timingSafeEqual, raw-body, retry, replay, safety, or conversion links.");
 }
 if (
   !proKitHtml.includes("Checkout Launch Gates") ||

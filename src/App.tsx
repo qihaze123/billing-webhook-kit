@@ -52,6 +52,7 @@ const guideLinks = [
   { href: "tools/nextjs-lemon-squeezy-raw-body-audit.html", label: "Next.js Lemon Squeezy raw body audit" },
   { href: "tools/vercel-lemon-squeezy-webhook-debugger.html", label: "Vercel Lemon Squeezy webhook debugger" },
   { href: "guides/nextjs-webhook-405-lemon-squeezy.html", label: "Fix Next.js 405 Lemon Squeezy webhooks" },
+  { href: "guides/lemon-squeezy-webhook-500-vercel-nextjs.html", label: "Fix Lemon Squeezy webhook 500 on Vercel" },
   { href: "guides/lemon-squeezy-x-signature-invalid.html", label: "Fix invalid x-signature errors" },
   { href: "guides/lemon-squeezy-order-created-fixture.html", label: "order_created webhook fixture" },
   { href: "guides/lemon-squeezy-checkout-smoke-test.html", label: "Lemon Squeezy checkout smoke test" },
@@ -1434,6 +1435,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             405 fix
           </a>
+          <a className="ghost-link" href="guides/lemon-squeezy-webhook-500-vercel-nextjs.html">
+            500 fix
+          </a>
           <a className="ghost-link" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score
           </a>
@@ -2340,6 +2344,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             Fix Next.js 405 webhook routes
+          </a>
+          <a className="inline-cta" href="guides/lemon-squeezy-webhook-500-vercel-nextjs.html">
+            Fix Vercel webhook 500s
           </a>
           <a className="inline-cta" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score launch readiness
