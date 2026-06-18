@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Production Checkout Readiness Report | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only Lemon Squeezy production checkout readiness report for live key setup, CN¥69 price, PayPal checkout, signed webhooks, duplicate replay, private delivery, refund rollback, and release review."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy production checkout checklist, Lemon Squeezy live checkout readiness, PayPal checkout webhook test, billing webhook launch report, Lemon Squeezy go live checklist"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Production Checkout Readiness Report" />
+    <meta
+      property="og:description"
+      content="A browser-only go-live report for live checkout setup, CN¥69 price, PayPal, paid webhooks, duplicate replay, delivery, refund rollback, and release evidence."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Production Checkout Readiness Report" />
+    <meta
+      name="twitter:description"
+      content="Generate a secret-free production checkout readiness report before sharing a Lemon Squeezy buy link."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Production Checkout Readiness Report",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html",
+        "description": "Generate a browser-only Lemon Squeezy production checkout readiness report for live key setup, CN¥69 price, PayPal checkout, signed webhooks, duplicate replay, private delivery, refund rollback, and release review.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .page {
+        width: min(1180px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 54px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 30px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .gate span,
+      .summary span,
+      .field span {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 980px;
+        font-size: clamp(2.25rem, 7vw, 5.25rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.24rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 830px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.62;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+        gap: 16px;
+        align-items: start;
+        margin-top: 26px;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 8px 8px 0 rgba(18, 19, 15, 0.1);
+        padding: 18px;
+      }
+
+      .gate-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .gate {
+        display: grid;
+        gap: 10px;
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        padding: 14px;
+        background: #fbfcf5;
+      }
+
+      .gate label {
+        display: grid;
+        grid-template-columns: 22px minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
+        font-weight: 900;
+        line-height: 1.25;
+      }
+
+      .gate input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--green);
+      }
+
+      .gate p {
+        color: var(--muted);
+        line-height: 1.48;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fff;
+        color: var(--ink);
+        padding: 11px 12px;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+
+      .summary {
+        display: grid;
+        gap: 12px;
+        position: sticky;
+        top: 16px;
+        background: var(--charcoal);
+        color: #f7faed;
+      }
+
+      .score {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(247, 250, 237, 0.18);
+      }
+
+      .score strong {
+        font-size: 3.4rem;
+        line-height: 0.9;
+      }
+
+      .summary p {
+        color: #dbe2d2;
+        line-height: 1.55;
+      }
+
+      .verdict {
+        display: inline-flex;
+        width: fit-content;
+        border: 1px solid rgba(247, 250, 237, 0.3);
+        border-radius: 999px;
+        padding: 7px 10px;
+        color: var(--acid);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button,
+      .button {
+        min-height: 43px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        box-shadow: 4px 4px 0 var(--line);
+        padding: 0 14px;
+        font-weight: 900;
+        font: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .button.secondary,
+      button.secondary {
+        background: var(--panel);
+      }
+
+      .report {
+        width: 100%;
+        min-height: 320px;
+        margin-top: 16px;
+        border: 1px solid rgba(247, 250, 237, 0.22);
+        border-radius: 8px;
+        background: #0e100d;
+        color: #f7faed;
+        padding: 14px;
+        overflow: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .links a {
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 14px;
+        text-decoration: none;
+      }
+
+      .links strong {
+        display: block;
+        line-height: 1.25;
+      }
+
+      .links span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+        font-size: 0.93rem;
+      }
+
+      footer {
+        margin-top: 28px;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 0.93rem;
+      }
+
+      @media (max-width: 920px) {
+        .layout,
+        .gate-grid,
+        .links {
+          grid-template-columns: 1fr;
+        }
+
+        .summary {
+          position: static;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1180px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .field-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .actions,
+        button,
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html">Evidence</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Production checkout</p>
+      <h1>Lemon Squeezy production checkout readiness report</h1>
+      <p class="lead">
+        Use this before a public buy link goes live. The report keeps live key setup, CN¥69 price, PayPal checkout, paid webhooks, duplicate replay, private delivery, refund rollback, support notes, and release evidence in one secret-free checklist.
+      </p>
+
+      <section class="layout" aria-label="Production checkout readiness generator">
+        <div class="panel">
+          <div class="field-grid">
+            <label class="field">
+              <span>Product name</span>
+              <input id="product-name" type="text" value="BillingWebhookKit Pro" />
+            </label>
+            <label class="field">
+              <span>Launch price</span>
+              <input id="launch-price" type="text" value="CN¥69.00" />
+            </label>
+            <label class="field">
+              <span>Checkout URL state</span>
+              <input id="checkout-state" type="text" value="awaiting live key / not public yet" />
+            </label>
+            <label class="field">
+              <span>Release owner</span>
+              <input id="release-owner" type="text" value="solo founder" />
+            </label>
+          </div>
+
+          <div class="gate-grid" aria-label="Production launch gates">
+            <article class="gate">
+              <span>Live config</span>
+              <label><input type="checkbox" data-gate="liveKey" /> Live API key, store ID, variant ID, and production env are set outside public code.</label>
+              <p>No key values should appear in logs, commits, reports, screenshots, or public pages.</p>
+            </article>
+            <article class="gate">
+              <span>Published variant</span>
+              <label><input type="checkbox" data-gate="variant" /> Production variant is published and configured for the intended product.</label>
+              <p>Use a real published variant, not a stale test-mode checkout or copied historical URL.</p>
+            </article>
+            <article class="gate">
+              <span>Price and currency</span>
+              <label><input type="checkbox" data-gate="price" /> Checkout price matches CN¥69.00 without forcing a mismatched currency.</label>
+              <p>Record minor units, store currency policy, and whether custom pricing is disabled or intentionally used.</p>
+            </article>
+            <article class="gate">
+              <span>PayPal checkout</span>
+              <label><input type="checkbox" data-gate="paypal" /> PayPal checkout renders from the production checkout URL.</label>
+              <p>Do not submit a payment during this report unless the owner is intentionally running a live smoke test.</p>
+            </article>
+            <article class="gate">
+              <span>Signed webhook</span>
+              <label><input type="checkbox" data-gate="webhook" /> A paid production event reaches the deployed webhook route and passes x-signature verification.</label>
+              <p>Use only event IDs or redacted references in public notes.</p>
+            </article>
+            <article class="gate">
+              <span>Duplicate replay</span>
+              <label><input type="checkbox" data-gate="replay" /> Replaying the same paid event runs fulfillment side effects exactly once.</label>
+              <p>This covers duplicate emails, duplicate license grants, duplicate ZIP delivery, and repeated entitlement writes.</p>
+            </article>
+            <article class="gate">
+              <span>Private delivery</span>
+              <label><input type="checkbox" data-gate="delivery" /> Buyer delivery uses a private ZIP or private license path with checksum evidence.</label>
+              <p>The paid archive should not be published in GitHub Pages or a public release asset.</p>
+            </article>
+            <article class="gate">
+              <span>Refund rollback</span>
+              <label><input type="checkbox" data-gate="refund" /> Refund or chargeback events revoke or annotate access once, with support notes.</label>
+              <p>Rollback behavior should be repeat-safe and not expose customer data in public reports.</p>
+            </article>
+            <article class="gate">
+              <span>Support path</span>
+              <label><input type="checkbox" data-gate="support" /> Delivery, resend, duplicate purchase, broken archive, and refund boundaries are documented.</label>
+              <p>Link a buyer-facing policy page before checkout is shared.</p>
+            </article>
+            <article class="gate">
+              <span>Release evidence</span>
+              <label><input type="checkbox" data-gate="evidence" /> Checkout smoke, event coverage, fulfillment, refund, and email reports are attached to release review.</label>
+              <p>Keep the evidence packet secret-free and suitable for PR review.</p>
+            </article>
+          </div>
+
+          <label class="field" style="margin-top: 16px">
+            <span>Evidence notes</span>
+            <textarea id="notes">Use fake fixtures in public examples. Keep production API keys, webhook secrets, customer data, private checkout URLs, and private download links out of this report.</textarea>
+          </label>
+        </div>
+
+        <aside class="panel summary" aria-label="Generated readiness report">
+          <span>Readiness</span>
+          <div class="score">
+            <div>
+              <strong id="score">0%</strong>
+              <p id="summary-copy">No launch gates are checked yet.</p>
+            </div>
+            <div class="verdict" id="verdict">HOLD</div>
+          </div>
+          <p>
+            A `READY` report means the launch evidence is complete enough for manual owner review. It is not a substitute for a real production purchase and Lemon Squeezy revenue verification.
+          </p>
+          <div class="actions">
+            <button id="copy-report" type="button">Copy report</button>
+            <button id="download-report" class="secondary" type="button">Download .md</button>
+          </div>
+          <pre class="report" id="report" aria-live="polite"></pre>
+        </aside>
+      </section>
+
+      <section class="links" aria-label="Production launch next steps">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html">
+          <strong>Open the launch evidence pack</strong>
+          <span>Collect checkout smoke, event coverage, fulfillment proof, refund rollback, delivery email, free sample, and Pro Kit review links.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">
+          <strong>Generate checkout smoke evidence</strong>
+          <span>Record checkout URL, price visibility, paid webhook delivery, signature gate, duplicate replay, and fulfillment notes.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CN¥69 Pro Kit</strong>
+          <span>Inspect the paid package manifest, file count, checksum, local tests, delivery policy, and current checkout waiting state.</span>
+        </a>
+      </section>
+
+      <footer>
+        This tool runs entirely in the browser. Do not paste production API keys, webhook secrets, customer emails, order identifiers, private checkout URLs, or private download links into public reports.
+      </footer>
+    </main>
+
+    <script>
+      const gates = Array.from(document.querySelectorAll("[data-gate]"));
+      const scoreEl = document.getElementById("score");
+      const verdictEl = document.getElementById("verdict");
+      const summaryEl = document.getElementById("summary-copy");
+      const reportEl = document.getElementById("report");
+      const fields = ["product-name", "launch-price", "checkout-state", "release-owner", "notes"].map((id) =>
+        document.getElementById(id)
+      );
+
+      function checkedGateLabels() {
+        return gates
+          .filter((gate) => gate.checked)
+          .map((gate) => gate.closest(".gate").querySelector("label").innerText.trim());
+      }
+
+      function missingGateLabels() {
+        return gates
+          .filter((gate) => !gate.checked)
+          .map((gate) => gate.closest(".gate").querySelector("span").innerText.trim());
+      }
+
+      function buildReport() {
+        const checked = checkedGateLabels();
+        const missing = missingGateLabels();
+        const score = Math.round((checked.length / gates.length) * 100);
+        const verdict = score === 100 ? "READY" : score >= 70 ? "REVIEW" : "HOLD";
+        const productName = document.getElementById("product-name").value.trim() || "Unnamed product";
+        const launchPrice = document.getElementById("launch-price").value.trim() || "not recorded";
+        const checkoutState = document.getElementById("checkout-state").value.trim() || "not recorded";
+        const releaseOwner = document.getElementById("release-owner").value.trim() || "not recorded";
+        const notes = document.getElementById("notes").value.trim() || "No notes recorded.";
+
+        scoreEl.textContent = `${score}%`;
+        verdictEl.textContent = verdict;
+        summaryEl.textContent =
+          verdict === "READY"
+            ? "All production checkout launch gates are checked."
+            : `${missing.length} launch gate${missing.length === 1 ? "" : "s"} still need evidence.`;
+
+        const report = `# Lemon Squeezy Production Checkout Readiness Report
+
+Product: ${productName}
+Launch price: ${launchPrice}
+Checkout URL state: ${checkoutState}
+Release owner: ${releaseOwner}
+Verdict: ${verdict}
+Score: ${score}%
+
+## Passed Gates
+${checked.length ? checked.map((item) => `- ${item}`).join("\n") : "- None yet."}
+
+## Missing Gates
+${missing.length ? missing.map((item) => `- ${item}`).join("\n") : "- No missing gates."}
+
+## Evidence Notes
+${notes}
+
+## Release Safety
+- Do not publish production API keys, webhook secrets, customer data, private checkout URLs, or private download links.
+- Confirm the checkout uses the production Lemon Squeezy environment before sharing a buy link.
+- Verify one real production order and positive Lemon Squeezy revenue before treating the revenue loop as complete.
+`;
+
+        reportEl.textContent = report;
+        return report;
+      }
+
+      gates.forEach((gate) => gate.addEventListener("change", buildReport));
+      fields.forEach((field) => field.addEventListener("input", buildReport));
+      document.getElementById("copy-report").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(buildReport());
+      });
+      document.getElementById("download-report").addEventListener("click", () => {
+        const blob = new Blob([buildReport()], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "lemon-squeezy-production-checkout-readiness-report.md";
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+      buildReport();
+    </script>
+  </body>
+</html>

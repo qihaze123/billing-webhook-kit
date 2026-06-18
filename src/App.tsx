@@ -1592,6 +1592,10 @@ Header casing: x-signature / X-Signature`,
             Review launch evidence
           </a>
 
+          <a className="wide-cta wide-cta--secondary" href="tools/lemon-squeezy-production-checkout-readiness-report.html">
+            Production checkout report
+          </a>
+
           <a className="wide-cta wide-cta--secondary" href="status.html">
             Verify status
           </a>
@@ -2254,6 +2258,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="billing-webhook-launch-evidence-pack.html">
             Review the launch evidence pack
+          </a>
+          <a className="inline-cta" href="tools/lemon-squeezy-production-checkout-readiness-report.html">
+            Generate production checkout readiness
           </a>
           <a className="inline-cta" href="status.html">
             Verify checkout and package status

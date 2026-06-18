@@ -22,6 +22,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
+  `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
   `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
   `${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`,
   `${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`,
@@ -130,6 +131,7 @@ const [
   costCalculator,
   readinessScorecard,
   checkoutSmokeReport,
+  productionCheckoutReadinessReport,
   fulfillmentChecklist,
   refundRollbackReport,
   deliveryEmailTemplates,
@@ -166,6 +168,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`),
@@ -227,6 +230,13 @@ const issues = [
   ...(checkoutSmokeReport.ok
     ? []
     : [`checkout smoke test report page returned HTTP ${checkoutSmokeReport.status ?? "failed"}.`]),
+  ...(productionCheckoutReadinessReport.ok
+    ? []
+    : [
+        `production checkout readiness report page returned HTTP ${
+          productionCheckoutReadinessReport.status ?? "failed"
+        }.`
+      ]),
   ...(fulfillmentChecklist.ok
     ? []
     : [`fulfillment checklist generator page returned HTTP ${fulfillmentChecklist.status ?? "failed"}.`]),
@@ -265,7 +275,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 63 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 63.`]),
+  ...(sitemapUrls.length >= 64 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 64.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -312,6 +322,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`)
     ? []
     : ["llms.txt is missing the standalone checkout smoke test report URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`)
+    ? []
+    : ["llms.txt is missing the standalone production checkout readiness report URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`)
     ? []
     : ["llms.txt is missing the standalone fulfillment checklist generator URL."]),
@@ -367,6 +380,7 @@ const issues = [
     : ["Search Console sitemap handoff page is missing owner handoff values, crawl files, or manual-boundary copy."]),
   ...(launchEvidencePack.text.includes("Billing webhook launch evidence pack") &&
   launchEvidencePack.text.includes("checkout smoke") &&
+  launchEvidencePack.text.includes("production checkout readiness") &&
   launchEvidencePack.text.includes("event coverage") &&
   launchEvidencePack.text.includes("fulfillment proof") &&
   launchEvidencePack.text.includes("refund rollback") &&
@@ -388,6 +402,7 @@ const issues = [
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
   toolIndex.text.includes("Checkout and fulfillment launch decision tools") &&
   toolIndex.text.includes("Billing webhook launch evidence pack") &&
+  toolIndex.text.includes("Lemon Squeezy production checkout readiness report") &&
   toolIndex.text.includes("Launch lane") &&
   toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
   toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
@@ -400,6 +415,7 @@ const issues = [
   toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
+  toolIndex.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
   toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   toolIndex.text.includes("Lemon Squeezy refund rollback report") &&
   toolIndex.text.includes("Lemon Squeezy delivery email template generator") &&
@@ -475,6 +491,19 @@ const issues = [
   checkoutSmokeReport.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["checkout smoke test report page is missing report copy, report logic, or conversion links."]),
+  ...(productionCheckoutReadinessReport.text.includes("Lemon Squeezy production checkout readiness report") &&
+  productionCheckoutReadinessReport.text.includes("buildReport") &&
+  productionCheckoutReadinessReport.text.includes("CN¥69") &&
+  productionCheckoutReadinessReport.text.includes("PayPal checkout") &&
+  productionCheckoutReadinessReport.text.includes("duplicate replay") &&
+  productionCheckoutReadinessReport.text.includes("private delivery") &&
+  productionCheckoutReadinessReport.text.includes("refund rollback") &&
+  productionCheckoutReadinessReport.text.includes("pro-kit.html") &&
+  productionCheckoutReadinessReport.text.includes("billing-webhook-launch-evidence-pack.html")
+    ? []
+    : [
+        "production checkout readiness report page is missing report logic, checkout readiness copy, safety copy, or conversion links."
+      ]),
   ...(fulfillmentChecklist.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   fulfillmentChecklist.text.includes("buildFulfillmentReport") &&
   fulfillmentChecklist.text.includes("private ZIP") &&
@@ -575,6 +604,9 @@ const issues = [
   ...(home.text.includes("billing-webhook-launch-evidence-pack.html")
     ? []
     : ["homepage is missing the launch evidence pack link."]),
+  ...(home.text.includes("lemon-squeezy-production-checkout-readiness-report.html")
+    ? []
+    : ["homepage is missing the production checkout readiness report link."]),
   ...(home.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   home.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
   home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html")
@@ -654,6 +686,7 @@ const result = {
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
+    productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,
     fulfillmentChecklist: fulfillmentChecklist.status,
     refundRollbackReport: refundRollbackReport.status,
     deliveryEmailTemplates: deliveryEmailTemplates.status,

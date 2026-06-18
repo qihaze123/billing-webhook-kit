@@ -207,6 +207,7 @@ if (
   !toolIndexHtml.includes("Checkout and fulfillment launch decision tools") ||
   !toolIndexHtml.includes("Launch lane") ||
   !toolIndexHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
+  !toolIndexHtml.includes("lemon-squeezy-production-checkout-readiness-report.html") ||
   !toolIndexHtml.includes("lemon-squeezy-fulfillment-checklist-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-delivery-email-template-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-webhook-event-coverage-matrix.html") ||
