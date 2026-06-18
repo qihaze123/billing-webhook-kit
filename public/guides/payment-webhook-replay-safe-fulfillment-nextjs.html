@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Replay-Safe Payment Webhook Fulfillment in Next.js | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Build replay-safe payment webhook fulfillment in Next.js with raw-body signature verification, paid-state checks, idempotency keys, delivery locks, checksum evidence, duplicate replay tests, and refund rollback."
+    />
+    <meta
+      name="keywords"
+      content="replay safe webhook fulfillment Next.js, payment webhook fulfillment idempotency, duplicate webhook delivery Next.js, paid webhook delivery lock, SaaS fulfillment webhook test"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Replay-Safe Payment Webhook Fulfillment in Next.js" />
+    <meta
+      property="og:description"
+      content="Make paid webhook delivery safe against retries, duplicate events, delivery email repeats, private ZIP resends, and refund rollback."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Replay-Safe Payment Webhook Fulfillment in Next.js" />
+    <meta
+      name="twitter:description"
+      content="Use paid-state checks, idempotency keys, delivery locks, checksum evidence, and duplicate replay tests before checkout goes live."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(960px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 850; }
+      h1 { max-width: 920px; margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { max-width: 790px; margin: 18px 0 0; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 36px; }
+      .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid var(--line); border-radius: 7px; padding: 0 16px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      .cta.secondary { background: #fff; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      h3 { margin: 0 0 8px; font-size: 1.03rem; }
+      p, li { line-height: 1.72; }
+      p { margin: 0; }
+      ul { margin: 10px 0 0; padding-left: 22px; }
+      code { border: 1px solid #cfd6c5; border-radius: 5px; background: #fff; padding: 1px 5px; font-family: Andale Mono, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+      pre { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #10120f; color: #f7faed; padding: 16px; line-height: 1.55; }
+      .matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+      .card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .card strong { display: block; margin-bottom: 8px; }
+      .faq, .conversion-panel, .related-guides { border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq, .related-guides { background: #fff; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; border-top: 1px solid #d8ded2; padding-top: 18px; }
+      .conversion-panel { background: #10120f; color: #f7faed; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions, .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a, .related-grid a { display: block; min-height: 124px; border-radius: 7px; padding: 14px; text-decoration: none; }
+      .conversion-actions a { border: 1px solid #f7faed; background: #1d2119; }
+      .related-grid a { border: 1px solid #cfd6c5; background: #f9faf4; }
+      .conversion-actions strong, .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .conversion-actions strong { color: var(--accent); }
+      .conversion-actions span, .related-grid span { display: block; font-size: .93rem; line-height: 1.5; }
+      .conversion-actions span { color: #dfe6d6; }
+      .related-grid span { color: var(--muted); }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+      @media (max-width: 720px) { .matrix, .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } .cta { width: 100%; } }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Replay-Safe Payment Webhook Fulfillment in Next.js","description":"Build replay-safe payment webhook fulfillment in Next.js with raw-body signature verification, paid-state checks, idempotency keys, delivery locks, checksum evidence, duplicate replay tests, and refund rollback.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you make webhook fulfillment replay-safe?","acceptedAnswer":{"@type":"Answer","text":"Verify the raw-body signature, confirm the paid state and expected variant, derive an idempotency key from the provider object, acquire a delivery lock, run fulfillment once, then record checksum and delivery evidence."}},{"@type":"Question","name":"Should duplicate paid webhooks resend download emails?","acceptedAnswer":{"@type":"Answer","text":"No. Duplicate paid events should return success after confirming the fulfillment record already exists. Resends should be a separate support path with explicit buyer evidence and rate limits."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Replay-Safe Payment Webhook Fulfillment in Next.js","item":"https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html"}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Replay-safe payment webhook fulfillment in Next.js</h1>
+      <p class="lead">The risky part of paid checkout is not only signature verification. It is the moment a paid event sends a private ZIP, license key, email, or entitlement. Build fulfillment so provider retries cannot repeat the delivery.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">Generate fulfillment checklist</a>
+        <a class="cta secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">Build idempotency key</a>
+      </div>
+
+      <section>
+        <h2>Replay-safe fulfillment flow</h2>
+        <div class="matrix">
+          <div class="card">
+            <strong>Verify before trust</strong>
+            <p>Read <code>await request.text()</code>, verify the provider signature, and reject mutated raw bodies before looking at paid fields.</p>
+          </div>
+          <div class="card">
+            <strong>Check paid state</strong>
+            <p>Confirm event type, paid status, expected product or variant, amount, currency, and customer mapping before delivery starts.</p>
+          </div>
+          <div class="card">
+            <strong>Lock delivery</strong>
+            <p>Create a unique fulfillment row keyed by provider object ID, line item, and delivery action before sending email or creating a license.</p>
+          </div>
+          <div class="card">
+            <strong>Record evidence</strong>
+            <p>Store delivery timestamp, checksum, template version, support note, and rollback state without exposing API keys or private download URLs.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Next.js handler shape</h2>
+        <p>Keep external side effects behind a process-once guard. A repeated provider event should hit the same fulfillment record and return success without repeating delivery.</p>
+        <pre><code>export async function POST(request: Request) {
+  const rawBody = await request.text();
+  const signature = request.headers.get("x-signature");
+  const event = verifyPaymentEvent(rawBody, signature);
+
+  assertPaidVariant(event, "billing-webhook-kit-pro");
+
+  await runOnce(`fulfill:${event.provider}:${event.orderId}`, async () => {
+    await deliverPrivateZip({
+      orderId: event.orderId,
+      customerId: event.customerId,
+      checksum: PRO_KIT_SHA256
+    });
+  });
+
+  return new Response("ok", { status: 200 });
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Tests before checkout traffic</h2>
+        <ul>
+          <li>Signed paid event creates one fulfillment row and one delivery evidence record.</li>
+          <li>The same event replayed three times skips email, license, ZIP, and entitlement side effects after the first run.</li>
+          <li>Wrong variant, unpaid status, wrong currency, or mutated raw body never reaches delivery code.</li>
+          <li>Delivery failure records a retryable state without granting access twice.</li>
+          <li>Refund rollback can revoke or mark the fulfillment record without deleting audit evidence.</li>
+        </ul>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>How do you make webhook fulfillment replay-safe?</h3>
+          <p>Verify the raw-body signature, confirm the paid state and expected variant, derive an idempotency key from the provider object, acquire a delivery lock, run fulfillment once, then record checksum and delivery evidence.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Should duplicate paid webhooks resend download emails?</h3>
+          <p>No. Duplicate paid events should return success after confirming the fulfillment record already exists. Resends should be a separate support path with explicit buyer evidence and rate limits.</p>
+        </div>
+      </section>
+
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Turn fulfillment safety into launch evidence</h2>
+          <p>The free fulfillment checklist and idempotency tools cover the delivery path. The CNY 69 Pro Kit is for teams that want copy-ready fixtures, replay tests, delivery evidence templates, and rollback notes already packaged.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">
+            <strong>Generate fulfillment report</strong>
+            <span>Document paid event proof, variant match, private delivery, idempotency, checksum evidence, and rollback notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CNY 69 digital kit; checkout stays disabled until live payment configuration is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="related-guides" aria-label="Related fulfillment guides">
+        <div>
+          <h2>Related fulfillment guides</h2>
+          <p>Use these adjacent pages to cover private delivery, retries, refunds, and launch readiness.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html">
+            <strong>Lemon Squeezy digital download fulfillment</strong>
+            <span>Deliver private ZIPs, license files, or digital products after paid checkout.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html">
+            <strong>Lemon Squeezy retry and idempotency</strong>
+            <span>Handle duplicate order_created delivery with process-once fulfillment.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-dead-letter-queue-nextjs.html">
+            <strong>Payment webhook dead letter queue</strong>
+            <span>Store failed events, replay commands, and safe recovery notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html">
+            <strong>Lemon Squeezy refund webhook test</strong>
+            <span>Verify rollback, support evidence, and duplicate replay safety.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit examples use fake fixtures and fake signing secrets. Keep production API keys, webhook secrets, customer records, invoice IDs, and private checkout links out of public reports.
+      </footer>
+    </main>
+  </body>
+</html>

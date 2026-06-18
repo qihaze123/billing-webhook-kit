@@ -199,6 +199,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - BillingWebhookKit Pro fit reports for deciding whether free tools are enough, launch evidence is missing, or CN¥69 is a reasonable shortcut
 - Digital download fulfillment after Lemon Squeezy checkout with private ZIP delivery, paid-state checks, idempotency, checksum evidence, and support-policy links
 - PR-ready fulfillment checklist reports for signed paid events, private delivery, duplicate replay safety, buyer evidence, and rollback notes
+- Replay-safe fulfillment checks for paid-state verification, delivery locks, checksum evidence, duplicate webhook delivery, and refund rollback
 - PR-ready production checkout readiness reports for live key setup, CN¥69 price, PayPal checkout, paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence
 - PR-ready PayPal live checkout reports for CN¥69 price visibility, PayPal checkout, paid webhook delivery, x-signature verification, duplicate replay, private delivery, refund rollback, support evidence, and owner approval
 - Vercel and Next.js Lemon Squeezy webhook launch debugging for 404, 405, 500, missing delivery, invalid x-signature, raw-body regressions, env vars, idempotency, and weak release evidence
@@ -302,6 +303,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-audit-log-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-dead-letter-queue-nextjs.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html

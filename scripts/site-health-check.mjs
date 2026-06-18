@@ -55,6 +55,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`,
   `${siteUrl}/guides/payment-webhook-audit-log-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-dead-letter-queue-nextjs.html`,
+  `${siteUrl}/guides/payment-webhook-replay-safe-fulfillment-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
   `${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`,
@@ -193,6 +194,7 @@ const [
   nextjsRefundRollbackGuide,
   webhookAuditLogGuide,
   webhookDeadLetterQueueGuide,
+  replaySafeFulfillmentGuide,
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
   stripeRefundRollbackGuide,
@@ -262,6 +264,7 @@ const [
   fetchText(`${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`),
   fetchText(`${siteUrl}/guides/payment-webhook-audit-log-nextjs.html`),
   fetchText(`${siteUrl}/guides/payment-webhook-dead-letter-queue-nextjs.html`),
+  fetchText(`${siteUrl}/guides/payment-webhook-replay-safe-fulfillment-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`),
@@ -434,6 +437,13 @@ const issues = [
     : [
         `Payment webhook dead letter queue guide returned HTTP ${
           webhookDeadLetterQueueGuide.status ?? "failed"
+        }.`
+      ]),
+  ...(replaySafeFulfillmentGuide.ok
+    ? []
+    : [
+        `Replay-safe payment webhook fulfillment guide returned HTTP ${
+          replaySafeFulfillmentGuide.status ?? "failed"
         }.`
       ]),
   ...(stripeNextjsGuide.ok
@@ -624,6 +634,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy refund webhook test guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/payment-webhook-replay-safe-fulfillment-nextjs.html`)
+    ? []
+    : ["llms.txt is missing the replay-safe payment webhook fulfillment guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
@@ -778,10 +791,12 @@ const issues = [
   guideIndex.text.includes("Payment Webhook Test Tool Alternatives") &&
   guideIndex.text.includes("payment-webhook-test-tool-alternatives.html") &&
   guideIndex.text.includes("Stripe Webhook Order of Events in Next.js") &&
-  guideIndex.text.includes("stripe-webhook-order-of-events-nextjs.html")
+  guideIndex.text.includes("stripe-webhook-order-of-events-nextjs.html") &&
+  guideIndex.text.includes("Replay-Safe Payment Webhook Fulfillment in Next.js") &&
+  guideIndex.text.includes("payment-webhook-replay-safe-fulfillment-nextjs.html")
     ? []
     : [
-        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, retry idempotency, alternatives, or Stripe webhook order guide."
+        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, retry idempotency, alternatives, Stripe webhook order, or replay-safe fulfillment guide."
       ]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
@@ -1112,6 +1127,19 @@ const issues = [
     : [
         "Payment webhook dead letter queue guide is missing DLQ, replay, idempotency, schema, or conversion copy."
       ]),
+  ...(replaySafeFulfillmentGuide.text.includes("Replay-safe payment webhook fulfillment in Next.js") &&
+  replaySafeFulfillmentGuide.text.includes("paid-state checks") &&
+  replaySafeFulfillmentGuide.text.includes("delivery locks") &&
+  replaySafeFulfillmentGuide.text.includes("checksum evidence") &&
+  replaySafeFulfillmentGuide.text.includes("duplicate replay") &&
+  replaySafeFulfillmentGuide.text.includes("refund rollback") &&
+  replaySafeFulfillmentGuide.text.includes("lemon-squeezy-fulfillment-checklist-generator.html") &&
+  replaySafeFulfillmentGuide.text.includes("webhook-idempotency-key-generator.html") &&
+  replaySafeFulfillmentGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Replay-safe fulfillment guide is missing paid-state, delivery lock, checksum, replay, rollback, or conversion copy."
+      ]),
   ...(webhookAuditLogGuide.text.includes("Payment webhook audit log in Next.js") &&
   webhookAuditLogGuide.text.includes("raw_body_sha256") &&
   webhookAuditLogGuide.text.includes("signature_verified") &&
@@ -1417,6 +1445,7 @@ const result = {
     nextjsRefundRollbackGuide: nextjsRefundRollbackGuide.status,
     webhookAuditLogGuide: webhookAuditLogGuide.status,
     webhookDeadLetterQueueGuide: webhookDeadLetterQueueGuide.status,
+    replaySafeFulfillmentGuide: replaySafeFulfillmentGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,
     stripeRefundRollbackGuide: stripeRefundRollbackGuide.status,
