@@ -18,6 +18,7 @@ const fulfillmentChecklistPath = join(publicDir, "tools", "lemon-squeezy-fulfill
 const deliveryEmailTemplatesPath = join(publicDir, "tools", "lemon-squeezy-delivery-email-template-generator.html");
 const eventCoverageMatrixPath = join(publicDir, "tools", "lemon-squeezy-webhook-event-coverage-matrix.html");
 const paypalLiveCheckoutReportPath = join(publicDir, "tools", "lemon-squeezy-paypal-live-checkout-report.html");
+const vercelLemonSqueezyDebuggerPath = join(publicDir, "tools", "vercel-lemon-squeezy-webhook-debugger.html");
 const checkoutPath = join(publicDir, "checkout.json");
 const expectedFreeSampleSha256 = "8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b";
 
@@ -62,6 +63,9 @@ if (!existsSync(eventCoverageMatrixPath)) {
 if (!existsSync(paypalLiveCheckoutReportPath)) {
   issues.push("Missing public/tools/lemon-squeezy-paypal-live-checkout-report.html.");
 }
+if (!existsSync(vercelLemonSqueezyDebuggerPath)) {
+  issues.push("Missing public/tools/vercel-lemon-squeezy-webhook-debugger.html.");
+}
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
@@ -85,6 +89,9 @@ const eventCoverageMatrixHtml = existsSync(eventCoverageMatrixPath)
   : "";
 const paypalLiveCheckoutReportHtml = existsSync(paypalLiveCheckoutReportPath)
   ? readFileSync(paypalLiveCheckoutReportPath, "utf8")
+  : "";
+const vercelLemonSqueezyDebuggerHtml = existsSync(vercelLemonSqueezyDebuggerPath)
+  ? readFileSync(vercelLemonSqueezyDebuggerPath, "utf8")
   : "";
 const publicZipFiles = existsSync(publicDir)
   ? walkFiles(publicDir).filter((path) => path.toLowerCase().endsWith(".zip"))
@@ -219,6 +226,7 @@ if (
   !toolIndexHtml.includes("lemon-squeezy-fulfillment-checklist-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-delivery-email-template-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-webhook-event-coverage-matrix.html") ||
+  !toolIndexHtml.includes("vercel-lemon-squeezy-webhook-debugger.html") ||
   !toolIndexHtml.includes("billing-webhook-launch-readiness-scorecard.html") ||
   !toolIndexHtml.includes("billing-webhook-debug-cost-calculator.html") ||
   !toolIndexHtml.includes("nextjs-lemon-squeezy-raw-body-audit.html") ||
@@ -287,6 +295,17 @@ if (
   !paypalLiveCheckoutReportHtml.includes("lemon-squeezy-production-checkout-readiness-report.html")
 ) {
   issues.push("Standalone PayPal live checkout report is missing report logic, PayPal launch copy, safety copy, or conversion links.");
+}
+if (
+  !vercelLemonSqueezyDebuggerHtml.includes("Vercel Lemon Squeezy Webhook Debugger") ||
+  !vercelLemonSqueezyDebuggerHtml.includes("buildVercelLemonSqueezyWebhookReport") ||
+  !vercelLemonSqueezyDebuggerHtml.includes("404") ||
+  !vercelLemonSqueezyDebuggerHtml.includes("405") ||
+  !vercelLemonSqueezyDebuggerHtml.includes("x-signature") ||
+  !vercelLemonSqueezyDebuggerHtml.includes("pro-kit.html") ||
+  !vercelLemonSqueezyDebuggerHtml.includes("No API key")
+) {
+  issues.push("Standalone Vercel Lemon Squeezy debugger is missing diagnostic logic, Vercel failure copy, safety copy, or conversion links.");
 }
 if (
   !eventCoverageMatrixHtml.includes("Lemon Squeezy webhook event coverage matrix") ||

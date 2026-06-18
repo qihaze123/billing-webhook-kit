@@ -21,6 +21,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/webhook-replay-curl-generator.html`,
   `${siteUrl}/tools/nextjs-webhook-handler-generator.html`,
   `${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`,
+  `${siteUrl}/tools/vercel-lemon-squeezy-webhook-debugger.html`,
   `${siteUrl}/tools/webhook-entitlement-decision-matrix.html`,
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
@@ -142,6 +143,7 @@ const [
   replayGenerator,
   nextjsGenerator,
   nextjsRawBodyAudit,
+  vercelLemonSqueezyDebugger,
   entitlementMatrix,
   costCalculator,
   readinessScorecard,
@@ -191,6 +193,7 @@ const [
   fetchText(`${siteUrl}/tools/webhook-replay-curl-generator.html`),
   fetchText(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`),
   fetchText(`${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`),
+  fetchText(`${siteUrl}/tools/vercel-lemon-squeezy-webhook-debugger.html`),
   fetchText(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
@@ -261,6 +264,9 @@ const issues = [
   ...(nextjsRawBodyAudit.ok
     ? []
     : [`Next.js raw body audit page returned HTTP ${nextjsRawBodyAudit.status ?? "failed"}.`]),
+  ...(vercelLemonSqueezyDebugger.ok
+    ? []
+    : [`Vercel Lemon Squeezy debugger page returned HTTP ${vercelLemonSqueezyDebugger.status ?? "failed"}.`]),
   ...(entitlementMatrix.ok
     ? []
     : [`entitlement matrix page returned HTTP ${entitlementMatrix.status ?? "failed"}.`]),
@@ -407,6 +413,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`)
     ? []
     : ["llms.txt is missing the standalone Next.js Lemon Squeezy raw body audit URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/vercel-lemon-squeezy-webhook-debugger.html`)
+    ? []
+    : ["llms.txt is missing the standalone Vercel Lemon Squeezy webhook debugger URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`)
     ? []
     : ["llms.txt is missing the standalone entitlement matrix URL."]),
@@ -561,6 +570,8 @@ const issues = [
   toolIndex.text.includes("Stripe webhook fixture generator") &&
   toolIndex.text.includes("Webhook replay cURL generator") &&
   toolIndex.text.includes("Next.js webhook handler generator") &&
+  toolIndex.text.includes("Vercel Lemon Squeezy webhook debugger") &&
+  toolIndex.text.includes("vercel-lemon-squeezy-webhook-debugger.html") &&
   toolIndex.text.includes("Webhook entitlement decision matrix") &&
   toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
@@ -634,6 +645,15 @@ const issues = [
   nextjsRawBodyAudit.text.includes("CN¥69 Pro Kit")
     ? []
     : ["Next.js raw body audit page is missing audit copy, raw-body logic, or conversion links."]),
+  ...(vercelLemonSqueezyDebugger.text.includes("Vercel Lemon Squeezy Webhook Debugger") &&
+  vercelLemonSqueezyDebugger.text.includes("buildVercelLemonSqueezyWebhookReport") &&
+  vercelLemonSqueezyDebugger.text.includes("404") &&
+  vercelLemonSqueezyDebugger.text.includes("405") &&
+  vercelLemonSqueezyDebugger.text.includes("x-signature") &&
+  vercelLemonSqueezyDebugger.text.includes("CN¥69 Pro Kit") &&
+  vercelLemonSqueezyDebugger.text.includes("pro-kit.html")
+    ? []
+    : ["Vercel Lemon Squeezy debugger page is missing diagnostic logic, failure copy, raw-body copy, or conversion links."]),
   ...(entitlementMatrix.text.includes("Webhook entitlement decision matrix generator") &&
   entitlementMatrix.text.includes("provider-specific access decisions") &&
   entitlementMatrix.text.includes("duplicate replay tests") &&
@@ -970,6 +990,7 @@ const result = {
     replayGenerator: replayGenerator.status,
     nextjsGenerator: nextjsGenerator.status,
     nextjsRawBodyAudit: nextjsRawBodyAudit.status,
+    vercelLemonSqueezyDebugger: vercelLemonSqueezyDebugger.status,
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,

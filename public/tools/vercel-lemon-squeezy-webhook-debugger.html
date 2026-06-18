@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vercel Lemon Squeezy Webhook Debugger | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Browser-only Vercel Lemon Squeezy webhook debugger for Next.js 404, 405, 500, missing order_created delivery, x-signature failures, raw body regressions, env vars, and deployment release evidence."
+    />
+    <meta
+      name="keywords"
+      content="Vercel Lemon Squeezy webhook debugger, Lemon Squeezy webhook Vercel 404, Next.js webhook 405, Lemon Squeezy webhook not firing Vercel, x-signature invalid Vercel, Next.js App Router webhook raw body"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Vercel Lemon Squeezy Webhook Debugger" />
+    <meta
+      property="og:description"
+      content="Diagnose Vercel and Next.js Lemon Squeezy webhook launch failures without uploading payloads, logs, or secrets."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vercel Lemon Squeezy Webhook Debugger" />
+    <meta
+      name="twitter:description"
+      content="Browser-only report builder for Vercel 404/405/500, missing Lemon Squeezy delivery, raw-body x-signature failures, and launch evidence."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Vercel Lemon Squeezy Webhook Debugger",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only Vercel Lemon Squeezy webhook debugger for Next.js 404, 405, 500, missing order_created delivery, x-signature failures, raw body regressions, env vars, and deployment release evidence.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --coral: #f05f3b;
+        --cyan: #008c99;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a,
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .page {
+        width: min(1180px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 54px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 30px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .metric span,
+      label span,
+      .gate span {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 980px;
+        font-size: clamp(2.35rem, 7vw, 5.2rem);
+        line-height: 0.94;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.28rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 790px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.65;
+      }
+
+      .hero-actions,
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        box-shadow: 4px 4px 0 var(--line);
+        color: var(--ink);
+        font-weight: 900;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+        box-shadow: none;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(0, 0.96fr) minmax(340px, 1.04fr);
+        gap: 18px;
+        margin-top: 30px;
+        align-items: start;
+      }
+
+      .panel,
+      .metric,
+      .gate {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .panel {
+        padding: 18px;
+        box-shadow: 5px 5px 0 rgba(17, 19, 15, 0.15);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        min-width: 0;
+        color: var(--muted);
+        font-weight: 760;
+        line-height: 1.35;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fffef9;
+        color: var(--ink);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.92rem;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 10px;
+      }
+
+      textarea {
+        min-height: 94px;
+        padding: 10px;
+        resize: vertical;
+      }
+
+      .gate-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .gate {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 10px;
+        padding: 12px;
+        align-items: start;
+      }
+
+      .gate input {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        accent-color: var(--green);
+      }
+
+      .gate strong {
+        display: block;
+        margin-top: 2px;
+      }
+
+      .gate p {
+        margin-top: 4px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .metric {
+        min-height: 102px;
+        padding: 14px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 1.55rem;
+        line-height: 1;
+      }
+
+      .output {
+        min-height: 610px;
+        margin-top: 14px;
+        padding: 16px;
+        overflow: auto;
+        white-space: pre-wrap;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f6f7ef;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9rem;
+        line-height: 1.52;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .links a {
+        display: block;
+        min-height: 124px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        text-decoration: none;
+      }
+
+      .links strong {
+        display: block;
+      }
+
+      .links span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      @media (max-width: 900px) {
+        .workbench,
+        .links,
+        .metric-grid,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .page {
+          width: min(100% - 22px, 1180px);
+          padding-top: 20px;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .panel {
+          padding: 14px;
+        }
+
+        .output {
+          min-height: 430px;
+          font-size: 0.82rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <header>
+        <p class="eyebrow">Vercel / Next.js / Lemon Squeezy</p>
+        <h1>Debug webhook failures before the buy link goes public.</h1>
+        <p class="lead">
+          Turn Vercel 404, 405, 500, missing `order_created`, and invalid `x-signature` symptoms into a PR-ready report. Everything runs locally in this page; no logs, payloads, secrets, or customer data are uploaded.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#debugger">Open debugger</a>
+          <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html">Audit raw body</a>
+          <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html">Preview Pro report</a>
+        </div>
+      </header>
+
+      <section id="debugger" class="workbench" aria-label="Vercel Lemon Squeezy webhook debugger">
+        <section class="panel">
+          <h2>Failure shape</h2>
+          <div class="form-grid">
+            <label>
+              <span>Primary symptom</span>
+              <select id="symptom">
+                <option value="404">Vercel returns 404 for webhook URL</option>
+                <option value="405">Next.js route returns 405 method not allowed</option>
+                <option value="500">Vercel function returns 500</option>
+                <option value="missing">Lemon Squeezy says webhook was not delivered</option>
+                <option value="signature">x-signature invalid in production</option>
+              </select>
+            </label>
+            <label>
+              <span>Route path</span>
+              <input id="routePath" value="/api/webhooks/lemon/route.ts" />
+            </label>
+            <label>
+              <span>Runtime</span>
+              <select id="runtime">
+                <option value="nodejs">Next.js nodejs runtime</option>
+                <option value="edge">Edge runtime</option>
+                <option value="unknown">Not declared</option>
+              </select>
+            </label>
+            <label>
+              <span>Expected event</span>
+              <select id="eventName">
+                <option value="order_created">order_created</option>
+                <option value="subscription_created">subscription_created</option>
+                <option value="subscription_payment_success">subscription_payment_success</option>
+                <option value="license_key_created">license_key_created</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              <span>Latest status or log line</span>
+              <textarea id="logLine">POST /api/webhooks/lemon 405 in production</textarea>
+            </label>
+            <label>
+              <span>Release note or PR</span>
+              <textarea id="releaseNote">No launch evidence attached yet.</textarea>
+            </label>
+          </div>
+
+          <div class="gate-list">
+            <label class="gate">
+              <input type="checkbox" data-gate="post" />
+              <span><span>Route shape</span><strong>Exports POST and deploys at the exact Lemon Squeezy webhook URL.</strong><p>404 and 405 usually mean the URL, folder, method export, or deployment target does not match.</p></span>
+            </label>
+            <label class="gate">
+              <input type="checkbox" data-gate="raw" />
+              <span><span>Raw body</span><strong>Uses `await request.text()` before any JSON parsing.</strong><p>Invalid `x-signature` is often caused by parsing or reserializing JSON before verification.</p></span>
+            </label>
+            <label class="gate">
+              <input type="checkbox" data-gate="secret" />
+              <span><span>Env secret</span><strong>Webhook signing secret is set in Vercel production env vars only.</strong><p>The route should fail closed when the env var is missing, without printing the secret.</p></span>
+            </label>
+            <label class="gate">
+              <input type="checkbox" data-gate="events" />
+              <span><span>Events</span><strong>Lemon Squeezy is subscribed to the expected paid event.</strong><p>`order_created` or subscription events must be enabled on the endpoint that points to production.</p></span>
+            </label>
+            <label class="gate">
+              <input type="checkbox" data-gate="idempotency" />
+              <span><span>Replay safety</span><strong>Duplicate delivery is guarded by event or object idempotency.</strong><p>Vercel retries and provider retries should not run fulfillment twice.</p></span>
+            </label>
+            <label class="gate">
+              <input type="checkbox" data-gate="evidence" />
+              <span><span>Launch evidence</span><strong>PR includes cURL replay, Vercel log, paid event, and rollback notes.</strong><p>This is the evidence a buyer expects before trusting a paid digital product flow.</p></span>
+            </label>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Generated report</h2>
+          <div class="metric-grid">
+            <div class="metric">
+              <span>Score</span>
+              <strong id="score">0</strong>
+            </div>
+            <div class="metric">
+              <span>Verdict</span>
+              <strong id="verdict">BLOCKED</strong>
+            </div>
+            <div class="metric">
+              <span>Risk</span>
+              <strong id="risk">High</strong>
+            </div>
+          </div>
+          <pre id="report" class="output"></pre>
+          <div class="actions">
+            <button id="copy" class="button" type="button">Copy Markdown</button>
+            <button id="download" class="button secondary" type="button">Download report</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="links" aria-label="Related launch tools">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html">
+          <strong>Signature mismatch debugger</strong>
+          <span>Compare raw-body mutation, header format, wrong secret, CRLF, and parser risk.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">
+          <strong>Production checkout readiness</strong>
+          <span>Turn live key, CN¥69 price, PayPal, signed webhooks, delivery, and refund checks into a launch report.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>CN¥69 Pro Kit preview</strong>
+          <span>Use the paid pack when you need fixtures, tests, CI examples, and PR evidence in one private ZIP.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const gates = ["post", "raw", "secret", "events", "idempotency", "evidence"];
+      const symptomAdvice = {
+        "404": "Check the deployed URL, route folder, base path, and whether the production deployment contains the webhook file.",
+        "405": "Check that the App Router file exports `POST` exactly and that Lemon Squeezy is not hitting a page route or GET-only handler.",
+        "500": "Check missing env vars, JSON parsing after signature failure, thrown fulfillment errors, and Vercel function logs.",
+        "missing": "Check endpoint URL, live/test mode mismatch, event subscription, endpoint status, and whether the route returns a 2xx.",
+        "signature": "Check raw body handling, `x-signature` header format, endpoint secret, timing-safe comparison, and JSON reserialization."
+      };
+
+      const elements = {
+        symptom: document.getElementById("symptom"),
+        routePath: document.getElementById("routePath"),
+        runtime: document.getElementById("runtime"),
+        eventName: document.getElementById("eventName"),
+        logLine: document.getElementById("logLine"),
+        releaseNote: document.getElementById("releaseNote"),
+        score: document.getElementById("score"),
+        verdict: document.getElementById("verdict"),
+        risk: document.getElementById("risk"),
+        report: document.getElementById("report"),
+        copy: document.getElementById("copy"),
+        download: document.getElementById("download")
+      };
+
+      function checkedGates() {
+        return Object.fromEntries(
+          gates.map((gate) => [gate, document.querySelector(`[data-gate="${gate}"]`).checked])
+        );
+      }
+
+      function buildVercelLemonSqueezyWebhookReport() {
+        const state = checkedGates();
+        const passed = Object.values(state).filter(Boolean).length;
+        const score = Math.round((passed / gates.length) * 100);
+        const blockers = [];
+        if (!state.post) blockers.push("Route must export POST and match the exact deployed webhook URL.");
+        if (!state.raw) blockers.push("Verify the exact raw body with `await request.text()` before JSON parsing.");
+        if (!state.secret) blockers.push("Set the Lemon Squeezy endpoint signing secret in Vercel production env vars.");
+        if (!state.events) blockers.push(`Subscribe the production endpoint to '${elements.eventName.value}'.`);
+        if (!state.idempotency) blockers.push("Add duplicate replay idempotency before running fulfillment side effects.");
+        if (!state.evidence) blockers.push("Attach cURL replay, Vercel log, paid event, and rollback evidence to the launch PR.");
+        const verdict = score >= 84 ? "READY" : score >= 50 ? "NEEDS FIXES" : "BLOCKED";
+        const risk = score >= 84 ? "Low" : score >= 50 ? "Medium" : "High";
+
+        return {
+          score,
+          verdict,
+          risk,
+          markdown: `# Vercel Lemon Squeezy Webhook Debug Report
+
+Generated by BillingWebhookKit:
+https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html
+
+## Summary
+
+- Verdict: ${verdict}
+- Score: ${score}/100
+- Risk: ${risk}
+- Primary symptom: ${elements.symptom.value}
+- Route path: ${elements.routePath.value}
+- Runtime: ${elements.runtime.value}
+- Expected event: ${elements.eventName.value}
+
+## Most likely cause
+
+${symptomAdvice[elements.symptom.value]}
+
+## Latest signal
+
+\`\`\`
+${elements.logLine.value.trim() || "No log line supplied."}
+\`\`\`
+
+## Launch gates
+
+- ${state.post ? "[x]" : "[ ]"} POST route export and exact Vercel URL
+- ${state.raw ? "[x]" : "[ ]"} Raw-body signature verification before parsing
+- ${state.secret ? "[x]" : "[ ]"} Production webhook signing secret exists in Vercel env vars
+- ${state.events ? "[x]" : "[ ]"} Lemon Squeezy event subscription covers ${elements.eventName.value}
+- ${state.idempotency ? "[x]" : "[ ]"} Duplicate replay idempotency protects fulfillment
+- ${state.evidence ? "[x]" : "[ ]"} PR-ready release evidence is attached
+
+## Blockers
+
+${blockers.length ? blockers.map((item) => `- ${item}`).join("\n") : "- No launch blocker remains in this debugger."}
+
+## Release note
+
+${elements.releaseNote.value.trim() || "No release note supplied."}
+
+## Next actions
+
+- If signature verification fails, run the raw-body audit: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html
+- If delivery is missing, generate production checkout evidence: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
+- If launch evidence is still being assembled manually, preview the CN¥69 Pro Kit: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+
+No API key, signing secret, customer data, or production payload was uploaded to create this report.
+`
+        };
+      }
+
+      function render() {
+        const result = buildVercelLemonSqueezyWebhookReport();
+        elements.score.textContent = String(result.score);
+        elements.verdict.textContent = result.verdict;
+        elements.risk.textContent = result.risk;
+        elements.report.textContent = result.markdown;
+      }
+
+      async function copyReport() {
+        const text = elements.report.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          elements.copy.textContent = "Copied";
+        } catch {
+          elements.copy.textContent = "Select report text";
+        }
+        window.setTimeout(() => {
+          elements.copy.textContent = "Copy Markdown";
+        }, 1400);
+      }
+
+      function downloadReport() {
+        const blob = new Blob([elements.report.textContent], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "vercel-lemon-squeezy-webhook-debug-report.md";
+        anchor.click();
+        URL.revokeObjectURL(url);
+      }
+
+      document.querySelectorAll("input, select, textarea").forEach((element) => {
+        element.addEventListener("input", render);
+        element.addEventListener("change", render);
+      });
+      elements.copy.addEventListener("click", copyReport);
+      elements.download.addEventListener("click", downloadReport);
+      render();
+    </script>
+  </body>
+</html>
