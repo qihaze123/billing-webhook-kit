@@ -8,6 +8,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/pro-kit.html`,
   `${siteUrl}/delivery-refund-support.html`,
   `${siteUrl}/status.html`,
+  `${siteUrl}/search-console-sitemap-submission.html`,
   `${siteUrl}/tools/`,
   `${siteUrl}/tools/lemon-squeezy-signature-verifier.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`,
@@ -112,6 +113,7 @@ const [
   deliverySupport,
   freeSample,
   statusPage,
+  searchConsoleHandoff,
   toolIndex,
   signatureVerifier,
   payloadGenerator,
@@ -144,6 +146,7 @@ const [
   fetchText(`${siteUrl}/delivery-refund-support.html`),
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
+  fetchText(`${siteUrl}/search-console-sitemap-submission.html`),
   fetchText(`${siteUrl}/tools/`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-signature-verifier.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`),
@@ -181,6 +184,9 @@ const issues = [
   ...(deliverySupport.ok ? [] : [`delivery support page returned HTTP ${deliverySupport.status ?? "failed"}.`]),
   ...(freeSample.ok ? [] : [`free sample page returned HTTP ${freeSample.status ?? "failed"}.`]),
   ...(statusPage.ok ? [] : [`status page returned HTTP ${statusPage.status ?? "failed"}.`]),
+  ...(searchConsoleHandoff.ok
+    ? []
+    : [`Search Console sitemap handoff page returned HTTP ${searchConsoleHandoff.status ?? "failed"}.`]),
   ...(toolIndex.ok ? [] : [`tool index page returned HTTP ${toolIndex.status ?? "failed"}.`]),
   ...(signatureVerifier.ok
     ? []
@@ -241,7 +247,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 59 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 59.`]),
+  ...(sitemapUrls.length >= 60 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 60.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -319,9 +325,19 @@ const issues = [
   statusPage.text.includes("pro-kit-manifest.json") &&
   statusPage.text.includes("delivery-refund-support.html") &&
   statusPage.text.includes("sitemap.xml") &&
-  statusPage.text.includes("Search Console")
+  statusPage.text.includes("Search Console") &&
+  statusPage.text.includes("search-console-sitemap-submission.html")
     ? []
     : ["status page is missing checkout, manifest, delivery support, sitemap, or Search Console signals."]),
+  ...(searchConsoleHandoff.text.includes("Google Search Console sitemap submission") &&
+  searchConsoleHandoff.text.includes("URL prefix") &&
+  searchConsoleHandoff.text.includes("https://qihaze123.github.io/billing-webhook-kit/") &&
+  searchConsoleHandoff.text.includes("sitemap.xml") &&
+  searchConsoleHandoff.text.includes("owner actions") &&
+  searchConsoleHandoff.text.includes("robots.txt") &&
+  searchConsoleHandoff.text.includes("llms.txt")
+    ? []
+    : ["Search Console sitemap handoff page is missing owner handoff values, crawl files, or manual-boundary copy."]),
   ...(deliverySupport.text.includes("Delivery, refund, and support details before checkout.") &&
   deliverySupport.text.includes("Private ZIP after live checkout") &&
   deliverySupport.text.includes("Public manifest and SHA-256") &&
@@ -561,6 +577,7 @@ const result = {
     deliverySupport: deliverySupport.status,
     freeSample: freeSample.status,
     statusPage: statusPage.status,
+    searchConsoleHandoff: searchConsoleHandoff.status,
     toolIndex: toolIndex.status,
     signatureVerifier: signatureVerifier.status,
     payloadGenerator: payloadGenerator.status,
