@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Fulfillment Checklist Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only Lemon Squeezy fulfillment checklist report for paid order webhooks, private ZIP delivery, x-signature verification, idempotency, checksum evidence, and support policy links."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy fulfillment checklist, Lemon Squeezy digital download delivery, Lemon Squeezy paid order fulfillment, private ZIP delivery checklist, webhook fulfillment report"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Fulfillment Checklist Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only report generator for proving a Lemon Squeezy paid order can deliver a private ZIP or digital download safely."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Fulfillment Checklist Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate a local fulfillment report for Lemon Squeezy paid webhooks, idempotency, private delivery, and checksum evidence."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Fulfillment Checklist Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only tool for generating a Lemon Squeezy fulfillment checklist report after checkout."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lemon Squeezy Fulfillment Checklist Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --green: #227a4c;
+        --amber: #a96d00;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .metric span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1030px;
+        font-size: clamp(2.15rem, 7vw, 5.15rem);
+        line-height: 0.94;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 890px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 430px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 132px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fbfcf8;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 13px;
+      }
+
+      .metric.primary {
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      .metric.primary span,
+      .metric.primary strong {
+        color: var(--acid);
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.2;
+      }
+
+      .metric p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .metric.primary p {
+        color: #d9dfcf;
+      }
+
+      .gate-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .gate {
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 13px;
+      }
+
+      .gate strong {
+        display: block;
+        line-height: 1.25;
+      }
+
+      .gate p {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.52;
+      }
+
+      .gate.pass strong {
+        color: var(--green);
+      }
+
+      .gate.warn strong {
+        color: var(--amber);
+      }
+
+      .gate.block strong {
+        color: var(--coral);
+      }
+
+      .report {
+        min-height: 330px;
+        background: #11130f;
+        color: #f8faef;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 122px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 960px) {
+        .workbench,
+        .metrics,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Fulfillment report</p>
+      <h1>Lemon Squeezy fulfillment checklist generator.</h1>
+      <p class="lead">
+        Build a release-ready report for what happens after checkout: signed paid webhook, expected variant, private ZIP or license delivery, idempotency guard, checksum evidence, duplicate replay behavior, support policy, and rollback notes. No backend, no provider API call, no uploaded secrets.
+      </p>
+
+      <section class="workbench" aria-label="Lemon Squeezy fulfillment checklist generator">
+        <div class="panel">
+          <header>
+            <h2>Fulfillment evidence</h2>
+            <p>Browser-only inputs</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Product or kit name</span>
+              <input id="productName" value="BillingWebhookKit Pro" />
+            </label>
+            <label class="field">
+              <span>Expected paid event</span>
+              <select id="eventName">
+                <option value="order_created" selected>order_created</option>
+                <option value="license_key_created">license_key_created</option>
+                <option value="subscription_payment_success">subscription_payment_success</option>
+                <option value="not_received">Not received yet</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Product or variant check</span>
+              <select id="variantCheck">
+                <option value="pass" selected>Expected live variant matched</option>
+                <option value="missing">Not checked yet</option>
+                <option value="fail">Wrong product or variant</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>x-signature gate</span>
+              <select id="signatureGate">
+                <option value="pass" selected>Raw body signature verified</option>
+                <option value="missing">Not tested yet</option>
+                <option value="fail">Failing or bypassed</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Idempotency guard</span>
+              <select id="idempotency">
+                <option value="pass" selected>Processed event key stored first</option>
+                <option value="missing">Not implemented yet</option>
+                <option value="fail">Side effect runs before guard</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Delivery action</span>
+              <select id="deliveryAction">
+                <option value="private_zip" selected>Private ZIP link or attachment</option>
+                <option value="license_file">License file delivery</option>
+                <option value="account_access">Account entitlement grant</option>
+                <option value="manual">Manual fulfillment only</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Delivery result</span>
+              <select id="deliveryResult">
+                <option value="pass" selected>Delivered once after paid event</option>
+                <option value="missing">Not verified yet</option>
+                <option value="fail">Wrong, public, or duplicated delivery</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Checksum or manifest evidence</span>
+              <input id="checksumEvidence" value="pro-kit-manifest.json exposes SHA-256 and publicDownload:false" />
+            </label>
+            <label class="field">
+              <span>Support policy URL</span>
+              <input id="supportUrl" value="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html" />
+            </label>
+            <label class="field">
+              <span>Release identifiers</span>
+              <textarea id="releaseIds" spellcheck="false">order_id: pending
+event_id: pending
+idempotency_key: lemon:order_created:pending
+checksum: 29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8
+rollback: keep checkout unpublished until paid fulfillment evidence passes</textarea>
+            </label>
+            <div class="button-row">
+              <button type="button" id="loadReady">Load launch-ready sample</button>
+              <button type="button" id="copyReport" class="secondary">Copy report</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Fulfillment result</h2>
+            <p>Gates and review report</p>
+          </header>
+          <div class="result">
+            <div class="metrics" aria-label="Fulfillment summary">
+              <div class="metric primary">
+                <span>Verdict</span>
+                <strong id="verdict">Checking...</strong>
+                <p id="verdictCopy">Waiting for inputs.</p>
+              </div>
+              <div class="metric">
+                <span>Passed gates</span>
+                <strong id="passedGates">0 / 7</strong>
+                <p>Public launch should wait until every side-effect gate passes.</p>
+              </div>
+              <div class="metric">
+                <span>Blockers</span>
+                <strong id="blockerCount">0</strong>
+                <p>Blockers should stay in the release report until fixed.</p>
+              </div>
+            </div>
+
+            <div class="gate-list" id="gateList" aria-label="Fulfillment gates"></div>
+
+            <label class="field">
+              <span class="output-label">PR-ready fulfillment checklist report</span>
+              <textarea id="report" class="report" spellcheck="false"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Related fulfillment assets">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake fixtures, signature tests, duplicate replay tests, and CI structure before buying.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Turn one fulfillment report into route handlers, fixtures, contract tests, CI checks, and review templates.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html">
+          <strong>Read the delivery guide</strong>
+          <span>Review private ZIP delivery, checksum verification, idempotency, duplicate replay, and support policy gates.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        productName: document.querySelector("#productName"),
+        eventName: document.querySelector("#eventName"),
+        variantCheck: document.querySelector("#variantCheck"),
+        signatureGate: document.querySelector("#signatureGate"),
+        idempotency: document.querySelector("#idempotency"),
+        deliveryAction: document.querySelector("#deliveryAction"),
+        deliveryResult: document.querySelector("#deliveryResult"),
+        checksumEvidence: document.querySelector("#checksumEvidence"),
+        supportUrl: document.querySelector("#supportUrl"),
+        releaseIds: document.querySelector("#releaseIds")
+      };
+
+      const verdictEl = document.querySelector("#verdict");
+      const verdictCopyEl = document.querySelector("#verdictCopy");
+      const passedGatesEl = document.querySelector("#passedGates");
+      const blockerCountEl = document.querySelector("#blockerCount");
+      const gateListEl = document.querySelector("#gateList");
+      const reportEl = document.querySelector("#report");
+
+      function gate(status, title, detail, fix) {
+        return { status, title, detail, fix };
+      }
+
+      function statusClass(status) {
+        if (status === "pass") return "pass";
+        if (status === "block") return "block";
+        return "warn";
+      }
+
+      function deliveryLabel(value) {
+        return {
+          private_zip: "private ZIP delivery",
+          license_file: "license file delivery",
+          account_access: "account entitlement grant",
+          manual: "manual fulfillment"
+        }[value] || value;
+      }
+
+      function buildFulfillmentReport(input) {
+        const gates = [];
+        const eventReady = input.eventName !== "not_received";
+        gates.push(
+          gate(
+            eventReady ? "pass" : "block",
+            "Trusted paid webhook event",
+            eventReady
+              ? `Expected paid event is ${input.eventName}.`
+              : "No trusted paid webhook event has been recorded yet.",
+            "Wait for a signed paid event before sending private downloads, license files, or access grants."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.variantCheck === "pass" ? "pass" : input.variantCheck === "missing" ? "warn" : "block",
+            "Product and variant match",
+            input.variantCheck === "pass"
+              ? "The paid event was checked against the expected live product or variant."
+              : input.variantCheck === "missing"
+                ? "Product or variant mapping has not been reviewed yet."
+                : "The paid event does not match the expected product or variant.",
+            "Compare the live product or variant ID before fulfillment runs."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.signatureGate === "pass" ? "pass" : input.signatureGate === "missing" ? "warn" : "block",
+            "x-signature verification",
+            input.signatureGate === "pass"
+              ? "The exact raw body is verified before JSON parsing."
+              : input.signatureGate === "missing"
+                ? "The x-signature gate still needs a raw-body test."
+                : "Fulfillment is unsafe when signature checks fail or are bypassed.",
+            "Verify the exact raw body with the Lemon Squeezy x-signature before parsing trusted fields."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.idempotency === "pass" ? "pass" : input.idempotency === "missing" ? "warn" : "block",
+            "Idempotency before side effects",
+            input.idempotency === "pass"
+              ? "The processed event key is stored before delivery side effects run."
+              : input.idempotency === "missing"
+                ? "The processed event table or unique key is not documented."
+                : "Delivery can duplicate because side effects run before the guard.",
+            "Persist provider, event name, object type, and object ID before sending downloads or granting access."
+          )
+        );
+
+        gates.push(
+          gate(
+            input.deliveryResult === "pass" ? "pass" : input.deliveryResult === "missing" ? "warn" : "block",
+            "Private delivery action",
+            input.deliveryResult === "pass"
+              ? `${deliveryLabel(input.deliveryAction)} is delivered once after the paid event.`
+              : input.deliveryResult === "missing"
+                ? `${deliveryLabel(input.deliveryAction)} has not been verified end to end yet.`
+                : `${deliveryLabel(input.deliveryAction)} is wrong, public, or duplicated.`,
+            "Keep the paid archive private and verify the buyer receives the intended artifact exactly once."
+          )
+        );
+
+        const checksumReady = /sha|checksum|manifest|digest|hash/i.test(input.checksumEvidence);
+        gates.push(
+          gate(
+            checksumReady ? "pass" : "warn",
+            "Checksum or manifest evidence",
+            checksumReady
+              ? input.checksumEvidence
+              : "Checksum, manifest, or digest evidence is not explicit.",
+            "Publish a secret-free manifest and record the delivered artifact checksum."
+          )
+        );
+
+        const supportReady = /^https:\/\/.+/.test(input.supportUrl);
+        gates.push(
+          gate(
+            supportReady ? "pass" : "warn",
+            "Support and refund policy",
+            supportReady
+              ? `Buyer policy is linked at ${input.supportUrl}.`
+              : "Support or refund policy URL is missing or not HTTPS.",
+            "Link a buyer-visible delivery, refund, and support policy before checkout is public."
+          )
+        );
+
+        const passed = gates.filter((item) => item.status === "pass").length;
+        const blockers = gates.filter((item) => item.status === "block");
+        const warnings = gates.filter((item) => item.status === "warn");
+        const verdict =
+          blockers.length > 0
+            ? "BLOCKED"
+            : warnings.length > 0
+              ? "REVIEW"
+              : "READY";
+        const verdictCopy =
+          verdict === "READY"
+            ? "All fulfillment gates pass. Keep the report with the release evidence."
+            : verdict === "REVIEW"
+              ? "No hard blockers, but unresolved review items remain before public launch."
+              : "Do not expose a public checkout until blockers are resolved.";
+
+        const lines = [
+          `# Lemon Squeezy Fulfillment Checklist Report`,
+          ``,
+          `Product: ${input.productName}`,
+          `Verdict: ${verdict}`,
+          `Passed gates: ${passed} / ${gates.length}`,
+          ``,
+          `## Gates`,
+          ...gates.map((item) => `- [${item.status.toUpperCase()}] ${item.title}: ${item.detail} Fix: ${item.fix}`),
+          ``,
+          `## Release Identifiers`,
+          input.releaseIds.trim() || "No release identifiers recorded.",
+          ``,
+          `## Buyer Evidence`,
+          `- Delivery action: ${deliveryLabel(input.deliveryAction)}`,
+          `- Checksum or manifest: ${input.checksumEvidence || "missing"}`,
+          `- Support policy: ${input.supportUrl || "missing"}`,
+          ``,
+          `## Notes`,
+          `Use fake fixtures and fake signing secrets in public reports. Keep production API keys, webhook secrets, customer data, private ZIP URLs, and live checkout links out of shared evidence.`
+        ];
+
+        return {
+          gates,
+          passed,
+          blockers,
+          warnings,
+          verdict,
+          verdictCopy,
+          report: lines.join("\n")
+        };
+      }
+
+      function currentInput() {
+        return Object.fromEntries(Object.entries(fields).map(([key, element]) => [key, element.value.trim()]));
+      }
+
+      function render() {
+        const result = buildFulfillmentReport(currentInput());
+        verdictEl.textContent = result.verdict;
+        verdictCopyEl.textContent = result.verdictCopy;
+        passedGatesEl.textContent = `${result.passed} / ${result.gates.length}`;
+        blockerCountEl.textContent = String(result.blockers.length);
+        gateListEl.innerHTML = result.gates
+          .map(
+            (item) =>
+              `<article class="gate ${statusClass(item.status)}"><strong>${item.status.toUpperCase()} - ${item.title}</strong><p>${item.detail}</p><p>${item.fix}</p></article>`
+          )
+          .join("");
+        reportEl.value = result.report;
+      }
+
+      Object.values(fields).forEach((field) => field.addEventListener("input", render));
+      Object.values(fields).forEach((field) => field.addEventListener("change", render));
+
+      document.querySelector("#loadReady").addEventListener("click", () => {
+        fields.eventName.value = "order_created";
+        fields.variantCheck.value = "pass";
+        fields.signatureGate.value = "pass";
+        fields.idempotency.value = "pass";
+        fields.deliveryAction.value = "private_zip";
+        fields.deliveryResult.value = "pass";
+        fields.checksumEvidence.value = "pro-kit-manifest.json exposes SHA-256 and the delivered private ZIP hash was verified";
+        fields.supportUrl.value = "https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html";
+        fields.releaseIds.value =
+          "order_id: live-order-reviewed\n" +
+          "event_id: live-event-reviewed\n" +
+          "idempotency_key: lemon:order_created:live-order-reviewed\n" +
+          "checksum: 29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8\n" +
+          "rollback: disable public checkout and resend verified private ZIP from support queue";
+        render();
+      });
+
+      document.querySelector("#copyReport").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(reportEl.value);
+        } catch {
+          reportEl.select();
+          document.execCommand("copy");
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>

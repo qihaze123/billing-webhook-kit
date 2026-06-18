@@ -20,6 +20,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
+  `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-raw-body-nextjs.html`,
   `${siteUrl}/guides/lemon-squeezy-x-signature-invalid.html`,
@@ -121,6 +122,7 @@ const [
   costCalculator,
   readinessScorecard,
   checkoutSmokeReport,
+  fulfillmentChecklist,
   guideIndex,
   checkoutSmokeGuide,
   checkout404Guide,
@@ -150,6 +152,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
   fetchText(`${siteUrl}/guides/`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`),
@@ -200,6 +203,9 @@ const issues = [
   ...(checkoutSmokeReport.ok
     ? []
     : [`checkout smoke test report page returned HTTP ${checkoutSmokeReport.status ?? "failed"}.`]),
+  ...(fulfillmentChecklist.ok
+    ? []
+    : [`fulfillment checklist generator page returned HTTP ${fulfillmentChecklist.status ?? "failed"}.`]),
   ...(guideIndex.ok ? [] : [`guide index returned HTTP ${guideIndex.status ?? "failed"}.`]),
   ...(checkoutSmokeGuide.ok
     ? []
@@ -223,7 +229,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 56 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 56.`]),
+  ...(sitemapUrls.length >= 57 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 57.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -267,6 +273,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`)
     ? []
     : ["llms.txt is missing the standalone checkout smoke test report URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`)
+    ? []
+    : ["llms.txt is missing the standalone fulfillment checklist generator URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy checkout smoke test guide URL."]),
@@ -306,7 +315,7 @@ const issues = [
     ? []
     : ["delivery support page is missing buyer assurance, verification, refund, safety, or conversion links."]),
   ...(toolIndex.text.includes("Payment webhook tools for the work before checkout goes live.") &&
-  toolIndex.text.includes("Checkout launch decision tools") &&
+  toolIndex.text.includes("Checkout and fulfillment launch decision tools") &&
   toolIndex.text.includes("Launch lane") &&
   toolIndex.text.includes("Lemon Squeezy webhook payload generator") &&
   toolIndex.text.includes("Lemon Squeezy x-signature verifier") &&
@@ -319,6 +328,7 @@ const issues = [
   toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
+  toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   toolIndex.text.includes("Download the free sample") &&
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
     ? []
@@ -390,6 +400,16 @@ const issues = [
   checkoutSmokeReport.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["checkout smoke test report page is missing report copy, report logic, or conversion links."]),
+  ...(fulfillmentChecklist.text.includes("Lemon Squeezy fulfillment checklist generator") &&
+  fulfillmentChecklist.text.includes("buildFulfillmentReport") &&
+  fulfillmentChecklist.text.includes("private ZIP") &&
+  fulfillmentChecklist.text.includes("x-signature") &&
+  fulfillmentChecklist.text.includes("idempotency") &&
+  fulfillmentChecklist.text.includes("checksum") &&
+  fulfillmentChecklist.text.includes("support policy") &&
+  fulfillmentChecklist.text.includes("Preview the CNY 69 Pro Kit")
+    ? []
+    : ["fulfillment checklist generator page is missing report copy, report logic, delivery safety copy, or conversion links."]),
   ...(checkoutSmokeGuide.text.includes("Lemon Squeezy checkout smoke test") &&
   checkoutSmokeGuide.text.includes("CN¥69 price") &&
   checkoutSmokeGuide.text.includes("order_created") &&
@@ -510,6 +530,7 @@ const result = {
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
+    fulfillmentChecklist: fulfillmentChecklist.status,
     checkoutSmokeGuide: checkoutSmokeGuide.status,
     checkout404Guide: checkout404Guide.status,
     paypalCheckoutGuide: paypalCheckoutGuide.status,
