@@ -44,6 +44,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Fix Lemon Squeezy webhook 500 on Vercel and Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
 - Lemon Squeezy webhook retry and idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
 - Payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
+- Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
 - Lemon Squeezy vs Stripe webhooks for AI SaaS: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html
@@ -151,6 +152,10 @@ https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-ret
 Use the payment webhook test plan generator when you need a PR-ready coverage plan across signatures, idempotency, replay, entitlement, fulfillment, refunds, and CI:
 
 https://qihaze123.github.io/billing-webhook-kit/tools/payment-webhook-test-plan-generator.html
+
+Use the Stripe webhook test plan for Next.js guide when a Stripe checkout route needs raw-body signature evidence, fixture coverage, idempotency, duplicate replay, and CI gates before launch:
+
+https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 
 Use the payment webhook test tool alternatives guide when comparing webhook inboxes, provider CLIs, browser-only fixtures, CI tests, and the CN¥69 Pro Kit:
 
@@ -286,6 +291,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/saas-billing-webhook-test-plan.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-fixtures.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/saas-webhook-release-checklist.html

@@ -52,6 +52,7 @@ const guideLinks = [
   { href: "tools/nextjs-lemon-squeezy-raw-body-audit.html", label: "Next.js Lemon Squeezy raw body audit" },
   { href: "tools/vercel-lemon-squeezy-webhook-debugger.html", label: "Vercel Lemon Squeezy webhook debugger" },
   { href: "tools/payment-webhook-test-plan-generator.html", label: "Payment webhook test plan generator" },
+  { href: "guides/stripe-webhook-test-plan-nextjs.html", label: "Stripe webhook test plan for Next.js" },
   { href: "guides/nextjs-webhook-405-lemon-squeezy.html", label: "Fix Next.js 405 Lemon Squeezy webhooks" },
   { href: "guides/lemon-squeezy-webhook-500-vercel-nextjs.html", label: "Fix Lemon Squeezy webhook 500 on Vercel" },
   { href: "guides/lemon-squeezy-webhook-retry-idempotency.html", label: "Lemon Squeezy webhook retry idempotency" },
@@ -1438,6 +1439,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/payment-webhook-test-plan-generator.html">
             Test plan
           </a>
+          <a className="ghost-link" href="guides/stripe-webhook-test-plan-nextjs.html">
+            Stripe test plan
+          </a>
           <a className="ghost-link" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             405 fix
           </a>
@@ -2356,6 +2360,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/payment-webhook-test-plan-generator.html">
             Generate webhook test plan
+          </a>
+          <a className="inline-cta" href="guides/stripe-webhook-test-plan-nextjs.html">
+            Plan Stripe webhook tests for Next.js
           </a>
           <a className="inline-cta" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             Fix Next.js 405 webhook routes
