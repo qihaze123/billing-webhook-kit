@@ -54,6 +54,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
+  `${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`,
   `${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`,
   `${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`,
   `${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`,
@@ -180,6 +181,7 @@ const [
   refundWebhookGuide,
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
+  paddleNextjsTestPlanGuide,
   aiSaasBillingWebhookChecklist,
   lemonSqueezyVsStripeAiSaasGuide,
   pricingRoiGuide,
@@ -237,6 +239,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
+  fetchText(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`),
   fetchText(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`),
   fetchText(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`),
@@ -389,6 +392,9 @@ const issues = [
   ...(stripeNextjsTestPlanGuide.ok
     ? []
     : [`Stripe Next.js test plan guide returned HTTP ${stripeNextjsTestPlanGuide.status ?? "failed"}.`]),
+  ...(paddleNextjsTestPlanGuide.ok
+    ? []
+    : [`Paddle Next.js test plan guide returned HTTP ${paddleNextjsTestPlanGuide.status ?? "failed"}.`]),
   ...(aiSaasBillingWebhookChecklist.ok
     ? []
     : [
@@ -542,6 +548,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js test plan guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`)
+    ? []
+    : ["llms.txt is missing the Paddle Next.js test plan guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`)
     ? []
     : ["llms.txt is missing the AI SaaS billing webhook checklist URL."]),
@@ -997,6 +1006,17 @@ const issues = [
   stripeNextjsTestPlanGuide.text.includes("pro-kit.html")
     ? []
     : ["Stripe Next.js test plan guide is missing test plan copy, Stripe event coverage, raw-body copy, or conversion links."]),
+  ...(paddleNextjsTestPlanGuide.text.includes("Paddle webhook test plan for Next.js") &&
+  paddleNextjsTestPlanGuide.text.includes("Paddle-Signature") &&
+  paddleNextjsTestPlanGuide.text.includes("transaction.completed") &&
+  paddleNextjsTestPlanGuide.text.includes("subscription lifecycle") &&
+  paddleNextjsTestPlanGuide.text.includes("request.text()") &&
+  paddleNextjsTestPlanGuide.text.includes("duplicate replay") &&
+  paddleNextjsTestPlanGuide.text.includes("payment-webhook-test-plan-generator.html") &&
+  paddleNextjsTestPlanGuide.text.includes("paddle-webhook-test-payload.html") &&
+  paddleNextjsTestPlanGuide.text.includes("pro-kit.html")
+    ? []
+    : ["Paddle Next.js test plan guide is missing test plan copy, Paddle event coverage, raw-body copy, or conversion links."]),
   ...(aiSaasBillingWebhookChecklist.text.includes("AI SaaS billing webhook checklist") &&
   aiSaasBillingWebhookChecklist.text.includes("AI-generated SaaS") &&
   aiSaasBillingWebhookChecklist.text.includes("raw-body") &&
@@ -1178,6 +1198,7 @@ const result = {
     refundWebhookGuide: refundWebhookGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,
+    paddleNextjsTestPlanGuide: paddleNextjsTestPlanGuide.status,
     aiSaasBillingWebhookChecklist: aiSaasBillingWebhookChecklist.status,
     lemonSqueezyVsStripeAiSaasGuide: lemonSqueezyVsStripeAiSaasGuide.status,
     pricingRoiGuide: pricingRoiGuide.status,
