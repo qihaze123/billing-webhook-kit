@@ -43,6 +43,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy Refund Rollback Report Generator</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html</guid>
+      <description>Generate a browser-only refund rollback report for signed refund webhooks, entitlement revocation, duplicate replay safety, support evidence, and secret-free release review.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Lemon Squeezy x-signature Verifier</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html</guid>

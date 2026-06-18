@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Refund Rollback Report Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only Lemon Squeezy refund rollback report for signed refund webhooks, entitlement revocation, duplicate replay safety, support evidence, and secret-free release notes."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy refund rollback report, Lemon Squeezy refund webhook test, refund entitlement revocation, duplicate refund replay, webhook rollback report"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Refund Rollback Report Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only report generator for proving Lemon Squeezy refund events revoke or pause access once, survive duplicate replay, and keep support evidence secret-free."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Refund Rollback Report Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate a local refund rollback report for signed refund webhooks, entitlement revocation, duplicate replay, and support evidence."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Refund Rollback Report Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only tool for generating a Lemon Squeezy refund rollback evidence report."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://qihaze123.github.io/billing-webhook-kit/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Lemon Squeezy Refund Rollback Report Generator", "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html" }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --green: #227a4c;
+        --amber: #a96d00;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+      body { min-width: 320px; margin: 0; color: var(--ink); }
+      a { color: inherit; }
+      button, input, select, textarea { font: inherit; }
+      button { cursor: pointer; }
+      .page { width: min(1260px, calc(100vw - 32px)); margin: 0 auto; padding: 24px 0 48px; }
+      .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; font-weight: 850; }
+      .brand { font-weight: 950; text-decoration: none; }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-end; }
+      .eyebrow, .field span, .metric span, .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+      h1, h2, p { margin: 0; }
+      h1 { max-width: 1020px; font-size: clamp(2.12rem, 7vw, 5.05rem); line-height: 0.94; font-weight: 950; letter-spacing: 0; }
+      h2 { font-size: 1.15rem; line-height: 1.2; }
+      .lead { max-width: 880px; margin-top: 18px; color: var(--muted); font-size: 1.1rem; line-height: 1.62; }
+      .workbench { display: grid; grid-template-columns: minmax(280px, 430px) minmax(0, 1fr); gap: 14px; margin-top: 24px; align-items: start; }
+      .panel { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1); }
+      .panel header { min-height: 66px; padding: 16px; border-bottom: 1px solid var(--soft-line); }
+      .panel header p { margin-top: 6px; color: var(--muted); line-height: 1.5; }
+      .form { display: grid; gap: 12px; padding: 16px; }
+      .field { display: grid; gap: 6px; }
+      input, select, textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 10px 11px;
+      }
+      textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+      .toggle-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .toggle {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: var(--paper-2);
+        padding: 10px;
+        font-weight: 750;
+        line-height: 1.25;
+      }
+      .toggle input { width: auto; margin-top: 2px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 13px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+      .button.secondary { background: #fff; }
+      .summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 16px; border-bottom: 1px solid var(--soft-line); background: var(--paper-2); }
+      .metric { min-width: 0; border: 1px solid var(--soft-line); border-radius: 7px; background: #fff; padding: 12px; }
+      .metric strong { display: block; margin-top: 6px; overflow-wrap: anywhere; }
+      .verdict-ready { color: var(--green); }
+      .verdict-review { color: var(--amber); }
+      .output-wrap { padding: 16px; }
+      pre {
+        min-height: 520px;
+        max-height: 760px;
+        overflow: auto;
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #eef8d4;
+        padding: 16px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font: 0.84rem/1.65 "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      }
+      .conversion { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .conversion a { display: block; min-height: 112px; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 14px; text-decoration: none; }
+      .conversion strong { display: block; line-height: 1.25; }
+      .conversion span { display: block; margin-top: 7px; color: var(--muted); line-height: 1.45; font-size: 0.93rem; }
+      @media (max-width: 900px) {
+        .workbench, .summary, .conversion { grid-template-columns: 1fr; }
+        pre { min-height: 420px; }
+      }
+      @media (max-width: 640px) {
+        .page { width: min(100vw - 24px, 1260px); padding-top: 22px; }
+        .nav { align-items: flex-start; flex-direction: column; }
+        .nav-links { justify-content: flex-start; }
+        .toggle-row { grid-template-columns: 1fr; }
+        .button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html">Refund guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Refund rollback evidence</p>
+      <h1>Lemon Squeezy refund rollback report generator</h1>
+      <p class="lead">
+        Generate a PR-ready Markdown report for signed refund webhooks, entitlement rollback, duplicate replay safety, buyer support evidence, and secret-free release notes. Everything runs locally in the browser.
+      </p>
+
+      <section class="workbench" aria-label="Refund rollback report generator">
+        <aside class="panel">
+          <header>
+            <h2>Refund event inputs</h2>
+            <p>Use fake identifiers in public reports. Do not paste production API keys, webhook secrets, customer emails, private checkout URLs, or private download links.</p>
+          </header>
+          <form class="form" id="refundForm">
+            <label class="field">
+              <span>Product</span>
+              <input id="productName" value="BillingWebhookKit Pro" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Order reference</span>
+              <input id="orderRef" value="fake_order_123" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Refund event</span>
+              <select id="eventName">
+                <option>order_refunded</option>
+                <option>refund_created</option>
+                <option>charge_refunded</option>
+                <option>manual_support_refund</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Refund state</span>
+              <select id="refundState">
+                <option>refunded</option>
+                <option>partially_refunded</option>
+                <option>disputed</option>
+                <option>pending_review</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Entitlement action</span>
+              <select id="entitlementAction">
+                <option>revoke_paid_download_resend_support</option>
+                <option>pause_access_until_review</option>
+                <option>keep_access_manual_exception</option>
+                <option>quarantine_unknown_refund_event</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Idempotency key</span>
+              <input id="idempotencyKey" value="lemon:refund:fake_order_123" autocomplete="off" />
+            </label>
+            <div class="toggle-row" aria-label="Verification gates">
+              <label class="toggle"><input id="signatureGate" type="checkbox" checked /> Signed raw body verified</label>
+              <label class="toggle"><input id="duplicateReplay" type="checkbox" checked /> Duplicate replay skipped safely</label>
+              <label class="toggle"><input id="supportEvidence" type="checkbox" checked /> Support evidence retained</label>
+              <label class="toggle"><input id="secretFree" type="checkbox" checked /> Report is secret-free</label>
+            </div>
+            <label class="field">
+              <span>Rollback note</span>
+              <textarea id="rollbackNote">Private ZIP resend support is disabled for the refunded order. Checksum and public delivery policy remain available for buyer evidence.</textarea>
+            </label>
+            <label class="field">
+              <span>Reviewer note</span>
+              <textarea id="reviewerNote">Release reviewer confirmed refund rollback is idempotent and does not leak customer data, API keys, webhook secrets, or private download URLs.</textarea>
+            </label>
+            <div class="actions">
+              <button class="button" type="submit">Generate report</button>
+              <button class="button secondary" type="button" id="sampleButton">Load launch-ready sample</button>
+              <button class="button secondary" type="button" id="copyButton">Copy Markdown</button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="panel" aria-label="Generated refund rollback report">
+          <header>
+            <h2>Release evidence output</h2>
+            <p>Paste this Markdown into a pull request, launch checklist, or support-safe incident note.</p>
+          </header>
+          <div class="summary">
+            <div class="metric">
+              <span>Verdict</span>
+              <strong id="verdict" class="verdict-review">REVIEW</strong>
+            </div>
+            <div class="metric">
+              <span>Passed gates</span>
+              <strong id="passedGates">0 / 4</strong>
+            </div>
+            <div class="metric">
+              <span>Risk</span>
+              <strong id="riskLevel">Needs review</strong>
+            </div>
+          </div>
+          <div class="output-wrap">
+            <p class="output-label">Markdown</p>
+            <pre id="output" aria-live="polite"></pre>
+          </div>
+        </section>
+      </section>
+
+      <section class="conversion" aria-label="Related BillingWebhookKit resources">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html">
+          <strong>Read the refund webhook guide</strong>
+          <span>Plan signed refund events, rollback rules, duplicate replay, and support evidence.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake fixtures, signature tests, contract tests, replay tests, and CI skeletons.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Review copy-ready fixtures, handlers, CI checks, review reports, and launch runbooks.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        productName: document.querySelector("#productName"),
+        orderRef: document.querySelector("#orderRef"),
+        eventName: document.querySelector("#eventName"),
+        refundState: document.querySelector("#refundState"),
+        entitlementAction: document.querySelector("#entitlementAction"),
+        idempotencyKey: document.querySelector("#idempotencyKey"),
+        signatureGate: document.querySelector("#signatureGate"),
+        duplicateReplay: document.querySelector("#duplicateReplay"),
+        supportEvidence: document.querySelector("#supportEvidence"),
+        secretFree: document.querySelector("#secretFree"),
+        rollbackNote: document.querySelector("#rollbackNote"),
+        reviewerNote: document.querySelector("#reviewerNote")
+      };
+
+      const output = document.querySelector("#output");
+      const verdictEl = document.querySelector("#verdict");
+      const passedGatesEl = document.querySelector("#passedGates");
+      const riskLevelEl = document.querySelector("#riskLevel");
+      const form = document.querySelector("#refundForm");
+      const sampleButton = document.querySelector("#sampleButton");
+      const copyButton = document.querySelector("#copyButton");
+
+      function yesNo(value) {
+        return value ? "yes" : "no";
+      }
+
+      function buildRefundRollbackReport() {
+        const gateValues = [
+          fields.signatureGate.checked,
+          fields.duplicateReplay.checked,
+          fields.supportEvidence.checked,
+          fields.secretFree.checked
+        ];
+        const passed = gateValues.filter(Boolean).length;
+        const verdict = passed === 4 ? "READY" : "REVIEW";
+        const risk = passed === 4 ? "Low launch risk" : passed >= 2 ? "Needs targeted review" : "High rollback risk";
+        const blockers = [
+          fields.signatureGate.checked ? "" : "- Verify the refund event signature against the exact raw body before rollback.",
+          fields.duplicateReplay.checked ? "" : "- Replay the same refund event and prove rollback side effects run once.",
+          fields.supportEvidence.checked ? "" : "- Preserve buyer-visible support evidence without private data.",
+          fields.secretFree.checked ? "" : "- Remove API keys, webhook secrets, private checkout URLs, and customer data from the report."
+        ].filter(Boolean);
+
+        return {
+          verdict,
+          passed,
+          risk,
+          markdown: `# Lemon Squeezy refund rollback report
+
+- Product: ${fields.productName.value.trim() || "unspecified"}
+- Order reference: ${fields.orderRef.value.trim() || "unspecified"}
+- Refund event: ${fields.eventName.value}
+- Refund state: ${fields.refundState.value}
+- Entitlement action: ${fields.entitlementAction.value}
+- Idempotency key: ${fields.idempotencyKey.value.trim() || "missing"}
+- Signed raw body verified: ${yesNo(fields.signatureGate.checked)}
+- Duplicate replay skipped safely: ${yesNo(fields.duplicateReplay.checked)}
+- Support evidence retained: ${yesNo(fields.supportEvidence.checked)}
+- Secret-free report: ${yesNo(fields.secretFree.checked)}
+- Verdict: ${verdict}
+- Risk: ${risk}
+
+## Rollback note
+
+${fields.rollbackNote.value.trim() || "No rollback note supplied."}
+
+## Reviewer note
+
+${fields.reviewerNote.value.trim() || "No reviewer note supplied."}
+
+## Launch blockers
+
+${blockers.length ? blockers.join("\n") : "- No refund rollback launch blocker detected."}
+
+## Safe public reporting
+
+- Do not include production API keys.
+- Do not include webhook signing secrets.
+- Do not include customer emails or private identifiers.
+- Do not include private checkout URLs or private download links.
+- Use fake fixtures for public issues and PR examples.`
+        };
+      }
+
+      function renderReport() {
+        const report = buildRefundRollbackReport();
+        output.textContent = report.markdown;
+        verdictEl.textContent = report.verdict;
+        verdictEl.className = report.verdict === "READY" ? "verdict-ready" : "verdict-review";
+        passedGatesEl.textContent = `${report.passed} / 4`;
+        riskLevelEl.textContent = report.risk;
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        renderReport();
+      });
+
+      Object.values(fields).forEach((field) => {
+        field.addEventListener("input", renderReport);
+        field.addEventListener("change", renderReport);
+      });
+
+      sampleButton.addEventListener("click", () => {
+        fields.productName.value = "BillingWebhookKit Pro";
+        fields.orderRef.value = "fake_order_123";
+        fields.eventName.value = "order_refunded";
+        fields.refundState.value = "refunded";
+        fields.entitlementAction.value = "revoke_paid_download_resend_support";
+        fields.idempotencyKey.value = "lemon:refund:fake_order_123";
+        fields.signatureGate.checked = true;
+        fields.duplicateReplay.checked = true;
+        fields.supportEvidence.checked = true;
+        fields.secretFree.checked = true;
+        fields.rollbackNote.value = "Private ZIP resend support is disabled for the refunded order. Checksum and public delivery policy remain available for buyer evidence.";
+        fields.reviewerNote.value = "Release reviewer confirmed refund rollback is idempotent and does not leak customer data, API keys, webhook secrets, or private download URLs.";
+        renderReport();
+      });
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(output.textContent);
+          copyButton.textContent = "Copied";
+          window.setTimeout(() => {
+            copyButton.textContent = "Copy Markdown";
+          }, 1400);
+        } catch {
+          copyButton.textContent = "Copy failed";
+          window.setTimeout(() => {
+            copyButton.textContent = "Copy Markdown";
+          }, 1400);
+        }
+      });
+
+      renderReport();
+    </script>
+  </body>
+</html>

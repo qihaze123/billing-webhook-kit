@@ -22,6 +22,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
   `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
+  `${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`,
   `${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-test.html`,
@@ -128,6 +129,7 @@ const [
   readinessScorecard,
   checkoutSmokeReport,
   fulfillmentChecklist,
+  refundRollbackReport,
   deliveryEmailTemplates,
   eventCoverageMatrix,
   guideIndex,
@@ -162,6 +164,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`),
   fetchText(`${siteUrl}/guides/`),
@@ -221,6 +224,9 @@ const issues = [
   ...(fulfillmentChecklist.ok
     ? []
     : [`fulfillment checklist generator page returned HTTP ${fulfillmentChecklist.status ?? "failed"}.`]),
+  ...(refundRollbackReport.ok
+    ? []
+    : [`refund rollback report page returned HTTP ${refundRollbackReport.status ?? "failed"}.`]),
   ...(deliveryEmailTemplates.ok
     ? []
     : [`delivery email template generator page returned HTTP ${deliveryEmailTemplates.status ?? "failed"}.`]),
@@ -253,7 +259,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 61 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 61.`]),
+  ...(sitemapUrls.length >= 62 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 62.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -300,6 +306,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`)
     ? []
     : ["llms.txt is missing the standalone fulfillment checklist generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`)
+    ? []
+    : ["llms.txt is missing the standalone refund rollback report URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`)
     ? []
     : ["llms.txt is missing the standalone delivery email template generator URL."]),
@@ -372,6 +381,7 @@ const issues = [
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
   toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
+  toolIndex.text.includes("Lemon Squeezy refund rollback report") &&
   toolIndex.text.includes("Lemon Squeezy delivery email template generator") &&
   toolIndex.text.includes("Lemon Squeezy webhook event coverage matrix") &&
   toolIndex.text.includes("Download the free sample") &&
@@ -455,6 +465,16 @@ const issues = [
   fulfillmentChecklist.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["fulfillment checklist generator page is missing report copy, report logic, delivery safety copy, or conversion links."]),
+  ...(refundRollbackReport.text.includes("Lemon Squeezy refund rollback report generator") &&
+  refundRollbackReport.text.includes("buildRefundRollbackReport") &&
+  refundRollbackReport.text.includes("entitlement rollback") &&
+  refundRollbackReport.text.includes("duplicate replay") &&
+  refundRollbackReport.text.includes("secret-free") &&
+  refundRollbackReport.text.includes("pro-kit.html") &&
+  refundRollbackReport.text.includes("free-sample.html") &&
+  refundRollbackReport.text.includes("lemon-squeezy-refund-webhook-test.html")
+    ? []
+    : ["refund rollback report page is missing report logic, rollback copy, replay safety copy, or conversion links."]),
   ...(deliveryEmailTemplates.text.includes("Lemon Squeezy delivery email template generator") &&
   deliveryEmailTemplates.text.includes("buildDeliveryEmailTemplates") &&
   deliveryEmailTemplates.text.includes("private ZIP") &&
@@ -609,6 +629,7 @@ const result = {
     readinessScorecard: readinessScorecard.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
     fulfillmentChecklist: fulfillmentChecklist.status,
+    refundRollbackReport: refundRollbackReport.status,
     deliveryEmailTemplates: deliveryEmailTemplates.status,
     eventCoverageMatrix: eventCoverageMatrix.status,
     checkoutSmokeGuide: checkoutSmokeGuide.status,
