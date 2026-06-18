@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stripe Refund Webhook Rollback in Next.js | BillingWebhookKit</title>
+    <meta name="description" content="Test Stripe refund webhook rollback in Next.js with charge.refunded, refund.created, disputes, raw-body Stripe-Signature verification, idempotency, entitlement revocation, and CI gates." />
+    <meta name="keywords" content="Stripe refund webhook Next.js, Stripe refund webhook rollback, charge.refunded Next.js, refund.created webhook test, Stripe entitlement rollback" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Stripe Refund Webhook Rollback in Next.js" />
+    <meta property="og:description" content="Build refund rollback tests for Stripe webhook routes before access, license keys, or delivery state changes in production." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stripe Refund Webhook Rollback in Next.js" />
+    <meta name="twitter:description" content="Test charge.refunded and refund.created rollback with Stripe-Signature, idempotency, entitlement decisions, and CI evidence." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(940px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 850; }
+      h1 { max-width: 890px; margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { max-width: 790px; margin: 18px 0 0; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 36px; }
+      .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid var(--line); border-radius: 7px; padding: 0 16px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      .cta.secondary { background: #fff; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      h3 { margin: 0 0 8px; font-size: 1.03rem; }
+      p, li { line-height: 1.72; }
+      p { margin: 0; }
+      ul { margin: 10px 0 0; padding-left: 22px; }
+      code { border: 1px solid #cfd6c5; border-radius: 5px; background: #fff; padding: 1px 5px; font-family: Andale Mono, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+      pre { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #10120f; color: #f7faed; padding: 16px; line-height: 1.55; }
+      .matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+      .card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .card strong { display: block; margin-bottom: 8px; }
+      .faq, .conversion-panel, .related-guides { border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq, .related-guides { background: #fff; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; border-top: 1px solid #d8ded2; padding-top: 18px; }
+      .conversion-panel { background: #10120f; color: #f7faed; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions, .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a, .related-grid a { display: block; min-height: 124px; border-radius: 7px; padding: 14px; text-decoration: none; }
+      .conversion-actions a { border: 1px solid #f7faed; background: #1d2119; }
+      .related-grid a { border: 1px solid #cfd6c5; background: #f9faf4; }
+      .conversion-actions strong, .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .conversion-actions strong { color: var(--accent); }
+      .conversion-actions span, .related-grid span { display: block; font-size: .93rem; line-height: 1.5; }
+      .conversion-actions span { color: #dfe6d6; }
+      .related-grid span { color: var(--muted); }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+      @media (max-width: 720px) { .matrix, .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } .cta { width: 100%; } }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Stripe Refund Webhook Rollback in Next.js","description":"Test Stripe refund webhook rollback in Next.js with charge.refunded, refund.created, disputes, raw-body Stripe-Signature verification, idempotency, entitlement revocation, and CI gates.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which Stripe refund events should a Next.js webhook test cover?","acceptedAnswer":{"@type":"Answer","text":"Start with charge.refunded, refund.created, charge.dispute.created, and the original checkout.session.completed or invoice.paid object used to grant access."}},{"@type":"Question","name":"How should a Stripe refund webhook rollback stay idempotent?","acceptedAnswer":{"@type":"Answer","text":"Build an idempotency key from the Stripe event or refund object, write one rollback record, and prove duplicate replay cannot revoke, email, or log support actions more than once."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Stripe Refund Webhook Rollback in Next.js","item":"https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html"}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Stripe refund webhook rollback in Next.js</h1>
+      <p class="lead">A refund route is not done when it returns 200. It is done when signed Stripe refund events revoke or hold access once, leave support evidence, and survive duplicate replay.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html">Generate Stripe fixtures</a>
+        <a class="cta secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html">Draft rollback evidence</a>
+      </div>
+
+      <section>
+        <h2>Events to cover</h2>
+        <div class="matrix">
+          <div class="card">
+            <strong>charge.refunded</strong>
+            <p>Map the charge to the original checkout session, payment intent, customer, price, and access grant before rollback.</p>
+          </div>
+          <div class="card">
+            <strong>refund.created</strong>
+            <p>Record refund ID, amount, reason, full or partial state, and the product policy that decides access changes.</p>
+          </div>
+          <div class="card">
+            <strong>charge.dispute.created</strong>
+            <p>Hold or revoke access according to dispute policy, then leave support-safe evidence without exposing customer data.</p>
+          </div>
+          <div class="card">
+            <strong>unknown refund-like events</strong>
+            <p>Return a safe response or quarantine for review, but never grant or revoke access by default.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Next.js App Router order</h2>
+        <p>Read <code>await request.text()</code>, verify <code>Stripe-Signature</code> against the exact raw body, parse the event, build an idempotency key, then run the rollback decision once.</p>
+        <pre><code>export async function POST(request: Request) {
+  const rawBody = await request.text();
+  const signature = request.headers.get("Stripe-Signature");
+  const event = verifyStripeEvent(rawBody, signature);
+
+  if (event.type === "charge.refunded" || event.type === "refund.created") {
+    await runOnce(`stripe:${event.id}`, async () => {
+      await applyRefundRollback(event);
+    });
+  }
+
+  return new Response("ok", { status: 200 });
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>CI gates</h2>
+        <ul>
+          <li>Valid signed <code>charge.refunded</code> fixture returns 2xx and creates one rollback record.</li>
+          <li>Mutated raw body fails before entitlement, delivery, license, email, or support side effects.</li>
+          <li>Duplicate replay of the same Stripe event runs rollback once.</li>
+          <li>Partial refund follows documented policy instead of revoking all access silently.</li>
+          <li>Dispute fixture follows hold or revoke policy and records review evidence.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Rollback evidence</h2>
+        <p>Keep the report secret-free: event type, event ID, refund ID, mapped payment object, entitlement decision, duplicate replay result, support action, and CI run link are enough for launch review.</p>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Which Stripe refund events should a Next.js webhook test cover?</h3>
+          <p>Start with <code>charge.refunded</code>, <code>refund.created</code>, <code>charge.dispute.created</code>, and the original <code>checkout.session.completed</code> or <code>invoice.paid</code> object used to grant access.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How should a Stripe refund webhook rollback stay idempotent?</h3>
+          <p>Build an idempotency key from the Stripe event or refund object, write one rollback record, and prove duplicate replay cannot revoke, email, or log support actions more than once.</p>
+        </div>
+      </section>
+
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Use the free generators before launch</h2>
+          <p>The Stripe fixture generator and refund rollback report help document the route before public checkout. The CNY 69 Pro Kit is for teams that want copy-ready fixtures, idempotency tests, and review templates in one package.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html">
+            <strong>Generate Stripe fixture</strong>
+            <span>Create fake Stripe payloads, signatures, and replay commands without a Stripe account.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CNY 69 digital kit; checkout stays disabled until live payment configuration is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Use these pages to turn refund rollback into a release checklist.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html">
+            <strong>Stripe webhook test plan for Next.js</strong>
+            <span>Cover checkout, invoices, subscriptions, refunds, disputes, replay, and CI gates.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-refund-rollback-test.html">
+            <strong>Next.js refund rollback test</strong>
+            <span>Use the provider-neutral rollback checklist for Stripe, Lemon Squeezy, Paddle, and Polar.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-entitlement-test-matrix.html">
+            <strong>Next.js entitlement test matrix</strong>
+            <span>Map refund events to revoke, hold, period-end, or no-op decisions.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html">
+            <strong>BillingWebhookKit buyer checklist</strong>
+            <span>Decide whether the free tools are enough or the paid kit saves setup time.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit examples use fake fixtures and fake signing secrets. Keep production API keys, webhook secrets, customer records, refund evidence, and private checkout links out of public reports.
+      </footer>
+    </main>
+  </body>
+</html>

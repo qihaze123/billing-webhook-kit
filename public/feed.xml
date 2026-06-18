@@ -22,6 +22,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Stripe Refund Webhook Rollback in Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html</guid>
+      <description>Test Stripe charge.refunded, refund.created, and dispute rollback in Next.js with raw-body Stripe-Signature checks, idempotency, entitlement decisions, and CI evidence.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Lemon Squeezy Webhook Troubleshooting Hub</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/troubleshooting.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/troubleshooting.html</guid>

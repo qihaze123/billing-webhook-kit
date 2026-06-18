@@ -55,6 +55,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
+  `${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`,
   `${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/nextjs-paddle-webhook-handler.html`,
   `${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`,
@@ -186,6 +187,7 @@ const [
   nextjsRefundRollbackGuide,
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
+  stripeRefundRollbackGuide,
   paddleNextjsSignatureGuide,
   nextjsPaddleWebhookHandlerGuide,
   paddleNextjsTestPlanGuide,
@@ -248,6 +250,7 @@ const [
   fetchText(`${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
+  fetchText(`${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/nextjs-paddle-webhook-handler.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`),
@@ -411,6 +414,9 @@ const issues = [
   ...(stripeNextjsTestPlanGuide.ok
     ? []
     : [`Stripe Next.js test plan guide returned HTTP ${stripeNextjsTestPlanGuide.status ?? "failed"}.`]),
+  ...(stripeRefundRollbackGuide.ok
+    ? []
+    : [`Stripe refund rollback guide returned HTTP ${stripeRefundRollbackGuide.status ?? "failed"}.`]),
   ...(paddleNextjsSignatureGuide.ok
     ? []
     : [`Paddle Next.js signature guide returned HTTP ${paddleNextjsSignatureGuide.status ?? "failed"}.`]),
@@ -1056,6 +1062,18 @@ const issues = [
   stripeNextjsTestPlanGuide.text.includes("pro-kit.html")
     ? []
     : ["Stripe Next.js test plan guide is missing test plan copy, Stripe event coverage, raw-body copy, or conversion links."]),
+  ...(stripeRefundRollbackGuide.text.includes("Stripe refund webhook rollback in Next.js") &&
+  stripeRefundRollbackGuide.text.includes("charge.refunded") &&
+  stripeRefundRollbackGuide.text.includes("refund.created") &&
+  stripeRefundRollbackGuide.text.includes("Stripe-Signature") &&
+  stripeRefundRollbackGuide.text.includes("duplicate replay") &&
+  stripeRefundRollbackGuide.text.includes("stripe-webhook-fixture-generator.html") &&
+  stripeRefundRollbackGuide.text.includes("nextjs-payment-webhook-refund-rollback-test.html") &&
+  stripeRefundRollbackGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Stripe refund rollback guide is missing Stripe event coverage, signature copy, replay copy, or conversion links."
+      ]),
   ...(paddleNextjsSignatureGuide.text.includes("Paddle webhook signature verification in Next.js") &&
   paddleNextjsSignatureGuide.text.includes("Paddle-Signature") &&
   paddleNextjsSignatureGuide.text.includes("transaction.completed") &&
@@ -1284,6 +1302,7 @@ const result = {
     nextjsRefundRollbackGuide: nextjsRefundRollbackGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,
+    stripeRefundRollbackGuide: stripeRefundRollbackGuide.status,
     paddleNextjsSignatureGuide: paddleNextjsSignatureGuide.status,
     nextjsPaddleWebhookHandlerGuide: nextjsPaddleWebhookHandlerGuide.status,
     paddleNextjsTestPlanGuide: paddleNextjsTestPlanGuide.status,

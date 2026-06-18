@@ -113,6 +113,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Verify Stripe webhook signatures in Next.js App Router without losing raw request bodies.
 - Build a Next.js payment webhook entitlement test matrix for paid checkout, renewal, cancellation, refund, failed payment, duplicate replay, unknown events, and CI gates.
 - Build a Next.js payment webhook refund rollback test with signed fixtures, idempotency, entitlement revocation, support evidence, duplicate replay, and CI gates.
+- Test Stripe refund webhook rollback in Next.js with `charge.refunded`, `refund.created`, disputes, raw-body `Stripe-Signature` verification, idempotency, entitlement revocation, and CI evidence.
 
 ## Important Pages
 
@@ -178,6 +179,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Next.js Paddle webhook handler: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - Next.js payment webhook entitlement test matrix: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-entitlement-test-matrix.html
 - Next.js payment webhook refund rollback test: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-refund-rollback-test.html
+- Stripe refund webhook rollback in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html
