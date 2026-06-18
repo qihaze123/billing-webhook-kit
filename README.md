@@ -58,6 +58,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - BillingWebhookKit buyer checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html
 - Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
+- Free Lemon Squeezy webhook test tools: https://qihaze123.github.io/billing-webhook-kit/free-lemon-squeezy-webhook-test-tools.html
 - Search Console sitemap submission handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
 - Google indexing priority queue: https://qihaze123.github.io/billing-webhook-kit/google-indexing-priority.html
 - HTML sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.html
@@ -101,6 +102,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Free sample release: public zip with fixture, handler, signature, contract, replay tests, review report, and CI skeleton.
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
+- Free Lemon Squeezy webhook test tools: search landing page for free payload generation, x-signature verification, replay cURL commands, raw-body audits, idempotency keys, checkout smoke reports, and the free sample.
 - Search Console sitemap handoff: exact URL-prefix property, sitemap path, live crawl files, and owner-only submission boundary for Google Search Console.
 - Google indexing priority queue: top URLs, target search intents, URL Inspection order, and post-submit monitoring notes for Search Console.
 - HTML sitemap: a crawlable page linking the buyer path, standalone tools, and guide pages from one public URL.
@@ -261,6 +263,8 @@ Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit
 Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 
 Public checkout and package status: https://qihaze123.github.io/billing-webhook-kit/status.html
+
+Free Lemon Squeezy webhook test tools: https://qihaze123.github.io/billing-webhook-kit/free-lemon-squeezy-webhook-test-tools.html
 
 Search Console sitemap handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
 

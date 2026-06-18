@@ -56,6 +56,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Lemon Squeezy production webhook troubleshooting checklist: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html
 - Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
+- Free Lemon Squeezy webhook test tools: https://qihaze123.github.io/billing-webhook-kit/free-lemon-squeezy-webhook-test-tools.html
 - Search Console sitemap submission handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
 - Google indexing priority queue: https://qihaze123.github.io/billing-webhook-kit/google-indexing-priority.html
 - Lemon Squeezy refund webhook test guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html
@@ -134,6 +135,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 - BillingWebhookKit delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - BillingWebhookKit public status: https://qihaze123.github.io/billing-webhook-kit/status.html
+- BillingWebhookKit free Lemon Squeezy webhook test tools: https://qihaze123.github.io/billing-webhook-kit/free-lemon-squeezy-webhook-test-tools.html
 - BillingWebhookKit Search Console sitemap submission handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
 - BillingWebhookKit Google indexing priority queue: https://qihaze123.github.io/billing-webhook-kit/google-indexing-priority.html
 - BillingWebhookKit Lemon Squeezy webhook troubleshooting hub: https://qihaze123.github.io/billing-webhook-kit/troubleshooting.html

@@ -5,6 +5,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/`,
   `${siteUrl}/guides/`,
   `${siteUrl}/free-sample.html`,
+  `${siteUrl}/free-lemon-squeezy-webhook-test-tools.html`,
   `${siteUrl}/pro-kit.html`,
   `${siteUrl}/billing-webhook-kit-pro-sample-report.html`,
   `${siteUrl}/delivery-refund-support.html`,
@@ -155,6 +156,7 @@ const [
   proSampleReport,
   deliverySupport,
   freeSample,
+  freeLemonSqueezyTools,
   statusPage,
   sitemapHtml,
   searchConsoleHandoff,
@@ -230,6 +232,7 @@ const [
   fetchText(`${siteUrl}/billing-webhook-kit-pro-sample-report.html`),
   fetchText(`${siteUrl}/delivery-refund-support.html`),
   fetchText(`${siteUrl}/free-sample.html`),
+  fetchText(`${siteUrl}/free-lemon-squeezy-webhook-test-tools.html`),
   fetchText(`${siteUrl}/status.html`),
   fetchText(`${siteUrl}/sitemap.html`),
   fetchText(`${siteUrl}/search-console-sitemap-submission.html`),
@@ -312,6 +315,9 @@ const issues = [
     : [`Pro sample report page returned HTTP ${proSampleReport.status ?? "failed"}.`]),
   ...(deliverySupport.ok ? [] : [`delivery support page returned HTTP ${deliverySupport.status ?? "failed"}.`]),
   ...(freeSample.ok ? [] : [`free sample page returned HTTP ${freeSample.status ?? "failed"}.`]),
+  ...(freeLemonSqueezyTools.ok
+    ? []
+    : [`free Lemon Squeezy tools page returned HTTP ${freeLemonSqueezyTools.status ?? "failed"}.`]),
   ...(statusPage.ok ? [] : [`status page returned HTTP ${statusPage.status ?? "failed"}.`]),
   ...(sitemapHtml.ok ? [] : [`HTML sitemap returned HTTP ${sitemapHtml.status ?? "failed"}.`]),
   ...(searchConsoleHandoff.ok
@@ -558,6 +564,9 @@ const issues = [
     ? []
     : ["llms.txt is missing the delivery, refund, and support policy URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
+  ...(llms.text.includes(`${siteUrl}/free-lemon-squeezy-webhook-test-tools.html`)
+    ? []
+    : ["llms.txt is missing the free Lemon Squeezy tools URL."]),
   ...(llms.text.includes(`${siteUrl}/google-indexing-priority.html`)
     ? []
     : ["llms.txt is missing the Google indexing priority URL."]),
@@ -739,6 +748,7 @@ const issues = [
   sitemapHtml.text.includes("lemon-squeezy-vs-stripe-webhooks-ai-saas.html") &&
   sitemapHtml.text.includes("billing-webhook-kit-buyer-checklist.html") &&
   sitemapHtml.text.includes("pro-kit.html") &&
+  sitemapHtml.text.includes("free-lemon-squeezy-webhook-test-tools.html") &&
   sitemapHtml.text.includes("google-indexing-priority.html") &&
   sitemapHtml.text.includes("sitemap.xml")
     ? []
@@ -762,11 +772,14 @@ const issues = [
   searchConsoleHandoff.text.includes("owner actions") &&
   searchConsoleHandoff.text.includes("robots.txt") &&
   searchConsoleHandoff.text.includes("sitemap.html") &&
+  searchConsoleHandoff.text.includes("free Lemon Squeezy webhook test tools") &&
   searchConsoleHandoff.text.includes("google-indexing-priority.html") &&
   searchConsoleHandoff.text.includes("llms.txt")
     ? []
     : ["Search Console sitemap handoff page is missing owner handoff values, crawl files, or manual-boundary copy."]),
   ...(googleIndexingPriority.text.includes("Google indexing priority queue") &&
+  googleIndexingPriority.text.includes("free-lemon-squeezy-webhook-test-tools.html") &&
+  googleIndexingPriority.text.includes("free lemon squeezy webhook test tool") &&
   googleIndexingPriority.text.includes("lemon squeezy webhook test generator") &&
   googleIndexingPriority.text.includes("lemon-squeezy-webhook-payload-generator.html") &&
   googleIndexingPriority.text.includes("lemon-squeezy-signature-verifier.html") &&
@@ -776,6 +789,16 @@ const issues = [
   googleIndexingPriority.text.includes("owner-only actions")
     ? []
     : ["Google indexing priority page is missing priority URLs, search intent copy, Search Console action order, or owner-only boundary copy."]),
+  ...(freeLemonSqueezyTools.text.includes("Free Lemon Squeezy webhook test tools") &&
+  freeLemonSqueezyTools.text.includes("lemon-squeezy-webhook-payload-generator.html") &&
+  freeLemonSqueezyTools.text.includes("lemon-squeezy-signature-verifier.html") &&
+  freeLemonSqueezyTools.text.includes("webhook-replay-curl-generator.html") &&
+  freeLemonSqueezyTools.text.includes("nextjs-lemon-squeezy-raw-body-audit.html") &&
+  freeLemonSqueezyTools.text.includes("lemon-squeezy-checkout-smoke-test-report.html") &&
+  freeLemonSqueezyTools.text.includes("billing-webhook-pro-fit-checker.html") &&
+  freeLemonSqueezyTools.text.includes("do not require Lemon Squeezy API keys")
+    ? []
+    : ["free Lemon Squeezy tools page is missing free tool links, Pro conversion links, or no-secret safety copy."]),
   ...(launchEvidencePack.text.includes("Billing webhook launch evidence pack") &&
   launchEvidencePack.text.includes("checkout smoke") &&
   launchEvidencePack.text.includes("production checkout readiness") &&
@@ -1516,6 +1539,7 @@ const result = {
     proSampleReport: proSampleReport.status,
     deliverySupport: deliverySupport.status,
     freeSample: freeSample.status,
+    freeLemonSqueezyTools: freeLemonSqueezyTools.status,
     statusPage: statusPage.status,
     sitemapHtml: sitemapHtml.status,
     searchConsoleHandoff: searchConsoleHandoff.status,

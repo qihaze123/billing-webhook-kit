@@ -45,6 +45,7 @@ const tabs: Array<{ id: OutputTab; label: string; icon: typeof FileJson }> = [
 
 const guideLinks = [
   { href: "troubleshooting.html", label: "Lemon Squeezy webhook troubleshooting hub" },
+  { href: "free-lemon-squeezy-webhook-test-tools.html", label: "Free Lemon Squeezy webhook test tools" },
   { href: "google-indexing-priority.html", label: "Google indexing priority queue" },
   { href: "tools/lemon-squeezy-live-checkout-launch-command.html", label: "Live checkout launch command builder" },
   { href: "tools/lemon-squeezy-paid-order-delivery-incident-report.html", label: "Paid order delivery incident report" },

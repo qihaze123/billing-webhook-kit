@@ -7,6 +7,7 @@ const publicDir = join(root, "public");
 const manifestPath = join(publicDir, "pro-kit-manifest.json");
 const freeSampleZipPath = join(publicDir, "billing-webhook-kit-free-sample.zip");
 const freeSamplePath = join(publicDir, "free-sample.html");
+const freeLemonSqueezyToolsPath = join(publicDir, "free-lemon-squeezy-webhook-test-tools.html");
 const proKitPath = join(publicDir, "pro-kit.html");
 const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
 const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digital-download-fulfillment.html");
@@ -49,6 +50,9 @@ const issues = [];
 if (!existsSync(manifestPath)) issues.push("Missing public/pro-kit-manifest.json.");
 if (!existsSync(freeSampleZipPath)) issues.push("Missing public/billing-webhook-kit-free-sample.zip.");
 if (!existsSync(freeSamplePath)) issues.push("Missing public/free-sample.html.");
+if (!existsSync(freeLemonSqueezyToolsPath)) {
+  issues.push("Missing public/free-lemon-squeezy-webhook-test-tools.html.");
+}
 if (!existsSync(proKitPath)) issues.push("Missing public/pro-kit.html.");
 if (!existsSync(deliverySupportPath)) issues.push("Missing public/delivery-refund-support.html.");
 if (!existsSync(digitalDownloadGuidePath)) {
@@ -95,6 +99,9 @@ if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
 const checkout = existsSync(checkoutPath) ? readJson(checkoutPath) : null;
 const freeSampleHtml = existsSync(freeSamplePath) ? readFileSync(freeSamplePath, "utf8") : "";
+const freeLemonSqueezyToolsHtml = existsSync(freeLemonSqueezyToolsPath)
+  ? readFileSync(freeLemonSqueezyToolsPath, "utf8")
+  : "";
 const proKitHtml = existsSync(proKitPath) ? readFileSync(proKitPath, "utf8") : "";
 const deliverySupportHtml = existsSync(deliverySupportPath) ? readFileSync(deliverySupportPath, "utf8") : "";
 const digitalDownloadGuideHtml = existsSync(digitalDownloadGuidePath)
@@ -201,6 +208,19 @@ if (
   !freeSampleHtml.includes("lemon-squeezy-checkout-smoke-test-report.html")
 ) {
   issues.push("Free sample page does not expose checkout launch gate upgrade links.");
+}
+if (
+  !freeLemonSqueezyToolsHtml.includes("Free Lemon Squeezy webhook test tools") ||
+  !freeLemonSqueezyToolsHtml.includes("lemon-squeezy-webhook-payload-generator.html") ||
+  !freeLemonSqueezyToolsHtml.includes("lemon-squeezy-signature-verifier.html") ||
+  !freeLemonSqueezyToolsHtml.includes("webhook-replay-curl-generator.html") ||
+  !freeLemonSqueezyToolsHtml.includes("nextjs-lemon-squeezy-raw-body-audit.html") ||
+  !freeLemonSqueezyToolsHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
+  !freeLemonSqueezyToolsHtml.includes("free-sample.html") ||
+  !freeLemonSqueezyToolsHtml.includes("pro-kit.html") ||
+  !freeLemonSqueezyToolsHtml.includes("do not require Lemon Squeezy API keys")
+) {
+  issues.push("Free Lemon Squeezy tools page is missing free tool links, sample and Pro conversion links, or no-secret safety copy.");
 }
 if (!proKitHtml.includes("pro-kit-manifest.json")) {
   issues.push("Pro Kit page does not link the public manifest.");
