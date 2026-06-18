@@ -52,6 +52,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
+  `${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
   `${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`,
@@ -182,6 +183,7 @@ const [
   webhookNotFiringGuide,
   digitalDownloadGuide,
   refundWebhookGuide,
+  nextjsRefundRollbackGuide,
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
   paddleNextjsSignatureGuide,
@@ -243,6 +245,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
+  fetchText(`${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`),
@@ -395,6 +398,13 @@ const issues = [
   ...(refundWebhookGuide.ok
     ? []
     : [`Lemon Squeezy refund webhook guide returned HTTP ${refundWebhookGuide.status ?? "failed"}.`]),
+  ...(nextjsRefundRollbackGuide.ok
+    ? []
+    : [
+        `Next.js payment webhook refund rollback guide returned HTTP ${
+          nextjsRefundRollbackGuide.status ?? "failed"
+        }.`
+      ]),
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
@@ -1016,6 +1026,18 @@ const issues = [
   refundWebhookGuide.text.includes("free-sample.html")
     ? []
     : ["Lemon Squeezy refund webhook guide is missing refund rollback, replay, safety, policy, or conversion copy."]),
+  ...(nextjsRefundRollbackGuide.text.includes("Next.js payment webhook refund rollback test") &&
+  nextjsRefundRollbackGuide.text.includes("signed fixtures") &&
+  nextjsRefundRollbackGuide.text.includes("entitlement revocation") &&
+  nextjsRefundRollbackGuide.text.includes("support evidence") &&
+  nextjsRefundRollbackGuide.text.includes("duplicate replay") &&
+  nextjsRefundRollbackGuide.text.includes("lemon-squeezy-refund-rollback-report.html") &&
+  nextjsRefundRollbackGuide.text.includes("nextjs-payment-webhook-entitlement-test-matrix.html") &&
+  nextjsRefundRollbackGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Next.js payment webhook refund rollback guide is missing signed fixture, rollback, replay, support, or conversion copy."
+      ]),
   ...(stripeNextjsGuide.text.includes("Stripe webhook signature verification in Next.js") &&
   stripeNextjsGuide.text.includes("request.text()") &&
   stripeNextjsGuide.text.includes("Stripe-Signature") &&
@@ -1259,6 +1281,7 @@ const result = {
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
+    nextjsRefundRollbackGuide: nextjsRefundRollbackGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,
     paddleNextjsSignatureGuide: paddleNextjsSignatureGuide.status,

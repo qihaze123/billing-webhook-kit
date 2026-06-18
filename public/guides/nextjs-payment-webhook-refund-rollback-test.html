@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Next.js Payment Webhook Refund Rollback Test | BillingWebhookKit</title>
+    <meta name="description" content="Build a Next.js payment webhook refund rollback test for Stripe, Lemon Squeezy, Paddle, and Polar with signed fixtures, idempotency, entitlement revocation, support evidence, and CI gates." />
+    <meta name="keywords" content="Next.js refund webhook test, payment webhook refund rollback, Stripe refund webhook Next.js, Lemon Squeezy refund webhook test, webhook entitlement rollback test" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-refund-rollback-test.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Next.js Payment Webhook Refund Rollback Test" />
+    <meta property="og:description" content="Test refund webhook rollback before a Next.js billing route revokes access, records support evidence, or resends delivery emails." />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-refund-rollback-test.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Next.js Payment Webhook Refund Rollback Test" />
+    <meta name="twitter:description" content="Turn refund webhook rollback into signed fixtures, idempotency tests, entitlement revocation checks, and CI evidence." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; }
+      main { width: min(940px, calc(100vw - 32px)); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 850; }
+      h1 { max-width: 890px; margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .93; letter-spacing: 0; }
+      .lead { max-width: 790px; margin: 18px 0 0; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 36px; }
+      .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid var(--line); border-radius: 7px; padding: 0 16px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      .cta.secondary { background: #fff; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.25rem; }
+      h3 { margin: 0 0 8px; font-size: 1.03rem; }
+      p, li { line-height: 1.72; }
+      p { margin: 0; }
+      ul { margin: 10px 0 0; padding-left: 22px; }
+      code { border: 1px solid #cfd6c5; border-radius: 5px; background: #fff; padding: 1px 5px; font-family: Andale Mono, SFMono-Regular, Menlo, monospace; font-size: .92em; }
+      pre { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #10120f; color: #f7faed; padding: 16px; line-height: 1.55; }
+      .matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+      .card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .card strong { display: block; margin-bottom: 8px; }
+      .steps { counter-reset: step; display: grid; gap: 12px; margin-top: 14px; }
+      .step { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .step strong::before { counter-increment: step; content: counter(step) ". "; color: var(--coral); }
+      .faq, .conversion-panel, .related-guides { border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq, .related-guides { background: #fff; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; border-top: 1px solid #d8ded2; padding-top: 18px; }
+      .conversion-panel { background: #10120f; color: #f7faed; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions, .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a, .related-grid a { display: block; min-height: 124px; border-radius: 7px; padding: 14px; text-decoration: none; }
+      .conversion-actions a { border: 1px solid #f7faed; background: #1d2119; }
+      .related-grid a { border: 1px solid #cfd6c5; background: #f9faf4; }
+      .conversion-actions strong, .related-grid strong { display: block; margin-bottom: 8px; line-height: 1.25; }
+      .conversion-actions strong { color: var(--accent); }
+      .conversion-actions span, .related-grid span { display: block; font-size: .93rem; line-height: 1.5; }
+      .conversion-actions span { color: #dfe6d6; }
+      .related-grid span { color: var(--muted); }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+      @media (max-width: 720px) { .matrix, .conversion-actions, .related-grid { grid-template-columns: 1fr; } .conversion-actions a, .related-grid a { min-height: 0; } .cta { width: 100%; } }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Next.js Payment Webhook Refund Rollback Test","description":"Build a Next.js payment webhook refund rollback test for Stripe, Lemon Squeezy, Paddle, and Polar with signed fixtures, idempotency, entitlement revocation, support evidence, and CI gates.","author":{"@type":"Organization","name":"BillingWebhookKit"},"datePublished":"2026-06-18","dateModified":"2026-06-18","mainEntityOfPage":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-refund-rollback-test.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What should a refund webhook rollback test prove?","acceptedAnswer":{"@type":"Answer","text":"It should prove the signed refund event is accepted once, maps to the original payment, revokes or flags access according to policy, records support evidence, and stays safe under duplicate replay."}},{"@type":"Question","name":"Should a refund webhook always revoke access immediately?","acceptedAnswer":{"@type":"Answer","text":"No. The test should match the product policy: immediate revoke, period-end revoke, manual review, or support hold depending on the refund type, dispute state, and delivery model."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"BillingWebhookKit","item":"https://qihaze123.github.io/billing-webhook-kit/"},{"@type":"ListItem","position":2,"name":"Payment webhook guides","item":"https://qihaze123.github.io/billing-webhook-kit/guides/"},{"@type":"ListItem","position":3,"name":"Next.js Payment Webhook Refund Rollback Test","item":"https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-refund-rollback-test.html"}]}</script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Next.js payment webhook refund rollback test</h1>
+      <p class="lead">A refund webhook test should prove rollback behavior before a live customer asks why access, downloads, license keys, or support notes changed.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html">Generate a refund rollback report</a>
+        <a class="cta secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-entitlement-decision-matrix.html">Map entitlement decisions</a>
+      </div>
+
+      <section>
+        <h2>Rollback contract</h2>
+        <p>Do not treat refund handling as a support-only task. The webhook route needs a contract that says which provider event is trusted, how it maps back to the original checkout, and what access change is allowed.</p>
+        <div class="matrix">
+          <div class="card">
+            <strong>Signed refund event</strong>
+            <p>Verify the exact raw body with the provider signature header before parsing JSON or touching access records.</p>
+          </div>
+          <div class="card">
+            <strong>Original payment mapping</strong>
+            <p>Connect the refund ID to the order, invoice, transaction, subscription, customer, and product or price ID.</p>
+          </div>
+          <div class="card">
+            <strong>Entitlement decision</strong>
+            <p>Apply the policy: revoke now, revoke at period end, hold for support review, or keep access for partial refunds.</p>
+          </div>
+          <div class="card">
+            <strong>Support evidence</strong>
+            <p>Record secret-free notes: event ID, refund amount, decision, replay result, and delivery or license state.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Next.js test shape</h2>
+        <p>Put refund rollback in CI with signed fixtures. The route should reject mutated bodies, run one rollback under duplicate replay, and keep unknown refund-like events from changing access.</p>
+        <pre><code>it("rolls back a signed refund event once", async () => {
+  const event = signedFixture("refund.created");
+
+  await postWebhook(event);
+  await postWebhook(event);
+  await postWebhook(event);
+
+  expect(await entitlementState(event.paymentId)).toEqual("revoked");
+  expect(await rollbackRecords(event.refundId)).toHaveLength(1);
+});</code></pre>
+      </section>
+
+      <section>
+        <h2>Minimum test list</h2>
+        <div class="steps">
+          <div class="step">
+            <strong>Valid refund fixture</strong>
+            <p>Signed provider fixture returns 2xx, maps to the original payment, and writes the expected rollback record.</p>
+          </div>
+          <div class="step">
+            <strong>Mutated raw body</strong>
+            <p>Changing one byte after signing returns 400 before access, delivery, license, email, or support side effects run.</p>
+          </div>
+          <div class="step">
+            <strong>Duplicate replay</strong>
+            <p>Replaying the same event three times produces one rollback decision and one support evidence entry.</p>
+          </div>
+          <div class="step">
+            <strong>Partial refund policy</strong>
+            <p>Partial refunds follow the documented policy instead of silently revoking all access.</p>
+          </div>
+          <div class="step">
+            <strong>Unknown refund-like event</strong>
+            <p>Unknown signed events are logged or quarantined without granting or revoking access by default.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Provider event names</h2>
+        <ul>
+          <li>Stripe: start with <code>charge.refunded</code>, <code>refund.created</code>, disputes, and the original checkout or invoice mapping.</li>
+          <li>Lemon Squeezy: cover refund-related order events, paid-state checks, delivery rollback, and buyer support evidence.</li>
+          <li>Paddle: cover adjustment or refund events and link them back to <code>transaction.completed</code>.</li>
+          <li>Polar: cover order refund or dispute equivalents and product entitlement decisions.</li>
+        </ul>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>What should a refund webhook rollback test prove?</h3>
+          <p>It should prove the signed refund event is accepted once, maps to the original payment, revokes or flags access according to policy, records support evidence, and stays safe under duplicate replay.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Should a refund webhook always revoke access immediately?</h3>
+          <p>No. The test should match the product policy: immediate revoke, period-end revoke, manual review, or support hold depending on the refund type, dispute state, and delivery model.</p>
+        </div>
+      </section>
+
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Turn refund rollback into launch evidence</h2>
+          <p>The free report generator creates a PR-ready refund rollback note. The CNY 69 Pro Kit packages fixtures, idempotency tests, review templates, and runbooks for teams that want the evidence already organized.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html">
+            <strong>Generate rollback report</strong>
+            <span>Export signed refund evidence, duplicate replay notes, access rollback decisions, and support context.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CNY 69 digital kit; checkout stays disabled until live payment configuration is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related payment webhook guides</h2>
+          <p>Use these checks to connect refund rollback with launch readiness.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html">
+            <strong>Lemon Squeezy refund webhook test</strong>
+            <span>Review provider-specific rollback and support evidence checks.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-entitlement-test-matrix.html">
+            <strong>Next.js entitlement test matrix</strong>
+            <span>Map refund events to revoke, hold, period-end, or no-op decisions.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html">
+            <strong>Stripe webhook test plan for Next.js</strong>
+            <span>Cover checkout, invoices, subscriptions, refunds, disputes, and CI gates.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html">
+            <strong>BillingWebhookKit buyer checklist</strong>
+            <span>Decide whether the free tools are enough or the paid kit saves setup time.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit examples use fake fixtures and fake signing secrets. Keep production API keys, webhook secrets, customer records, refund evidence, and private checkout links out of public reports.
+      </footer>
+    </main>
+  </body>
+</html>

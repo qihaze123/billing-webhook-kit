@@ -56,6 +56,7 @@ const guideLinks = [
   { href: "guides/paddle-webhook-signature-verification-nextjs.html", label: "Paddle webhook signature verification in Next.js" },
   { href: "guides/paddle-webhook-test-plan-nextjs.html", label: "Paddle webhook test plan for Next.js" },
   { href: "guides/nextjs-payment-webhook-entitlement-test-matrix.html", label: "Next.js payment webhook entitlement test matrix" },
+  { href: "guides/nextjs-payment-webhook-refund-rollback-test.html", label: "Next.js payment webhook refund rollback test" },
   { href: "guides/nextjs-webhook-405-lemon-squeezy.html", label: "Fix Next.js 405 Lemon Squeezy webhooks" },
   { href: "guides/lemon-squeezy-webhook-500-vercel-nextjs.html", label: "Fix Lemon Squeezy webhook 500 on Vercel" },
   { href: "guides/lemon-squeezy-webhook-retry-idempotency.html", label: "Lemon Squeezy webhook retry idempotency" },
