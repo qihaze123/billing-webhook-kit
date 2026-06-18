@@ -32,6 +32,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
   `${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`,
   `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
+  `${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`,
   `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
   `${siteUrl}/tools/lemon-squeezy-paid-order-delivery-incident-report.html`,
   `${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`,
@@ -177,6 +178,7 @@ const [
   checkoutSmokeReport,
   paypalLiveCheckoutReport,
   productionCheckoutReadinessReport,
+  liveCheckoutLaunchCommand,
   fulfillmentChecklist,
   paidDeliveryIncidentReport,
   refundRollbackReport,
@@ -250,6 +252,7 @@ const [
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-paid-order-delivery-incident-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`),
@@ -374,6 +377,9 @@ const issues = [
           productionCheckoutReadinessReport.status ?? "failed"
         }.`
       ]),
+  ...(liveCheckoutLaunchCommand.ok
+    ? []
+    : [`live checkout launch command page returned HTTP ${liveCheckoutLaunchCommand.status ?? "failed"}.`]),
   ...(fulfillmentChecklist.ok
     ? []
     : [`fulfillment checklist generator page returned HTTP ${fulfillmentChecklist.status ?? "failed"}.`]),
@@ -608,6 +614,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`)
     ? []
     : ["llms.txt is missing the standalone production checkout readiness report URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`)
+    ? []
+    : ["llms.txt is missing the standalone live checkout launch command URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`)
     ? []
     : ["llms.txt is missing the standalone fulfillment checklist generator URL."]),
@@ -803,6 +812,8 @@ const issues = [
   toolIndex.text.includes("Lemon Squeezy PayPal live checkout report") &&
   toolIndex.text.includes("lemon-squeezy-paypal-live-checkout-report.html") &&
   toolIndex.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
+  toolIndex.text.includes("Lemon Squeezy live checkout launch command builder") &&
+  toolIndex.text.includes("lemon-squeezy-live-checkout-launch-command.html") &&
   toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   toolIndex.text.includes("Lemon Squeezy paid order delivery incident report") &&
   toolIndex.text.includes("lemon-squeezy-paid-order-delivery-incident-report.html") &&
@@ -960,6 +971,17 @@ const issues = [
     ? []
     : [
         "production checkout readiness report page is missing report logic, checkout readiness copy, safety copy, or conversion links."
+      ]),
+  ...(liveCheckoutLaunchCommand.text.includes("Lemon Squeezy live checkout launch command builder") &&
+  liveCheckoutLaunchCommand.text.includes("buildLiveCheckoutLaunchCommand") &&
+  liveCheckoutLaunchCommand.text.includes("REDACTED_LIVE_KEY") &&
+  liveCheckoutLaunchCommand.text.includes("LEMONSQUEEZY_RUN_PRODUCTION_CHECKOUT_LAUNCH=YES") &&
+  liveCheckoutLaunchCommand.text.includes("LEMONSQUEEZY_PRICE_CENTS") &&
+  liveCheckoutLaunchCommand.text.includes("verify_positive_revenue.mjs") &&
+  liveCheckoutLaunchCommand.text.includes("pro-kit.html")
+    ? []
+    : [
+        "live checkout launch command page is missing command generation, secret placeholder, launch flags, revenue verification, or conversion links."
       ]),
   ...(fulfillmentChecklist.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   fulfillmentChecklist.text.includes("buildFulfillmentReport") &&
@@ -1496,6 +1518,7 @@ const result = {
     checkoutSmokeReport: checkoutSmokeReport.status,
     paypalLiveCheckoutReport: paypalLiveCheckoutReport.status,
     productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,
+    liveCheckoutLaunchCommand: liveCheckoutLaunchCommand.status,
     fulfillmentChecklist: fulfillmentChecklist.status,
     paidDeliveryIncidentReport: paidDeliveryIncidentReport.status,
     refundRollbackReport: refundRollbackReport.status,

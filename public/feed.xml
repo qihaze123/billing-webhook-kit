@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Lemon Squeezy Live Checkout Launch Command Builder</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-checkout-launch-command.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-checkout-launch-command.html</guid>
+      <description>Generate a secret-safe Lemon Squeezy production checkout launch command for CN¥69 pricing, store ID, variant ID, publish confirmation, and revenue verification.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Lemon Squeezy Paid Order Delivery Incident Report</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html</guid>
