@@ -34,6 +34,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone webhook replay cURL generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html
 - Standalone Next.js webhook handler generator: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+- BillingWebhookKit pricing ROI guide: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-pricing-roi.html
 - Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
 - Search Console sitemap submission handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
@@ -68,6 +69,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Search Console sitemap handoff: exact URL-prefix property, sitemap path, live crawl files, and owner-only submission boundary for Google Search Console.
+- Pricing ROI guide: buyer decision page for comparing the free tools, the CN¥69 Pro Kit, manual setup time, duplicate replay tests, launch evidence, and break-even math.
 - Launch evidence pack: purchase-adjacent checklist tying checkout smoke, event coverage, fulfillment proof, refund rollback, delivery emails, the free sample, and Pro Kit preview together before a public billing launch.
 - PayPal live checkout report: browser-only launch evidence report for PayPal visibility, CN¥69 price, paid webhook delivery, x-signature verification, duplicate replay, private delivery, refund rollback, support evidence, and owner approval.
 - Production checkout readiness report: browser-only go-live report for live key setup, CN¥69 price, PayPal checkout, signed webhooks, duplicate replay, private delivery, refund rollback, support path, and release evidence.

@@ -41,6 +41,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
+  `${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
 
@@ -150,6 +151,7 @@ const [
   digitalDownloadGuide,
   refundWebhookGuide,
   stripeNextjsGuide,
+  pricingRoiGuide,
   sitemap,
   robots,
   llms,
@@ -190,6 +192,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
+  fetchText(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
   fetchText(`${siteUrl}/llms.txt`),
@@ -297,11 +300,14 @@ const issues = [
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
+  ...(pricingRoiGuide.ok
+    ? []
+    : [`BillingWebhookKit pricing ROI guide returned HTTP ${pricingRoiGuide.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 67 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 67.`]),
+  ...(sitemapUrls.length >= 68 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 68.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -393,6 +399,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`)
+    ? []
+    : ["llms.txt is missing the BillingWebhookKit pricing ROI guide URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -673,6 +682,17 @@ const issues = [
   stripeNextjsGuide.text.includes("View Pro Kit preview")
     ? []
     : ["Stripe Next.js signature guide is missing raw-body copy, Stripe signature copy, or conversion links."]),
+  ...(pricingRoiGuide.text.includes("Is BillingWebhookKit worth CN¥69?") &&
+  pricingRoiGuide.text.includes("free browser tools") &&
+  pricingRoiGuide.text.includes("Pro Kit") &&
+  pricingRoiGuide.text.includes("duplicate replay") &&
+  pricingRoiGuide.text.includes("break-even") &&
+  pricingRoiGuide.text.includes("billing-webhook-debug-cost-calculator.html") &&
+  pricingRoiGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "BillingWebhookKit pricing ROI guide is missing price, free path, Pro Kit, replay, break-even, calculator, or conversion copy."
+      ]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -783,6 +803,7 @@ const result = {
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
+    pricingRoiGuide: pricingRoiGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,
