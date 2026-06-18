@@ -34,6 +34,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone webhook replay cURL generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html
 - Standalone Next.js webhook handler generator: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
+- AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
 - BillingWebhookKit pricing ROI guide: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-pricing-roi.html
 - Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
@@ -50,6 +51,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Lemon Squeezy webhook not firing after checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html
 - Deliver a digital download after Lemon Squeezy checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html
 - Lemon Squeezy refund webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html
+- AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
 
 ## Trust Signals
 
@@ -121,6 +123,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - Recommended idempotency keys for safe webhook retries
 - Entitlement decisions for access grants, license delivery, renewals, cancellations, failed payments, and unknown events
 - Launch readiness scoring for signature tests, duplicate replay, entitlement policy, fixtures, secrets, smoke tests, review reports, and monitoring
+- AI-generated and vibe-coded SaaS billing route checks before a Lemon Squeezy, Stripe, Paddle, or Polar checkout link goes public
 - Digital download fulfillment after Lemon Squeezy checkout with private ZIP delivery, paid-state checks, idempotency, checksum evidence, and support-policy links
 - PR-ready fulfillment checklist reports for signed paid events, private delivery, duplicate replay safety, buyer evidence, and rollback notes
 - PR-ready production checkout readiness reports for live key setup, CN¥69 price, PayPal checkout, paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence

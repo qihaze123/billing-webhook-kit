@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI SaaS Billing Webhook Checklist | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="A billing webhook launch checklist for AI-generated and vibe-coded SaaS apps using Lemon Squeezy, Stripe, Paddle, or Polar. Verify raw-body signatures, idempotency, checkout smoke tests, fulfillment, and rollback before launch."
+    />
+    <meta
+      name="keywords"
+      content="AI SaaS billing webhook checklist, vibe coded SaaS checkout, Lemon Squeezy webhook checklist, Stripe webhook checklist, payment webhook launch checklist, AI generated SaaS billing"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="BillingWebhookKit Guides"
+      href="https://qihaze123.github.io/billing-webhook-kit/feed.xml"
+    />
+    <link
+      rel="alternate"
+      type="text/plain"
+      title="BillingWebhookKit llms.txt"
+      href="https://qihaze123.github.io/billing-webhook-kit/llms.txt"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="AI SaaS Billing Webhook Checklist" />
+    <meta
+      property="og:description"
+      content="A launch checklist for AI-generated SaaS teams before turning on a Lemon Squeezy or Stripe checkout link."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI SaaS Billing Webhook Checklist" />
+    <meta
+      name="twitter:description"
+      content="Check raw-body signatures, duplicate replay, checkout smoke tests, fulfillment, and rollback before an AI-generated SaaS app accepts money."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #11130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --accent: #d8f84f;
+        --blue: #006d8f;
+        --red: #d5482f;
+        --soft: #fff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(17, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(17, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        color: var(--ink);
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      main {
+        width: min(1040px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 38px 0 62px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .crumb {
+        display: inline-flex;
+        margin-bottom: 28px;
+        font-weight: 850;
+      }
+
+      h1 {
+        max-width: 940px;
+        margin: 0;
+        font-size: clamp(2.15rem, 7vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 1.14rem;
+        line-height: 1.65;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 28px 0 36px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--accent);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: #fff;
+      }
+
+      section {
+        padding: 24px 0;
+        border-top: 1px solid #cfd6c5;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.72;
+      }
+
+      .summary {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #10120f;
+        color: #f7faed;
+      }
+
+      .summary p {
+        color: #dfe6d6;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .card {
+        min-height: 164px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--soft);
+        box-shadow: 4px 4px 0 rgba(17, 19, 15, 0.15);
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 8px;
+        line-height: 1.25;
+      }
+
+      .card span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .card.fail strong {
+        color: var(--red);
+      }
+
+      .card.pass strong {
+        color: var(--blue);
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .check {
+        padding: 16px;
+        border: 1px solid #cfd6c5;
+        border-radius: 8px;
+        background: #fbfcf7;
+      }
+
+      .check strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .check span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .links a {
+        display: block;
+        min-height: 118px;
+        padding: 14px;
+        border: 1px solid #cfd6c5;
+        border-radius: 7px;
+        background: #f9faf4;
+        text-decoration: none;
+      }
+
+      .links strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--blue);
+        line-height: 1.25;
+      }
+
+      .links span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.93rem;
+        line-height: 1.5;
+      }
+
+      .faq {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .faq + .faq {
+        margin-top: 12px;
+      }
+
+      @media (max-width: 780px) {
+        .grid,
+        .checklist,
+        .links {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          min-height: 0;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "AI SaaS Billing Webhook Checklist",
+        "description": "A billing webhook launch checklist for AI-generated and vibe-coded SaaS apps using Lemon Squeezy, Stripe, Paddle, or Polar.",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html",
+        "author": {
+          "@type": "Organization",
+          "name": "BillingWebhookKit"
+        },
+        "mainEntity": {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What should an AI-generated SaaS app test before accepting payments?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It should verify raw-body webhook signatures, paid-state checks, idempotency, duplicate replay behavior, checkout smoke tests, fulfillment delivery, refund rollback, and secret-free release evidence."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can these checks run without paid APIs?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Most checks can run with fake fixtures, fake signing secrets, local cURL replay, and browser-only tools before live provider webhooks are enabled."
+              }
+            }
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>AI SaaS billing webhook checklist</h1>
+      <p class="lead">
+        AI-generated SaaS apps can reach checkout quickly, but billing code still needs boring proof before it takes
+        money. Use this checklist before exposing a Lemon Squeezy, Stripe, Paddle, or Polar checkout link.
+      </p>
+      <div class="actions">
+        <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/">Open the free webhook generator</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Preview the CN¥69 Pro Kit</a>
+      </div>
+
+      <section class="summary">
+        <h2>The launch rule</h2>
+        <p>
+          Do not treat a successful checkout page as a successful billing integration. A launch-ready AI SaaS billing
+          route proves that the paid event is authentic, mapped to the right account, processed once, delivered
+          privately, and reversible if a refund or rollback is needed.
+        </p>
+      </section>
+
+      <section>
+        <h2>Why AI-built billing routes fail</h2>
+        <div class="grid">
+          <div class="card fail">
+            <strong>The handler parses JSON too early</strong>
+            <span>Signature checks fail when code verifies a reserialized body instead of the exact raw request body.</span>
+          </div>
+          <div class="card fail">
+            <strong>The paid state is trusted too loosely</strong>
+            <span>Order IDs, customer IDs, variant IDs, status fields, and currency need explicit contract assertions.</span>
+          </div>
+          <div class="card fail">
+            <strong>Retries run side effects twice</strong>
+            <span>Providers retry webhooks. Without idempotency, access grants, emails, invoices, or licenses duplicate.</span>
+          </div>
+          <div class="card pass">
+            <strong>Raw-body HMAC gate</strong>
+            <span>Verify Lemon Squeezy x-signature or Stripe-Signature before reading business fields.</span>
+          </div>
+          <div class="card pass">
+            <strong>Duplicate replay test</strong>
+            <span>Replay the same signed event three times and prove the entitlement mutation happens once.</span>
+          </div>
+          <div class="card pass">
+            <strong>Launch evidence packet</strong>
+            <span>Keep checkout, webhook, fulfillment, refund, and support evidence in a secret-free review note.</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Minimum checklist before checkout goes public</h2>
+        <div class="checklist">
+          <div class="check">
+            <strong>1. Verify the exact raw body</strong>
+            <span>Read request text or bytes first, compute HMAC, compare the provider signature, then parse JSON.</span>
+          </div>
+          <div class="check">
+            <strong>2. Lock the event contract</strong>
+            <span>Assert event name, object type, object ID, variant or price ID, status, amount, currency, and customer mapping.</span>
+          </div>
+          <div class="check">
+            <strong>3. Build an idempotency key</strong>
+            <span>Use provider, event name, object ID, and payment or invoice scope before any side effect runs.</span>
+          </div>
+          <div class="check">
+            <strong>4. Replay duplicates in CI</strong>
+            <span>Send the same signed fixture repeatedly and expect one access grant, one email, and one fulfillment write.</span>
+          </div>
+          <div class="check">
+            <strong>5. Smoke test checkout to webhook</strong>
+            <span>Confirm the live checkout price, currency, success redirect, paid event delivery, and endpoint response.</span>
+          </div>
+          <div class="check">
+            <strong>6. Prove delivery and rollback</strong>
+            <span>Check private download delivery, checksum evidence, refund rollback, resend path, and support boundaries.</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Where BillingWebhookKit fits</h2>
+        <p>
+          The free browser tools help generate fake payment webhook payloads, local signatures, cURL replay commands,
+          idempotency keys, and review reports. The CN¥69 Pro Kit adds copy-ready fixtures, route handlers, Vitest
+          signature tests, contract tests, duplicate replay tests, CI workflow notes, and launch review templates for
+          teams that do not want to assemble the billing safety harness from scratch.
+        </p>
+        <div class="links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html">
+            <strong>Lemon Squeezy payload generator</strong>
+            <span>Create fake payloads, signatures, and cURL replay commands without uploading secrets.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">
+            <strong>Webhook idempotency key generator</strong>
+            <span>Build provider-scoped idempotency keys, SQL constraints, and duplicate replay test notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">
+            <strong>Production checkout readiness report</strong>
+            <span>Generate a PR-ready report for live config, price, PayPal, signed webhooks, delivery, and rollback.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-pricing-roi.html">
+            <strong>Pricing ROI guide</strong>
+            <span>Compare free tools with the Pro Kit and decide whether CN¥69 saves enough manual setup time.</span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <div class="faq">
+          <h2>Can AI generate the webhook handler?</h2>
+          <p>
+            Yes, but review the raw-body path, signature comparison, trusted fields, idempotency guard, and retry
+            behavior as if it were hand-written billing code. AI-generated code often looks complete before the
+            failure cases are covered.
+          </p>
+        </div>
+        <div class="faq">
+          <h2>What blocks launch?</h2>
+          <p>
+            Block launch if the checkout price or currency is wrong, the webhook secret is from the wrong environment,
+            the handler parses JSON before verification, duplicate replay causes repeated side effects, private
+            fulfillment is untested, or refund rollback has no evidence.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

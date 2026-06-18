@@ -41,6 +41,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
+  `${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`,
   `${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
@@ -151,6 +152,7 @@ const [
   digitalDownloadGuide,
   refundWebhookGuide,
   stripeNextjsGuide,
+  aiSaasBillingWebhookChecklist,
   pricingRoiGuide,
   sitemap,
   robots,
@@ -192,6 +194,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
+  fetchText(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`),
   fetchText(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -300,6 +303,13 @@ const issues = [
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
+  ...(aiSaasBillingWebhookChecklist.ok
+    ? []
+    : [
+        `AI SaaS billing webhook checklist returned HTTP ${
+          aiSaasBillingWebhookChecklist.status ?? "failed"
+        }.`
+      ]),
   ...(pricingRoiGuide.ok
     ? []
     : [`BillingWebhookKit pricing ROI guide returned HTTP ${pricingRoiGuide.status ?? "failed"}.`]),
@@ -307,7 +317,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 68 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 68.`]),
+  ...(sitemapUrls.length >= 69 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 69.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -399,6 +409,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`)
+    ? []
+    : ["llms.txt is missing the AI SaaS billing webhook checklist URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`)
     ? []
     : ["llms.txt is missing the BillingWebhookKit pricing ROI guide URL."]),
@@ -683,6 +696,17 @@ const issues = [
   stripeNextjsGuide.text.includes("View Pro Kit preview")
     ? []
     : ["Stripe Next.js signature guide is missing raw-body copy, Stripe signature copy, or conversion links."]),
+  ...(aiSaasBillingWebhookChecklist.text.includes("AI SaaS billing webhook checklist") &&
+  aiSaasBillingWebhookChecklist.text.includes("AI-generated SaaS") &&
+  aiSaasBillingWebhookChecklist.text.includes("raw-body") &&
+  aiSaasBillingWebhookChecklist.text.includes("duplicate replay") &&
+  aiSaasBillingWebhookChecklist.text.includes("checkout smoke") &&
+  aiSaasBillingWebhookChecklist.text.includes("CN¥69 Pro Kit") &&
+  aiSaasBillingWebhookChecklist.text.includes("pro-kit.html")
+    ? []
+    : [
+        "AI SaaS billing webhook checklist is missing AI SaaS, raw-body, replay, checkout smoke, Pro Kit, or conversion copy."
+      ]),
   ...(pricingRoiGuide.text.includes("Is BillingWebhookKit worth CN¥69?") &&
   pricingRoiGuide.text.includes("free browser tools") &&
   pricingRoiGuide.text.includes("Pro Kit") &&
@@ -721,9 +745,10 @@ const issues = [
   ...(proKit.text.includes("delivery-refund-support.html") &&
   proKit.text.includes("support and refund") &&
   proKit.text.includes("billing-webhook-launch-evidence-pack.html") &&
-  proKit.text.includes("billing-webhook-kit-pricing-roi.html")
+  proKit.text.includes("billing-webhook-kit-pricing-roi.html") &&
+  proKit.text.includes("ai-saas-billing-webhook-checklist.html")
     ? []
-    : ["Pro Kit page is missing delivery, support, refund policy, pricing ROI, or launch evidence links."]),
+    : ["Pro Kit page is missing delivery, support, refund policy, pricing ROI, AI SaaS checklist, or launch evidence links."]),
   ...(proKit.text.includes("Checkout Launch Gates") &&
   proKit.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   proKit.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -754,9 +779,10 @@ const issues = [
   freeSample.text.includes("pro-kit-manifest.json") &&
   freeSample.text.includes("delivery-refund-support.html") &&
   freeSample.text.includes("billing-webhook-launch-evidence-pack.html") &&
-  freeSample.text.includes("billing-webhook-kit-pricing-roi.html")
+  freeSample.text.includes("billing-webhook-kit-pricing-roi.html") &&
+  freeSample.text.includes("ai-saas-billing-webhook-checklist.html")
     ? []
-    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, pricing ROI, delivery policy, or verification links."]),
+    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, pricing ROI, AI SaaS checklist, delivery policy, or verification links."]),
   ...(freeSample.text.includes("Launch gates that point to the Pro Kit") &&
   freeSample.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   freeSample.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -806,6 +832,7 @@ const result = {
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
+    aiSaasBillingWebhookChecklist: aiSaasBillingWebhookChecklist.status,
     pricingRoiGuide: pricingRoiGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

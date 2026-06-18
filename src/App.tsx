@@ -67,6 +67,7 @@ const guideLinks = [
   { href: "guides/payment-webhook-contract-test-generator.html", label: "Payment webhook contract test generator" },
   { href: "guides/billing-webhook-launch-readiness-checklist.html", label: "Billing webhook launch readiness" },
   { href: "guides/billing-webhook-cost-calculator.html", label: "Billing webhook cost calculator" },
+  { href: "guides/ai-saas-billing-webhook-checklist.html", label: "AI SaaS billing webhook checklist" },
   { href: "guides/billing-webhook-kit-pricing-roi.html", label: "BillingWebhookKit pricing ROI" },
   { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
