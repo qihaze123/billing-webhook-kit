@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Lemon Squeezy Checkout Paid but No Download</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-paid-but-no-download.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-paid-but-no-download.html</guid>
+      <description>Debug a Lemon Squeezy checkout that is paid but no download is delivered with paid-state checks, order_created webhook delivery, variant mapping, fulfillment logs, private resend, checksum evidence, and refund boundaries.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Lemon Squeezy Download Email Not Received</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-download-email-not-received.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-download-email-not-received.html</guid>

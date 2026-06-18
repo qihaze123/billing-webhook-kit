@@ -75,6 +75,7 @@ const guideLinks = [
   { href: "guides/lemon-squeezy-production-webhook-troubleshooting.html", label: "Production webhook troubleshooting" },
   { href: "guides/lemon-squeezy-webhook-not-firing-after-checkout.html", label: "Webhook not firing after checkout" },
   { href: "guides/lemon-squeezy-digital-download-fulfillment.html", label: "Digital download fulfillment" },
+  { href: "guides/lemon-squeezy-checkout-paid-but-no-download.html", label: "Paid checkout but no download" },
   { href: "guides/lemon-squeezy-download-email-not-received.html", label: "Download email not received" },
   { href: "guides/lemon-squeezy-refund-webhook-test.html", label: "Refund webhook test" },
   { href: "guides/webhook-signature-mismatch-debugger.html", label: "Webhook signature mismatch debugger" },
