@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Lemon Squeezy Live Test Mode Checker</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-test-mode-checker.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-test-mode-checker.html</guid>
+      <description>Generate a browser-only Lemon Squeezy live/test mode alignment report for checkout links, variants, stores, webhook endpoints, signing secrets, order payloads, and fulfillment routes.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Lemon Squeezy Webhook Endpoint Smoke Test</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-endpoint-smoke-test.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-endpoint-smoke-test.html</guid>

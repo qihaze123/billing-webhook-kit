@@ -22,6 +22,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro sample report: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html
 - Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
 - Lemon Squeezy webhook endpoint smoke test: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-endpoint-smoke-test.html
+- Lemon Squeezy live/test mode checker: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-test-mode-checker.html
 - Lemon Squeezy PayPal live checkout report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 - Lemon Squeezy production checkout readiness report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
 - Lemon Squeezy live checkout launch command builder: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-checkout-launch-command.html
@@ -91,6 +92,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Tool index: one scannable entry point with a launch lane for the checkout smoke report, launch readiness scorecard, debug cost calculator, standalone generators, full app, free sample, and Pro Kit preview.
 - Standalone checkout smoke report: release-ready evidence for CN¥69 price visibility, checkout URL, paid webhook delivery, duplicate replay, fulfillment, and rollback notes.
 - Standalone endpoint smoke test: PR-ready endpoint evidence for webhook URL, POST method, mode alignment, subscribed events, 2xx response, x-signature verification, retries, and routing.
+- Standalone live/test mode checker: secret-free alignment report for checkout links, variants, stores, webhook endpoints, signing secrets, order payloads, and fulfillment routes.
 - Standalone launch scorecard: production readiness scoring and PR-ready Markdown reports for billing webhook releases.
 - Standalone debug cost calculator: estimate avoidable billing webhook debugging cost before hand-assembling fixtures and review notes.
 - Standalone Pro fit checker: score checkout stage, provider coverage, setup time, and launch risks before deciding whether the CN¥69 Pro Kit is justified.
@@ -291,6 +293,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-checkout-launch-command.html
+- https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-live-test-mode-checker.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html

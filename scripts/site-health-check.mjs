@@ -33,6 +33,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/billing-webhook-pro-fit-checker.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-endpoint-smoke-test.html`,
+  `${siteUrl}/tools/lemon-squeezy-live-test-mode-checker.html`,
   `${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`,
   `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
   `${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`,
@@ -182,6 +183,7 @@ const [
   proFitChecker,
   checkoutSmokeReport,
   endpointSmokeTest,
+  liveTestModeChecker,
   paypalLiveCheckoutReport,
   productionCheckoutReadinessReport,
   liveCheckoutLaunchCommand,
@@ -259,6 +261,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-pro-fit-checker.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-endpoint-smoke-test.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-live-test-mode-checker.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`),
@@ -385,6 +388,9 @@ const issues = [
   ...(endpointSmokeTest.ok
     ? []
     : [`endpoint smoke test page returned HTTP ${endpointSmokeTest.status ?? "failed"}.`]),
+  ...(liveTestModeChecker.ok
+    ? []
+    : [`live/test mode checker page returned HTTP ${liveTestModeChecker.status ?? "failed"}.`]),
   ...(paypalLiveCheckoutReport.ok
     ? []
     : [`PayPal live checkout report page returned HTTP ${paypalLiveCheckoutReport.status ?? "failed"}.`]),
@@ -593,6 +599,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-endpoint-smoke-test.html`)
     ? []
     : ["llms.txt is missing the endpoint smoke test URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-live-test-mode-checker.html`)
+    ? []
+    : ["llms.txt is missing the live/test mode checker URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/webhook-signature-mismatch-debugger.html`)
     ? []
     : ["llms.txt is missing the standalone signature mismatch debugger URL."]),
@@ -805,6 +814,7 @@ const issues = [
   freeLemonSqueezyTools.text.includes("nextjs-lemon-squeezy-raw-body-audit.html") &&
   freeLemonSqueezyTools.text.includes("lemon-squeezy-checkout-smoke-test-report.html") &&
   freeLemonSqueezyTools.text.includes("lemon-squeezy-webhook-endpoint-smoke-test.html") &&
+  freeLemonSqueezyTools.text.includes("lemon-squeezy-live-test-mode-checker.html") &&
   freeLemonSqueezyTools.text.includes("billing-webhook-pro-fit-checker.html") &&
   freeLemonSqueezyTools.text.includes("do not require Lemon Squeezy API keys")
     ? []
@@ -863,6 +873,8 @@ const issues = [
   toolIndex.text.includes("BillingWebhookKit Pro fit checker") &&
   toolIndex.text.includes("billing-webhook-pro-fit-checker.html") &&
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
+  toolIndex.text.includes("Lemon Squeezy live/test mode checker") &&
+  toolIndex.text.includes("lemon-squeezy-live-test-mode-checker.html") &&
   toolIndex.text.includes("Lemon Squeezy PayPal live checkout report") &&
   toolIndex.text.includes("lemon-squeezy-paypal-live-checkout-report.html") &&
   toolIndex.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
@@ -1010,6 +1022,15 @@ const issues = [
   endpointSmokeTest.text.includes("does not call Lemon Squeezy")
     ? []
     : ["endpoint smoke test page is missing endpoint fields, signature/retry copy, report export, or no-secret safety copy."]),
+  ...(liveTestModeChecker.text.includes("Lemon Squeezy live/test mode checker") &&
+  liveTestModeChecker.text.includes("Checkout link mode") &&
+  liveTestModeChecker.text.includes("Variant/store mode") &&
+  liveTestModeChecker.text.includes("Signing secret mode") &&
+  liveTestModeChecker.text.includes("Copy report") &&
+  liveTestModeChecker.text.includes("No API keys, webhook secrets") &&
+  liveTestModeChecker.text.includes("does not call Lemon Squeezy")
+    ? []
+    : ["live/test mode checker page is missing mode fields, report export, or no-secret safety copy."]),
   ...(paypalLiveCheckoutReport.text.includes("Lemon Squeezy PayPal live checkout report") &&
   paypalLiveCheckoutReport.text.includes("buildPayPalLiveCheckoutReport") &&
   paypalLiveCheckoutReport.text.includes("CN¥69") &&
@@ -1581,6 +1602,7 @@ const result = {
     proFitChecker: proFitChecker.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
     endpointSmokeTest: endpointSmokeTest.status,
+    liveTestModeChecker: liveTestModeChecker.status,
     paypalLiveCheckoutReport: paypalLiveCheckoutReport.status,
     productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,
     liveCheckoutLaunchCommand: liveCheckoutLaunchCommand.status,
