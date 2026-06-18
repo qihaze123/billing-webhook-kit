@@ -310,6 +310,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-refund-webhook-rollback-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-subscription-cancellation-webhook-nextjs.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-paid-webhook-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html

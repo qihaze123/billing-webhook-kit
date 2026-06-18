@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Stripe Invoice Paid Webhook in Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-paid-webhook-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-paid-webhook-nextjs.html</guid>
+      <description>Test Stripe invoice.paid renewal handling in Next.js with raw-body Stripe-Signature verification, billing_reason checks, idempotency, duplicate replay, and entitlement extension evidence.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Next.js Payment Webhook Entitlement Test Matrix</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-entitlement-test-matrix.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-payment-webhook-entitlement-test-matrix.html</guid>

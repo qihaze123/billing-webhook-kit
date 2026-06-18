@@ -55,6 +55,7 @@ const guideLinks = [
   { href: "guides/stripe-webhook-test-plan-nextjs.html", label: "Stripe webhook test plan for Next.js" },
   { href: "guides/stripe-refund-webhook-rollback-nextjs.html", label: "Stripe refund webhook rollback in Next.js" },
   { href: "guides/stripe-subscription-cancellation-webhook-nextjs.html", label: "Stripe subscription cancellation webhook in Next.js" },
+  { href: "guides/stripe-invoice-paid-webhook-nextjs.html", label: "Stripe invoice.paid webhook in Next.js" },
   { href: "guides/paddle-webhook-signature-verification-nextjs.html", label: "Paddle webhook signature verification in Next.js" },
   { href: "guides/paddle-webhook-test-plan-nextjs.html", label: "Paddle webhook test plan for Next.js" },
   { href: "guides/nextjs-payment-webhook-entitlement-test-matrix.html", label: "Next.js payment webhook entitlement test matrix" },
