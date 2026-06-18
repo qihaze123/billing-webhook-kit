@@ -71,6 +71,7 @@ const guideLinks = [
   { href: "guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html", label: "Lemon Squeezy vs Stripe webhooks" },
   { href: "guides/billing-webhook-kit-pricing-roi.html", label: "BillingWebhookKit pricing ROI" },
   { href: "guides/billing-webhook-kit-buyer-checklist.html", label: "BillingWebhookKit buyer checklist" },
+  { href: "tools/billing-webhook-pro-fit-checker.html", label: "BillingWebhookKit Pro fit checker" },
   { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
   { href: "guides/polar-webhook-fixtures.html", label: "Polar webhook fixtures" },
@@ -1416,6 +1417,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score
           </a>
+          <a className="ghost-link" href="tools/billing-webhook-pro-fit-checker.html">
+            Fit
+          </a>
           <a className="ghost-link" href="tools/lemon-squeezy-paypal-live-checkout-report.html">
             PayPal
           </a>
@@ -2304,6 +2308,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score launch readiness
+          </a>
+          <a className="inline-cta" href="tools/billing-webhook-pro-fit-checker.html">
+            Check Pro Kit fit
           </a>
         </div>
         <pre className="file-tree" aria-label="Example Pro Kit file tree">

@@ -28,6 +28,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone billing webhook launch readiness scorecard: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - Standalone billing webhook debug cost calculator: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-debug-cost-calculator.html
 - Standalone checkout provider decision matrix: https://qihaze123.github.io/billing-webhook-kit/tools/checkout-provider-decision-matrix.html
+- Standalone BillingWebhookKit Pro fit checker: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html
 - Standalone Lemon Squeezy payload generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
 - Standalone Lemon Squeezy x-signature verifier: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-signature-verifier.html
 - Standalone webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html
@@ -66,6 +67,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone checkout smoke report: release-ready evidence for CN¥69 price visibility, checkout URL, paid webhook delivery, duplicate replay, fulfillment, and rollback notes.
 - Standalone launch scorecard: production readiness scoring and PR-ready Markdown reports for billing webhook releases.
 - Standalone debug cost calculator: estimate avoidable billing webhook debugging cost before hand-assembling fixtures and review notes.
+- Standalone Pro fit checker: score checkout stage, provider coverage, setup time, and launch risks before deciding whether the CN¥69 Pro Kit is justified.
 - Standalone payload generator: fake Lemon Squeezy webhook fixtures, HMAC signatures, and cURL replay commands.
 - Standalone verifier: a focused Lemon Squeezy `x-signature` page for raw-body HMAC checks without account login.
 - Standalone idempotency generator: stable retry keys, SQL constraints, handler guards, duplicate replay tests, and review notes for payment webhook side effects.
@@ -133,6 +135,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - AI-generated and vibe-coded SaaS billing route checks before a Lemon Squeezy, Stripe, Paddle, or Polar checkout link goes public
 - Lemon Squeezy and Stripe webhook launch-plan comparison for AI SaaS teams choosing a checkout provider
 - Checkout provider decision matrices for AI SaaS teams comparing Lemon Squeezy, Stripe, Paddle, and Polar launch risks
+- BillingWebhookKit Pro fit reports for deciding whether free tools are enough, launch evidence is missing, or CN¥69 is a reasonable shortcut
 - Digital download fulfillment after Lemon Squeezy checkout with private ZIP delivery, paid-state checks, idempotency, checksum evidence, and support-policy links
 - PR-ready fulfillment checklist reports for signed paid events, private delivery, duplicate replay safety, buyer evidence, and rollback notes
 - PR-ready production checkout readiness reports for live key setup, CN¥69 price, PayPal checkout, paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence
@@ -171,6 +174,8 @@ Production checkout readiness report: https://qihaze123.github.io/billing-webhoo
 
 PayPal live checkout report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 
+Pro fit checker: https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html
+
 Free sample pack: https://qihaze123.github.io/billing-webhook-kit/free-sample.html
 
 Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
@@ -203,6 +208,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
+- https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html

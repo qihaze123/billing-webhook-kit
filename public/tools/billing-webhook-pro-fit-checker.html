@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BillingWebhookKit Pro Fit Checker | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Browser-only BillingWebhookKit Pro fit checker for deciding whether free payment webhook tools are enough or the CN¥69 Pro Kit is reasonable before checkout launch."
+    />
+    <meta
+      name="keywords"
+      content="BillingWebhookKit Pro fit checker, webhook kit buyer tool, payment webhook launch checklist, Lemon Squeezy Pro Kit, billing webhook ROI, webhook fixture pack"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="BillingWebhookKit Pro Fit Checker" />
+    <meta
+      property="og:description"
+      content="Decide whether the free tools are enough or the CN¥69 Pro Kit should replace manual payment webhook test setup."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BillingWebhookKit Pro Fit Checker" />
+    <meta name="twitter:description" content="Browser-only fit checker for the free tools, free sample, and CN¥69 Pro Kit." />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "BillingWebhookKit Pro Fit Checker",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only fit checker for choosing between free payment webhook tools and the BillingWebhookKit Pro fixture pack."
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --green: #227a4c;
+        --cyan: #008c99;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1240px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .stat span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.25rem, 7vw, 5.35rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      .lead {
+        max-width: 880px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .controls,
+      .output {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      select,
+      input {
+        width: 100%;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 0 11px;
+      }
+
+      .checks {
+        display: grid;
+        gap: 8px;
+      }
+
+      label.check {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 10px;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      label.check input {
+        width: 16px;
+        min-height: 16px;
+        margin-top: 2px;
+      }
+
+      .button {
+        min-height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 900;
+      }
+
+      .button.secondary {
+        background: #ffffff;
+        box-shadow: none;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .button-row .button {
+        min-width: 150px;
+        padding: 0 14px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .stat {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 14px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 1.25rem;
+        line-height: 1;
+      }
+
+      .verdict {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        padding: 18px;
+      }
+
+      .verdict strong {
+        display: block;
+        font-size: clamp(1.55rem, 4vw, 2.6rem);
+        line-height: 1;
+      }
+
+      .verdict p {
+        margin-top: 10px;
+        color: #dfe6d6;
+        line-height: 1.6;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .card {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 14px;
+      }
+
+      .card h3 {
+        margin-bottom: 8px;
+      }
+
+      .card p,
+      .card li {
+        color: var(--muted);
+        line-height: 1.48;
+      }
+
+      .card ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+
+      pre {
+        max-height: 360px;
+        overflow: auto;
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #10120f;
+        color: #f7faed;
+        padding: 14px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        line-height: 1.45;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .links a {
+        min-height: 112px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 14px;
+        text-decoration: none;
+      }
+
+      .links strong,
+      .links span {
+        display: block;
+      }
+
+      .links span {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      @media (max-width: 880px) {
+        .workbench,
+        .cards,
+        .links,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          box-shadow: 8px 8px 0 rgba(18, 19, 15, 0.08);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .page {
+          width: min(100vw - 24px, 1240px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html">Buyer checklist</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Buy decision tool</p>
+      <h1>Check whether BillingWebhookKit Pro fits this launch.</h1>
+      <p class="lead">
+        Score a payment webhook launch locally before buying anything. The result recommends the free path, missing evidence to gather, or when the CN¥69 Pro Kit is a reasonable shortcut.
+      </p>
+
+      <section class="workbench" aria-label="BillingWebhookKit Pro fit checker">
+        <div class="panel">
+          <header>
+            <h2>Launch context</h2>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Checkout stage</span>
+              <select id="stage">
+                <option value="exploring">Exploring providers</option>
+                <option value="building">Building webhook route</option>
+                <option value="prelaunch" selected>Pre-launch checkout review</option>
+                <option value="live">Live checkout debugging</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Provider coverage</span>
+              <select id="providers">
+                <option value="one">One provider</option>
+                <option value="two" selected>Two providers or payment rails</option>
+                <option value="multi">Lemon Squeezy, Stripe, Paddle, or Polar variants</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Manual setup estimate</span>
+              <input id="hours" type="number" min="0" max="80" step="0.5" value="3" />
+            </label>
+
+            <div class="field">
+              <span>Launch risks</span>
+              <div class="checks">
+                <label class="check"><input type="checkbox" value="signature" checked /> Raw-body signature verification is still fragile.</label>
+                <label class="check"><input type="checkbox" value="replay" checked /> Duplicate webhook replay has not been tested.</label>
+                <label class="check"><input type="checkbox" value="fulfillment" /> Paid order delivery or license fulfillment is not proven.</label>
+                <label class="check"><input type="checkbox" value="refund" /> Refund rollback or access revocation is missing.</label>
+                <label class="check"><input type="checkbox" value="review" checked /> A PR-ready launch evidence report is needed.</label>
+                <label class="check"><input type="checkbox" value="team" /> Another developer will review or maintain this route.</label>
+              </div>
+            </div>
+
+            <button id="generate" class="button" type="button">Score fit</button>
+            <button id="reset" class="button secondary" type="button">Reset sample</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Fit report</h2>
+          </header>
+          <div class="output">
+            <div id="verdict" class="verdict" aria-live="polite"></div>
+            <div class="stats">
+              <div class="stat">
+                <span>Fit score</span>
+                <strong id="score">0</strong>
+              </div>
+              <div class="stat">
+                <span>Risk count</span>
+                <strong id="riskCount">0</strong>
+              </div>
+              <div class="stat">
+                <span>Break-even</span>
+                <strong id="breakEven">0x</strong>
+              </div>
+            </div>
+            <div class="cards">
+              <article class="card">
+                <h3>Recommended path</h3>
+                <p id="path"></p>
+              </article>
+              <article class="card">
+                <h3>Next evidence</h3>
+                <ul id="evidence"></ul>
+              </article>
+            </div>
+            <div>
+              <p class="output-label">Markdown report</p>
+              <pre id="report"></pre>
+              <div class="button-row" aria-label="Report actions">
+                <button id="copyReport" class="button" type="button">Copy report</button>
+                <button id="downloadReport" class="button secondary" type="button">Download .md</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="links" aria-label="Buyer decision links">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html">
+          <strong>Buyer checklist</strong>
+          <span>Check when free tools are enough and when the Pro Kit is reasonable.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview CN¥69 Pro Kit</strong>
+          <span>Review manifest, package contents, delivery notes, and checkout status.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download free sample</strong>
+          <span>Inspect the fixture, handler, signature test, contract test, replay test, and CI skeleton first.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const stageWeights = {
+        exploring: 4,
+        building: 12,
+        prelaunch: 22,
+        live: 26
+      };
+
+      const providerWeights = {
+        one: 4,
+        two: 10,
+        multi: 16
+      };
+
+      const riskWeights = {
+        signature: 12,
+        replay: 13,
+        fulfillment: 12,
+        refund: 10,
+        review: 10,
+        team: 8
+      };
+
+      const riskLabels = {
+        signature: "Raw-body signature verification",
+        replay: "Duplicate webhook replay",
+        fulfillment: "Paid fulfillment evidence",
+        refund: "Refund rollback",
+        review: "PR-ready launch evidence",
+        team: "Team handoff"
+      };
+
+      const evidenceMap = {
+        signature: "Run a signed raw-body fixture test before JSON parsing.",
+        replay: "Replay the same provider event at least three times and expect one side effect.",
+        fulfillment: "Prove paid order delivery, private ZIP/license delivery, and checksum evidence.",
+        refund: "Add refund webhook rollback and access revocation evidence.",
+        review: "Attach a webhook review report to the launch PR.",
+        team: "Keep fixtures, runbook, and CI checks in the repo for maintainers."
+      };
+
+      function selectedRisks() {
+        return [...document.querySelectorAll('.check input[type="checkbox"]:checked')].map((input) => input.value);
+      }
+
+      function buildFitReport() {
+        const stage = document.querySelector("#stage").value;
+        const providers = document.querySelector("#providers").value;
+        const hours = Math.max(0, Number(document.querySelector("#hours").value || 0));
+        const risks = selectedRisks();
+        const riskScore = risks.reduce((sum, risk) => sum + riskWeights[risk], 0);
+        const hoursScore = Math.min(24, Math.round(hours * 6));
+        const score = Math.min(100, stageWeights[stage] + providerWeights[providers] + riskScore + hoursScore);
+        const breakEven = 69 > 0 ? Math.max(0.1, (hours * 120) / 69) : 0;
+
+        let verdict = "Use the free path first";
+        let tone = "The current launch profile is still exploratory. Use the browser tools, free sample, and buyer checklist before buying.";
+        let path = "Download the free sample, run one local route, and use the standalone tools to verify the first risky gate.";
+
+        if (score >= 70) {
+          verdict = "Pro Kit is reasonable";
+          tone = "The risk profile is close enough to launch that copy-ready fixtures, replay tests, CI checks, and review docs can save real setup time.";
+          path = "Inspect the manifest, run the buyer checklist, then use the Pro Kit when live checkout evidence is the remaining launch work.";
+        } else if (score >= 45) {
+          verdict = "Gather missing evidence first";
+          tone = "The project has real launch risk, but the next move is to prove the highest-risk webhook gates before deciding whether to buy.";
+          path = "Use the launch evidence pack, checkout smoke report, and free sample. Buy Pro if you still need repo-ready fixtures and CI checks after that.";
+        }
+
+        const evidence = risks.length
+          ? risks.map((risk) => evidenceMap[risk])
+          : ["Start with one fake payload, one signed route test, and the free sample structure."];
+
+        const report = [
+          "# BillingWebhookKit Pro Fit Report",
+          "",
+          `Verdict: ${verdict}`,
+          `Fit score: ${score}/100`,
+          `Break-even estimate: ${breakEven.toFixed(1)}x of CN¥69 at a CNY 120/hour setup value`,
+          `Checkout stage: ${stage}`,
+          `Provider coverage: ${providers}`,
+          `Manual setup estimate: ${hours} hours`,
+          "",
+          "## Active risks",
+          ...(risks.length ? risks.map((risk) => `- ${riskLabels[risk]}`) : ["- No major risks selected"]),
+          "",
+          "## Next evidence",
+          ...evidence.map((item) => `- ${item}`),
+          "",
+          "## Recommended path",
+          path,
+          "",
+          "Keep production API keys, webhook secrets, customer data, and private checkout links out of public reports."
+        ].join("\\n");
+
+        return { score, risks, breakEven, verdict, tone, path, evidence, report };
+      }
+
+      function render() {
+        const result = buildFitReport();
+        document.querySelector("#score").textContent = `${result.score}`;
+        document.querySelector("#riskCount").textContent = `${result.risks.length}`;
+        document.querySelector("#breakEven").textContent = `${result.breakEven.toFixed(1)}x`;
+        document.querySelector("#verdict").innerHTML = `<strong>${result.verdict}</strong><p>${result.tone}</p>`;
+        document.querySelector("#path").textContent = result.path;
+        document.querySelector("#evidence").innerHTML = result.evidence.map((item) => `<li>${item}</li>`).join("");
+        document.querySelector("#report").textContent = result.report;
+      }
+
+      function resetSample() {
+        document.querySelector("#stage").value = "prelaunch";
+        document.querySelector("#providers").value = "two";
+        document.querySelector("#hours").value = "3";
+        for (const input of document.querySelectorAll('.check input[type="checkbox"]')) {
+          input.checked = ["signature", "replay", "review"].includes(input.value);
+        }
+        render();
+      }
+
+      async function copyReport() {
+        const report = document.querySelector("#report").textContent;
+        await navigator.clipboard.writeText(report);
+        const button = document.querySelector("#copyReport");
+        button.textContent = "Copied";
+        window.setTimeout(() => {
+          button.textContent = "Copy report";
+        }, 1200);
+      }
+
+      function downloadReport() {
+        const report = document.querySelector("#report").textContent;
+        const blob = new Blob([report], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "billing-webhook-pro-fit-report.md";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      document.querySelector("#generate").addEventListener("click", render);
+      document.querySelector("#reset").addEventListener("click", resetSample);
+      document.querySelector("#copyReport").addEventListener("click", copyReport);
+      document.querySelector("#downloadReport").addEventListener("click", downloadReport);
+      for (const input of document.querySelectorAll("select, input")) {
+        input.addEventListener("change", render);
+      }
+      render();
+    </script>
+  </body>
+</html>
