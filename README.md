@@ -155,6 +155,10 @@ Use the Vercel Lemon Squeezy webhook debugger checklist when a Next.js productio
 
 https://gist.github.com/qihaze123/9c7b6379513f6b66161451cb0cea1166
 
+Use the Lemon Squeezy webhook endpoint smoke test checklist when a checkout succeeds but the endpoint still needs proof for URL, POST method, mode alignment, subscribed events, `x-signature`, retries, and fulfillment routing:
+
+https://gist.github.com/qihaze123/f0de1d548e7e5887d8d6e7341b4c7629
+
 Use the Next.js webhook 405 guide when the deployed Lemon Squeezy endpoint exists but rejects POST with Method Not Allowed:
 
 https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
