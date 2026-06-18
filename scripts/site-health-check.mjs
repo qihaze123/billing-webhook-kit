@@ -46,6 +46,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`,
   `${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`,
   `${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`,
+  `${siteUrl}/guides/billing-webhook-kit-buyer-checklist.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
 
@@ -160,6 +161,7 @@ const [
   aiSaasBillingWebhookChecklist,
   lemonSqueezyVsStripeAiSaasGuide,
   pricingRoiGuide,
+  buyerChecklistGuide,
   sitemap,
   robots,
   llms,
@@ -205,6 +207,7 @@ const [
   fetchText(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`),
   fetchText(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`),
+  fetchText(`${siteUrl}/guides/billing-webhook-kit-buyer-checklist.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
   fetchText(`${siteUrl}/llms.txt`),
@@ -337,11 +340,14 @@ const issues = [
   ...(pricingRoiGuide.ok
     ? []
     : [`BillingWebhookKit pricing ROI guide returned HTTP ${pricingRoiGuide.status ?? "failed"}.`]),
+  ...(buyerChecklistGuide.ok
+    ? []
+    : [`BillingWebhookKit buyer checklist returned HTTP ${buyerChecklistGuide.status ?? "failed"}.`]),
   ...(sitemap.ok ? [] : [`sitemap returned HTTP ${sitemap.status ?? "failed"}.`]),
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 72 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 72.`]),
+  ...(sitemapUrls.length >= 73 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 73.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -446,6 +452,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`)
     ? []
     : ["llms.txt is missing the BillingWebhookKit pricing ROI guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/billing-webhook-kit-buyer-checklist.html`)
+    ? []
+    : ["llms.txt is missing the BillingWebhookKit buyer checklist URL."]),
   ...(llms.text.includes("Site Health Check workflow")
     ? []
     : ["llms.txt is missing the public Site Health Check signal."]),
@@ -465,6 +474,7 @@ const issues = [
   sitemapHtml.text.includes("Guides and search landing pages") &&
   sitemapHtml.text.includes("checkout-provider-decision-matrix.html") &&
   sitemapHtml.text.includes("lemon-squeezy-vs-stripe-webhooks-ai-saas.html") &&
+  sitemapHtml.text.includes("billing-webhook-kit-buyer-checklist.html") &&
   sitemapHtml.text.includes("pro-kit.html") &&
   sitemapHtml.text.includes("sitemap.xml")
     ? []
@@ -784,6 +794,18 @@ const issues = [
     : [
         "BillingWebhookKit pricing ROI guide is missing price, free path, Pro Kit, replay, break-even, calculator, or conversion copy."
       ]),
+  ...(buyerChecklistGuide.text.includes("Check this before buying BillingWebhookKit Pro.") &&
+  buyerChecklistGuide.text.includes("CN¥69 one-time") &&
+  buyerChecklistGuide.text.includes("Use the free path") &&
+  buyerChecklistGuide.text.includes("Pro becomes reasonable") &&
+  buyerChecklistGuide.text.includes("pro-kit-manifest.json") &&
+  buyerChecklistGuide.text.includes("delivery-refund-support.html") &&
+  buyerChecklistGuide.text.includes("billing-webhook-debug-cost-calculator.html") &&
+  buyerChecklistGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "BillingWebhookKit buyer checklist is missing price, free path, Pro Kit decision copy, public artifacts, or conversion links."
+      ]),
   ...(home.text.includes("Automated site health checks")
     ? []
     : ["homepage is missing the automated site health trust signal."]),
@@ -793,6 +815,9 @@ const issues = [
   ...(home.text.includes("billing-webhook-launch-evidence-pack.html")
     ? []
     : ["homepage is missing the launch evidence pack link."]),
+  ...(home.text.includes("billing-webhook-kit-buyer-checklist.html")
+    ? []
+    : ["homepage static discovery content is missing the buyer checklist link."]),
   ...(home.text.includes("lemon-squeezy-production-checkout-readiness-report.html")
     ? []
     : ["homepage is missing the production checkout readiness report link."]),
@@ -812,9 +837,10 @@ const issues = [
   proKit.text.includes("support and refund") &&
   proKit.text.includes("billing-webhook-launch-evidence-pack.html") &&
   proKit.text.includes("billing-webhook-kit-pricing-roi.html") &&
+  proKit.text.includes("billing-webhook-kit-buyer-checklist.html") &&
   proKit.text.includes("ai-saas-billing-webhook-checklist.html")
     ? []
-    : ["Pro Kit page is missing delivery, support, refund policy, pricing ROI, AI SaaS checklist, or launch evidence links."]),
+    : ["Pro Kit page is missing delivery, support, refund policy, pricing ROI, buyer checklist, AI SaaS checklist, or launch evidence links."]),
   ...(proKit.text.includes("Checkout Launch Gates") &&
   proKit.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   proKit.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -846,9 +872,10 @@ const issues = [
   freeSample.text.includes("delivery-refund-support.html") &&
   freeSample.text.includes("billing-webhook-launch-evidence-pack.html") &&
   freeSample.text.includes("billing-webhook-kit-pricing-roi.html") &&
+  freeSample.text.includes("billing-webhook-kit-buyer-checklist.html") &&
   freeSample.text.includes("ai-saas-billing-webhook-checklist.html")
     ? []
-    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, pricing ROI, AI SaaS checklist, delivery policy, or verification links."]),
+    : ["Free sample page is missing the Pro Kit upgrade path, launch evidence pack, pricing ROI, buyer checklist, AI SaaS checklist, delivery policy, or verification links."]),
   ...(freeSample.text.includes("Launch gates that point to the Pro Kit") &&
   freeSample.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   freeSample.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -903,6 +930,7 @@ const result = {
     aiSaasBillingWebhookChecklist: aiSaasBillingWebhookChecklist.status,
     lemonSqueezyVsStripeAiSaasGuide: lemonSqueezyVsStripeAiSaasGuide.status,
     pricingRoiGuide: pricingRoiGuide.status,
+    buyerChecklistGuide: buyerChecklistGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,
     robots: robots.status,

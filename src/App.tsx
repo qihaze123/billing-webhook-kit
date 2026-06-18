@@ -70,6 +70,7 @@ const guideLinks = [
   { href: "guides/ai-saas-billing-webhook-checklist.html", label: "AI SaaS billing webhook checklist" },
   { href: "guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html", label: "Lemon Squeezy vs Stripe webhooks" },
   { href: "guides/billing-webhook-kit-pricing-roi.html", label: "BillingWebhookKit pricing ROI" },
+  { href: "guides/billing-webhook-kit-buyer-checklist.html", label: "BillingWebhookKit buyer checklist" },
   { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
   { href: "guides/polar-webhook-fixtures.html", label: "Polar webhook fixtures" },
