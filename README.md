@@ -46,6 +46,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
 - Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - Paddle webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
+- Next.js Paddle webhook handler: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
@@ -166,6 +167,10 @@ https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-
 Use the Paddle webhook signature verification in Next.js guide when a Paddle route needs exact raw-body verification, Paddle-Signature fixture checks, and duplicate replay safety before launch:
 
 https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
+
+Use the Next.js Paddle webhook handler guide when a Paddle route needs request.text(), event mapping, idempotency, duplicate replay tests, and CI gates before checkout traffic:
+
+https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 
 Use the payment webhook test tool alternatives guide when comparing webhook inboxes, provider CLIs, browser-only fixtures, CI tests, and the CN¥69 Pro Kit:
 
@@ -303,6 +308,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-starter-kit.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-billing-webhook-test-suite.html

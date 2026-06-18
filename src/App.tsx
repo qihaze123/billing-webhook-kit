@@ -71,6 +71,7 @@ const guideLinks = [
   { href: "guides/webhook-idempotency-key-generator.html", label: "Webhook idempotency key generator" },
   { href: "guides/nextjs-lemon-squeezy-webhook-handler.html", label: "Next.js Lemon Squeezy handler" },
   { href: "guides/hono-lemon-squeezy-webhook-handler.html", label: "Hono Lemon Squeezy handler" },
+  { href: "guides/nextjs-paddle-webhook-handler.html", label: "Next.js Paddle handler" },
   { href: "guides/stripe-webhook-fixture-generator.html", label: "Stripe webhook fixtures" },
   { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" },
   { href: "guides/webhook-replay-curl-command.html", label: "Replay webhooks with cURL" },
@@ -1450,6 +1451,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="guides/paddle-webhook-signature-verification-nextjs.html">
             Paddle signature
           </a>
+          <a className="ghost-link" href="guides/nextjs-paddle-webhook-handler.html">
+            Paddle handler
+          </a>
           <a className="ghost-link" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             405 fix
           </a>
@@ -2377,6 +2381,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="guides/paddle-webhook-signature-verification-nextjs.html">
             Verify Paddle signatures in Next.js
+          </a>
+          <a className="inline-cta" href="guides/nextjs-paddle-webhook-handler.html">
+            Build a Next.js Paddle handler
           </a>
           <a className="inline-cta" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             Fix Next.js 405 webhook routes

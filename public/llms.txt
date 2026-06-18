@@ -46,6 +46,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit buyer checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-buyer-checklist.html
 - Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - Paddle webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
+- Next.js Paddle webhook handler: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
 - Billing webhook launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 - Lemon Squeezy production checkout go-live checklist: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-checkout-go-live.html
@@ -86,6 +87,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Generate a PR-ready payment webhook test plan for Lemon Squeezy, Stripe, Paddle, or Polar with raw-body signature verification, contract fields, idempotency, duplicate replay, entitlement decisions, checkout smoke, fulfillment, refund rollback, and CI gates.
 - Plan Stripe webhook tests for Next.js App Router routes with checkout.session.completed fixtures, invoice.paid fixtures, raw-body signature checks, duplicate replay, entitlement decisions, and CI release gates.
 - Verify Paddle webhook signatures in Next.js App Router with exact raw request bodies, Paddle-Signature headers, signed fixtures, duplicate replay tests, and CI release gates.
+- Build a Next.js Paddle webhook handler with request.text(), Paddle-Signature verification, transaction.completed mapping, idempotency, duplicate replay tests, and CI gates.
 - Plan Paddle webhook tests for Next.js App Router routes with Paddle-Signature raw-body checks, transaction.completed fixtures, subscription lifecycle fixtures, duplicate replay, entitlement decisions, and CI release gates.
 - Calculate avoidable billing webhook debugging cost and compare it with the CNY 69 Pro Kit reference price.
 - Check AI-generated and vibe-coded SaaS billing routes before exposing Lemon Squeezy, Stripe, Paddle, or Polar checkout links.
@@ -171,6 +173,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Stripe webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html
 - Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
 - Paddle webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
+- Next.js Paddle webhook handler: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
 - Lemon Squeezy webhook idempotency: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-idempotency.html
 - Webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html

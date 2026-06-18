@@ -55,6 +55,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
   `${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`,
+  `${siteUrl}/guides/nextjs-paddle-webhook-handler.html`,
   `${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`,
   `${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`,
   `${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`,
@@ -183,6 +184,7 @@ const [
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
   paddleNextjsSignatureGuide,
+  nextjsPaddleWebhookHandlerGuide,
   paddleNextjsTestPlanGuide,
   aiSaasBillingWebhookChecklist,
   lemonSqueezyVsStripeAiSaasGuide,
@@ -242,6 +244,7 @@ const [
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`),
+  fetchText(`${siteUrl}/guides/nextjs-paddle-webhook-handler.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`),
   fetchText(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`),
@@ -398,6 +401,9 @@ const issues = [
   ...(paddleNextjsSignatureGuide.ok
     ? []
     : [`Paddle Next.js signature guide returned HTTP ${paddleNextjsSignatureGuide.status ?? "failed"}.`]),
+  ...(nextjsPaddleWebhookHandlerGuide.ok
+    ? []
+    : [`Next.js Paddle webhook handler guide returned HTTP ${nextjsPaddleWebhookHandlerGuide.status ?? "failed"}.`]),
   ...(paddleNextjsTestPlanGuide.ok
     ? []
     : [`Paddle Next.js test plan guide returned HTTP ${paddleNextjsTestPlanGuide.status ?? "failed"}.`]),
@@ -557,6 +563,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Paddle Next.js signature guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/nextjs-paddle-webhook-handler.html`)
+    ? []
+    : ["llms.txt is missing the Next.js Paddle webhook handler guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`)
     ? []
     : ["llms.txt is missing the Paddle Next.js test plan guide URL."]),
@@ -1026,6 +1035,17 @@ const issues = [
   paddleNextjsSignatureGuide.text.includes("pro-kit.html")
     ? []
     : ["Paddle Next.js signature guide is missing signature copy, Paddle event coverage, raw-body copy, or conversion links."]),
+  ...(nextjsPaddleWebhookHandlerGuide.text.includes("Next.js Paddle webhook handler") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("Paddle-Signature") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("transaction.completed") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("subscription lifecycle") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("request.text()") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("duplicate replay") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("nextjs-webhook-handler-generator.html") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("paddle-webhook-signature-verification-nextjs.html") &&
+  nextjsPaddleWebhookHandlerGuide.text.includes("pro-kit.html")
+    ? []
+    : ["Next.js Paddle webhook handler guide is missing handler copy, Paddle event coverage, raw-body copy, or conversion links."]),
   ...(paddleNextjsTestPlanGuide.text.includes("Paddle webhook test plan for Next.js") &&
   paddleNextjsTestPlanGuide.text.includes("Paddle-Signature") &&
   paddleNextjsTestPlanGuide.text.includes("transaction.completed") &&
@@ -1219,6 +1239,7 @@ const result = {
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,
     paddleNextjsSignatureGuide: paddleNextjsSignatureGuide.status,
+    nextjsPaddleWebhookHandlerGuide: nextjsPaddleWebhookHandlerGuide.status,
     paddleNextjsTestPlanGuide: paddleNextjsTestPlanGuide.status,
     aiSaasBillingWebhookChecklist: aiSaasBillingWebhookChecklist.status,
     lemonSqueezyVsStripeAiSaasGuide: lemonSqueezyVsStripeAiSaasGuide.status,

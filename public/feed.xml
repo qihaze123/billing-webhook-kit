@@ -78,6 +78,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Next.js Paddle Webhook Handler</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html</guid>
+      <description>Build a Next.js App Router Paddle webhook route with request.text(), Paddle-Signature verification, transaction.completed mapping, idempotency, duplicate replay tests, and CI gates.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Next.js Lemon Squeezy Raw Body Audit</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html</guid>
