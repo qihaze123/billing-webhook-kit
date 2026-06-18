@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Next.js Lemon Squeezy Raw Body Audit | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Audit a Next.js App Router Lemon Squeezy webhook route for raw-body x-signature safety, request.json() regressions, runtime choice, idempotency, and replay test evidence. Browser-only."
+    />
+    <meta
+      name="keywords"
+      content="Next.js Lemon Squeezy raw body audit, Lemon Squeezy x-signature invalid Next.js, request.text webhook signature, Next.js App Router webhook raw body, Lemon Squeezy webhook route review"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Next.js Lemon Squeezy Raw Body Audit" />
+    <meta
+      property="og:description"
+      content="Browser-only audit for Next.js Lemon Squeezy webhook routes that fail x-signature checks because the raw body changed before HMAC verification."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Next.js Lemon Squeezy Raw Body Audit" />
+    <meta
+      name="twitter:description"
+      content="Audit request.text(), x-signature verification, runtime, idempotency, replay tests, and launch evidence for a Next.js Lemon Squeezy webhook route."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Next.js Lemon Squeezy Raw Body Audit",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only audit for Next.js App Router Lemon Squeezy webhook raw-body signature safety, idempotency, and replay evidence."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Next.js Lemon Squeezy Raw Body Audit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --acid: #d8f84f;
+        --cyan: #008c99;
+        --green: #21764a;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1240px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 52px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .stat span,
+      .output-label,
+      .gate span {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1040px;
+        font-size: clamp(2.3rem, 7vw, 5.25rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.18;
+      }
+
+      h3 {
+        font-size: 1rem;
+        line-height: 1.25;
+      }
+
+      .lead {
+        max-width: 830px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 385px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 12px 12px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .result > *,
+      .controls > *,
+      .score-card > *,
+      .stat-grid > *,
+      .link-grid > * {
+        min-width: 0;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 10px 12px;
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+      }
+
+      textarea {
+        min-height: 104px;
+        resize: vertical;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.5;
+      }
+
+      .check-grid,
+      .stat-grid,
+      .link-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      label.check {
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        padding: 10px;
+        line-height: 1.35;
+      }
+
+      label.check input {
+        min-height: 0;
+        margin-top: 2px;
+        padding: 0;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        box-shadow: 4px 4px 0 var(--line);
+        padding: 0 14px;
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+        box-shadow: none;
+      }
+
+      .score-card {
+        display: grid;
+        grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .score {
+        display: grid;
+        place-items: center;
+        min-height: 210px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f7faed;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .score strong {
+        display: block;
+        font-size: clamp(3rem, 10vw, 5.2rem);
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .score span {
+        display: block;
+        margin-top: 10px;
+        color: var(--acid);
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .stat-grid {
+        height: 100%;
+      }
+
+      .stat,
+      .gate,
+      .link-card {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 14px;
+      }
+
+      .stat strong,
+      .gate strong,
+      .link-card strong {
+        display: block;
+        margin-top: 7px;
+        line-height: 1.25;
+      }
+
+      .stat p,
+      .gate p,
+      .link-card p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .gate-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .gate.ready {
+        border-color: rgba(33, 118, 74, 0.6);
+      }
+
+      .gate.warn {
+        border-color: rgba(240, 95, 59, 0.7);
+      }
+
+      .output-box {
+        overflow: auto;
+        max-height: 420px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #11130f;
+        color: #f6f7ef;
+        padding: 14px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.55;
+        white-space: pre-wrap;
+      }
+
+      .code-box {
+        overflow: auto;
+        max-width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #11130f;
+        color: #f6f7ef;
+        padding: 14px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      .link-card {
+        display: block;
+        text-decoration: none;
+      }
+
+      .note {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      footer {
+        margin-top: 28px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 920px) {
+        .workbench,
+        .score-card,
+        .check-grid,
+        .stat-grid,
+        .link-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          box-shadow: 8px 8px 0 rgba(18, 19, 15, 0.1);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1240px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html">Raw body guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Next.js raw-body audit</p>
+      <h1>Find the exact reason a Lemon Squeezy webhook signature fails in Next.js.</h1>
+      <p class="lead">
+        Score a Next.js App Router webhook route before real payments hit it. The audit checks raw-body handling, `x-signature` verification, runtime choice, secret isolation, idempotency, duplicate replay, and PR evidence without sending code or secrets to a server.
+      </p>
+
+      <section class="workbench" aria-label="Next.js Lemon Squeezy webhook raw body audit workbench">
+        <div class="panel">
+          <header>
+            <h2>Route inputs</h2>
+            <p>Browser-only audit controls</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Route path</span>
+              <input id="routePath" value="/api/webhooks/lemonsqueezy" />
+            </label>
+            <label class="field">
+              <span>Next.js runtime</span>
+              <select id="runtime">
+                <option value="nodejs">Node.js runtime</option>
+                <option value="edge">Edge runtime</option>
+                <option value="unknown">Not sure</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Body read pattern</span>
+              <select id="bodyPattern">
+                <option value="text-first">await request.text() before JSON.parse</option>
+                <option value="json-first">await request.json() before verification</option>
+                <option value="both">Calls both request.text() and request.json()</option>
+                <option value="unknown">Not sure</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Signature header</span>
+              <select id="signatureHeader">
+                <option value="x-signature">Reads x-signature</option>
+                <option value="other">Reads another header</option>
+                <option value="missing">Not implemented yet</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Route notes or pasted snippet (optional)</span>
+              <textarea id="routeNotes">export async function POST(request: Request) {
+  const rawBody = await request.text()
+  const signature = request.headers.get("x-signature")
+  // verify HMAC before JSON.parse(rawBody)
+}</textarea>
+            </label>
+            <div class="check-grid">
+              <label class="check">
+                <input id="usesTimingSafeEqual" type="checkbox" checked />
+                <span>Uses timing-safe comparison</span>
+              </label>
+              <label class="check">
+                <input id="hasIdempotency" type="checkbox" checked />
+                <span>Has process-once idempotency key</span>
+              </label>
+              <label class="check">
+                <input id="hasReplayTest" type="checkbox" />
+                <span>Has duplicate replay regression test</span>
+              </label>
+              <label class="check">
+                <input id="hasSecretIsolation" type="checkbox" checked />
+                <span>Webhook secret only lives in env</span>
+              </label>
+              <label class="check">
+                <input id="hasFailureFixture" type="checkbox" />
+                <span>Has changed-body or wrong-secret fixture</span>
+              </label>
+              <label class="check">
+                <input id="hasLaunchEvidence" type="checkbox" />
+                <span>Has PR-ready launch evidence</span>
+              </label>
+            </div>
+            <div class="button-row">
+              <button class="button" id="copyReport" type="button">Copy report</button>
+              <button class="button secondary" id="downloadReport" type="button">Download Markdown</button>
+            </div>
+            <p class="note">Use fake payloads and throwaway signing secrets only. Do not paste production keys, customer data, or private order payloads.</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Audit output</h2>
+            <p>Score, blockers, fix order, and starter route</p>
+          </header>
+          <div class="result">
+            <div class="score-card">
+              <div class="score">
+                <div>
+                  <strong id="scoreValue">82</strong>
+                  <span id="verdict">Review before launch</span>
+                </div>
+              </div>
+              <div class="stat-grid" aria-label="Raw body audit summary">
+                <div class="stat">
+                  <span>Primary risk</span>
+                  <strong id="primaryRisk">Missing replay evidence</strong>
+                  <p id="primaryRiskDetail">The route reads the raw body first, but duplicate delivery has not been proven yet.</p>
+                </div>
+                <div class="stat">
+                  <span>Next action</span>
+                  <strong id="nextAction">Add replay fixture</strong>
+                  <p id="nextActionDetail">Run the same signed fake Lemon Squeezy event more than once and assert one side effect.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gate-list" id="gateList" aria-label="Audit gates"></div>
+
+            <div>
+              <p class="output-label">Generated report</p>
+              <pre class="output-box" id="reportOutput"></pre>
+            </div>
+
+            <div>
+              <p class="output-label">Raw-body-safe starter route</p>
+              <pre class="code-box" id="codeOutput"></pre>
+            </div>
+
+            <div class="link-grid" aria-label="Related BillingWebhookKit resources">
+              <a class="link-card" href="https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html">
+                <span>Free tool</span>
+                <strong>Next.js webhook handler generator</strong>
+                <p>Generate a fuller App Router handler and replay test scaffold.</p>
+              </a>
+              <a class="link-card" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-signature-mismatch-debugger.html">
+                <span>Debug route</span>
+                <strong>Signature mismatch debugger</strong>
+                <p>Compare raw body mutation, wrong secret, header format, and parser causes.</p>
+              </a>
+              <a class="link-card" href="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html">
+                <span>Buyer proof</span>
+                <strong>Pro sample report</strong>
+                <p>Preview the PR-ready evidence the CN¥69 Pro Kit is built to produce.</p>
+              </a>
+              <a class="link-card" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+                <span>CN¥69 kit</span>
+                <strong>Pro Kit preview</strong>
+                <p>Inspect package contents, tests, checksum, delivery policy, and public manifest.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. This audit does not call Lemon Squeezy, does not store inputs, and does not replace provider sandbox or live checkout tests.
+      </footer>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+
+      const controls = [
+        "routePath",
+        "runtime",
+        "bodyPattern",
+        "signatureHeader",
+        "routeNotes",
+        "usesTimingSafeEqual",
+        "hasIdempotency",
+        "hasReplayTest",
+        "hasSecretIsolation",
+        "hasFailureFixture",
+        "hasLaunchEvidence"
+      ];
+
+      function checked(id) {
+        return $(id).checked;
+      }
+
+      function scoreAudit() {
+        const bodyPattern = $("bodyPattern").value;
+        const runtime = $("runtime").value;
+        const signatureHeader = $("signatureHeader").value;
+        const notes = $("routeNotes").value.toLowerCase();
+        const signals = {
+          textFirst: bodyPattern === "text-first" || (notes.includes("request.text") && !notes.includes("request.json")),
+          jsonFirst: bodyPattern === "json-first" || notes.includes("request.json()"),
+          readsSignature: signatureHeader === "x-signature" || notes.includes("x-signature"),
+          nodeRuntime: runtime === "nodejs" || notes.includes("runtime = \"nodejs\"") || notes.includes("runtime = 'nodejs'"),
+          timingSafe: checked("usesTimingSafeEqual") || notes.includes("timingsafeequal"),
+          idempotency: checked("hasIdempotency") || notes.includes("idempot"),
+          replay: checked("hasReplayTest") || notes.includes("replay") || notes.includes("duplicate"),
+          secretIsolation: checked("hasSecretIsolation") || notes.includes("process.env"),
+          failureFixture: checked("hasFailureFixture") || notes.includes("wrong-secret") || notes.includes("changed-body"),
+          launchEvidence: checked("hasLaunchEvidence") || notes.includes("review report")
+        };
+
+        const gates = [
+          {
+            key: "textFirst",
+            label: "Raw body is read before parsing",
+            pass: signals.textFirst && !signals.jsonFirst,
+            points: 24,
+            fix: "Use `const rawBody = await request.text()` and call `JSON.parse(rawBody)` only after HMAC verification."
+          },
+          {
+            key: "readsSignature",
+            label: "Route reads Lemon Squeezy x-signature",
+            pass: signals.readsSignature,
+            points: 14,
+            fix: "Read `request.headers.get(\"x-signature\")` and reject missing signatures before side effects."
+          },
+          {
+            key: "nodeRuntime",
+            label: "Runtime is explicit for crypto behavior",
+            pass: signals.nodeRuntime,
+            points: 10,
+            fix: "Set `export const runtime = \"nodejs\"` unless your HMAC helper is written for Web Crypto at the edge."
+          },
+          {
+            key: "timingSafe",
+            label: "Digest comparison is timing-safe",
+            pass: signals.timingSafe,
+            points: 10,
+            fix: "Use `crypto.timingSafeEqual` on equal-length buffers or a reviewed constant-time compare helper."
+          },
+          {
+            key: "secretIsolation",
+            label: "Webhook secret is isolated in environment config",
+            pass: signals.secretIsolation,
+            points: 10,
+            fix: "Read the webhook signing secret from server-only environment variables. Never paste it into client bundles or public docs."
+          },
+          {
+            key: "idempotency",
+            label: "Paid events are process-once",
+            pass: signals.idempotency,
+            points: 12,
+            fix: "Store a provider-scoped idempotency key before email, license, entitlement, or delivery side effects."
+          },
+          {
+            key: "replay",
+            label: "Duplicate replay regression test exists",
+            pass: signals.replay,
+            points: 10,
+            fix: "Replay the same signed event at least twice in a test and assert only one side effect."
+          },
+          {
+            key: "failureFixture",
+            label: "Failure fixtures catch raw-body regressions",
+            pass: signals.failureFixture,
+            points: 6,
+            fix: "Keep wrong-secret and changed-body fixtures so CI catches accidental `request.json()` regressions."
+          },
+          {
+            key: "launchEvidence",
+            label: "PR-ready launch evidence is prepared",
+            pass: signals.launchEvidence,
+            points: 4,
+            fix: "Save a short report with route path, fixture names, signature result, replay result, and fulfillment evidence."
+          }
+        ];
+
+        const score = gates.reduce((total, gate) => total + (gate.pass ? gate.points : 0), 0);
+        const blockers = gates.filter((gate) => !gate.pass);
+        return { score, gates, blockers, signals };
+      }
+
+      function routeCode(routePath) {
+        return `import crypto from "node:crypto";
+
+export const runtime = "nodejs";
+
+function verifyLemonSignature(rawBody: string, signature: string, secret: string) {
+  const expected = crypto.createHmac("sha256", secret).update(rawBody, "utf8").digest("hex");
+  const received = signature.trim();
+  const expectedBuffer = Buffer.from(expected, "hex");
+  const receivedBuffer = Buffer.from(received, "hex");
+  return expectedBuffer.length === receivedBuffer.length && crypto.timingSafeEqual(expectedBuffer, receivedBuffer);
+}
+
+export async function POST(request: Request) {
+  const rawBody = await request.text();
+  const signature = request.headers.get("x-signature");
+  const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
+
+  if (!signature || !secret || !verifyLemonSignature(rawBody, signature, secret)) {
+    return Response.json({ error: "invalid signature" }, { status: 401 });
+  }
+
+  const event = JSON.parse(rawBody);
+  const eventName = event?.meta?.event_name || "unknown";
+  const objectId = event?.data?.id || "missing-id";
+  const idempotencyKey = "lemon:" + eventName + ":" + objectId;
+
+  // TODO: store idempotencyKey before sending email, license, delivery, or entitlement side effects.
+  // Route path under review: ${routePath}
+  return Response.json({ ok: true, idempotencyKey });
+}`;
+      }
+
+      function reportText(audit) {
+        const routePath = $("routePath").value || "/api/webhooks/lemonsqueezy";
+        const verdict = audit.score >= 88 ? "READY" : audit.score >= 68 ? "REVIEW BEFORE LAUNCH" : "BLOCKED";
+        const blockers = audit.blockers.length
+          ? audit.blockers.map((gate) => `- ${gate.label}: ${gate.fix}`).join("\n")
+          : "- No raw-body launch blocker found in this audit.";
+        const passes = audit.gates.filter((gate) => gate.pass).map((gate) => `- ${gate.label}`).join("\n");
+
+        return `# Next.js Lemon Squeezy Raw Body Audit
+
+Route: ${routePath}
+Verdict: ${verdict}
+Score: ${audit.score}/100
+
+## Passing Evidence
+
+${passes || "- No passing gates selected yet."}
+
+## Fix Before Launch
+
+${blockers}
+
+## PR Review Notes
+
+- Verify the exact raw request body before JSON parsing.
+- Reject missing or invalid x-signature headers before side effects.
+- Keep the webhook signing secret in server-only environment config.
+- Store a provider-scoped idempotency key before fulfillment, license, email, or entitlement writes.
+- Replay the same signed fake event more than once and prove only one side effect runs.
+
+## BillingWebhookKit Path
+
+- Free raw-body guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-raw-body-nextjs.html
+- Free handler generator: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
+- Pro sample report: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html
+- CN¥69 Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html`;
+      }
+
+      function render() {
+        const audit = scoreAudit();
+        const routePath = $("routePath").value || "/api/webhooks/lemonsqueezy";
+        const verdict =
+          audit.score >= 88 ? "Ready for review" : audit.score >= 68 ? "Review before launch" : "Launch blocked";
+        const primary = audit.blockers[0];
+
+        $("scoreValue").textContent = String(audit.score);
+        $("verdict").textContent = verdict;
+        $("primaryRisk").textContent = primary ? primary.label : "No raw-body blocker";
+        $("primaryRiskDetail").textContent = primary
+          ? primary.fix
+          : "The route has raw-body, signature, idempotency, replay, and evidence signals selected.";
+        $("nextAction").textContent = primary ? "Fix: " + primary.label : "Keep evidence current";
+        $("nextActionDetail").textContent = primary
+          ? primary.fix
+          : "Save the generated report with the PR or release checklist before exposing a public buy link.";
+
+        $("gateList").innerHTML = audit.gates
+          .map(
+            (gate) => `<article class="gate ${gate.pass ? "ready" : "warn"}">
+              <span>${gate.pass ? "Pass" : "Fix"}</span>
+              <strong>${gate.label}</strong>
+              <p>${gate.pass ? "Evidence is present in the selected inputs." : gate.fix}</p>
+            </article>`
+          )
+          .join("");
+
+        $("reportOutput").textContent = reportText(audit);
+        $("codeOutput").textContent = routeCode(routePath);
+      }
+
+      function download(filename, content) {
+        const blob = new Blob([content], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      controls.forEach((id) => {
+        const el = $(id);
+        el.addEventListener("input", render);
+        el.addEventListener("change", render);
+      });
+
+      $("copyReport").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText($("reportOutput").textContent);
+          $("copyReport").textContent = "Copied";
+        } catch {
+          $("copyReport").textContent = "Copy unavailable";
+        }
+        setTimeout(() => {
+          $("copyReport").textContent = "Copy report";
+        }, 1400);
+      });
+
+      $("downloadReport").addEventListener("click", () => {
+        download("nextjs-lemon-squeezy-raw-body-audit.md", $("reportOutput").textContent);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

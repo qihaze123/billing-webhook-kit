@@ -36,6 +36,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone Stripe webhook fixture generator: https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html
 - Standalone webhook replay cURL generator: https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html
 - Standalone Next.js webhook handler generator: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
+- Standalone Next.js Lemon Squeezy raw body audit: https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
 - Lemon Squeezy vs Stripe webhooks for AI SaaS: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html
@@ -212,6 +213,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/tools/stripe-webhook-fixture-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/webhook-replay-curl-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-webhook-handler-generator.html
+- https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html

@@ -20,6 +20,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/stripe-webhook-fixture-generator.html`,
   `${siteUrl}/tools/webhook-replay-curl-generator.html`,
   `${siteUrl}/tools/nextjs-webhook-handler-generator.html`,
+  `${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`,
   `${siteUrl}/tools/webhook-entitlement-decision-matrix.html`,
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
@@ -140,6 +141,7 @@ const [
   stripeGenerator,
   replayGenerator,
   nextjsGenerator,
+  nextjsRawBodyAudit,
   entitlementMatrix,
   costCalculator,
   readinessScorecard,
@@ -188,6 +190,7 @@ const [
   fetchText(`${siteUrl}/tools/stripe-webhook-fixture-generator.html`),
   fetchText(`${siteUrl}/tools/webhook-replay-curl-generator.html`),
   fetchText(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`),
+  fetchText(`${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`),
   fetchText(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
@@ -255,6 +258,9 @@ const issues = [
   ...(stripeGenerator.ok ? [] : [`stripe generator page returned HTTP ${stripeGenerator.status ?? "failed"}.`]),
   ...(replayGenerator.ok ? [] : [`replay generator page returned HTTP ${replayGenerator.status ?? "failed"}.`]),
   ...(nextjsGenerator.ok ? [] : [`Next.js generator page returned HTTP ${nextjsGenerator.status ?? "failed"}.`]),
+  ...(nextjsRawBodyAudit.ok
+    ? []
+    : [`Next.js raw body audit page returned HTTP ${nextjsRawBodyAudit.status ?? "failed"}.`]),
   ...(entitlementMatrix.ok
     ? []
     : [`entitlement matrix page returned HTTP ${entitlementMatrix.status ?? "failed"}.`]),
@@ -398,6 +404,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/nextjs-webhook-handler-generator.html`)
     ? []
     : ["llms.txt is missing the standalone Next.js generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/nextjs-lemon-squeezy-raw-body-audit.html`)
+    ? []
+    : ["llms.txt is missing the standalone Next.js Lemon Squeezy raw body audit URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/webhook-entitlement-decision-matrix.html`)
     ? []
     : ["llms.txt is missing the standalone entitlement matrix URL."]),
@@ -618,6 +627,13 @@ const issues = [
   nextjsGenerator.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["Next.js generator page is missing handler copy, raw-body logic, or conversion links."]),
+  ...(nextjsRawBodyAudit.text.includes("Next.js Lemon Squeezy Raw Body Audit") &&
+  nextjsRawBodyAudit.text.includes("request.text()") &&
+  nextjsRawBodyAudit.text.includes("x-signature") &&
+  nextjsRawBodyAudit.text.includes("Pro sample report") &&
+  nextjsRawBodyAudit.text.includes("CN¥69 Pro Kit")
+    ? []
+    : ["Next.js raw body audit page is missing audit copy, raw-body logic, or conversion links."]),
   ...(entitlementMatrix.text.includes("Webhook entitlement decision matrix generator") &&
   entitlementMatrix.text.includes("provider-specific access decisions") &&
   entitlementMatrix.text.includes("duplicate replay tests") &&
@@ -953,6 +969,7 @@ const result = {
     stripeGenerator: stripeGenerator.status,
     replayGenerator: replayGenerator.status,
     nextjsGenerator: nextjsGenerator.status,
+    nextjsRawBodyAudit: nextjsRawBodyAudit.status,
     entitlementMatrix: entitlementMatrix.status,
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,

@@ -48,6 +48,7 @@ const guideLinks = [
   { href: "guides/lemon-squeezy-webhook-signature.html", label: "Verify Lemon Squeezy signatures" },
   { href: "guides/lemon-squeezy-webhook-test-checklist.html", label: "Lemon Squeezy webhook test checklist" },
   { href: "guides/lemon-squeezy-webhook-raw-body-nextjs.html", label: "Next.js raw body signature checks" },
+  { href: "tools/nextjs-lemon-squeezy-raw-body-audit.html", label: "Next.js Lemon Squeezy raw body audit" },
   { href: "guides/lemon-squeezy-x-signature-invalid.html", label: "Fix invalid x-signature errors" },
   { href: "guides/lemon-squeezy-order-created-fixture.html", label: "order_created webhook fixture" },
   { href: "guides/lemon-squeezy-checkout-smoke-test.html", label: "Lemon Squeezy checkout smoke test" },
@@ -1418,6 +1419,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/nextjs-webhook-handler-generator.html">
             Next.js
           </a>
+          <a className="ghost-link" href="tools/nextjs-lemon-squeezy-raw-body-audit.html">
+            Raw-body audit
+          </a>
           <a className="ghost-link" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score
           </a>
@@ -2312,6 +2316,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/nextjs-webhook-handler-generator.html">
             Generate standalone Next.js handlers
+          </a>
+          <a className="inline-cta" href="tools/nextjs-lemon-squeezy-raw-body-audit.html">
+            Audit Next.js raw-body signature safety
           </a>
           <a className="inline-cta" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score launch readiness

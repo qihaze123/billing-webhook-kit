@@ -221,6 +221,7 @@ if (
   !toolIndexHtml.includes("lemon-squeezy-webhook-event-coverage-matrix.html") ||
   !toolIndexHtml.includes("billing-webhook-launch-readiness-scorecard.html") ||
   !toolIndexHtml.includes("billing-webhook-debug-cost-calculator.html") ||
+  !toolIndexHtml.includes("nextjs-lemon-squeezy-raw-body-audit.html") ||
   !toolIndexHtml.includes("free-sample.html") ||
   !toolIndexHtml.includes("pro-kit.html") ||
   !toolIndexHtml.includes("Browser-only")
