@@ -52,6 +52,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Lemon Squeezy webhook checklist Gist: https://gist.github.com/qihaze123/3a13c5533c0e4fe69a3b0759668e9789
 - Next.js Lemon Squeezy raw-body checklist Gist: https://gist.github.com/qihaze123/2454b3cf56333186eb3f6de89cc51927
 - Lemon Squeezy production checkout go-live checklist Gist: https://gist.github.com/qihaze123/030e189b70aca77bd37bdc271012c38d
+- Vercel Lemon Squeezy webhook debugger checklist Gist: https://gist.github.com/qihaze123/9c7b6379513f6b66161451cb0cea1166
 
 ## Core Use Cases
 

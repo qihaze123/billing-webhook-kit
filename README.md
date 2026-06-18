@@ -121,6 +121,10 @@ Use the Lemon Squeezy production checkout go-live checklist before turning a pri
 
 https://gist.github.com/qihaze123/030e189b70aca77bd37bdc271012c38d
 
+Use the Vercel Lemon Squeezy webhook debugger checklist when a Next.js production route returns 404, 405, 500, missing delivery, or invalid `x-signature` after deploy:
+
+https://gist.github.com/qihaze123/9c7b6379513f6b66161451cb0cea1166
+
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 
 The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures against exact raw request bodies, debugs signature mismatches, inspects trusted billing fields, builds idempotency keys, generates contract tests, recommends idempotency keys, maps events to entitlement decisions, scores launch readiness, simulates duplicate webhook replays, estimates webhook debugging cost, exports PR-ready Markdown review reports, creates cURL replay commands, and provides starter handlers for Next.js, Hono, and Express. It is designed for local billing integration tests, CI fixtures, and webhook replay debugging.
