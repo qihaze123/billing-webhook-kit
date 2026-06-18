@@ -12,6 +12,7 @@ const deliverySupportPath = join(publicDir, "delivery-refund-support.html");
 const digitalDownloadGuidePath = join(publicDir, "guides", "lemon-squeezy-digital-download-fulfillment.html");
 const nextjs405GuidePath = join(publicDir, "guides", "nextjs-webhook-405-lemon-squeezy.html");
 const webhook500GuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-500-vercel-nextjs.html");
+const retryIdempotencyGuidePath = join(publicDir, "guides", "lemon-squeezy-webhook-retry-idempotency.html");
 const statusPath = join(publicDir, "status.html");
 const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
@@ -56,6 +57,9 @@ if (!existsSync(nextjs405GuidePath)) {
 if (!existsSync(webhook500GuidePath)) {
   issues.push("Missing public/guides/lemon-squeezy-webhook-500-vercel-nextjs.html.");
 }
+if (!existsSync(retryIdempotencyGuidePath)) {
+  issues.push("Missing public/guides/lemon-squeezy-webhook-retry-idempotency.html.");
+}
 if (!existsSync(statusPath)) issues.push("Missing public/status.html.");
 if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshooting.html.");
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
@@ -88,6 +92,9 @@ const digitalDownloadGuideHtml = existsSync(digitalDownloadGuidePath)
   : "";
 const nextjs405GuideHtml = existsSync(nextjs405GuidePath) ? readFileSync(nextjs405GuidePath, "utf8") : "";
 const webhook500GuideHtml = existsSync(webhook500GuidePath) ? readFileSync(webhook500GuidePath, "utf8") : "";
+const retryIdempotencyGuideHtml = existsSync(retryIdempotencyGuidePath)
+  ? readFileSync(retryIdempotencyGuidePath, "utf8")
+  : "";
 const statusHtml = existsSync(statusPath) ? readFileSync(statusPath, "utf8") : "";
 const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troubleshootingPath, "utf8") : "";
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
@@ -237,6 +244,19 @@ if (
   !webhook500GuideHtml.includes("Never paste Lemon Squeezy API keys")
 ) {
   issues.push("Webhook 500 guide is missing env, timingSafeEqual, raw-body, retry, replay, safety, or conversion links.");
+}
+if (
+  !retryIdempotencyGuideHtml.includes("Lemon Squeezy Webhook Retry and Idempotency Guide") ||
+  !retryIdempotencyGuideHtml.includes("Duplicate webhook delivery") ||
+  !retryIdempotencyGuideHtml.includes("lemonsqueezy:order_created:order_id") ||
+  !retryIdempotencyGuideHtml.includes("Return 2xx for safe duplicates") ||
+  !retryIdempotencyGuideHtml.includes("Return 500 only for retryable fulfillment") ||
+  !retryIdempotencyGuideHtml.includes("webhook-idempotency-key-generator.html") ||
+  !retryIdempotencyGuideHtml.includes("lemon-squeezy-production-checkout-readiness-report.html") ||
+  !retryIdempotencyGuideHtml.includes("pro-kit.html") ||
+  !retryIdempotencyGuideHtml.includes("Never paste Lemon Squeezy API keys")
+) {
+  issues.push("Retry idempotency guide is missing duplicate delivery, process-once, status-code, conversion, or safety copy.");
 }
 if (
   !proKitHtml.includes("Checkout Launch Gates") ||

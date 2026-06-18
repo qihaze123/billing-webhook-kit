@@ -29,6 +29,13 @@
       <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Lemon Squeezy Webhook Retry and Idempotency Guide</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html</guid>
+      <description>Handle Lemon Squeezy duplicate webhook delivery with order_created idempotency keys, process-once fulfillment, correct 2xx/500 responses, replay tests, and secret-free launch evidence.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Vercel Lemon Squeezy Webhook Debugger</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html</guid>

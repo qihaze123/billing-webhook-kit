@@ -41,6 +41,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Standalone Vercel Lemon Squeezy webhook debugger: https://qihaze123.github.io/billing-webhook-kit/tools/vercel-lemon-squeezy-webhook-debugger.html
 - Fix Next.js 405 for Lemon Squeezy webhooks: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
 - Fix Lemon Squeezy webhook 500 on Vercel and Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
+- Lemon Squeezy webhook retry and idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
 - Lemon Squeezy vs Stripe webhooks for AI SaaS: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html
@@ -61,6 +62,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Lemon Squeezy production webhook troubleshooting checklist: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html
 - Fix Next.js 405 for Lemon Squeezy webhooks: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-squeezy.html
 - Fix Lemon Squeezy webhook 500 on Vercel and Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
+- Lemon Squeezy webhook retry and idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
 - Lemon Squeezy webhook not firing after checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html
 - Deliver a digital download after Lemon Squeezy checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html
 - Lemon Squeezy refund webhook test: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html
@@ -138,6 +140,10 @@ https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-webhook-405-lemon-
 Use the Lemon Squeezy webhook 500 guide when the deployed Vercel or Next.js route crashes after Lemon Squeezy reaches it:
 
 https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-500-vercel-nextjs.html
+
+Use the Lemon Squeezy webhook retry and idempotency guide when duplicate deliveries could repeat downloads, licenses, emails, or access grants:
+
+https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
 
 ![BillingWebhookKit browser-only webhook fixture generator](public/product-screenshot.png)
 

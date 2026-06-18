@@ -46,6 +46,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`,
   `${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-500-vercel-nextjs.html`,
+  `${siteUrl}/guides/lemon-squeezy-webhook-retry-idempotency.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
@@ -168,6 +169,7 @@ const [
   productionWebhookTroubleshootingGuide,
   nextjs405Guide,
   webhook500Guide,
+  retryIdempotencyGuide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
   refundWebhookGuide,
@@ -221,6 +223,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`),
   fetchText(`${siteUrl}/guides/nextjs-webhook-405-lemon-squeezy.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-500-vercel-nextjs.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-retry-idempotency.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
@@ -353,6 +356,9 @@ const issues = [
   ...(webhook500Guide.ok
     ? []
     : [`Lemon Squeezy webhook 500 Vercel guide returned HTTP ${webhook500Guide.status ?? "failed"}.`]),
+  ...(retryIdempotencyGuide.ok
+    ? []
+    : [`Lemon Squeezy webhook retry idempotency guide returned HTTP ${retryIdempotencyGuide.status ?? "failed"}.`]),
   ...(webhookNotFiringGuide.ok
     ? []
     : [`Lemon Squeezy webhook not firing guide returned HTTP ${webhookNotFiringGuide.status ?? "failed"}.`]),
@@ -494,6 +500,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-500-vercel-nextjs.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook 500 Vercel guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-retry-idempotency.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy webhook retry idempotency guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook not firing after checkout guide URL."]),
@@ -636,9 +645,13 @@ const issues = [
   guideIndex.text.includes("Fix Next.js 405 for Lemon Squeezy Webhooks") &&
   guideIndex.text.includes("nextjs-webhook-405-lemon-squeezy.html") &&
   guideIndex.text.includes("Fix Lemon Squeezy Webhook 500 on Vercel and Next.js") &&
-  guideIndex.text.includes("lemon-squeezy-webhook-500-vercel-nextjs.html")
+  guideIndex.text.includes("lemon-squeezy-webhook-500-vercel-nextjs.html") &&
+  guideIndex.text.includes("Lemon Squeezy Webhook Retry and Idempotency Guide") &&
+  guideIndex.text.includes("lemon-squeezy-webhook-retry-idempotency.html")
     ? []
-    : ["guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, or webhook 500 guide."]),
+    : [
+        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, or retry idempotency guide."
+      ]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
   signatureVerifier.text.includes("Download the free sample") &&
@@ -875,6 +888,19 @@ const issues = [
   webhook500Guide.text.includes("Never paste Lemon Squeezy API keys")
     ? []
     : ["Lemon Squeezy webhook 500 Vercel guide is missing env, timingSafeEqual, raw-body, retry, replay, safety, or conversion copy."]),
+  ...(retryIdempotencyGuide.text.includes("Lemon Squeezy Webhook Retry and Idempotency Guide") &&
+  retryIdempotencyGuide.text.includes("Duplicate webhook delivery") &&
+  retryIdempotencyGuide.text.includes("lemonsqueezy:order_created:order_id") &&
+  retryIdempotencyGuide.text.includes("Return 2xx for safe duplicates") &&
+  retryIdempotencyGuide.text.includes("Return 500 only for retryable fulfillment") &&
+  retryIdempotencyGuide.text.includes("webhook-idempotency-key-generator.html") &&
+  retryIdempotencyGuide.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
+  retryIdempotencyGuide.text.includes("pro-kit.html") &&
+  retryIdempotencyGuide.text.includes("Never paste Lemon Squeezy API keys")
+    ? []
+    : [
+        "Lemon Squeezy webhook retry idempotency guide is missing duplicate delivery, process-once, status-code, conversion, or safety copy."
+      ]),
   ...(webhookNotFiringGuide.text.includes("Lemon Squeezy webhook not firing after checkout") &&
   webhookNotFiringGuide.text.includes("live/test") &&
   webhookNotFiringGuide.text.includes("order_created") &&
@@ -1078,6 +1104,7 @@ const result = {
     productionWebhookTroubleshootingGuide: productionWebhookTroubleshootingGuide.status,
     nextjs405Guide: nextjs405Guide.status,
     webhook500Guide: webhook500Guide.status,
+    retryIdempotencyGuide: retryIdempotencyGuide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,

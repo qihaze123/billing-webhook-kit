@@ -10,7 +10,7 @@
     />
     <meta
       name="keywords"
-      content="Lemon Squeezy webhook not firing, Lemon Squeezy webhook Vercel 404, Next.js webhook 405, Lemon Squeezy x-signature invalid, Lemon Squeezy checkout 404, Lemon Squeezy PayPal webhook test, Lemon Squeezy production webhook troubleshooting, Next.js raw body webhook, Vercel Lemon Squeezy webhook debugger"
+      content="Lemon Squeezy webhook not firing, Lemon Squeezy webhook Vercel 404, Next.js webhook 405, Lemon Squeezy x-signature invalid, Lemon Squeezy duplicate webhook retry, Lemon Squeezy idempotency, Lemon Squeezy checkout 404, Lemon Squeezy PayPal webhook test, Lemon Squeezy production webhook troubleshooting, Next.js raw body webhook, Vercel Lemon Squeezy webhook debugger"
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/troubleshooting.html" />
@@ -68,24 +68,30 @@
             {
               "@type": "ListItem",
               "position": 4,
+              "name": "Lemon Squeezy webhook retry and idempotency guide",
+              "url": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
               "name": "Next.js Lemon Squeezy raw body audit",
               "url": "https://qihaze123.github.io/billing-webhook-kit/tools/nextjs-lemon-squeezy-raw-body-audit.html"
             },
             {
               "@type": "ListItem",
-              "position": 5,
+              "position": 6,
               "name": "Lemon Squeezy webhook not firing after checkout",
               "url": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html"
             },
             {
               "@type": "ListItem",
-              "position": 6,
+              "position": 7,
               "name": "Fix Lemon Squeezy checkout 404 from custom price or currency mismatch",
               "url": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html"
             },
             {
               "@type": "ListItem",
-              "position": 7,
+              "position": 8,
               "name": "Lemon Squeezy production webhook troubleshooting checklist",
               "url": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html"
             }
@@ -440,6 +446,7 @@
           <div class="query">Lemon Squeezy webhook Vercel 404</div>
           <div class="query">Next.js webhook 405 Lemon Squeezy</div>
           <div class="query">Lemon Squeezy x-signature invalid raw body</div>
+          <div class="query">Lemon Squeezy duplicate webhook retry idempotency</div>
           <div class="query">Lemon Squeezy checkout 404 custom_price currency</div>
           <div class="query">Lemon Squeezy PayPal checkout webhook test</div>
           <div class="query">Lemon Squeezy production webhook troubleshooting</div>
@@ -489,6 +496,15 @@
             <div class="link-row">
               <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-404-custom-price-currency.html">Fix checkout 404</a>
               <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html">Generate smoke report</a>
+            </div>
+          </article>
+          <article class="symptom">
+            <strong>Retry safety</strong>
+            <h3>Duplicate webhook delivery could repeat fulfillment</h3>
+            <p>Use this when a retry or replay might send a second download email, create another license, or grant access twice after an order_created event.</p>
+            <div class="link-row">
+              <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html">Fix retries</a>
+              <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">Build idempotency key</a>
             </div>
           </article>
           <article class="symptom">

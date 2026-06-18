@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Webhook Retry and Idempotency Guide | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Handle Lemon Squeezy webhook retries and duplicate deliveries safely. Build idempotency keys for order_created, avoid duplicate fulfillment, return the right 2xx or 500 response, and prove replay safety before checkout launch."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy webhook retry, Lemon Squeezy duplicate webhook, Lemon Squeezy idempotency, Lemon Squeezy order_created duplicate, webhook duplicate replay, payment webhook idempotency"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Webhook Retry and Idempotency Guide" />
+    <meta
+      property="og:description"
+      content="Prevent duplicate download emails, duplicate license creation, and repeated entitlement grants when Lemon Squeezy retries a paid webhook."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Webhook Retry and Idempotency Guide" />
+    <meta
+      name="twitter:description"
+      content="A launch checklist for Lemon Squeezy duplicate webhook delivery, order_created idempotency keys, replay tests, and safe fulfillment evidence."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --panel: #ffffff;
+        --accent: #d8f84f;
+        --coral: #f05f3b;
+        --dark: #10120f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        color: var(--ink);
+      }
+
+      main {
+        width: min(980px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 38px 0 58px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .crumb {
+        display: inline-flex;
+        margin-bottom: 28px;
+        font-weight: 850;
+      }
+
+      .eyebrow,
+      .metric strong {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.78rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 920px;
+        margin-top: 8px;
+        font-size: clamp(2.05rem, 7vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 800px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.13rem;
+        line-height: 1.66;
+      }
+
+      .cta-row,
+      .metrics,
+      .decision-grid,
+      .related-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .cta-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 28px 0 34px;
+      }
+
+      .button,
+      .metric,
+      .decision,
+      .code-card,
+      .related-grid a,
+      .note {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 5px 5px 0 rgba(17, 19, 15, 0.14);
+      }
+
+      .button {
+        display: flex;
+        align-items: center;
+        min-height: 64px;
+        padding: 12px 14px;
+        background: var(--accent);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      section {
+        padding: 26px 0;
+        border-top: 1px solid #cfd6c5;
+      }
+
+      h2 {
+        margin-bottom: 12px;
+        font-size: clamp(1.45rem, 4vw, 2.35rem);
+        line-height: 1.05;
+      }
+
+      h3 {
+        font-size: 1.08rem;
+        line-height: 1.25;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.68;
+      }
+
+      ol,
+      ul {
+        margin: 12px 0 0;
+        padding-left: 22px;
+      }
+
+      code,
+      pre {
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .metric {
+        min-height: 158px;
+        padding: 18px;
+        background: var(--panel);
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .decision-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .decision {
+        min-height: 164px;
+        padding: 18px;
+        background: var(--panel);
+      }
+
+      .decision h3 {
+        margin-bottom: 8px;
+      }
+
+      .code-card {
+        max-width: 100%;
+        margin-top: 14px;
+        overflow: auto;
+        background: var(--dark);
+      }
+
+      pre {
+        margin: 0;
+        padding: 18px;
+        color: #eef5df;
+        font-size: 0.88rem;
+        line-height: 1.58;
+        white-space: pre-wrap;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .related-grid a {
+        display: block;
+        min-height: 124px;
+        padding: 16px;
+        background: var(--panel);
+        text-decoration: none;
+      }
+
+      .related-grid strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .related-grid span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.5;
+      }
+
+      .note {
+        padding: 18px;
+        background: var(--accent);
+        font-weight: 850;
+        line-height: 1.55;
+      }
+
+      footer {
+        margin-top: 34px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .cta-row,
+        .metrics,
+        .decision-grid,
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .metric,
+        .decision,
+        .related-grid a {
+          min-height: 0;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Lemon Squeezy Webhook Retry and Idempotency Guide",
+        "description": "Handle Lemon Squeezy webhook retries and duplicate deliveries safely with order_created idempotency keys, duplicate replay tests, correct 2xx/500 decisions, and secret-free launch evidence.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why did Lemon Squeezy send the same webhook more than once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Payment providers retry webhook delivery when the endpoint times out, returns a retryable 5xx response, or the provider cannot confirm a successful response. Treat duplicate delivery as normal and make fulfillment idempotent."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What idempotency key should I use for Lemon Squeezy order_created?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use a stable provider-scoped key such as lemonsqueezy:order_created:order_id after signature verification and before fulfillment side effects. Store it durably before sending downloads, license keys, emails, or access grants."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Lemon Squeezy Webhook Retry and Idempotency Guide", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <p class="eyebrow">Lemon Squeezy duplicate webhook retry</p>
+      <h1>Lemon Squeezy webhook retry and idempotency guide</h1>
+      <p class="lead">
+        Duplicate webhook delivery is not a bug. Lemon Squeezy can retry after timeouts, 5xx responses, network failures, or uncertain delivery. Your handler must prove it can process a paid event once without sending duplicate downloads, license keys, emails, or access grants.
+      </p>
+      <div class="cta-row" aria-label="Primary retry safety actions">
+        <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/tools/webhook-idempotency-key-generator.html">Generate idempotency key</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html">Read replay test guide</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Download free sample</a>
+      </div>
+
+      <section>
+        <h2>Retry-safe launch gates</h2>
+        <div class="metrics">
+          <article class="metric">
+            <strong>Authenticate first</strong>
+            <h3>Verify x-signature before trusting event fields</h3>
+            <p>Only derive idempotency keys after raw-body signature verification. Bad signatures should return 400, not run fulfillment or create durable keys.</p>
+          </article>
+          <article class="metric">
+            <strong>Store once</strong>
+            <h3>Persist the key before side effects</h3>
+            <p>Write <code>lemonsqueezy:order_created:order_id</code> or an equivalent unique key before sending email, downloads, license keys, or account access.</p>
+          </article>
+          <article class="metric">
+            <strong>Replay three times</strong>
+            <h3>Assert fulfillment runs once</h3>
+            <p>Replay the same paid fixture repeatedly. The first request should fulfill; later duplicates should return success and skip side effects.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Return the right status code</h2>
+        <div class="decision-grid">
+          <article class="decision">
+            <h3>Return 2xx for safe duplicates</h3>
+            <p>If a paid order was already processed, return 2xx and skip duplicate fulfillment. Do not make Lemon Squeezy keep retrying an event that your system already handled.</p>
+          </article>
+          <article class="decision">
+            <h3>Return 400 for unauthenticated input</h3>
+            <p>Missing or invalid <code>x-signature</code>, wrong product, unsupported event type, or malformed payload should fail cleanly without writing fulfillment state.</p>
+          </article>
+          <article class="decision">
+            <h3>Return 500 only for retryable fulfillment</h3>
+            <p>If a verified paid event cannot be durably stored or delivered, return 500 only after your handler can retry without duplicate side effects.</p>
+          </article>
+          <article class="decision">
+            <h3>Quarantine unknown events</h3>
+            <p>Unknown events should produce a reviewable report, not a crash. Record the event name and safe metadata without exposing customer data or secrets.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Minimal process-once shape</h2>
+        <p>Keep the idempotency guard close to the first durable write. The exact database API can vary, but the contract should stay stable.</p>
+        <div class="code-card">
+          <pre><code>export async function handleLemonPaidOrder(event) {
+  const orderId = event.data?.id;
+  const eventName = event.meta?.event_name;
+  const key = `lemonsqueezy:${eventName}:${orderId}`;
+
+  const inserted = await insertIdempotencyKey(key);
+  if (!inserted) {
+    return { ok: true, duplicate: true };
+  }
+
+  await deliverPrivateDownload(event);
+  await grantBuyerAccess(event);
+  await sendDeliveryEmail(event);
+
+  return { ok: true, duplicate: false };
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>Evidence to collect before checkout goes public</h2>
+        <ol>
+          <li>A signed <code>order_created</code> fixture that returns 2xx.</li>
+          <li>A replay of the same fixture that returns 2xx and records <code>duplicate: true</code>.</li>
+          <li>A side-effect counter showing one download email, one license, and one access grant.</li>
+          <li>A malformed signature test proving unauthenticated payloads return 400.</li>
+          <li>A retryable storage or delivery failure test proving 500 does not duplicate fulfillment on retry.</li>
+          <li>A secret-free release report that excludes API keys, signing secrets, customer data, and private checkout links.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Convert retry safety into launch confidence</h2>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">
+            <strong>Fulfillment checklist generator</strong>
+            <span>Create a PR-ready report for signed paid events, private ZIP delivery, idempotency, checksum evidence, and rollback notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">
+            <strong>Production checkout readiness report</strong>
+            <span>Check live key setup, CN¥69 price, PayPal checkout, signed paid webhooks, duplicate replay, private delivery, refund rollback, and support notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html">
+            <strong>Digital download fulfillment guide</strong>
+            <span>Deliver a private ZIP, license file, or digital product after checkout using signed webhook verification and replay-safe idempotency.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View CN¥69 Pro Kit preview</strong>
+            <span>Review copy-ready fixtures, route handlers, contract tests, duplicate replay checks, and report templates before live checkout is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <p class="note">
+        Safety boundary: use fake payloads and redacted logs in public reports. Never paste Lemon Squeezy API keys, webhook signing secrets, private checkout links, customer data, database URLs, or full live order payloads into shared debugging artifacts.
+      </p>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook test workbench. This guide does not call Lemon Squeezy, Vercel, Stripe, or paid provider APIs.
+      </footer>
+    </main>
+  </body>
+</html>
