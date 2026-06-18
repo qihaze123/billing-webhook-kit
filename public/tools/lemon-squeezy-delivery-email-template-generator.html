@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Delivery Email Template Generator | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate browser-only Lemon Squeezy digital product delivery email templates for private ZIP downloads, license files, checksum verification, resend support, refund policy links, and safe buyer communication."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy delivery email template, digital product delivery email, Lemon Squeezy download email, private ZIP delivery email, Lemon Squeezy support email template"
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Delivery Email Template Generator" />
+    <meta
+      property="og:description"
+      content="Browser-only delivery email generator for Lemon Squeezy digital products, private ZIP downloads, checksum evidence, and support replies."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Delivery Email Template Generator" />
+    <meta
+      name="twitter:description"
+      content="Generate local buyer delivery, resend, and support templates for Lemon Squeezy paid digital downloads."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Delivery Email Template Generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only tool for generating Lemon Squeezy digital product delivery email templates."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "BillingWebhookKit",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lemon Squeezy Delivery Email Template Generator",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html"
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --green: #227a4c;
+        --amber: #a96d00;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .page {
+        width: min(1260px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 48px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        font-weight: 850;
+      }
+
+      .brand {
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .eyebrow,
+      .field span,
+      .metric span,
+      .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 1080px;
+        font-size: clamp(2.05rem, 7vw, 5.1rem);
+        line-height: 0.94;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .lead {
+        max-width: 910px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.62;
+      }
+
+      .workbench {
+        display: grid;
+        grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1);
+      }
+
+      .panel header {
+        min-height: 66px;
+        padding: 16px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .panel header p {
+        margin-top: 4px;
+        color: var(--muted);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.74rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .controls,
+      .result {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        outline: none;
+      }
+
+      input,
+      select {
+        min-height: 42px;
+        padding: 0 12px;
+      }
+
+      textarea {
+        min-height: 108px;
+        resize: vertical;
+        padding: 12px;
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.84rem;
+        line-height: 1.55;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 12px;
+        font-weight: 850;
+      }
+
+      button.secondary {
+        background: #fbfcf8;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .metric {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: var(--paper-2);
+        padding: 13px;
+      }
+
+      .metric.primary {
+        background: var(--charcoal);
+        color: #f8faef;
+      }
+
+      .metric.primary span,
+      .metric.primary strong {
+        color: var(--acid);
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 8px;
+        line-height: 1.2;
+      }
+
+      .metric p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .metric.primary p {
+        color: #d9dfcf;
+      }
+
+      .template-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .template {
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fbfcf8;
+        padding: 13px;
+      }
+
+      .template strong {
+        display: block;
+        color: var(--green);
+        line-height: 1.25;
+      }
+
+      .template p {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .output {
+        min-height: 250px;
+        background: #11130f;
+        color: #f8faef;
+      }
+
+      .conversion {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .conversion a {
+        display: block;
+        min-height: 122px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #f8faef;
+        padding: 15px;
+        text-decoration: none;
+      }
+
+      .conversion strong {
+        display: block;
+        color: var(--acid);
+      }
+
+      .conversion span {
+        display: block;
+        margin-top: 8px;
+        color: #d9dfcf;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 960px) {
+        .workbench,
+        .metrics,
+        .template-grid,
+        .conversion {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 24px, 1260px);
+          padding-top: 22px;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html">Guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Buyer delivery</p>
+      <h1>Lemon Squeezy delivery email template generator.</h1>
+      <p class="lead">
+        Generate buyer-facing delivery, resend, and support emails for paid Lemon Squeezy digital products. The templates explain private ZIP delivery, checksum verification, support policy, refund triggers, and safe issue reporting without exposing production secrets or private download URLs.
+      </p>
+
+      <section class="workbench" aria-label="Lemon Squeezy delivery email template generator">
+        <div class="panel">
+          <header>
+            <h2>Template inputs</h2>
+            <p>Browser-only email draft</p>
+          </header>
+          <div class="controls">
+            <label class="field">
+              <span>Product or kit name</span>
+              <input id="productName" value="BillingWebhookKit Pro" />
+            </label>
+            <label class="field">
+              <span>Buyer label</span>
+              <input id="buyerLabel" value="there" />
+            </label>
+            <label class="field">
+              <span>Delivery type</span>
+              <select id="deliveryType">
+                <option value="private_zip" selected>Private ZIP download</option>
+                <option value="license_file">License file</option>
+                <option value="account_access">Account access</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Delivery status</span>
+              <select id="deliveryStatus">
+                <option value="ready" selected>Ready after paid webhook</option>
+                <option value="manual_review">Manual review before send</option>
+                <option value="resend">Resend requested</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Download or access placeholder</span>
+              <input id="deliveryPlaceholder" value="[private download link or attachment]" />
+            </label>
+            <label class="field">
+              <span>Checksum or manifest evidence</span>
+              <input id="checksumEvidence" value="SHA-256 is listed in pro-kit-manifest.json" />
+            </label>
+            <label class="field">
+              <span>Support policy URL</span>
+              <input id="supportUrl" value="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html" />
+            </label>
+            <label class="field">
+              <span>Support contact</span>
+              <input id="supportContact" value="reply to this email with fake-safe logs only" />
+            </label>
+            <label class="field">
+              <span>Order evidence note</span>
+              <textarea id="orderEvidence" spellcheck="false">Paid order verified by signed Lemon Squeezy order_created webhook.
+Delivery runs after idempotency key is stored.
+Do not include API keys, webhook secrets, or customer data in public issues.</textarea>
+            </label>
+            <div class="button-row">
+              <button type="button" id="loadProKit">Load Pro Kit template</button>
+              <button type="button" id="copyTemplates" class="secondary">Copy templates</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <header>
+            <h2>Buyer communication pack</h2>
+            <p>Delivery, resend, support</p>
+          </header>
+          <div class="result">
+            <div class="metrics" aria-label="Delivery email template summary">
+              <div class="metric primary">
+                <span>Template set</span>
+                <strong id="templateCount">3 emails</strong>
+                <p id="templateCopy">Delivery, resend, and support replies are generated locally.</p>
+              </div>
+              <div class="metric">
+                <span>Safety notes</span>
+                <strong id="safetyCount">0</strong>
+                <p>Each template should keep secrets, private links, and customer data out of public reports.</p>
+              </div>
+              <div class="metric">
+                <span>Buyer proof</span>
+                <strong id="proofState">Checking</strong>
+                <p>Checksum or manifest evidence should be present before launch.</p>
+              </div>
+            </div>
+
+            <div class="template-grid" id="templateGrid" aria-label="Template summaries"></div>
+
+            <label class="field">
+              <span class="output-label">Copy-ready delivery email templates</span>
+              <textarea id="templates" class="output" spellcheck="false"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Related delivery assets">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+          <strong>Download the free sample</strong>
+          <span>Inspect fake fixtures, tests, and review report shape before sending a paid delivery email.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Use the paid package when you need prepared fixtures, route handlers, CI checks, and buyer evidence notes.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">
+          <strong>Generate fulfillment report</strong>
+          <span>Pair buyer emails with a signed paid-event checklist, idempotency evidence, checksum, and rollback notes.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const fields = {
+        productName: document.querySelector("#productName"),
+        buyerLabel: document.querySelector("#buyerLabel"),
+        deliveryType: document.querySelector("#deliveryType"),
+        deliveryStatus: document.querySelector("#deliveryStatus"),
+        deliveryPlaceholder: document.querySelector("#deliveryPlaceholder"),
+        checksumEvidence: document.querySelector("#checksumEvidence"),
+        supportUrl: document.querySelector("#supportUrl"),
+        supportContact: document.querySelector("#supportContact"),
+        orderEvidence: document.querySelector("#orderEvidence")
+      };
+
+      const templateCountEl = document.querySelector("#templateCount");
+      const templateCopyEl = document.querySelector("#templateCopy");
+      const safetyCountEl = document.querySelector("#safetyCount");
+      const proofStateEl = document.querySelector("#proofState");
+      const templateGridEl = document.querySelector("#templateGrid");
+      const templatesEl = document.querySelector("#templates");
+
+      function deliveryLabel(value) {
+        return {
+          private_zip: "private ZIP download",
+          license_file: "license file",
+          account_access: "account access"
+        }[value] || value;
+      }
+
+      function statusLine(value) {
+        return {
+          ready: "Your paid order is verified and delivery is ready.",
+          manual_review: "Your paid order is verified and the delivery is in manual review.",
+          resend: "I am resending the delivery details for your paid order."
+        }[value] || "Your paid order is being reviewed.";
+      }
+
+      function subjectPrefix(value) {
+        return {
+          ready: "Your download is ready",
+          manual_review: "Your delivery is being reviewed",
+          resend: "Resending your download"
+        }[value] || "Your delivery update";
+      }
+
+      function buildDeliveryEmailTemplates(input) {
+        const deliveryName = deliveryLabel(input.deliveryType);
+        const evidence = input.checksumEvidence || "Checksum or manifest evidence is pending.";
+        const supportUrl = input.supportUrl || "Support policy URL pending.";
+        const supportContact = input.supportContact || "Reply with fake-safe logs only.";
+        const orderEvidence = input.orderEvidence || "Paid order evidence pending.";
+        const proofReady = /sha|checksum|manifest|digest|hash/i.test(evidence);
+        const safetyNotes = [
+          "Do not include API keys, webhook secrets, customer records, or private checkout URLs in public issues.",
+          "Use fake fixtures and fake signing secrets in public examples.",
+          "Send private download links only after the signed paid webhook and idempotency guard pass."
+        ];
+
+        const deliveryEmail = [
+          `Subject: ${subjectPrefix(input.deliveryStatus)} - ${input.productName}`,
+          ``,
+          `Hi ${input.buyerLabel || "there"},`,
+          ``,
+          `${statusLine(input.deliveryStatus)}`,
+          ``,
+          `Delivery type: ${deliveryName}`,
+          `Delivery item: ${input.deliveryPlaceholder || "[private delivery placeholder]"}`,
+          ``,
+          `Verification: ${evidence}`,
+          ``,
+          `Please keep the download private. If the archive or license file looks wrong, reply here with the order email and a short description. Do not post private links, live secrets, or customer data in public issues.`,
+          ``,
+          `Support and refund policy: ${supportUrl}`,
+          ``,
+          `Thanks,`,
+          `${input.productName} support`
+        ].join("\n");
+
+        const resendEmail = [
+          `Subject: Resend request for ${input.productName}`,
+          ``,
+          `Hi ${input.buyerLabel || "there"},`,
+          ``,
+          `I can resend the ${deliveryName} after confirming the paid Lemon Squeezy order. For safety, the replacement delivery should go only to the buyer email on the order or another address explicitly confirmed from that account.`,
+          ``,
+          `Current delivery placeholder: ${input.deliveryPlaceholder || "[private delivery placeholder]"}`,
+          `Checksum or manifest evidence: ${evidence}`,
+          ``,
+          `If the original file was broken, please share the file name, operating system, and checksum mismatch. Do not share API keys, webhook secrets, or private download URLs in public channels.`,
+          ``,
+          `Support policy: ${supportUrl}`
+        ].join("\n");
+
+        const supportReply = [
+          `Subject: Support details for ${input.productName}`,
+          ``,
+          `Thanks for checking in. Here is the safe support path for this Lemon Squeezy digital delivery:`,
+          ``,
+          `1. Confirm the paid order from the Lemon Squeezy receipt or signed order_created webhook.`,
+          `2. Verify the delivery artifact against the manifest or SHA-256 evidence.`,
+          `3. If delivery failed, resend the private ${deliveryName} once and record the idempotency note.`,
+          `4. If the archive is broken or materially different from the manifest, follow the refund policy.`,
+          ``,
+          `Order evidence note:`,
+          `${orderEvidence}`,
+          ``,
+          `Contact path: ${supportContact}`,
+          `Policy: ${supportUrl}`,
+          ``,
+          `Safety notes:`,
+          ...safetyNotes.map((note) => `- ${note}`)
+        ].join("\n");
+
+        const templates = [
+          {
+            title: "Delivery email",
+            detail: `Buyer receives ${deliveryName} details, checksum evidence, and support policy.`,
+            body: deliveryEmail
+          },
+          {
+            title: "Resend email",
+            detail: "Support can resend without exposing private links or duplicating fulfillment.",
+            body: resendEmail
+          },
+          {
+            title: "Support reply",
+            detail: "Support keeps refund, checksum, and safe-reporting boundaries explicit.",
+            body: supportReply
+          }
+        ];
+
+        return {
+          templates,
+          safetyNotes,
+          proofReady,
+          output: templates.map((template) => `## ${template.title}\n\n${template.body}`).join("\n\n---\n\n")
+        };
+      }
+
+      function currentInput() {
+        return Object.fromEntries(Object.entries(fields).map(([key, element]) => [key, element.value.trim()]));
+      }
+
+      function render() {
+        const result = buildDeliveryEmailTemplates(currentInput());
+        templateCountEl.textContent = `${result.templates.length} emails`;
+        templateCopyEl.textContent = "Delivery, resend, and support replies are generated locally.";
+        safetyCountEl.textContent = String(result.safetyNotes.length);
+        proofStateEl.textContent = result.proofReady ? "Ready" : "Review";
+        templateGridEl.innerHTML = result.templates
+          .map(
+            (template) =>
+              `<article class="template"><strong>${template.title}</strong><p>${template.detail}</p></article>`
+          )
+          .join("");
+        templatesEl.value = result.output;
+      }
+
+      Object.values(fields).forEach((field) => field.addEventListener("input", render));
+      Object.values(fields).forEach((field) => field.addEventListener("change", render));
+
+      document.querySelector("#loadProKit").addEventListener("click", () => {
+        fields.productName.value = "BillingWebhookKit Pro";
+        fields.buyerLabel.value = "there";
+        fields.deliveryType.value = "private_zip";
+        fields.deliveryStatus.value = "ready";
+        fields.deliveryPlaceholder.value = "[private BillingWebhookKit-Pro-0.1.0.zip delivery link or attachment]";
+        fields.checksumEvidence.value =
+          "SHA-256 29443d9d91e918896049b2c5807e8d2342f0204675bca7eb6a5c2c824f599ad8 is listed in pro-kit-manifest.json";
+        fields.supportUrl.value = "https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html";
+        fields.supportContact.value = "reply to this email with fake-safe logs only";
+        fields.orderEvidence.value =
+          "Paid order verified by signed Lemon Squeezy order_created webhook.\n" +
+          "Delivery runs after idempotency key is stored.\n" +
+          "Private ZIP is not hosted in the public GitHub Pages repository.";
+        render();
+      });
+
+      document.querySelector("#copyTemplates").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(templatesEl.value);
+        } catch {
+          templatesEl.select();
+          document.execCommand("copy");
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>

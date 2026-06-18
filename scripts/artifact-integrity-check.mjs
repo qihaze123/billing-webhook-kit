@@ -15,6 +15,7 @@ const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
 const payloadGeneratorPath = join(publicDir, "tools", "lemon-squeezy-webhook-payload-generator.html");
 const fulfillmentChecklistPath = join(publicDir, "tools", "lemon-squeezy-fulfillment-checklist-generator.html");
+const deliveryEmailTemplatesPath = join(publicDir, "tools", "lemon-squeezy-delivery-email-template-generator.html");
 const checkoutPath = join(publicDir, "checkout.json");
 const expectedFreeSampleSha256 = "8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b";
 
@@ -50,6 +51,9 @@ if (!existsSync(payloadGeneratorPath)) issues.push("Missing public/tools/lemon-s
 if (!existsSync(fulfillmentChecklistPath)) {
   issues.push("Missing public/tools/lemon-squeezy-fulfillment-checklist-generator.html.");
 }
+if (!existsSync(deliveryEmailTemplatesPath)) {
+  issues.push("Missing public/tools/lemon-squeezy-delivery-email-template-generator.html.");
+}
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
@@ -65,6 +69,9 @@ const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "u
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
 const payloadGeneratorHtml = existsSync(payloadGeneratorPath) ? readFileSync(payloadGeneratorPath, "utf8") : "";
 const fulfillmentChecklistHtml = existsSync(fulfillmentChecklistPath) ? readFileSync(fulfillmentChecklistPath, "utf8") : "";
+const deliveryEmailTemplatesHtml = existsSync(deliveryEmailTemplatesPath)
+  ? readFileSync(deliveryEmailTemplatesPath, "utf8")
+  : "";
 const publicZipFiles = existsSync(publicDir)
   ? walkFiles(publicDir).filter((path) => path.toLowerCase().endsWith(".zip"))
   : [];
@@ -194,6 +201,7 @@ if (
   !toolIndexHtml.includes("Launch lane") ||
   !toolIndexHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
   !toolIndexHtml.includes("lemon-squeezy-fulfillment-checklist-generator.html") ||
+  !toolIndexHtml.includes("lemon-squeezy-delivery-email-template-generator.html") ||
   !toolIndexHtml.includes("billing-webhook-launch-readiness-scorecard.html") ||
   !toolIndexHtml.includes("billing-webhook-debug-cost-calculator.html") ||
   !toolIndexHtml.includes("free-sample.html") ||
@@ -233,6 +241,20 @@ if (
   !fulfillmentChecklistHtml.includes("delivery-refund-support.html")
 ) {
   issues.push("Standalone fulfillment checklist generator is missing report logic, delivery safety copy, or conversion links.");
+}
+if (
+  !deliveryEmailTemplatesHtml.includes("Lemon Squeezy delivery email template generator") ||
+  !deliveryEmailTemplatesHtml.includes("buildDeliveryEmailTemplates") ||
+  !deliveryEmailTemplatesHtml.includes("private ZIP") ||
+  !deliveryEmailTemplatesHtml.includes("checksum") ||
+  !deliveryEmailTemplatesHtml.includes("support policy") ||
+  !deliveryEmailTemplatesHtml.includes("refund") ||
+  !deliveryEmailTemplatesHtml.includes("pro-kit.html") ||
+  !deliveryEmailTemplatesHtml.includes("free-sample.html") ||
+  !deliveryEmailTemplatesHtml.includes("lemon-squeezy-fulfillment-checklist-generator.html") ||
+  !deliveryEmailTemplatesHtml.includes("delivery-refund-support.html")
+) {
+  issues.push("Standalone delivery email template generator is missing template logic, delivery safety copy, or conversion links.");
 }
 
 const result = {
