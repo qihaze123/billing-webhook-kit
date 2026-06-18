@@ -71,6 +71,7 @@ const guideLinks = [
   { href: "guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html", label: "Lemon Squeezy vs Stripe webhooks" },
   { href: "guides/billing-webhook-kit-pricing-roi.html", label: "BillingWebhookKit pricing ROI" },
   { href: "guides/billing-webhook-kit-buyer-checklist.html", label: "BillingWebhookKit buyer checklist" },
+  { href: "billing-webhook-kit-pro-sample-report.html", label: "BillingWebhookKit Pro sample report" },
   { href: "tools/billing-webhook-pro-fit-checker.html", label: "BillingWebhookKit Pro fit checker" },
   { href: "guides/lemon-squeezy-license-key-webhook.html", label: "License key webhook tests" },
   { href: "guides/subscription-payment-success-webhook.html", label: "Subscription payment success" },
@@ -1393,6 +1394,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="billing-webhook-launch-evidence-pack.html">
             Evidence
           </a>
+          <a className="ghost-link" href="billing-webhook-kit-pro-sample-report.html">
+            Sample report
+          </a>
           <a className="ghost-link" href="tools/">
             Tools
           </a>
@@ -2275,6 +2279,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="billing-webhook-launch-evidence-pack.html">
             Review the launch evidence pack
+          </a>
+          <a className="inline-cta" href="billing-webhook-kit-pro-sample-report.html">
+            Inspect the Pro sample report
           </a>
           <a className="inline-cta" href="tools/lemon-squeezy-production-checkout-readiness-report.html">
             Generate production checkout readiness

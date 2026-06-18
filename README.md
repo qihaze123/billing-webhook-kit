@@ -18,6 +18,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Guide index: https://qihaze123.github.io/billing-webhook-kit/guides/
 - Tool index: https://qihaze123.github.io/billing-webhook-kit/tools/
 - Launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
+- Pro sample report: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html
 - Checkout smoke test report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-checkout-smoke-test-report.html
 - Lemon Squeezy PayPal live checkout report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 - Lemon Squeezy production checkout readiness report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
@@ -81,6 +82,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - HTML sitemap: a crawlable page linking the buyer path, standalone tools, and guide pages from one public URL.
 - Pricing ROI guide: buyer decision page for comparing the free tools, the CN¥69 Pro Kit, manual setup time, duplicate replay tests, launch evidence, and break-even math.
 - Buyer checklist: pre-purchase page for checking free tools, sample files, manifest, launch evidence, delivery policy, refund boundaries, and when Pro is worth buying.
+- Pro sample report: public example of the PR-ready webhook review evidence the paid pack is designed to produce, including signature, duplicate replay, entitlement, CI, and launch notes.
 - Launch evidence pack: purchase-adjacent checklist tying checkout smoke, event coverage, fulfillment proof, refund rollback, delivery emails, the free sample, and Pro Kit preview together before a public billing launch.
 - PayPal live checkout report: browser-only launch evidence report for PayPal visibility, CN¥69 price, paid webhook delivery, x-signature verification, duplicate replay, private delivery, refund rollback, support evidence, and owner approval.
 - Production checkout readiness report: browser-only go-live report for live key setup, CN¥69 price, PayPal checkout, signed webhooks, duplicate replay, private delivery, refund rollback, support path, and release evidence.
@@ -170,6 +172,8 @@ Preview page: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 
 Launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 
+Pro sample report: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html
+
 Production checkout readiness report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
 
 PayPal live checkout report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
@@ -199,6 +203,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/
 - https://qihaze123.github.io/billing-webhook-kit/tools/
 - https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
+- https://qihaze123.github.io/billing-webhook-kit/billing-webhook-kit-pro-sample-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-payload-generator.html
