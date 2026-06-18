@@ -51,6 +51,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/payment-webhook-test-tool-alternatives.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
+  `${siteUrl}/guides/lemon-squeezy-download-email-not-received.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`,
   `${siteUrl}/guides/payment-webhook-audit-log-nextjs.html`,
@@ -190,6 +191,7 @@ const [
   alternativesGuide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
+  downloadEmailGuide,
   refundWebhookGuide,
   nextjsRefundRollbackGuide,
   webhookAuditLogGuide,
@@ -260,6 +262,7 @@ const [
   fetchText(`${siteUrl}/guides/payment-webhook-test-tool-alternatives.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-download-email-not-received.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`),
   fetchText(`${siteUrl}/guides/payment-webhook-audit-log-nextjs.html`),
@@ -419,6 +422,9 @@ const issues = [
   ...(digitalDownloadGuide.ok
     ? []
     : [`Lemon Squeezy digital download fulfillment guide returned HTTP ${digitalDownloadGuide.status ?? "failed"}.`]),
+  ...(downloadEmailGuide.ok
+    ? []
+    : [`Lemon Squeezy download email support guide returned HTTP ${downloadEmailGuide.status ?? "failed"}.`]),
   ...(refundWebhookGuide.ok
     ? []
     : [`Lemon Squeezy refund webhook guide returned HTTP ${refundWebhookGuide.status ?? "failed"}.`]),
@@ -631,6 +637,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy digital download fulfillment guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-download-email-not-received.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy download email support guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy refund webhook test guide URL."]),
@@ -793,10 +802,12 @@ const issues = [
   guideIndex.text.includes("Stripe Webhook Order of Events in Next.js") &&
   guideIndex.text.includes("stripe-webhook-order-of-events-nextjs.html") &&
   guideIndex.text.includes("Replay-Safe Payment Webhook Fulfillment in Next.js") &&
-  guideIndex.text.includes("payment-webhook-replay-safe-fulfillment-nextjs.html")
+  guideIndex.text.includes("payment-webhook-replay-safe-fulfillment-nextjs.html") &&
+  guideIndex.text.includes("Lemon Squeezy Download Email Not Received") &&
+  guideIndex.text.includes("lemon-squeezy-download-email-not-received.html")
     ? []
     : [
-        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, retry idempotency, alternatives, Stripe webhook order, or replay-safe fulfillment guide."
+        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, retry idempotency, alternatives, Stripe webhook order, replay-safe fulfillment, or download email support guide."
       ]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
@@ -1087,6 +1098,15 @@ const issues = [
   digitalDownloadGuide.text.includes("free-sample.html")
     ? []
     : ["Lemon Squeezy digital download fulfillment guide is missing private delivery, signature, idempotency, policy, or conversion copy."]),
+  ...(downloadEmailGuide.text.includes("Lemon Squeezy download email not received") &&
+  downloadEmailGuide.text.includes("paid order") &&
+  downloadEmailGuide.text.includes("private support channel") &&
+  downloadEmailGuide.text.includes("checksum") &&
+  downloadEmailGuide.text.includes("duplicate purchase") &&
+  downloadEmailGuide.text.includes("delivery-refund-support.html") &&
+  downloadEmailGuide.text.includes("pro-kit.html")
+    ? []
+    : ["Lemon Squeezy download email support guide is missing paid-order, private-resend, checksum, duplicate-purchase, policy, or conversion copy."]),
   ...(refundWebhookGuide.text.includes("Lemon Squeezy refund webhook test") &&
   refundWebhookGuide.text.includes("entitlement rollback") &&
   refundWebhookGuide.text.includes("duplicate replay") &&
@@ -1441,6 +1461,7 @@ const result = {
     alternativesGuide: alternativesGuide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
+    downloadEmailGuide: downloadEmailGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
     nextjsRefundRollbackGuide: nextjsRefundRollbackGuide.status,
     webhookAuditLogGuide: webhookAuditLogGuide.status,

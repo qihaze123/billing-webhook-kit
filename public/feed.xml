@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Lemon Squeezy Download Email Not Received</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-download-email-not-received.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-download-email-not-received.html</guid>
+      <description>Handle a Lemon Squeezy download email not received support case with paid-order checks, safe resend evidence, private ZIP delivery, checksum verification, and refund boundaries.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Replay-Safe Payment Webhook Fulfillment in Next.js</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-replay-safe-fulfillment-nextjs.html</guid>

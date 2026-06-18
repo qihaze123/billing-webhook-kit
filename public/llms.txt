@@ -115,6 +115,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Test Lemon Squeezy PayPal checkout launch readiness with checkout page, paid `order_created` webhook delivery, signature verification, duplicate replay, fulfillment, and rollback evidence.
 - Move from private Lemon Squeezy production checkout testing to a public buy link with live config, CN¥69 pricing, PayPal checkout, signed paid webhooks, duplicate replay, private delivery, refund rollback, support notes, and release evidence.
 - Deliver a private ZIP, license file, or digital product after Lemon Squeezy checkout with signed webhook verification, idempotency, checksum evidence, support policy, and duplicate replay safety.
+- Handle Lemon Squeezy download email not received support cases with paid-order checks, private resend safety, checksum verification, duplicate-purchase handling, and refund boundaries.
 - Test Lemon Squeezy refund webhook rollback, duplicate replay, access revocation, support evidence, and secret-free buyer reports before launch.
 - Verify Stripe webhook signatures in Next.js App Router without losing raw request bodies.
 - Build a Next.js payment webhook entitlement test matrix for paid checkout, renewal, cancellation, refund, failed payment, duplicate replay, unknown events, and CI gates.
@@ -182,6 +183,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
 - Lemon Squeezy webhook not firing after checkout: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-not-firing-after-checkout.html
 - Lemon Squeezy digital download fulfillment: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html
+- Lemon Squeezy download email not received: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-download-email-not-received.html
 - Webhook signature mismatch debugger: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-signature-mismatch-debugger.html
 - Stripe webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-signature-verification-nextjs.html
 - Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
