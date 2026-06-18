@@ -298,6 +298,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-dead-letter-queue-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html

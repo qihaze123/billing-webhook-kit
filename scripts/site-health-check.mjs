@@ -53,6 +53,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`,
+  `${siteUrl}/guides/payment-webhook-dead-letter-queue-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
   `${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`,
@@ -188,6 +189,7 @@ const [
   digitalDownloadGuide,
   refundWebhookGuide,
   nextjsRefundRollbackGuide,
+  webhookDeadLetterQueueGuide,
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
   stripeRefundRollbackGuide,
@@ -254,6 +256,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`),
+  fetchText(`${siteUrl}/guides/payment-webhook-dead-letter-queue-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-refund-webhook-rollback-nextjs.html`),
@@ -415,6 +418,13 @@ const issues = [
     : [
         `Next.js payment webhook refund rollback guide returned HTTP ${
           nextjsRefundRollbackGuide.status ?? "failed"
+        }.`
+      ]),
+  ...(webhookDeadLetterQueueGuide.ok
+    ? []
+    : [
+        `Payment webhook dead letter queue guide returned HTTP ${
+          webhookDeadLetterQueueGuide.status ?? "failed"
         }.`
       ]),
   ...(stripeNextjsGuide.ok
@@ -1072,6 +1082,19 @@ const issues = [
   stripeNextjsGuide.text.includes("View Pro Kit preview")
     ? []
     : ["Stripe Next.js signature guide is missing raw-body copy, Stripe signature copy, or conversion links."]),
+  ...(webhookDeadLetterQueueGuide.text.includes("Payment webhook dead letter queue in Next.js") &&
+  webhookDeadLetterQueueGuide.text.includes("dead letter queue") &&
+  webhookDeadLetterQueueGuide.text.includes("replay command") &&
+  webhookDeadLetterQueueGuide.text.includes("idempotency key") &&
+  webhookDeadLetterQueueGuide.text.includes("raw_body_sha256") &&
+  webhookDeadLetterQueueGuide.text.includes("duplicate replay") &&
+  webhookDeadLetterQueueGuide.text.includes("webhook-replay-curl-generator.html") &&
+  webhookDeadLetterQueueGuide.text.includes("payment-webhook-test-plan-generator.html") &&
+  webhookDeadLetterQueueGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Payment webhook dead letter queue guide is missing DLQ, replay, idempotency, schema, or conversion copy."
+      ]),
   ...(stripeNextjsTestPlanGuide.text.includes("Stripe webhook test plan for Next.js") &&
   stripeNextjsTestPlanGuide.text.includes("checkout.session.completed") &&
   stripeNextjsTestPlanGuide.text.includes("invoice.paid") &&
@@ -1362,6 +1385,7 @@ const result = {
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
     nextjsRefundRollbackGuide: nextjsRefundRollbackGuide.status,
+    webhookDeadLetterQueueGuide: webhookDeadLetterQueueGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,
     stripeRefundRollbackGuide: stripeRefundRollbackGuide.status,

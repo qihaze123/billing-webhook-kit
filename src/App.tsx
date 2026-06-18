@@ -82,6 +82,7 @@ const guideLinks = [
   { href: "guides/paddle-webhook-test-payload.html", label: "Paddle webhook payloads" },
   { href: "guides/webhook-replay-curl-command.html", label: "Replay webhooks with cURL" },
   { href: "guides/payment-webhook-ci-tests.html", label: "Payment webhook CI tests" },
+  { href: "guides/payment-webhook-dead-letter-queue-nextjs.html", label: "Payment webhook dead letter queue in Next.js" },
   { href: "guides/payment-webhook-contract-test-generator.html", label: "Payment webhook contract test generator" },
   { href: "guides/billing-webhook-launch-readiness-checklist.html", label: "Billing webhook launch readiness" },
   { href: "guides/billing-webhook-cost-calculator.html", label: "Billing webhook cost calculator" },
