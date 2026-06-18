@@ -53,6 +53,7 @@ const guideLinks = [
   { href: "tools/vercel-lemon-squeezy-webhook-debugger.html", label: "Vercel Lemon Squeezy webhook debugger" },
   { href: "tools/payment-webhook-test-plan-generator.html", label: "Payment webhook test plan generator" },
   { href: "guides/stripe-webhook-test-plan-nextjs.html", label: "Stripe webhook test plan for Next.js" },
+  { href: "guides/paddle-webhook-signature-verification-nextjs.html", label: "Paddle webhook signature verification in Next.js" },
   { href: "guides/paddle-webhook-test-plan-nextjs.html", label: "Paddle webhook test plan for Next.js" },
   { href: "guides/nextjs-webhook-405-lemon-squeezy.html", label: "Fix Next.js 405 Lemon Squeezy webhooks" },
   { href: "guides/lemon-squeezy-webhook-500-vercel-nextjs.html", label: "Fix Lemon Squeezy webhook 500 on Vercel" },
@@ -1446,6 +1447,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="guides/paddle-webhook-test-plan-nextjs.html">
             Paddle test plan
           </a>
+          <a className="ghost-link" href="guides/paddle-webhook-signature-verification-nextjs.html">
+            Paddle signature
+          </a>
           <a className="ghost-link" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             405 fix
           </a>
@@ -2370,6 +2374,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="guides/paddle-webhook-test-plan-nextjs.html">
             Plan Paddle webhook tests for Next.js
+          </a>
+          <a className="inline-cta" href="guides/paddle-webhook-signature-verification-nextjs.html">
+            Verify Paddle signatures in Next.js
           </a>
           <a className="inline-cta" href="guides/nextjs-webhook-405-lemon-squeezy.html">
             Fix Next.js 405 webhook routes
