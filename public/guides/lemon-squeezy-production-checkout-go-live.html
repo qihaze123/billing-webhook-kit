@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Production Checkout Go-Live Checklist | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="A Lemon Squeezy production checkout go-live checklist for live key setup, CN¥69 pricing, PayPal checkout, signed paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy production checkout, Lemon Squeezy go live checklist, Lemon Squeezy live checkout, Lemon Squeezy PayPal production checkout, billing webhook production checklist"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-checkout-go-live.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Production Checkout Go-Live Checklist" />
+    <meta
+      property="og:description"
+      content="Move from private checkout testing to a public Lemon Squeezy buy link with live config, CN¥69 pricing, PayPal, paid webhooks, replay safety, delivery, and rollback evidence."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-checkout-go-live.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Production Checkout Go-Live Checklist" />
+    <meta
+      name="twitter:description"
+      content="A production checkout checklist for Lemon Squeezy live key setup, PayPal, signed webhooks, duplicate replay, private delivery, refund rollback, and launch evidence."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --accent: #d8f84f;
+        --coral: #f05f3b;
+        --panel: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        color: var(--ink);
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      main {
+        width: min(980px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 38px 0 58px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .crumb {
+        display: inline-flex;
+        margin-bottom: 28px;
+        font-weight: 850;
+      }
+
+      .eyebrow,
+      .gate span {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin-top: 8px;
+        font-size: clamp(2.25rem, 7vw, 5rem);
+        line-height: 0.93;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 790px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.14rem;
+        line-height: 1.65;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 28px 0 34px;
+      }
+
+      .button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--accent);
+        box-shadow: 5px 5px 0 var(--line);
+        padding: 0 16px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+      }
+
+      .gate-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .gate,
+      .faq,
+      .conversion {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 18px;
+        box-shadow: 5px 5px 0 rgba(18, 19, 15, 0.12);
+      }
+
+      .gate h2 {
+        margin-top: 8px;
+        font-size: 1.18rem;
+        line-height: 1.22;
+      }
+
+      .gate p,
+      .faq p,
+      .conversion p {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.66;
+      }
+
+      section {
+        margin-top: 18px;
+      }
+
+      .faq {
+        margin-top: 18px;
+      }
+
+      .faq h2 {
+        color: var(--coral);
+        font-size: 1.25rem;
+      }
+
+      .faq-item + .faq-item {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid #d8ded2;
+      }
+
+      .faq h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .conversion {
+        background: #10120f;
+        color: #f7faed;
+      }
+
+      .conversion p {
+        color: #dbe2d2;
+      }
+
+      .conversion-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .conversion-grid a {
+        display: block;
+        min-height: 126px;
+        border: 1px solid rgba(247, 250, 237, 0.36);
+        border-radius: 7px;
+        background: #1d2119;
+        padding: 14px;
+        text-decoration: none;
+      }
+
+      .conversion-grid strong {
+        display: block;
+        color: var(--accent);
+        line-height: 1.25;
+      }
+
+      .conversion-grid span {
+        display: block;
+        margin-top: 8px;
+        color: #dfe6d6;
+        font-size: 0.93rem;
+        line-height: 1.48;
+      }
+
+      footer {
+        margin-top: 32px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 780px) {
+        .gate-grid,
+        .conversion-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .conversion-grid a {
+          min-height: 0;
+        }
+      }
+
+      @media (max-width: 620px) {
+        main {
+          width: min(100vw - 24px, 980px);
+          padding-top: 28px;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Lemon Squeezy Production Checkout Go-Live Checklist",
+        "description": "A Lemon Squeezy production checkout go-live checklist for live key setup, CN¥69 pricing, PayPal checkout, signed paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-checkout-go-live.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "When should a Lemon Squeezy checkout URL be public?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Publish the checkout URL only after the production variant is published, CN¥69 price and currency are verified, PayPal renders if it is the active rail, paid webhooks reach the production route, duplicate replay is safe, and delivery or refund rollback evidence is recorded."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should production API keys be pasted into a checkout readiness report?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. A readiness report should record whether live keys are configured, never the key values. Keep API keys, webhook secrets, customer data, private checkout URLs, and private download links out of public reports."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Lemon Squeezy Production Checkout Go-Live Checklist", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-checkout-go-live.html" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <p class="eyebrow">Production checkout</p>
+      <h1>Lemon Squeezy production checkout go-live checklist</h1>
+      <p class="lead">
+        Use this checklist when the private production checkout has worked and the next decision is whether the public buy link can go live. The key question is not whether the page loads. The key question is whether payment, webhook, delivery, refund, and support evidence are already attached.
+      </p>
+      <div class="actions">
+        <a class="button" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">Generate readiness report</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html">Open launch evidence pack</a>
+        <a class="button secondary" href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Preview CN¥69 Pro Kit</a>
+      </div>
+
+      <section class="gate-grid" aria-label="Lemon Squeezy production go-live gates">
+        <article class="gate">
+          <span>Gate 1</span>
+          <h2>Live config is present, but never public.</h2>
+          <p>Confirm the production API key, store ID, variant ID, and checkout environment exist in private runtime configuration. Do not paste key values into reports, screenshots, GitHub issues, public docs, or client-side code.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 2</span>
+          <h2>The production variant is published.</h2>
+          <p>Check that the variant points to the intended product, uses the current copy, and is not a stale test-mode or unpublished checkout target.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 3</span>
+          <h2>CN¥69 price and currency are verified.</h2>
+          <p>Record the displayed price, minor units, and currency policy. Avoid forcing a mismatched currency with a copied custom_price value.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 4</span>
+          <h2>PayPal checkout renders from the production URL.</h2>
+          <p>If PayPal is the active payment rail, verify it appears on the production checkout page before traffic is sent to the link.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 5</span>
+          <h2>Paid webhooks reach the production route.</h2>
+          <p>A successful checkout must produce the expected paid event, pass x-signature verification, map to the expected product, and create the intended entitlement or delivery state.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 6</span>
+          <h2>Duplicate replay is harmless.</h2>
+          <p>Replay the same paid event and prove delivery emails, licenses, ZIP links, and entitlement writes happen once.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 7</span>
+          <h2>Private delivery and checksum evidence exist.</h2>
+          <p>The paid archive or license should not be published on GitHub Pages. Record the private delivery path and public checksum evidence.</p>
+        </article>
+        <article class="gate">
+          <span>Gate 8</span>
+          <h2>Refund rollback and support notes are ready.</h2>
+          <p>Refund, resend, broken archive, duplicate purchase, and safe issue-reporting behavior should be documented before the public buy link is shared.</p>
+        </article>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>When should a Lemon Squeezy checkout URL be public?</h3>
+          <p>Publish the checkout URL only after the production variant is published, CN¥69 price and currency are verified, PayPal renders if it is the active rail, paid webhooks reach the production route, duplicate replay is safe, and delivery or refund rollback evidence is recorded.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Should production API keys be pasted into a checkout readiness report?</h3>
+          <p>No. A readiness report should record whether live keys are configured, never the key values. Keep API keys, webhook secrets, customer data, private checkout URLs, and private download links out of public reports.</p>
+        </div>
+      </section>
+
+      <section class="conversion" aria-label="Production checkout next steps">
+        <h2>Turn the checklist into release evidence</h2>
+        <p>BillingWebhookKit keeps the public work free and browser-only. Start with the report, inspect the free sample, then use the CN¥69 Pro Kit when you need copy-ready fixtures, handlers, tests, and review files in a product repository.</p>
+        <div class="conversion-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">
+            <strong>Production readiness report</strong>
+            <span>Generate a Markdown launch artifact for live config, PayPal, webhooks, delivery, refund, and support.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download the free sample</strong>
+            <span>Inspect fake fixtures, signature tests, contract checks, duplicate replay, and CI skeleton first.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>Preview the CN¥69 Pro Kit</strong>
+            <span>Review the paid package manifest, checksum, 29 files, 12 tests, delivery policy, and checkout waiting state.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        Use fake fixtures and fake signing secrets in public examples. Keep production API keys, webhook secrets, customer data, private checkout URLs, and private download links out of shared reports.
+      </footer>
+    </main>
+  </body>
+</html>

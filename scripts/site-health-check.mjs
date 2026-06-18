@@ -34,6 +34,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`,
   `${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`,
   `${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`,
+  `${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
@@ -140,6 +141,7 @@ const [
   checkoutSmokeGuide,
   checkout404Guide,
   paypalCheckoutGuide,
+  productionCheckoutGoLiveGuide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
   refundWebhookGuide,
@@ -177,6 +179,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-smoke-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
@@ -259,6 +262,13 @@ const issues = [
   ...(paypalCheckoutGuide.ok
     ? []
     : [`Lemon Squeezy PayPal checkout webhook guide returned HTTP ${paypalCheckoutGuide.status ?? "failed"}.`]),
+  ...(productionCheckoutGoLiveGuide.ok
+    ? []
+    : [
+        `Lemon Squeezy production checkout go-live guide returned HTTP ${
+          productionCheckoutGoLiveGuide.status ?? "failed"
+        }.`
+      ]),
   ...(webhookNotFiringGuide.ok
     ? []
     : [`Lemon Squeezy webhook not firing guide returned HTTP ${webhookNotFiringGuide.status ?? "failed"}.`]),
@@ -275,7 +285,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 64 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 64.`]),
+  ...(sitemapUrls.length >= 65 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 65.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -346,6 +356,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy PayPal checkout webhook test guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy production checkout go-live guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook not firing after checkout guide URL."]),
@@ -424,6 +437,10 @@ const issues = [
   toolIndex.text.includes("Preview the CN¥69 Pro Kit")
     ? []
     : ["tool index page is missing tool cards or conversion links."]),
+  ...(guideIndex.text.includes("Lemon Squeezy Production Checkout Go-Live Checklist") &&
+  guideIndex.text.includes("lemon-squeezy-production-checkout-go-live.html")
+    ? []
+    : ["guide index is missing the Lemon Squeezy production checkout go-live guide."]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&
   signatureVerifier.text.includes("Download the free sample") &&
@@ -565,6 +582,19 @@ const issues = [
   paypalCheckoutGuide.text.includes("View Pro Kit preview")
     ? []
     : ["Lemon Squeezy PayPal checkout webhook guide is missing PayPal, paid-order, or conversion copy."]),
+  ...(productionCheckoutGoLiveGuide.text.includes("Lemon Squeezy production checkout go-live checklist") &&
+  productionCheckoutGoLiveGuide.text.includes("CN¥69") &&
+  productionCheckoutGoLiveGuide.text.includes("PayPal checkout") &&
+  productionCheckoutGoLiveGuide.text.includes("signed paid webhooks") &&
+  productionCheckoutGoLiveGuide.text.includes("duplicate replay") &&
+  productionCheckoutGoLiveGuide.text.includes("private delivery") &&
+  productionCheckoutGoLiveGuide.text.includes("refund rollback") &&
+  productionCheckoutGoLiveGuide.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
+  productionCheckoutGoLiveGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Lemon Squeezy production checkout go-live guide is missing live checkout, price, PayPal, replay, delivery, refund, report, or conversion copy."
+      ]),
   ...(webhookNotFiringGuide.text.includes("Lemon Squeezy webhook not firing after checkout") &&
   webhookNotFiringGuide.text.includes("live/test") &&
   webhookNotFiringGuide.text.includes("order_created") &&
@@ -609,7 +639,8 @@ const issues = [
     : ["homepage is missing the production checkout readiness report link."]),
   ...(home.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   home.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
-  home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html")
+  home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
+  home.text.includes("lemon-squeezy-production-checkout-go-live.html")
     ? []
     : ["homepage is missing checkout launch guide links in static discovery content."]),
   ...(proKit.text.includes("Buy it when the free sample stops being enough")
@@ -694,6 +725,7 @@ const result = {
     checkoutSmokeGuide: checkoutSmokeGuide.status,
     checkout404Guide: checkout404Guide.status,
     paypalCheckoutGuide: paypalCheckoutGuide.status,
+    productionCheckoutGoLiveGuide: productionCheckoutGoLiveGuide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
