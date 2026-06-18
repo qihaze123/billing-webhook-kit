@@ -42,6 +42,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`,
+  `${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`,
   `${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
@@ -153,6 +154,7 @@ const [
   refundWebhookGuide,
   stripeNextjsGuide,
   aiSaasBillingWebhookChecklist,
+  lemonSqueezyVsStripeAiSaasGuide,
   pricingRoiGuide,
   sitemap,
   robots,
@@ -195,6 +197,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`),
   fetchText(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -310,6 +313,13 @@ const issues = [
           aiSaasBillingWebhookChecklist.status ?? "failed"
         }.`
       ]),
+  ...(lemonSqueezyVsStripeAiSaasGuide.ok
+    ? []
+    : [
+        `Lemon Squeezy vs Stripe AI SaaS guide returned HTTP ${
+          lemonSqueezyVsStripeAiSaasGuide.status ?? "failed"
+        }.`
+      ]),
   ...(pricingRoiGuide.ok
     ? []
     : [`BillingWebhookKit pricing ROI guide returned HTTP ${pricingRoiGuide.status ?? "failed"}.`]),
@@ -317,7 +327,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 69 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 69.`]),
+  ...(sitemapUrls.length >= 70 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 70.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -412,6 +422,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`)
     ? []
     : ["llms.txt is missing the AI SaaS billing webhook checklist URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy vs Stripe AI SaaS guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`)
     ? []
     : ["llms.txt is missing the BillingWebhookKit pricing ROI guide URL."]),
@@ -707,6 +720,17 @@ const issues = [
     : [
         "AI SaaS billing webhook checklist is missing AI SaaS, raw-body, replay, checkout smoke, Pro Kit, or conversion copy."
       ]),
+  ...(lemonSqueezyVsStripeAiSaasGuide.text.includes("Lemon Squeezy vs Stripe webhooks for AI SaaS") &&
+  lemonSqueezyVsStripeAiSaasGuide.text.includes("Lemon Squeezy webhook focus") &&
+  lemonSqueezyVsStripeAiSaasGuide.text.includes("Stripe webhook focus") &&
+  lemonSqueezyVsStripeAiSaasGuide.text.includes("Signature gate") &&
+  lemonSqueezyVsStripeAiSaasGuide.text.includes("Checkout smoke") &&
+  lemonSqueezyVsStripeAiSaasGuide.text.includes("CN¥69 Pro Kit") &&
+  lemonSqueezyVsStripeAiSaasGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Lemon Squeezy vs Stripe AI SaaS guide is missing provider comparison, signature, checkout smoke, Pro Kit, or conversion copy."
+      ]),
   ...(pricingRoiGuide.text.includes("Is BillingWebhookKit worth CN¥69?") &&
   pricingRoiGuide.text.includes("free browser tools") &&
   pricingRoiGuide.text.includes("Pro Kit") &&
@@ -833,6 +857,7 @@ const result = {
     refundWebhookGuide: refundWebhookGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     aiSaasBillingWebhookChecklist: aiSaasBillingWebhookChecklist.status,
+    lemonSqueezyVsStripeAiSaasGuide: lemonSqueezyVsStripeAiSaasGuide.status,
     pricingRoiGuide: pricingRoiGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

@@ -30,6 +30,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Free sample GitHub release: https://github.com/qihaze123/billing-webhook-kit/releases/tag/v0.1.0
 - Pro Kit preview: https://qihaze123.github.io/billing-webhook-kit/pro-kit.html
 - AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
+- Lemon Squeezy vs Stripe webhooks for AI SaaS: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html
 - BillingWebhookKit pricing ROI guide: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-pricing-roi.html
 - Billing webhook launch evidence pack: https://qihaze123.github.io/billing-webhook-kit/billing-webhook-launch-evidence-pack.html
 - Lemon Squeezy production checkout go-live checklist: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-checkout-go-live.html
@@ -66,6 +67,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Generate a provider-specific webhook entitlement decision matrix for SaaS access grants, renewals, cancellations, failed payments, and unknown-event quarantine.
 - Calculate avoidable billing webhook debugging cost and compare it with the CNY 69 Pro Kit reference price.
 - Check AI-generated and vibe-coded SaaS billing routes before exposing Lemon Squeezy, Stripe, Paddle, or Polar checkout links.
+- Compare Lemon Squeezy and Stripe webhook launch checks for AI SaaS apps before committing to a checkout provider.
 - Decide whether the CN¥69 Pro Kit is worth buying by comparing free tools, manual webhook test setup time, duplicate replay coverage, launch evidence, and break-even math.
 - Learn billing webhook idempotency and CI test patterns.
 - Run a Lemon Squeezy checkout smoke test before exposing a paid checkout link.
@@ -134,6 +136,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Billing webhook launch readiness checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html
 - Billing webhook cost calculator: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html
 - AI SaaS billing webhook checklist: https://qihaze123.github.io/billing-webhook-kit/guides/ai-saas-billing-webhook-checklist.html
+- Lemon Squeezy vs Stripe webhooks for AI SaaS: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html
 - BillingWebhookKit pricing ROI guide: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-kit-pricing-roi.html
 - Webhook entitlement decision matrix: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html
 - Webhook idempotency checklist: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-checklist.html
