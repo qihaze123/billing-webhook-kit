@@ -32,6 +32,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/checkout-provider-decision-matrix.html`,
   `${siteUrl}/tools/billing-webhook-pro-fit-checker.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
+  `${siteUrl}/tools/lemon-squeezy-webhook-endpoint-smoke-test.html`,
   `${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`,
   `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
   `${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`,
@@ -180,6 +181,7 @@ const [
   checkoutProviderDecisionMatrix,
   proFitChecker,
   checkoutSmokeReport,
+  endpointSmokeTest,
   paypalLiveCheckoutReport,
   productionCheckoutReadinessReport,
   liveCheckoutLaunchCommand,
@@ -256,6 +258,7 @@ const [
   fetchText(`${siteUrl}/tools/checkout-provider-decision-matrix.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-pro-fit-checker.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-endpoint-smoke-test.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-live-checkout-launch-command.html`),
@@ -379,6 +382,9 @@ const issues = [
   ...(checkoutSmokeReport.ok
     ? []
     : [`checkout smoke test report page returned HTTP ${checkoutSmokeReport.status ?? "failed"}.`]),
+  ...(endpointSmokeTest.ok
+    ? []
+    : [`endpoint smoke test page returned HTTP ${endpointSmokeTest.status ?? "failed"}.`]),
   ...(paypalLiveCheckoutReport.ok
     ? []
     : [`PayPal live checkout report page returned HTTP ${paypalLiveCheckoutReport.status ?? "failed"}.`]),
@@ -584,6 +590,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-payload-generator.html`)
     ? []
     : ["llms.txt is missing the standalone payload generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-webhook-endpoint-smoke-test.html`)
+    ? []
+    : ["llms.txt is missing the endpoint smoke test URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/webhook-signature-mismatch-debugger.html`)
     ? []
     : ["llms.txt is missing the standalone signature mismatch debugger URL."]),
@@ -795,6 +804,7 @@ const issues = [
   freeLemonSqueezyTools.text.includes("webhook-replay-curl-generator.html") &&
   freeLemonSqueezyTools.text.includes("nextjs-lemon-squeezy-raw-body-audit.html") &&
   freeLemonSqueezyTools.text.includes("lemon-squeezy-checkout-smoke-test-report.html") &&
+  freeLemonSqueezyTools.text.includes("lemon-squeezy-webhook-endpoint-smoke-test.html") &&
   freeLemonSqueezyTools.text.includes("billing-webhook-pro-fit-checker.html") &&
   freeLemonSqueezyTools.text.includes("do not require Lemon Squeezy API keys")
     ? []
@@ -991,6 +1001,15 @@ const issues = [
   checkoutSmokeReport.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["checkout smoke test report page is missing report copy, report logic, or conversion links."]),
+  ...(endpointSmokeTest.text.includes("Lemon Squeezy webhook endpoint smoke test") &&
+  endpointSmokeTest.text.includes("Webhook endpoint URL") &&
+  endpointSmokeTest.text.includes("Subscribed events") &&
+  endpointSmokeTest.text.includes("x-signature") &&
+  endpointSmokeTest.text.includes("Copy report") &&
+  endpointSmokeTest.text.includes("No API keys or webhook secrets") &&
+  endpointSmokeTest.text.includes("does not call Lemon Squeezy")
+    ? []
+    : ["endpoint smoke test page is missing endpoint fields, signature/retry copy, report export, or no-secret safety copy."]),
   ...(paypalLiveCheckoutReport.text.includes("Lemon Squeezy PayPal live checkout report") &&
   paypalLiveCheckoutReport.text.includes("buildPayPalLiveCheckoutReport") &&
   paypalLiveCheckoutReport.text.includes("CN¥69") &&
@@ -1561,6 +1580,7 @@ const result = {
     checkoutProviderDecisionMatrix: checkoutProviderDecisionMatrix.status,
     proFitChecker: proFitChecker.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
+    endpointSmokeTest: endpointSmokeTest.status,
     paypalLiveCheckoutReport: paypalLiveCheckoutReport.status,
     productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,
     liveCheckoutLaunchCommand: liveCheckoutLaunchCommand.status,

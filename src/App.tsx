@@ -73,6 +73,7 @@ const guideLinks = [
   { href: "guides/lemon-squeezy-x-signature-invalid.html", label: "Fix invalid x-signature errors" },
   { href: "guides/lemon-squeezy-order-created-fixture.html", label: "order_created webhook fixture" },
   { href: "guides/lemon-squeezy-checkout-smoke-test.html", label: "Lemon Squeezy checkout smoke test" },
+  { href: "tools/lemon-squeezy-webhook-endpoint-smoke-test.html", label: "Lemon Squeezy webhook endpoint smoke test" },
   { href: "guides/lemon-squeezy-checkout-404-custom-price-currency.html", label: "Fix checkout 404 and currency mismatch" },
   { href: "guides/lemon-squeezy-paypal-checkout-webhook-test.html", label: "PayPal checkout webhook test" },
   { href: "guides/lemon-squeezy-production-checkout-go-live.html", label: "Production checkout go-live checklist" },

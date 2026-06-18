@@ -21,6 +21,7 @@ const troubleshootingPath = join(publicDir, "troubleshooting.html");
 const toolIndexPath = join(publicDir, "tools", "index.html");
 const signatureVerifierPath = join(publicDir, "tools", "lemon-squeezy-signature-verifier.html");
 const payloadGeneratorPath = join(publicDir, "tools", "lemon-squeezy-webhook-payload-generator.html");
+const endpointSmokeTestPath = join(publicDir, "tools", "lemon-squeezy-webhook-endpoint-smoke-test.html");
 const fulfillmentChecklistPath = join(publicDir, "tools", "lemon-squeezy-fulfillment-checklist-generator.html");
 const deliveryEmailTemplatesPath = join(publicDir, "tools", "lemon-squeezy-delivery-email-template-generator.html");
 const eventCoverageMatrixPath = join(publicDir, "tools", "lemon-squeezy-webhook-event-coverage-matrix.html");
@@ -76,6 +77,9 @@ if (!existsSync(troubleshootingPath)) issues.push("Missing public/troubleshootin
 if (!existsSync(toolIndexPath)) issues.push("Missing public/tools/index.html.");
 if (!existsSync(signatureVerifierPath)) issues.push("Missing public/tools/lemon-squeezy-signature-verifier.html.");
 if (!existsSync(payloadGeneratorPath)) issues.push("Missing public/tools/lemon-squeezy-webhook-payload-generator.html.");
+if (!existsSync(endpointSmokeTestPath)) {
+  issues.push("Missing public/tools/lemon-squeezy-webhook-endpoint-smoke-test.html.");
+}
 if (!existsSync(fulfillmentChecklistPath)) {
   issues.push("Missing public/tools/lemon-squeezy-fulfillment-checklist-generator.html.");
 }
@@ -121,6 +125,7 @@ const troubleshootingHtml = existsSync(troubleshootingPath) ? readFileSync(troub
 const toolIndexHtml = existsSync(toolIndexPath) ? readFileSync(toolIndexPath, "utf8") : "";
 const signatureVerifierHtml = existsSync(signatureVerifierPath) ? readFileSync(signatureVerifierPath, "utf8") : "";
 const payloadGeneratorHtml = existsSync(payloadGeneratorPath) ? readFileSync(payloadGeneratorPath, "utf8") : "";
+const endpointSmokeTestHtml = existsSync(endpointSmokeTestPath) ? readFileSync(endpointSmokeTestPath, "utf8") : "";
 const fulfillmentChecklistHtml = existsSync(fulfillmentChecklistPath) ? readFileSync(fulfillmentChecklistPath, "utf8") : "";
 const deliveryEmailTemplatesHtml = existsSync(deliveryEmailTemplatesPath)
   ? readFileSync(deliveryEmailTemplatesPath, "utf8")
@@ -216,11 +221,23 @@ if (
   !freeLemonSqueezyToolsHtml.includes("webhook-replay-curl-generator.html") ||
   !freeLemonSqueezyToolsHtml.includes("nextjs-lemon-squeezy-raw-body-audit.html") ||
   !freeLemonSqueezyToolsHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
+  !freeLemonSqueezyToolsHtml.includes("lemon-squeezy-webhook-endpoint-smoke-test.html") ||
   !freeLemonSqueezyToolsHtml.includes("free-sample.html") ||
   !freeLemonSqueezyToolsHtml.includes("pro-kit.html") ||
   !freeLemonSqueezyToolsHtml.includes("do not require Lemon Squeezy API keys")
 ) {
   issues.push("Free Lemon Squeezy tools page is missing free tool links, sample and Pro conversion links, or no-secret safety copy.");
+}
+if (
+  !endpointSmokeTestHtml.includes("Lemon Squeezy webhook endpoint smoke test") ||
+  !endpointSmokeTestHtml.includes("Webhook endpoint URL") ||
+  !endpointSmokeTestHtml.includes("Subscribed events") ||
+  !endpointSmokeTestHtml.includes("x-signature") ||
+  !endpointSmokeTestHtml.includes("Copy report") ||
+  !endpointSmokeTestHtml.includes("No API keys or webhook secrets") ||
+  !endpointSmokeTestHtml.includes("does not call Lemon Squeezy")
+) {
+  issues.push("Endpoint smoke test tool is missing endpoint fields, signature/retry copy, report export, or no-secret safety copy.");
 }
 if (!proKitHtml.includes("pro-kit-manifest.json")) {
   issues.push("Pro Kit page does not link the public manifest.");
@@ -343,6 +360,7 @@ if (
   !toolIndexHtml.includes("Checkout and fulfillment launch decision tools") ||
   !toolIndexHtml.includes("Launch lane") ||
   !toolIndexHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
+  !toolIndexHtml.includes("lemon-squeezy-webhook-endpoint-smoke-test.html") ||
   !toolIndexHtml.includes("lemon-squeezy-paypal-live-checkout-report.html") ||
   !toolIndexHtml.includes("lemon-squeezy-production-checkout-readiness-report.html") ||
   !toolIndexHtml.includes("lemon-squeezy-fulfillment-checklist-generator.html") ||
