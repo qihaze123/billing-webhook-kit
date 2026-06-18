@@ -33,6 +33,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
+  `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-contract-test-generator.html`
 ];
@@ -135,6 +136,7 @@ const [
   paypalCheckoutGuide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
+  refundWebhookGuide,
   stripeNextjsGuide,
   sitemap,
   robots,
@@ -168,6 +170,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/sitemap.xml`),
   fetchText(`${siteUrl}/robots.txt`),
@@ -240,6 +243,9 @@ const issues = [
   ...(digitalDownloadGuide.ok
     ? []
     : [`Lemon Squeezy digital download fulfillment guide returned HTTP ${digitalDownloadGuide.status ?? "failed"}.`]),
+  ...(refundWebhookGuide.ok
+    ? []
+    : [`Lemon Squeezy refund webhook guide returned HTTP ${refundWebhookGuide.status ?? "failed"}.`]),
   ...(stripeNextjsGuide.ok
     ? []
     : [`Stripe Next.js signature guide returned HTTP ${stripeNextjsGuide.status ?? "failed"}.`]),
@@ -247,7 +253,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 60 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 60.`]),
+  ...(sitemapUrls.length >= 61 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 61.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -315,6 +321,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy digital download fulfillment guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy refund webhook test guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js signature guide URL."]),
@@ -502,6 +511,15 @@ const issues = [
   digitalDownloadGuide.text.includes("free-sample.html")
     ? []
     : ["Lemon Squeezy digital download fulfillment guide is missing private delivery, signature, idempotency, policy, or conversion copy."]),
+  ...(refundWebhookGuide.text.includes("Lemon Squeezy refund webhook test") &&
+  refundWebhookGuide.text.includes("entitlement rollback") &&
+  refundWebhookGuide.text.includes("duplicate replay") &&
+  refundWebhookGuide.text.includes("secret-free") &&
+  refundWebhookGuide.text.includes("delivery-refund-support.html") &&
+  refundWebhookGuide.text.includes("pro-kit.html") &&
+  refundWebhookGuide.text.includes("free-sample.html")
+    ? []
+    : ["Lemon Squeezy refund webhook guide is missing refund rollback, replay, safety, policy, or conversion copy."]),
   ...(stripeNextjsGuide.text.includes("Stripe webhook signature verification in Next.js") &&
   stripeNextjsGuide.text.includes("request.text()") &&
   stripeNextjsGuide.text.includes("Stripe-Signature") &&
@@ -598,6 +616,7 @@ const result = {
     paypalCheckoutGuide: paypalCheckoutGuide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
+    refundWebhookGuide: refundWebhookGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     guideIndex: guideIndex.status,
     sitemap: sitemap.status,

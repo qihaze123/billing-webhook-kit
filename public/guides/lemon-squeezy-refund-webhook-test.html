@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Refund Webhook Test | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Test Lemon Squeezy refund webhook handling before launch: signed event verification, entitlement rollback, duplicate replay safety, buyer support evidence, and secret-free refund reports."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy refund webhook test, Lemon Squeezy refund handling, payment webhook rollback, refund entitlement revoke, duplicate refund webhook"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Refund Webhook Test" />
+    <meta
+      property="og:description"
+      content="A launch checklist for refund webhook handling: signed event, rollback rules, duplicate replay, support evidence, and safe buyer communication."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Refund Webhook Test" />
+    <meta
+      name="twitter:description"
+      content="Test refund webhook rollback, duplicate replay, access revocation, and support evidence before a Lemon Squeezy product goes live."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root { color-scheme: light; --paper:#f6f7ef; --ink:#12130f; --muted:#5f6659; --line:#11130f; --accent:#d8f84f; --coral:#f05f3b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Avenir Next, Gill Sans, Trebuchet MS, sans-serif; overflow-x: hidden; }
+      main { width: 920px; max-width: calc(100vw - 32px); margin: 0 auto; padding: 38px 0 56px; }
+      a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+      .crumb { display: inline-flex; margin-bottom: 28px; font-weight: 850; }
+      h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 4.9rem); line-height: .94; letter-spacing: 0; overflow-wrap: anywhere; }
+      .lead { margin: 18px 0 0; max-width: 780px; color: var(--muted); font-size: 1.15rem; line-height: 1.65; }
+      .cta { display: inline-flex; align-items: center; justify-content: center; margin: 28px 0 36px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--accent); box-shadow: 5px 5px 0 var(--line); font-weight: 850; text-decoration: none; }
+      section { border-top: 1px solid #cfd6c5; padding: 24px 0; }
+      h2 { margin: 0 0 10px; font-size: 1.28rem; line-height: 1.2; }
+      h3 { margin: 0 0 8px; font-size: 1rem; line-height: 1.25; }
+      p { margin: 0; line-height: 1.72; }
+      code { font-family: Andale Mono, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+      .check-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .check { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .check span { display: block; color: var(--coral); font-family: Andale Mono, SFMono-Regular, Menlo, monospace; font-size: .72rem; font-weight: 850; text-transform: uppercase; }
+      .check strong { display: block; margin-top: 8px; line-height: 1.25; }
+      .check p { margin-top: 8px; color: var(--muted); line-height: 1.55; }
+      .code-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 8px; background: #10120f; color: var(--accent); padding: 16px; overflow: auto; font: .84rem/1.7 Andale Mono, SFMono-Regular, Menlo, Consolas, monospace; }
+      .faq { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .faq h2 { color: var(--coral); }
+      .faq-item + .faq-item { margin-top: 18px; padding-top: 18px; border-top: 1px solid #d8ded2; }
+      .conversion-panel { background: #10120f; color: #f7faed; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .conversion-panel p { color: #cfd6c5; }
+      .conversion-actions, .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .conversion-actions a, .related-grid a { display: block; min-height: 124px; border: 1px solid #f7faed; border-radius: 7px; padding: 14px; text-decoration: none; background: #1d2119; }
+      .conversion-actions strong, .related-grid strong { display: block; margin-bottom: 8px; color: var(--accent); line-height: 1.25; }
+      .conversion-actions span, .related-grid span { display: block; color: #dfe6d6; font-size: .93rem; line-height: 1.5; }
+      .related-guides { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+      .related-guides p { color: var(--muted); }
+      .related-grid a { border-color: #cfd6c5; background: #f9faf4; }
+      .related-grid strong { color: var(--ink); }
+      .related-grid span { color: var(--muted); }
+      footer { margin-top: 36px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+      @media (max-width: 720px) {
+        main { width: auto; max-width: none; margin: 0; padding: 36px 12px 48px; }
+        h1 { max-width: 100%; font-size: 1.72rem; line-height: 1.08; }
+        .lead { font-size: 1rem; line-height: 1.55; }
+        .cta { width: calc(100% - 8px); min-width: 0; padding: 10px 12px; text-align: center; line-height: 1.2; white-space: normal; overflow-wrap: anywhere; }
+        .check-grid, .conversion-actions, .related-grid { grid-template-columns: 1fr; }
+        .conversion-actions a, .related-grid a { min-height: 0; }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Lemon Squeezy Refund Webhook Test",
+        "description": "Test Lemon Squeezy refund webhook handling before launch: signed event verification, entitlement rollback, duplicate replay safety, buyer support evidence, and secret-free refund reports.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Should a refund webhook immediately delete buyer records?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Treat refund handling as an entitlement decision. Revoke paid access or mark delivery inactive, but preserve secret-free audit evidence, checksum records, and support history."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I test duplicate refund webhook delivery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Replay the same signed refund fixture more than once and prove rollback side effects run once. The second delivery should return success without sending duplicate support emails or repeating irreversible writes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should a refund evidence report include?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Include provider, event name, order identifier, refund state, entitlement action, idempotency key, replay result, support note, and rollback owner. Do not include API keys, webhook secrets, customer private data, or private checkout URLs."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Lemon Squeezy Refund Webhook Test", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-refund-webhook-test.html" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Lemon Squeezy refund webhook test</h1>
+      <p class="lead">
+        Refund handling is a launch gate, not a support afterthought. Before public checkout traffic, prove that a signed refund event revokes or pauses access once, preserves audit evidence, and never exposes API keys, webhook secrets, customer data, or private checkout URLs.
+      </p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html">Read the delivery and refund policy</a>
+
+      <section>
+        <h2>Decide the rollback before launch</h2>
+        <p>
+          A refund should trigger a clear entitlement decision. For a downloadable Pro Kit, that can mean marking the private delivery inactive, stopping resend support, recording the refund reason, and preserving checksum evidence for dispute-safe support. Do not erase the history needed to explain what happened.
+        </p>
+      </section>
+
+      <section>
+        <h2>Refund webhook checks</h2>
+        <p>
+          Use fake fixtures and controlled local replay before production. The same refund event should be safe when delivered once, retried by the provider, or reviewed later by support.
+        </p>
+        <div class="check-grid">
+          <article class="check">
+            <span>Signature</span>
+            <strong>Verify the signed raw body</strong>
+            <p>Run refund logic only after the provider signature passes against the exact raw body.</p>
+          </article>
+          <article class="check">
+            <span>Decision</span>
+            <strong>Map refund state to access state</strong>
+            <p>Convert refund, dispute, or manual support events into explicit grant, revoke, hold, or review decisions.</p>
+          </article>
+          <article class="check">
+            <span>Replay</span>
+            <strong>Prove rollback runs once</strong>
+            <p>Replay the same event and prove duplicate deliveries skip emails, access changes, and irreversible writes.</p>
+          </article>
+          <article class="check">
+            <span>Evidence</span>
+            <strong>Keep a secret-free report</strong>
+            <p>Record event name, order reference, action, idempotency key, replay result, and support note without secrets.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Refund test report template</h2>
+        <p>
+          Keep the report small enough to paste into a pull request or release note without leaking sensitive data.
+        </p>
+        <pre class="code-panel"><code># Lemon Squeezy refund webhook test
+
+- Provider: Lemon Squeezy
+- Event: refund or refunded-order fixture
+- Environment: production-shaped fake fixture
+- Signature gate: pass
+- Order reference: fake_order_123
+- Entitlement decision: revoke paid download resend support
+- Idempotency key: lemon:refund:fake_order_123
+- First replay: rollback side effect executed once
+- Second replay: duplicate skipped with HTTP 2xx
+- Buyer evidence: checksum and delivery policy remain available
+- Secrets included: no</code></pre>
+      </section>
+
+      <section>
+        <h2>Support policy connection</h2>
+        <p>
+          A refund flow is easier to defend when the buyer-facing page already explains delivery, checksum verification, support scope, duplicate purchase handling, broken archive handling, and safe issue reporting. Link refund evidence back to that public policy instead of improvising from private logs.
+        </p>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>Should a refund webhook immediately delete buyer records?</h3>
+          <p>No. Treat refund handling as an entitlement decision. Revoke paid access or mark delivery inactive, but preserve secret-free audit evidence, checksum records, and support history.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I test duplicate refund webhook delivery?</h3>
+          <p>Replay the same signed refund fixture more than once and prove rollback side effects run once. The second delivery should return success without sending duplicate support emails or repeating irreversible writes.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What should a refund evidence report include?</h3>
+          <p>Include provider, event name, order identifier, refund state, entitlement action, idempotency key, replay result, support note, and rollback owner. Do not include API keys, webhook secrets, customer private data, or private checkout URLs.</p>
+        </div>
+      </section>
+
+      <section class="conversion-panel" aria-label="BillingWebhookKit sample and Pro Kit">
+        <div>
+          <h2>Turn refund handling into a release gate</h2>
+          <p>Use the free sample to inspect fake Lemon Squeezy fixtures and replay tests. Use the Pro Kit preview when you need copy-ready rollback notes, entitlement decisions, duplicate replay tests, and review reports for paid delivery.</p>
+        </div>
+        <div class="conversion-actions">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">
+            <strong>Download free sample</strong>
+            <span>Inspect one Lemon Squeezy fixture, raw-body handler, signature test, contract test, replay test, and CI skeleton.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CN¥69 digital kit with manifest and delivery policy; checkout stays disabled until live configuration is connected.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="related-guides" aria-label="Related payment webhook guides">
+        <div>
+          <h2>Related launch checks</h2>
+          <p>Use these adjacent checks before refund and rollback logic reaches production buyers.</p>
+        </div>
+        <div class="related-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-digital-download-fulfillment.html">
+            <strong>Digital Download Fulfillment</strong>
+            <span>Deliver a private ZIP or digital product after checkout with signed webhook verification and checksum evidence.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-entitlement-decision-matrix.html">
+            <strong>Webhook Entitlement Decision Matrix</strong>
+            <span>Map payment events to access grants, renewals, cancellations, failed-payment holds, and quarantine rules.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/webhook-duplicate-replay-test.html">
+            <strong>Webhook Duplicate Replay Test</strong>
+            <span>Prove provider retries cannot repeat emails, license grants, downloads, or entitlement writes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html">
+            <strong>Delivery, Refund, and Support Policy</strong>
+            <span>Document private delivery, checksum verification, support scope, refund triggers, and safe issue reporting.</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit is a browser-only payment webhook fixture generator. Use fake fixtures and fake signing secrets in public examples, and keep production checkout links, API keys, webhook secrets, and customer data out of shared reports.
+      </footer>
+    </main>
+  </body>
+</html>
