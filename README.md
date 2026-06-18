@@ -24,6 +24,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Lemon Squeezy PayPal live checkout report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 - Lemon Squeezy production checkout readiness report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
 - Lemon Squeezy fulfillment checklist generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html
+- Lemon Squeezy paid order delivery incident report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html
 - Lemon Squeezy refund rollback report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html
 - Lemon Squeezy delivery email template generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html
 - Lemon Squeezy webhook event coverage matrix: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html
@@ -112,6 +113,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Delivery and support page: private ZIP delivery flow, checksum verification, support scope, refund triggers, and safe issue-reporting policy.
 - Digital delivery guide: fulfillment checklist for private ZIP delivery, signed webhooks, paid-state checks, idempotency, checksum evidence, and duplicate replay safety.
 - Paid checkout no-download guide: launch-blocking delivery incident runbook for paid state, order_created delivery, variant mapping, fulfillment logs, private resend, and refund boundaries.
+- Paid order incident report: browser-only Markdown report generator for paid checkout, order_created delivery, variant mapping, fulfillment status, private resend, checksum evidence, and refund boundaries.
 - Download email support guide: buyer-safe resend runbook for missing Lemon Squeezy download emails, paid-order checks, checksum evidence, duplicate purchases, and refund boundaries.
 - Refund webhook guide: signed refund event verification, entitlement rollback, duplicate replay safety, buyer support evidence, and secret-free refund reports.
 - Fulfillment checklist generator: browser-only release report for paid order events, private ZIP or license delivery, idempotency, checksum evidence, support policy, and rollback notes.
@@ -283,6 +285,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-launch-readiness-scorecard.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/billing-webhook-pro-fit-checker.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html
+- https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html
 - https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html

@@ -141,6 +141,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - BillingWebhookKit standalone PayPal live checkout report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html
 - BillingWebhookKit standalone production checkout readiness report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html
 - BillingWebhookKit standalone fulfillment checklist generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html
+- BillingWebhookKit standalone paid order delivery incident report: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html
 - BillingWebhookKit standalone refund rollback report generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html
 - BillingWebhookKit standalone delivery email template generator: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-delivery-email-template-generator.html
 - BillingWebhookKit standalone Lemon Squeezy webhook event coverage matrix: https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-webhook-event-coverage-matrix.html

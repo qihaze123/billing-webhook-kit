@@ -33,6 +33,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`,
   `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
   `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
+  `${siteUrl}/tools/lemon-squeezy-paid-order-delivery-incident-report.html`,
   `${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`,
   `${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`,
   `${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`,
@@ -177,6 +178,7 @@ const [
   paypalLiveCheckoutReport,
   productionCheckoutReadinessReport,
   fulfillmentChecklist,
+  paidDeliveryIncidentReport,
   refundRollbackReport,
   deliveryEmailTemplates,
   eventCoverageMatrix,
@@ -249,6 +251,7 @@ const [
   fetchText(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-paid-order-delivery-incident-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-delivery-email-template-generator.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-webhook-event-coverage-matrix.html`),
@@ -374,6 +377,13 @@ const issues = [
   ...(fulfillmentChecklist.ok
     ? []
     : [`fulfillment checklist generator page returned HTTP ${fulfillmentChecklist.status ?? "failed"}.`]),
+  ...(paidDeliveryIncidentReport.ok
+    ? []
+    : [
+        `paid order delivery incident report page returned HTTP ${
+          paidDeliveryIncidentReport.status ?? "failed"
+        }.`
+      ]),
   ...(refundRollbackReport.ok
     ? []
     : [`refund rollback report page returned HTTP ${refundRollbackReport.status ?? "failed"}.`]),
@@ -601,6 +611,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`)
     ? []
     : ["llms.txt is missing the standalone fulfillment checklist generator URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-paid-order-delivery-incident-report.html`)
+    ? []
+    : ["llms.txt is missing the standalone paid order delivery incident report URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`)
     ? []
     : ["llms.txt is missing the standalone refund rollback report URL."]),
@@ -791,6 +804,8 @@ const issues = [
   toolIndex.text.includes("lemon-squeezy-paypal-live-checkout-report.html") &&
   toolIndex.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
   toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
+  toolIndex.text.includes("Lemon Squeezy paid order delivery incident report") &&
+  toolIndex.text.includes("lemon-squeezy-paid-order-delivery-incident-report.html") &&
   toolIndex.text.includes("Lemon Squeezy refund rollback report") &&
   toolIndex.text.includes("Lemon Squeezy delivery email template generator") &&
   toolIndex.text.includes("Lemon Squeezy webhook event coverage matrix") &&
@@ -956,6 +971,19 @@ const issues = [
   fulfillmentChecklist.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["fulfillment checklist generator page is missing report copy, report logic, delivery safety copy, or conversion links."]),
+  ...(paidDeliveryIncidentReport.text.includes("Lemon Squeezy paid order delivery incident report") &&
+  paidDeliveryIncidentReport.text.includes("buildPaidDeliveryIncidentReport") &&
+  paidDeliveryIncidentReport.text.includes("order_created") &&
+  paidDeliveryIncidentReport.text.includes("variant") &&
+  paidDeliveryIncidentReport.text.includes("fulfillment") &&
+  paidDeliveryIncidentReport.text.includes("private resend") &&
+  paidDeliveryIncidentReport.text.includes("checksum") &&
+  paidDeliveryIncidentReport.text.includes("refund boundaries") &&
+  paidDeliveryIncidentReport.text.includes("pro-kit.html")
+    ? []
+    : [
+        "paid order delivery incident report page is missing report logic, paid-order copy, delivery evidence, support safety, or conversion links."
+      ]),
   ...(refundRollbackReport.text.includes("Lemon Squeezy refund rollback report generator") &&
   refundRollbackReport.text.includes("buildRefundRollbackReport") &&
   refundRollbackReport.text.includes("entitlement rollback") &&
@@ -1469,6 +1497,7 @@ const result = {
     paypalLiveCheckoutReport: paypalLiveCheckoutReport.status,
     productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,
     fulfillmentChecklist: fulfillmentChecklist.status,
+    paidDeliveryIncidentReport: paidDeliveryIncidentReport.status,
     refundRollbackReport: refundRollbackReport.status,
     deliveryEmailTemplates: deliveryEmailTemplates.status,
     eventCoverageMatrix: eventCoverageMatrix.status,

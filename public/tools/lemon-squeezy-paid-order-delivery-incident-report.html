@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Paid Order Delivery Incident Report | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Generate a browser-only Lemon Squeezy paid order delivery incident report for paid checkout, order_created webhook delivery, variant mapping, fulfillment status, private resend, checksum evidence, and refund boundaries."
+    />
+    <meta
+      name="keywords"
+      content="Lemon Squeezy paid order delivery incident report, Lemon Squeezy checkout paid but no download, Lemon Squeezy fulfillment failed report, Lemon Squeezy no download after payment, paid order support report"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html" />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Paid Order Delivery Incident Report" />
+    <meta
+      property="og:description"
+      content="Browser-only report generator for paid Lemon Squeezy orders where download delivery, private fulfillment, or buyer support needs review."
+    />
+    <meta property="og:url" content="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html" />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Paid Order Delivery Incident Report" />
+    <meta
+      name="twitter:description"
+      content="Generate a secret-free incident report for paid checkout, webhook delivery, fulfillment evidence, resend, and refund boundaries."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Lemon Squeezy Paid Order Delivery Incident Report",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "url": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html",
+        "isAccessibleForFree": true,
+        "description": "Browser-only tool for generating a secret-free paid order delivery incident report."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://qihaze123.github.io/billing-webhook-kit/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Lemon Squeezy Paid Order Delivery Incident Report", "item": "https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paid-order-delivery-incident-report.html" }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --paper-2: #eef1e8;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --soft-line: #cfd6c5;
+        --panel: #ffffff;
+        --charcoal: #191c18;
+        --coral: #f05f3b;
+        --green: #227a4c;
+        --amber: #a96d00;
+        --acid: #d8f84f;
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html {
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+      }
+      body { min-width: 320px; margin: 0; color: var(--ink); }
+      a { color: inherit; }
+      button, input, select, textarea { font: inherit; }
+      button { cursor: pointer; }
+      .page { width: min(1260px, calc(100vw - 32px)); margin: 0 auto; padding: 24px 0 48px; }
+      .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; font-weight: 850; }
+      .brand { font-weight: 950; text-decoration: none; }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-end; }
+      .eyebrow, .field span, .metric span, .output-label {
+        color: var(--coral);
+        font-family: "Andale Mono", "SFMono-Regular", Menlo, monospace;
+        font-size: 0.76rem;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+      h1, h2, p { margin: 0; }
+      h1 { max-width: 1020px; font-size: clamp(2.12rem, 7vw, 5.05rem); line-height: 0.94; font-weight: 950; letter-spacing: 0; }
+      h2 { font-size: 1.15rem; line-height: 1.2; }
+      .lead { max-width: 880px; margin-top: 18px; color: var(--muted); font-size: 1.1rem; line-height: 1.62; }
+      .workbench { display: grid; grid-template-columns: minmax(280px, 430px) minmax(0, 1fr); gap: 14px; margin-top: 24px; align-items: start; }
+      .panel { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: 14px 14px 0 rgba(18, 19, 15, 0.1); }
+      .panel header { min-height: 66px; padding: 16px; border-bottom: 1px solid var(--soft-line); }
+      .panel header p { margin-top: 6px; color: var(--muted); line-height: 1.5; }
+      .form { display: grid; gap: 12px; padding: 16px; }
+      .field { display: grid; gap: 6px; }
+      input, select, textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fbfcf8;
+        color: var(--ink);
+        padding: 10px 11px;
+      }
+      textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+      .toggle-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .toggle {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        min-width: 0;
+        border: 1px solid var(--soft-line);
+        border-radius: 7px;
+        background: var(--paper-2);
+        padding: 10px;
+        font-weight: 750;
+        line-height: 1.25;
+      }
+      .toggle input { width: auto; margin-top: 2px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--acid);
+        color: var(--ink);
+        padding: 0 13px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+      .button.secondary { background: #fff; }
+      .summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 16px; border-bottom: 1px solid var(--soft-line); background: var(--paper-2); }
+      .metric { min-width: 0; border: 1px solid var(--soft-line); border-radius: 7px; background: #fff; padding: 12px; }
+      .metric strong { display: block; margin-top: 6px; overflow-wrap: anywhere; }
+      .verdict-ready { color: var(--green); }
+      .verdict-review { color: var(--amber); }
+      .output-wrap { padding: 16px; }
+      pre {
+        min-height: 520px;
+        max-height: 760px;
+        overflow: auto;
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--charcoal);
+        color: #eef8d4;
+        padding: 16px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font: 0.84rem/1.65 "Andale Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      }
+      .conversion { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .conversion a { display: block; min-height: 112px; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 14px; text-decoration: none; }
+      .conversion strong { display: block; line-height: 1.25; }
+      .conversion span { display: block; margin-top: 7px; color: var(--muted); line-height: 1.45; font-size: 0.93rem; }
+      @media (max-width: 900px) {
+        .workbench, .summary, .conversion { grid-template-columns: 1fr; }
+        pre { min-height: 420px; }
+      }
+      @media (max-width: 640px) {
+        .page { width: min(100vw - 24px, 1260px); padding-top: 22px; }
+        .nav { align-items: flex-start; flex-direction: column; }
+        .nav-links { justify-content: flex-start; }
+        .toggle-row { grid-template-columns: 1fr; }
+        .button { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+        <div class="nav-links">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/">Tools</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-paid-but-no-download.html">No-download guide</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/free-sample.html">Free sample</a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">Pro Kit</a>
+        </div>
+      </nav>
+
+      <p class="eyebrow">Paid order delivery incident</p>
+      <h1>Lemon Squeezy paid order delivery incident report</h1>
+      <p class="lead">
+        Generate a secret-free Markdown report when checkout is paid but download delivery, private fulfillment, or buyer support needs review. Everything runs locally in the browser.
+      </p>
+
+      <section class="workbench" aria-label="Paid order delivery incident report generator">
+        <aside class="panel">
+          <header>
+            <h2>Incident inputs</h2>
+            <p>Use fake or redacted identifiers in public reports. Do not paste API keys, webhook secrets, buyer emails, private checkout URLs, or private download links.</p>
+          </header>
+          <form class="form" id="incidentForm">
+            <label class="field">
+              <span>Product</span>
+              <input id="productName" value="BillingWebhookKit Pro" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Order reference</span>
+              <input id="orderRef" value="redacted_order_123" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span>Incident type</span>
+              <select id="incidentType">
+                <option>Paid checkout but no download</option>
+                <option>Paid webhook received but fulfillment skipped</option>
+                <option>Private resend requested</option>
+                <option>Broken archive or checksum mismatch</option>
+                <option>Duplicate purchase review</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Paid state</span>
+              <select id="paidState">
+                <option>paid</option>
+                <option>pending</option>
+                <option>refunded</option>
+                <option>disputed</option>
+                <option>unknown</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Webhook event</span>
+              <select id="webhookEvent">
+                <option>order_created received</option>
+                <option>order_created missing</option>
+                <option>order_created rejected</option>
+                <option>wrong environment</option>
+                <option>manual review only</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Fulfillment status</span>
+              <select id="fulfillmentStatus">
+                <option>not delivered</option>
+                <option>private resend completed</option>
+                <option>delivery job failed</option>
+                <option>duplicate replay skipped</option>
+                <option>refund review opened</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Evidence notes</span>
+              <textarea id="evidenceNotes">Variant match checked. Private ZIP link not included in public report. Checksum evidence available in support log.</textarea>
+            </label>
+            <div class="toggle-row" aria-label="Evidence checks">
+              <label class="toggle"><input id="signatureVerified" type="checkbox" checked /> Signed order_created verified</label>
+              <label class="toggle"><input id="variantMatched" type="checkbox" checked /> Product or variant matched</label>
+              <label class="toggle"><input id="checksumRecorded" type="checkbox" checked /> Checksum evidence recorded</label>
+              <label class="toggle"><input id="privateResendOnly" type="checkbox" checked /> Private resend only</label>
+              <label class="toggle"><input id="replaySafe" type="checkbox" checked /> Duplicate replay safe</label>
+              <label class="toggle"><input id="refundBoundary" type="checkbox" checked /> Refund boundary documented</label>
+            </div>
+            <div class="actions">
+              <button class="button" type="button" id="copyButton">Copy report</button>
+              <button class="button secondary" type="button" id="downloadButton">Download .md</button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="panel" aria-label="Generated incident report">
+          <div class="summary">
+            <div class="metric">
+              <span>Verdict</span>
+              <strong id="verdictMetric" class="verdict-ready">Safe private resend</strong>
+            </div>
+            <div class="metric">
+              <span>Missing gates</span>
+              <strong id="missingMetric">0</strong>
+            </div>
+            <div class="metric">
+              <span>Public safety</span>
+              <strong id="safetyMetric">Secret-free</strong>
+            </div>
+          </div>
+          <div class="output-wrap">
+            <p class="output-label">Markdown output</p>
+            <pre id="reportOutput" aria-live="polite"></pre>
+          </div>
+        </section>
+      </section>
+
+      <section class="conversion" aria-label="Related BillingWebhookKit resources">
+        <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">
+          <strong>Generate fulfillment checklist</strong>
+          <span>Turn the incident into paid-state, x-signature, idempotency, checksum, and support evidence.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-checkout-paid-but-no-download.html">
+          <strong>Read the no-download guide</strong>
+          <span>Separate webhook failure, variant mismatch, delivery failure, resend, and refund review.</span>
+        </a>
+        <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+          <strong>Preview the CNY 69 Pro Kit</strong>
+          <span>Prepared paid kit for signed fixtures, replay-safe fulfillment tests, support templates, and launch evidence.</span>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const fields = [
+        "productName",
+        "orderRef",
+        "incidentType",
+        "paidState",
+        "webhookEvent",
+        "fulfillmentStatus",
+        "evidenceNotes",
+        "signatureVerified",
+        "variantMatched",
+        "checksumRecorded",
+        "privateResendOnly",
+        "replaySafe",
+        "refundBoundary"
+      ];
+
+      const getValue = (id) => {
+        const element = document.getElementById(id);
+        if (element.type === "checkbox") return element.checked;
+        return element.value.trim();
+      };
+
+      function buildPaidDeliveryIncidentReport() {
+        const state = Object.fromEntries(fields.map((id) => [id, getValue(id)]));
+        const gates = [
+          ["Paid order state confirmed", state.paidState === "paid"],
+          ["Signed order_created webhook verified", state.signatureVerified],
+          ["Product or variant mapping confirmed", state.variantMatched],
+          ["Checksum evidence recorded", state.checksumRecorded],
+          ["Private resend only", state.privateResendOnly],
+          ["Duplicate replay safe", state.replaySafe],
+          ["Refund boundary documented", state.refundBoundary]
+        ];
+        const missing = gates.filter(([, ok]) => !ok);
+        const ready = missing.length === 0 && state.paidState === "paid";
+        const verdict = ready ? "Safe private resend" : "Needs support review";
+
+        return {
+          verdict,
+          missingCount: missing.length + (state.paidState === "paid" ? 0 : 1),
+          markdown: `# Lemon Squeezy Paid Order Delivery Incident Report
+
+Generated: ${new Date().toISOString()}
+
+## Summary
+
+- Product: ${state.productName || "redacted product"}
+- Order reference: ${state.orderRef || "redacted order"}
+- Incident type: ${state.incidentType}
+- Paid state: ${state.paidState}
+- Webhook event: ${state.webhookEvent}
+- Fulfillment status: ${state.fulfillmentStatus}
+- Verdict: ${verdict}
+
+## Delivery Gates
+
+${gates.map(([label, ok]) => `- ${ok ? "[x]" : "[ ]"} ${label}`).join("\n")}
+
+## Evidence Notes
+
+${state.evidenceNotes || "No notes provided."}
+
+## Safe Next Step
+
+${ready
+  ? "Resend through a private support channel, include checksum verification, and keep private ZIP links out of public reports."
+  : "Do not resend publicly. Finish the missing paid-state, signature, variant, checksum, replay, or refund-boundary checks first."}
+
+## Public Safety
+
+- Do not include API keys, webhook secrets, buyer emails, invoice IDs, private checkout URLs, or private download links.
+- Public reports can include redacted order references, status labels, fixture names, checksums, and release-gate results.
+- Use BillingWebhookKit Pro Kit when the launch review needs signed fixtures, replay-safe fulfillment tests, delivery templates, and refund rollback evidence.`
+        };
+      }
+
+      function render() {
+        const result = buildPaidDeliveryIncidentReport();
+        const verdictMetric = document.getElementById("verdictMetric");
+        verdictMetric.textContent = result.verdict;
+        verdictMetric.className = result.verdict === "Safe private resend" ? "verdict-ready" : "verdict-review";
+        document.getElementById("missingMetric").textContent = String(result.missingCount);
+        document.getElementById("safetyMetric").textContent = "Secret-free";
+        document.getElementById("reportOutput").textContent = result.markdown;
+      }
+
+      async function copyReport() {
+        await navigator.clipboard.writeText(document.getElementById("reportOutput").textContent);
+        const button = document.getElementById("copyButton");
+        button.textContent = "Copied";
+        setTimeout(() => { button.textContent = "Copy report"; }, 1200);
+      }
+
+      function downloadReport() {
+        const blob = new Blob([document.getElementById("reportOutput").textContent], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "lemon-squeezy-paid-order-delivery-incident-report.md";
+        anchor.click();
+        URL.revokeObjectURL(url);
+      }
+
+      document.getElementById("incidentForm").addEventListener("input", render);
+      document.getElementById("copyButton").addEventListener("click", copyReport);
+      document.getElementById("downloadButton").addEventListener("click", downloadReport);
+      render();
+    </script>
+  </body>
+</html>
