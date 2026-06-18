@@ -17,6 +17,7 @@ const payloadGeneratorPath = join(publicDir, "tools", "lemon-squeezy-webhook-pay
 const fulfillmentChecklistPath = join(publicDir, "tools", "lemon-squeezy-fulfillment-checklist-generator.html");
 const deliveryEmailTemplatesPath = join(publicDir, "tools", "lemon-squeezy-delivery-email-template-generator.html");
 const eventCoverageMatrixPath = join(publicDir, "tools", "lemon-squeezy-webhook-event-coverage-matrix.html");
+const paypalLiveCheckoutReportPath = join(publicDir, "tools", "lemon-squeezy-paypal-live-checkout-report.html");
 const checkoutPath = join(publicDir, "checkout.json");
 const expectedFreeSampleSha256 = "8230974cb0ffd457346201989ae8800378c700fb31144fa5330fba7c2fb5094b";
 
@@ -58,6 +59,9 @@ if (!existsSync(deliveryEmailTemplatesPath)) {
 if (!existsSync(eventCoverageMatrixPath)) {
   issues.push("Missing public/tools/lemon-squeezy-webhook-event-coverage-matrix.html.");
 }
+if (!existsSync(paypalLiveCheckoutReportPath)) {
+  issues.push("Missing public/tools/lemon-squeezy-paypal-live-checkout-report.html.");
+}
 if (!existsSync(checkoutPath)) issues.push("Missing public/checkout.json.");
 
 const manifest = existsSync(manifestPath) ? readJson(manifestPath) : null;
@@ -78,6 +82,9 @@ const deliveryEmailTemplatesHtml = existsSync(deliveryEmailTemplatesPath)
   : "";
 const eventCoverageMatrixHtml = existsSync(eventCoverageMatrixPath)
   ? readFileSync(eventCoverageMatrixPath, "utf8")
+  : "";
+const paypalLiveCheckoutReportHtml = existsSync(paypalLiveCheckoutReportPath)
+  ? readFileSync(paypalLiveCheckoutReportPath, "utf8")
   : "";
 const publicZipFiles = existsSync(publicDir)
   ? walkFiles(publicDir).filter((path) => path.toLowerCase().endsWith(".zip"))
@@ -207,6 +214,7 @@ if (
   !toolIndexHtml.includes("Checkout and fulfillment launch decision tools") ||
   !toolIndexHtml.includes("Launch lane") ||
   !toolIndexHtml.includes("lemon-squeezy-checkout-smoke-test-report.html") ||
+  !toolIndexHtml.includes("lemon-squeezy-paypal-live-checkout-report.html") ||
   !toolIndexHtml.includes("lemon-squeezy-production-checkout-readiness-report.html") ||
   !toolIndexHtml.includes("lemon-squeezy-fulfillment-checklist-generator.html") ||
   !toolIndexHtml.includes("lemon-squeezy-delivery-email-template-generator.html") ||
@@ -264,6 +272,20 @@ if (
   !deliveryEmailTemplatesHtml.includes("delivery-refund-support.html")
 ) {
   issues.push("Standalone delivery email template generator is missing template logic, delivery safety copy, or conversion links.");
+}
+if (
+  !paypalLiveCheckoutReportHtml.includes("Lemon Squeezy PayPal live checkout report") ||
+  !paypalLiveCheckoutReportHtml.includes("buildPayPalLiveCheckoutReport") ||
+  !paypalLiveCheckoutReportHtml.includes("CN¥69") ||
+  !paypalLiveCheckoutReportHtml.includes("PayPal") ||
+  !paypalLiveCheckoutReportHtml.includes("x-signature") ||
+  !paypalLiveCheckoutReportHtml.includes("duplicate replay") ||
+  !paypalLiveCheckoutReportHtml.includes("private delivery") ||
+  !paypalLiveCheckoutReportHtml.includes("refund rollback") ||
+  !paypalLiveCheckoutReportHtml.includes("pro-kit.html") ||
+  !paypalLiveCheckoutReportHtml.includes("lemon-squeezy-production-checkout-readiness-report.html")
+) {
+  issues.push("Standalone PayPal live checkout report is missing report logic, PayPal launch copy, safety copy, or conversion links.");
 }
 if (
   !eventCoverageMatrixHtml.includes("Lemon Squeezy webhook event coverage matrix") ||

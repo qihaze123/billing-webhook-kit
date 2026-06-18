@@ -1411,6 +1411,9 @@ Header casing: x-signature / X-Signature`,
           <a className="ghost-link" href="tools/billing-webhook-launch-readiness-scorecard.html">
             Score
           </a>
+          <a className="ghost-link" href="tools/lemon-squeezy-paypal-live-checkout-report.html">
+            PayPal
+          </a>
           <a className="ghost-link" href="pro-kit.html">
             Pro Kit preview
           </a>
@@ -1595,6 +1598,10 @@ Header casing: x-signature / X-Signature`,
 
           <a className="wide-cta wide-cta--secondary" href="tools/lemon-squeezy-production-checkout-readiness-report.html">
             Production checkout report
+          </a>
+
+          <a className="wide-cta wide-cta--secondary" href="tools/lemon-squeezy-paypal-live-checkout-report.html">
+            PayPal live checkout report
           </a>
 
           <a className="wide-cta wide-cta--secondary" href="status.html">
@@ -2262,6 +2269,9 @@ Header casing: x-signature / X-Signature`,
           </a>
           <a className="inline-cta" href="tools/lemon-squeezy-production-checkout-readiness-report.html">
             Generate production checkout readiness
+          </a>
+          <a className="inline-cta" href="tools/lemon-squeezy-paypal-live-checkout-report.html">
+            Generate PayPal live checkout evidence
           </a>
           <a className="inline-cta" href="status.html">
             Verify checkout and package status

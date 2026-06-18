@@ -22,6 +22,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`,
   `${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`,
   `${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`,
+  `${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`,
   `${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`,
   `${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`,
   `${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`,
@@ -132,6 +133,7 @@ const [
   costCalculator,
   readinessScorecard,
   checkoutSmokeReport,
+  paypalLiveCheckoutReport,
   productionCheckoutReadinessReport,
   fulfillmentChecklist,
   refundRollbackReport,
@@ -170,6 +172,7 @@ const [
   fetchText(`${siteUrl}/tools/billing-webhook-debug-cost-calculator.html`),
   fetchText(`${siteUrl}/tools/billing-webhook-launch-readiness-scorecard.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`),
+  fetchText(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-fulfillment-checklist-generator.html`),
   fetchText(`${siteUrl}/tools/lemon-squeezy-refund-rollback-report.html`),
@@ -233,6 +236,9 @@ const issues = [
   ...(checkoutSmokeReport.ok
     ? []
     : [`checkout smoke test report page returned HTTP ${checkoutSmokeReport.status ?? "failed"}.`]),
+  ...(paypalLiveCheckoutReport.ok
+    ? []
+    : [`PayPal live checkout report page returned HTTP ${paypalLiveCheckoutReport.status ?? "failed"}.`]),
   ...(productionCheckoutReadinessReport.ok
     ? []
     : [
@@ -285,7 +291,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 65 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 65.`]),
+  ...(sitemapUrls.length >= 66 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 66.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -332,6 +338,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-checkout-smoke-test-report.html`)
     ? []
     : ["llms.txt is missing the standalone checkout smoke test report URL."]),
+  ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-paypal-live-checkout-report.html`)
+    ? []
+    : ["llms.txt is missing the standalone PayPal live checkout report URL."]),
   ...(llms.text.includes(`${siteUrl}/tools/lemon-squeezy-production-checkout-readiness-report.html`)
     ? []
     : ["llms.txt is missing the standalone production checkout readiness report URL."]),
@@ -428,6 +437,8 @@ const issues = [
   toolIndex.text.includes("Billing webhook debug cost calculator") &&
   toolIndex.text.includes("Billing webhook launch readiness scorecard") &&
   toolIndex.text.includes("Lemon Squeezy checkout smoke test report") &&
+  toolIndex.text.includes("Lemon Squeezy PayPal live checkout report") &&
+  toolIndex.text.includes("lemon-squeezy-paypal-live-checkout-report.html") &&
   toolIndex.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
   toolIndex.text.includes("Lemon Squeezy fulfillment checklist generator") &&
   toolIndex.text.includes("Lemon Squeezy refund rollback report") &&
@@ -508,6 +519,18 @@ const issues = [
   checkoutSmokeReport.text.includes("Preview the CNY 69 Pro Kit")
     ? []
     : ["checkout smoke test report page is missing report copy, report logic, or conversion links."]),
+  ...(paypalLiveCheckoutReport.text.includes("Lemon Squeezy PayPal live checkout report") &&
+  paypalLiveCheckoutReport.text.includes("buildPayPalLiveCheckoutReport") &&
+  paypalLiveCheckoutReport.text.includes("CN¥69") &&
+  paypalLiveCheckoutReport.text.includes("PayPal") &&
+  paypalLiveCheckoutReport.text.includes("x-signature") &&
+  paypalLiveCheckoutReport.text.includes("duplicate replay") &&
+  paypalLiveCheckoutReport.text.includes("private delivery") &&
+  paypalLiveCheckoutReport.text.includes("refund rollback") &&
+  paypalLiveCheckoutReport.text.includes("pro-kit.html") &&
+  paypalLiveCheckoutReport.text.includes("lemon-squeezy-production-checkout-readiness-report.html")
+    ? []
+    : ["PayPal live checkout report page is missing report copy, report logic, launch safety copy, or conversion links."]),
   ...(productionCheckoutReadinessReport.text.includes("Lemon Squeezy production checkout readiness report") &&
   productionCheckoutReadinessReport.text.includes("buildReport") &&
   productionCheckoutReadinessReport.text.includes("CN¥69") &&
@@ -637,6 +660,9 @@ const issues = [
   ...(home.text.includes("lemon-squeezy-production-checkout-readiness-report.html")
     ? []
     : ["homepage is missing the production checkout readiness report link."]),
+  ...(home.text.includes("lemon-squeezy-paypal-live-checkout-report.html")
+    ? []
+    : ["homepage is missing the PayPal live checkout report link."]),
   ...(home.text.includes("lemon-squeezy-checkout-smoke-test.html") &&
   home.text.includes("lemon-squeezy-checkout-404-custom-price-currency.html") &&
   home.text.includes("lemon-squeezy-paypal-checkout-webhook-test.html") &&
@@ -717,6 +743,7 @@ const result = {
     costCalculator: costCalculator.status,
     readinessScorecard: readinessScorecard.status,
     checkoutSmokeReport: checkoutSmokeReport.status,
+    paypalLiveCheckoutReport: paypalLiveCheckoutReport.status,
     productionCheckoutReadinessReport: productionCheckoutReadinessReport.status,
     fulfillmentChecklist: fulfillmentChecklist.status,
     refundRollbackReport: refundRollbackReport.status,
