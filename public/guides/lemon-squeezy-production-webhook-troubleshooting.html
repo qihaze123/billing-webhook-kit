@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemon Squeezy Production Webhook Troubleshooting Checklist | BillingWebhookKit</title>
+    <meta
+      name="description"
+      content="Troubleshoot Lemon Squeezy production webhooks after live checkout: paid order_created delivery, PayPal checkout, x-signature verification, duplicate replay, private fulfillment, refund rollback, and release evidence."
+    />
+    <meta name="robots" content="index,follow" />
+    <link
+      rel="canonical"
+      href="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="BillingWebhookKit Guides" href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" />
+    <link rel="alternate" type="text/plain" title="BillingWebhookKit llms.txt" href="https://qihaze123.github.io/billing-webhook-kit/llms.txt" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="BillingWebhookKit" />
+    <meta property="og:title" content="Lemon Squeezy Production Webhook Troubleshooting Checklist" />
+    <meta
+      property="og:description"
+      content="A launch-safe checklist for debugging Lemon Squeezy live checkout webhooks, paid fulfillment, duplicate replay, and refund rollback before a public buy link goes live."
+    />
+    <meta
+      property="og:url"
+      content="https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html"
+    />
+    <meta property="og:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lemon Squeezy Production Webhook Troubleshooting Checklist" />
+    <meta
+      name="twitter:description"
+      content="Debug live Lemon Squeezy checkout webhooks with paid event, x-signature, idempotency, fulfillment, refund rollback, and release evidence checks."
+    />
+    <meta name="twitter:image" content="https://qihaze123.github.io/billing-webhook-kit/og-image.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f7ef;
+        --ink: #12130f;
+        --muted: #5f6659;
+        --line: #11130f;
+        --accent: #d8f84f;
+        --coral: #f05f3b;
+        --cyan: #008c99;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(18, 19, 15, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 28px 28px;
+        color: var(--ink);
+        font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
+      }
+
+      main {
+        width: min(960px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 38px 0 58px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      .crumb {
+        display: inline-flex;
+        margin-bottom: 28px;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 900px;
+        font-size: clamp(2.2rem, 7vw, 4.9rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 18px 0 0;
+        max-width: 780px;
+        color: var(--muted);
+        font-size: 1.14rem;
+        line-height: 1.65;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        margin: 28px 0 34px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--accent);
+        box-shadow: 5px 5px 0 var(--line);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      section {
+        padding: 24px 0;
+        border-top: 1px solid #cfd6c5;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 1.28rem;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.72;
+      }
+
+      code {
+        font-family: "Andale Mono", SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .check {
+        min-height: 154px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 4px 4px 0 rgba(17, 19, 15, 0.15);
+      }
+
+      .check strong {
+        display: block;
+        margin-bottom: 8px;
+        line-height: 1.25;
+      }
+
+      .check span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .warning {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #10120f;
+        color: #f7faed;
+        padding: 20px;
+      }
+
+      .warning p {
+        color: #dfe6d6;
+      }
+
+      .conversion-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 20px;
+      }
+
+      .conversion-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .conversion-grid a {
+        display: block;
+        min-height: 126px;
+        border: 1px solid #cfd6c5;
+        border-radius: 7px;
+        padding: 14px;
+        background: #f9faf4;
+        text-decoration: none;
+      }
+
+      .conversion-grid strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--cyan);
+        line-height: 1.25;
+      }
+
+      .conversion-grid span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.93rem;
+        line-height: 1.5;
+      }
+
+      .faq {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      .faq h2 {
+        color: var(--coral);
+      }
+
+      .faq-item + .faq-item {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid #d8ded2;
+      }
+
+      footer {
+        margin-top: 34px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 720px) {
+        .checklist,
+        .conversion-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .check,
+        .conversion-grid a {
+          min-height: 0;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Lemon Squeezy Production Webhook Troubleshooting Checklist",
+        "description": "Troubleshoot Lemon Squeezy production webhooks after live checkout: paid order_created delivery, PayPal checkout, x-signature verification, duplicate replay, private fulfillment, refund rollback, and release evidence.",
+        "author": { "@type": "Organization", "name": "BillingWebhookKit" },
+        "datePublished": "2026-06-18",
+        "dateModified": "2026-06-18",
+        "mainEntityOfPage": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What should I check first when a Lemon Squeezy live checkout succeeds but fulfillment fails?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "First verify that the production checkout, store, product, variant, webhook endpoint, and subscribed events are all in the same live environment. Then confirm the paid order_created webhook arrived, x-signature verification passed against the exact raw body, and the fulfillment handler wrote the idempotency key before sending delivery."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I publish a Lemon Squeezy buy link before duplicate replay is tested?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Keep the public buy link disabled until a paid production event can be replayed multiple times while fulfillment, download delivery, email delivery, and license writes run only once."
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "BillingWebhookKit", "item": "https://qihaze123.github.io/billing-webhook-kit/" },
+          { "@type": "ListItem", "position": 2, "name": "Payment webhook guides", "item": "https://qihaze123.github.io/billing-webhook-kit/guides/" },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lemon Squeezy Production Webhook Troubleshooting",
+            "item": "https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-production-webhook-troubleshooting.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <a class="crumb" href="https://qihaze123.github.io/billing-webhook-kit/">BillingWebhookKit</a>
+      <h1>Lemon Squeezy production webhook troubleshooting checklist</h1>
+      <p class="lead">
+        A live checkout page is only half of the revenue path. Before exposing a public buy link, prove that the paid event reaches the
+        production endpoint, the <code>x-signature</code> gate trusts the exact raw body, fulfillment runs once, and refund rollback is tested.
+      </p>
+      <a class="cta" href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-production-checkout-readiness-report.html">Generate production readiness report</a>
+
+      <section>
+        <h2>Work the production path in order</h2>
+        <p>
+          Do not debug fulfillment first. Most launch failures come from environment mismatch, stale endpoints, missing event subscriptions,
+          signature verification on a parsed body, or no idempotency guard before side effects.
+        </p>
+        <div class="checklist">
+          <div class="check">
+            <strong>1. Match live checkout to live webhooks</strong>
+            <span>Confirm the production store, variant, CN¥69 price, PayPal checkout, endpoint URL, and webhook signing secret belong to the same live setup.</span>
+          </div>
+          <div class="check">
+            <strong>2. Require a paid <code>order_created</code> event</strong>
+            <span>For a one-time digital product, treat paid order evidence as the fulfillment trigger. Do not grant from checkout page visits or client callbacks.</span>
+          </div>
+          <div class="check">
+            <strong>3. Verify <code>x-signature</code> before parsing JSON</strong>
+            <span>Read the raw request body, verify HMAC, then parse. Public logs should show event IDs and object IDs, not secrets or customer data.</span>
+          </div>
+          <div class="check">
+            <strong>4. Write idempotency before delivery</strong>
+            <span>Persist a provider-scoped key before sending ZIP links, licenses, emails, or access grants so Lemon Squeezy retries cannot duplicate side effects.</span>
+          </div>
+          <div class="check">
+            <strong>5. Replay the same event three times</strong>
+            <span>The first delivery should process, later deliveries should skip. Keep evidence for checkout smoke tests and release review.</span>
+          </div>
+          <div class="check">
+            <strong>6. Test refund rollback separately</strong>
+            <span>Refund events should revoke or mark access according to policy without deleting audit evidence needed for buyer support.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="warning">
+        <h2>Keep the public buy link disabled until this passes</h2>
+        <p>
+          If the live checkout is visible before webhook delivery, idempotency, private delivery, and refund rollback are proven, the buyer can pay
+          while the product still needs manual recovery. Keep production checkout private until the launch report has no missing gates.
+        </p>
+      </section>
+
+      <section>
+        <h2>Evidence to capture before launch</h2>
+        <p>
+          Record the live checkout URL privately, the final paid event name, the production endpoint response, the idempotency key, the delivery artifact
+          checksum, duplicate replay behavior, refund rollback behavior, and support policy link. This is enough to prove the path without publishing API
+          keys, webhook secrets, customer emails, or private download URLs.
+        </p>
+      </section>
+
+      <section class="conversion-panel" aria-label="Production webhook tools">
+        <div>
+          <h2>Use the browser-only reports to close the gaps</h2>
+          <p>These tools generate copy-ready release evidence without calling Lemon Squeezy, Stripe, or any paid API.</p>
+        </div>
+        <div class="conversion-grid">
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-paypal-live-checkout-report.html">
+            <strong>PayPal live checkout report</strong>
+            <span>Track PayPal visibility, CN¥69 price, paid webhook delivery, x-signature, duplicate replay, private delivery, refund rollback, and owner approval.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-fulfillment-checklist-generator.html">
+            <strong>Fulfillment checklist generator</strong>
+            <span>Build a release report for signed paid events, private ZIP delivery, checksum evidence, idempotency, and support policy.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/tools/lemon-squeezy-refund-rollback-report.html">
+            <strong>Refund rollback report</strong>
+            <span>Document signed refund events, entitlement rollback, duplicate replay safety, support evidence, and secret-free review notes.</span>
+          </a>
+          <a href="https://qihaze123.github.io/billing-webhook-kit/pro-kit.html">
+            <strong>View Pro Kit preview</strong>
+            <span>Prepared as a CN¥69 digital kit with fixtures, handlers, tests, CI checks, review reports, and launch checklists.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item">
+          <h3>What should I check first when a Lemon Squeezy live checkout succeeds but fulfillment fails?</h3>
+          <p>
+            First verify that the production checkout, store, product, variant, webhook endpoint, and subscribed events are all in the same live
+            environment. Then confirm the paid <code>order_created</code> webhook arrived, <code>x-signature</code> verification passed against the exact raw body,
+            and the fulfillment handler wrote the idempotency key before sending delivery.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I publish a Lemon Squeezy buy link before duplicate replay is tested?</h3>
+          <p>
+            No. Keep the public buy link disabled until a paid production event can be replayed multiple times while fulfillment, download delivery,
+            email delivery, and license writes run only once.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        BillingWebhookKit uses browser-only tools and fake fixtures for public examples. Keep live API keys, webhook secrets, buyer data, and private delivery URLs out of shared reports.
+      </footer>
+    </main>
+  </body>
+</html>

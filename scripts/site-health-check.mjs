@@ -36,6 +36,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`,
   `${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`,
   `${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`,
+  `${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`,
   `${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`,
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
@@ -144,6 +145,7 @@ const [
   checkout404Guide,
   paypalCheckoutGuide,
   productionCheckoutGoLiveGuide,
+  productionWebhookTroubleshootingGuide,
   webhookNotFiringGuide,
   digitalDownloadGuide,
   refundWebhookGuide,
@@ -183,6 +185,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-checkout-404-custom-price-currency.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-paypal-checkout-webhook-test.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`),
+  fetchText(`${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
@@ -275,6 +278,13 @@ const issues = [
           productionCheckoutGoLiveGuide.status ?? "failed"
         }.`
       ]),
+  ...(productionWebhookTroubleshootingGuide.ok
+    ? []
+    : [
+        `Lemon Squeezy production webhook troubleshooting guide returned HTTP ${
+          productionWebhookTroubleshootingGuide.status ?? "failed"
+        }.`
+      ]),
   ...(webhookNotFiringGuide.ok
     ? []
     : [`Lemon Squeezy webhook not firing guide returned HTTP ${webhookNotFiringGuide.status ?? "failed"}.`]),
@@ -291,7 +301,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 66 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 66.`]),
+  ...(sitemapUrls.length >= 67 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 67.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -368,6 +378,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-production-checkout-go-live.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy production checkout go-live guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-production-webhook-troubleshooting.html`)
+    ? []
+    : ["llms.txt is missing the Lemon Squeezy production webhook troubleshooting guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/lemon-squeezy-webhook-not-firing-after-checkout.html`)
     ? []
     : ["llms.txt is missing the Lemon Squeezy webhook not firing after checkout guide URL."]),
@@ -618,6 +631,18 @@ const issues = [
     : [
         "Lemon Squeezy production checkout go-live guide is missing live checkout, price, PayPal, replay, delivery, refund, report, or conversion copy."
       ]),
+  ...(productionWebhookTroubleshootingGuide.text.includes("Lemon Squeezy production webhook troubleshooting checklist") &&
+  productionWebhookTroubleshootingGuide.text.includes("paid order_created") &&
+  productionWebhookTroubleshootingGuide.text.includes("x-signature") &&
+  productionWebhookTroubleshootingGuide.text.includes("duplicate replay") &&
+  productionWebhookTroubleshootingGuide.text.includes("private fulfillment") &&
+  productionWebhookTroubleshootingGuide.text.includes("refund rollback") &&
+  productionWebhookTroubleshootingGuide.text.includes("lemon-squeezy-production-checkout-readiness-report.html") &&
+  productionWebhookTroubleshootingGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Lemon Squeezy production webhook troubleshooting guide is missing paid event, signature, replay, fulfillment, refund, report, or conversion copy."
+      ]),
   ...(webhookNotFiringGuide.text.includes("Lemon Squeezy webhook not firing after checkout") &&
   webhookNotFiringGuide.text.includes("live/test") &&
   webhookNotFiringGuide.text.includes("order_created") &&
@@ -753,6 +778,7 @@ const result = {
     checkout404Guide: checkout404Guide.status,
     paypalCheckoutGuide: paypalCheckoutGuide.status,
     productionCheckoutGoLiveGuide: productionCheckoutGoLiveGuide.status,
+    productionWebhookTroubleshootingGuide: productionWebhookTroubleshootingGuide.status,
     webhookNotFiringGuide: webhookNotFiringGuide.status,
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
