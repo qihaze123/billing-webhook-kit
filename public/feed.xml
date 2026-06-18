@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Payment Webhook Audit Log in Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-audit-log-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-audit-log-nextjs.html</guid>
+      <description>Build a payment webhook audit log for Next.js with raw-body hashes, signature results, idempotency keys, entitlement decisions, replay evidence, and support-safe launch review.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Payment Webhook Dead Letter Queue in Next.js</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-dead-letter-queue-nextjs.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-dead-letter-queue-nextjs.html</guid>

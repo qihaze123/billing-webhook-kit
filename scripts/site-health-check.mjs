@@ -53,6 +53,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`,
   `${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`,
   `${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`,
+  `${siteUrl}/guides/payment-webhook-audit-log-nextjs.html`,
   `${siteUrl}/guides/payment-webhook-dead-letter-queue-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`,
@@ -189,6 +190,7 @@ const [
   digitalDownloadGuide,
   refundWebhookGuide,
   nextjsRefundRollbackGuide,
+  webhookAuditLogGuide,
   webhookDeadLetterQueueGuide,
   stripeNextjsGuide,
   stripeNextjsTestPlanGuide,
@@ -256,6 +258,7 @@ const [
   fetchText(`${siteUrl}/guides/lemon-squeezy-digital-download-fulfillment.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-refund-webhook-test.html`),
   fetchText(`${siteUrl}/guides/nextjs-payment-webhook-refund-rollback-test.html`),
+  fetchText(`${siteUrl}/guides/payment-webhook-audit-log-nextjs.html`),
   fetchText(`${siteUrl}/guides/payment-webhook-dead-letter-queue-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`),
@@ -420,6 +423,9 @@ const issues = [
           nextjsRefundRollbackGuide.status ?? "failed"
         }.`
       ]),
+  ...(webhookAuditLogGuide.ok
+    ? []
+    : [`Payment webhook audit log guide returned HTTP ${webhookAuditLogGuide.status ?? "failed"}.`]),
   ...(webhookDeadLetterQueueGuide.ok
     ? []
     : [
@@ -1095,6 +1101,19 @@ const issues = [
     : [
         "Payment webhook dead letter queue guide is missing DLQ, replay, idempotency, schema, or conversion copy."
       ]),
+  ...(webhookAuditLogGuide.text.includes("Payment webhook audit log in Next.js") &&
+  webhookAuditLogGuide.text.includes("raw_body_sha256") &&
+  webhookAuditLogGuide.text.includes("signature_verified") &&
+  webhookAuditLogGuide.text.includes("idempotency_key") &&
+  webhookAuditLogGuide.text.includes("entitlement_decision") &&
+  webhookAuditLogGuide.text.includes("duplicate replay") &&
+  webhookAuditLogGuide.text.includes("payment-webhook-test-plan-generator.html") &&
+  webhookAuditLogGuide.text.includes("webhook-entitlement-decision-matrix.html") &&
+  webhookAuditLogGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Payment webhook audit log guide is missing audit schema, signature, idempotency, replay, or conversion copy."
+      ]),
   ...(stripeNextjsTestPlanGuide.text.includes("Stripe webhook test plan for Next.js") &&
   stripeNextjsTestPlanGuide.text.includes("checkout.session.completed") &&
   stripeNextjsTestPlanGuide.text.includes("invoice.paid") &&
@@ -1385,6 +1404,7 @@ const result = {
     digitalDownloadGuide: digitalDownloadGuide.status,
     refundWebhookGuide: refundWebhookGuide.status,
     nextjsRefundRollbackGuide: nextjsRefundRollbackGuide.status,
+    webhookAuditLogGuide: webhookAuditLogGuide.status,
     webhookDeadLetterQueueGuide: webhookDeadLetterQueueGuide.status,
     stripeNextjsGuide: stripeNextjsGuide.status,
     stripeNextjsTestPlanGuide: stripeNextjsTestPlanGuide.status,

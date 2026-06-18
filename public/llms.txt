@@ -84,6 +84,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Export a Markdown webhook review report for pull requests, release checklists, and billing route audits.
 - Generate cURL replay commands for local, tunnel, staging, and CI routes.
 - Copy starter webhook handlers for Next.js, Hono, and Express.
+- Build a payment webhook audit log for Next.js raw-body hashes, signature results, idempotency keys, entitlement decisions, replay evidence, and support-safe launch review.
 - Design a payment webhook dead letter queue for Next.js failed events, replay commands, idempotency keys, entitlement safety, and launch evidence.
 - Generate a provider-specific webhook entitlement decision matrix for SaaS access grants, renewals, cancellations, failed payments, and unknown-event quarantine.
 - Debug Vercel and Next.js Lemon Squeezy webhook launch failures such as 404, 405, 500, missing order_created delivery, invalid x-signature, raw-body regressions, missing env vars, and weak PR evidence.
@@ -194,6 +195,7 @@ BillingWebhookKit helps indie SaaS developers test billing webhook routes before
 - Webhook idempotency key generator: https://qihaze123.github.io/billing-webhook-kit/guides/webhook-idempotency-key-generator.html
 - Payment webhook contract test generator: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-contract-test-generator.html
 - Payment webhook CI tests: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-ci-tests.html
+- Payment webhook audit log in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-audit-log-nextjs.html
 - Payment webhook dead letter queue in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-dead-letter-queue-nextjs.html
 - Billing webhook launch readiness checklist: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-launch-readiness-checklist.html
 - Billing webhook cost calculator: https://qihaze123.github.io/billing-webhook-kit/guides/billing-webhook-cost-calculator.html
