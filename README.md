@@ -41,6 +41,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhook-kit/delivery-refund-support.html
 - Public status: https://qihaze123.github.io/billing-webhook-kit/status.html
 - Search Console sitemap submission handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
+- HTML sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.html
 - Public Pro Kit manifest: https://qihaze123.github.io/billing-webhook-kit/pro-kit-manifest.json
 
 ## Launch Checkout Guides
@@ -74,6 +75,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Pro Kit manifest: public file count, test count, checksum, and safety flags without exposing the paid archive.
 - Public status page: checkout readiness, package checksum, free sample digest, sitemap target, and health workflow links in one place.
 - Search Console sitemap handoff: exact URL-prefix property, sitemap path, live crawl files, and owner-only submission boundary for Google Search Console.
+- HTML sitemap: a crawlable page linking the buyer path, standalone tools, and guide pages from one public URL.
 - Pricing ROI guide: buyer decision page for comparing the free tools, the CN¥69 Pro Kit, manual setup time, duplicate replay tests, launch evidence, and break-even math.
 - Launch evidence pack: purchase-adjacent checklist tying checkout smoke, event coverage, fulfillment proof, refund rollback, delivery emails, the free sample, and Pro Kit preview together before a public billing launch.
 - PayPal live checkout report: browser-only launch evidence report for PayPal visibility, CN¥69 price, paid webhook delivery, x-signature verification, duplicate replay, private delivery, refund rollback, support evidence, and owner approval.
@@ -178,6 +180,8 @@ Delivery, refund, and support policy: https://qihaze123.github.io/billing-webhoo
 Public checkout and package status: https://qihaze123.github.io/billing-webhook-kit/status.html
 
 Search Console sitemap handoff: https://qihaze123.github.io/billing-webhook-kit/search-console-sitemap-submission.html
+
+HTML sitemap: https://qihaze123.github.io/billing-webhook-kit/sitemap.html
 
 Current checkout state: public checkout is disabled until live Lemon Squeezy production configuration is connected. The Pro Kit archive stays private; the manifest exposes file count, test count, checksum, and safety flags for pre-purchase inspection. The buyer policy page explains delivery, checksum verification, support scope, refund triggers, and safe issue reporting before the buy link is published.
 

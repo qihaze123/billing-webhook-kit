@@ -8,6 +8,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/pro-kit.html`,
   `${siteUrl}/delivery-refund-support.html`,
   `${siteUrl}/status.html`,
+  `${siteUrl}/sitemap.html`,
   `${siteUrl}/search-console-sitemap-submission.html`,
   `${siteUrl}/billing-webhook-launch-evidence-pack.html`,
   `${siteUrl}/tools/`,
@@ -124,6 +125,7 @@ const [
   deliverySupport,
   freeSample,
   statusPage,
+  sitemapHtml,
   searchConsoleHandoff,
   launchEvidencePack,
   toolIndex,
@@ -168,6 +170,7 @@ const [
   fetchText(`${siteUrl}/delivery-refund-support.html`),
   fetchText(`${siteUrl}/free-sample.html`),
   fetchText(`${siteUrl}/status.html`),
+  fetchText(`${siteUrl}/sitemap.html`),
   fetchText(`${siteUrl}/search-console-sitemap-submission.html`),
   fetchText(`${siteUrl}/billing-webhook-launch-evidence-pack.html`),
   fetchText(`${siteUrl}/tools/`),
@@ -217,6 +220,7 @@ const issues = [
   ...(deliverySupport.ok ? [] : [`delivery support page returned HTTP ${deliverySupport.status ?? "failed"}.`]),
   ...(freeSample.ok ? [] : [`free sample page returned HTTP ${freeSample.status ?? "failed"}.`]),
   ...(statusPage.ok ? [] : [`status page returned HTTP ${statusPage.status ?? "failed"}.`]),
+  ...(sitemapHtml.ok ? [] : [`HTML sitemap returned HTTP ${sitemapHtml.status ?? "failed"}.`]),
   ...(searchConsoleHandoff.ok
     ? []
     : [`Search Console sitemap handoff page returned HTTP ${searchConsoleHandoff.status ?? "failed"}.`]),
@@ -337,7 +341,7 @@ const issues = [
   ...(robots.ok ? [] : [`robots.txt returned HTTP ${robots.status ?? "failed"}.`]),
   ...(llms.ok ? [] : [`llms.txt returned HTTP ${llms.status ?? "failed"}.`]),
   ...(checkoutResult.ok ? [] : [`checkout.json returned HTTP ${checkoutResult.status ?? "failed"}.`]),
-  ...(sitemapUrls.length >= 71 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 71.`]),
+  ...(sitemapUrls.length >= 72 ? [] : [`sitemap has only ${sitemapUrls.length} URLs; expected at least 72.`]),
   ...requiredSitemapUrls
     .filter((url) => !sitemapUrls.includes(url))
     .map((url) => `sitemap is missing ${url}.`),
@@ -347,6 +351,7 @@ const issues = [
     ? []
     : ["llms.txt is missing the delivery, refund, and support policy URL."]),
   ...(llms.text.includes(`${siteUrl}/status.html`) ? [] : ["llms.txt is missing the public status URL."]),
+  ...(llms.text.includes(`${siteUrl}/sitemap.html`) ? [] : ["llms.txt is missing the HTML sitemap URL."]),
   ...(llms.text.includes(`${siteUrl}/billing-webhook-launch-evidence-pack.html`)
     ? []
     : ["llms.txt is missing the launch evidence pack URL."]),
@@ -449,16 +454,28 @@ const issues = [
   statusPage.text.includes("delivery-refund-support.html") &&
   statusPage.text.includes("billing-webhook-kit-pricing-roi.html") &&
   statusPage.text.includes("sitemap.xml") &&
+  statusPage.text.includes("sitemap.html") &&
   statusPage.text.includes("Search Console") &&
   statusPage.text.includes("search-console-sitemap-submission.html")
     ? []
-    : ["status page is missing checkout, manifest, delivery support, pricing ROI, sitemap, or Search Console signals."]),
+    : ["status page is missing checkout, manifest, delivery support, pricing ROI, sitemap, HTML sitemap, or Search Console signals."]),
+  ...(sitemapHtml.text.includes("BillingWebhookKit HTML sitemap") &&
+  sitemapHtml.text.includes("Core pages and buyer path") &&
+  sitemapHtml.text.includes("Browser-only webhook tools") &&
+  sitemapHtml.text.includes("Guides and search landing pages") &&
+  sitemapHtml.text.includes("checkout-provider-decision-matrix.html") &&
+  sitemapHtml.text.includes("lemon-squeezy-vs-stripe-webhooks-ai-saas.html") &&
+  sitemapHtml.text.includes("pro-kit.html") &&
+  sitemapHtml.text.includes("sitemap.xml")
+    ? []
+    : ["HTML sitemap is missing core sections, tool links, guide links, conversion links, or XML sitemap link."]),
   ...(searchConsoleHandoff.text.includes("Google Search Console sitemap submission") &&
   searchConsoleHandoff.text.includes("URL prefix") &&
   searchConsoleHandoff.text.includes("https://qihaze123.github.io/billing-webhook-kit/") &&
   searchConsoleHandoff.text.includes("sitemap.xml") &&
   searchConsoleHandoff.text.includes("owner actions") &&
   searchConsoleHandoff.text.includes("robots.txt") &&
+  searchConsoleHandoff.text.includes("sitemap.html") &&
   searchConsoleHandoff.text.includes("llms.txt")
     ? []
     : ["Search Console sitemap handoff page is missing owner handoff values, crawl files, or manual-boundary copy."]),
@@ -852,6 +869,7 @@ const result = {
     deliverySupport: deliverySupport.status,
     freeSample: freeSample.status,
     statusPage: statusPage.status,
+    sitemapHtml: sitemapHtml.status,
     searchConsoleHandoff: searchConsoleHandoff.status,
     launchEvidencePack: launchEvidencePack.status,
     toolIndex: toolIndex.status,
