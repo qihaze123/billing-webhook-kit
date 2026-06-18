@@ -57,6 +57,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/nextjs-paddle-webhook-handler.html`,
   `${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`,
+  `${siteUrl}/guides/nextjs-payment-webhook-entitlement-test-matrix.html`,
   `${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`,
   `${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`,
   `${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`,
@@ -186,6 +187,7 @@ const [
   paddleNextjsSignatureGuide,
   nextjsPaddleWebhookHandlerGuide,
   paddleNextjsTestPlanGuide,
+  nextjsEntitlementMatrixGuide,
   aiSaasBillingWebhookChecklist,
   lemonSqueezyVsStripeAiSaasGuide,
   pricingRoiGuide,
@@ -246,6 +248,7 @@ const [
   fetchText(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/nextjs-paddle-webhook-handler.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`),
+  fetchText(`${siteUrl}/guides/nextjs-payment-webhook-entitlement-test-matrix.html`),
   fetchText(`${siteUrl}/guides/ai-saas-billing-webhook-checklist.html`),
   fetchText(`${siteUrl}/guides/lemon-squeezy-vs-stripe-webhooks-ai-saas.html`),
   fetchText(`${siteUrl}/guides/billing-webhook-kit-pricing-roi.html`),
@@ -407,6 +410,13 @@ const issues = [
   ...(paddleNextjsTestPlanGuide.ok
     ? []
     : [`Paddle Next.js test plan guide returned HTTP ${paddleNextjsTestPlanGuide.status ?? "failed"}.`]),
+  ...(nextjsEntitlementMatrixGuide.ok
+    ? []
+    : [
+        `Next.js payment webhook entitlement matrix guide returned HTTP ${
+          nextjsEntitlementMatrixGuide.status ?? "failed"
+        }.`
+      ]),
   ...(aiSaasBillingWebhookChecklist.ok
     ? []
     : [
@@ -1057,6 +1067,19 @@ const issues = [
   paddleNextjsTestPlanGuide.text.includes("pro-kit.html")
     ? []
     : ["Paddle Next.js test plan guide is missing test plan copy, Paddle event coverage, raw-body copy, or conversion links."]),
+  ...(nextjsEntitlementMatrixGuide.text.includes("Next.js payment webhook entitlement test matrix") &&
+  nextjsEntitlementMatrixGuide.text.includes("paid checkout") &&
+  nextjsEntitlementMatrixGuide.text.includes("failed payment") &&
+  nextjsEntitlementMatrixGuide.text.includes("refund") &&
+  nextjsEntitlementMatrixGuide.text.includes("duplicate replay") &&
+  nextjsEntitlementMatrixGuide.text.includes("unknown events") &&
+  nextjsEntitlementMatrixGuide.text.includes("webhook-entitlement-decision-matrix.html") &&
+  nextjsEntitlementMatrixGuide.text.includes("payment-webhook-test-plan-generator.html") &&
+  nextjsEntitlementMatrixGuide.text.includes("pro-kit.html")
+    ? []
+    : [
+        "Next.js payment webhook entitlement matrix guide is missing entitlement copy, replay coverage, or conversion links."
+      ]),
   ...(aiSaasBillingWebhookChecklist.text.includes("AI SaaS billing webhook checklist") &&
   aiSaasBillingWebhookChecklist.text.includes("AI-generated SaaS") &&
   aiSaasBillingWebhookChecklist.text.includes("raw-body") &&
@@ -1241,6 +1264,7 @@ const result = {
     paddleNextjsSignatureGuide: paddleNextjsSignatureGuide.status,
     nextjsPaddleWebhookHandlerGuide: nextjsPaddleWebhookHandlerGuide.status,
     paddleNextjsTestPlanGuide: paddleNextjsTestPlanGuide.status,
+    nextjsEntitlementMatrixGuide: nextjsEntitlementMatrixGuide.status,
     aiSaasBillingWebhookChecklist: aiSaasBillingWebhookChecklist.status,
     lemonSqueezyVsStripeAiSaasGuide: lemonSqueezyVsStripeAiSaasGuide.status,
     pricingRoiGuide: pricingRoiGuide.status,
