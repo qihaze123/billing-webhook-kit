@@ -8,6 +8,13 @@
     <lastBuildDate>Thu, 18 Jun 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://qihaze123.github.io/billing-webhook-kit/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Stripe Webhook Order of Events in Next.js</title>
+      <link>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-order-of-events-nextjs.html</link>
+      <guid>https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-order-of-events-nextjs.html</guid>
+      <description>Handle Stripe webhook event order in Next.js with raw-body signature checks, checkout.session.completed, invoice.paid, subscription updates, out-of-order delivery, idempotency, and replay tests.</description>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Payment Webhook Audit Log in Next.js</title>
       <link>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-audit-log-nextjs.html</link>
       <guid>https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-audit-log-nextjs.html</guid>

@@ -227,14 +227,14 @@
           On 2026-06-18, the direct Search Console sitemap URL redirected to Google's not-verified/no-access page while signed in as <code>qihaze99@gmail.com</code>. The visible Google action was <code>验证您的所有权</code>, so the blocker is account/property verification, not sitemap reachability.
         </p>
         <p>
-          Browser assistance can open the exact Search Console URL, check whether the property is verified, and confirm the visible submitted/fetched state after owner action. The ownership flow and final submit action still change Google account state and should be performed by the owner in the browser.
+          Browser assistance can open the exact Search Console URL, check whether the property is verified, fill <code>sitemap.xml</code>, submit it after explicit owner authorization, and confirm the visible submitted/fetched state. Google login, permission grants, and ownership verification must still be performed by the owner in the browser.
         </p>
       </section>
 
       <section class="panel">
         <h2>Live crawl files already in place</h2>
         <p>
-          The site exposes the discovery files that Search Console expects before manual submission: public homepage, robots.txt with a sitemap directive, sitemap.xml with 77 URLs, sitemap.html, RSS feed, llms.txt, status page, guide index, tool index, free sample, Pro Kit preview, launch evidence pack, and Pro sample report.
+          The site exposes the discovery files that Search Console expects before manual submission: public homepage, robots.txt with a sitemap directive, sitemap.xml with 96 URLs, sitemap.html, RSS feed, llms.txt, status page, guide index, tool index, free sample, Pro Kit preview, launch evidence pack, and Pro sample report.
         </p>
         <div class="buttons">
           <a class="button secondary" href="robots.txt">robots.txt</a>
@@ -248,7 +248,7 @@
       <section class="panel">
         <h2>Automation boundary and owner actions</h2>
         <p>
-          I can use the browser for navigation, visible-state checks, and post-submit verification. I should not operate Google login, ownership verification, permission grants, or the final sitemap submission click because those are account and ownership side effects.
+          I can use the browser for navigation, visible-state checks, sitemap field entry, explicit owner-authorized sitemap submission, and post-submit verification. I should not operate Google login, ownership verification, or permission grants because those are account and ownership side effects.
         </p>
       </section>
 

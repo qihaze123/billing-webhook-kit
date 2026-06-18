@@ -61,6 +61,7 @@ const requiredSitemapUrls = [
   `${siteUrl}/guides/stripe-subscription-cancellation-webhook-nextjs.html`,
   `${siteUrl}/guides/stripe-invoice-paid-webhook-nextjs.html`,
   `${siteUrl}/guides/stripe-invoice-payment-failed-webhook-nextjs.html`,
+  `${siteUrl}/guides/stripe-webhook-order-of-events-nextjs.html`,
   `${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`,
   `${siteUrl}/guides/nextjs-paddle-webhook-handler.html`,
   `${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`,
@@ -198,6 +199,7 @@ const [
   stripeCancellationGuide,
   stripeInvoicePaidGuide,
   stripeInvoicePaymentFailedGuide,
+  stripeWebhookOrderGuide,
   paddleNextjsSignatureGuide,
   nextjsPaddleWebhookHandlerGuide,
   paddleNextjsTestPlanGuide,
@@ -266,6 +268,7 @@ const [
   fetchText(`${siteUrl}/guides/stripe-subscription-cancellation-webhook-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-invoice-paid-webhook-nextjs.html`),
   fetchText(`${siteUrl}/guides/stripe-invoice-payment-failed-webhook-nextjs.html`),
+  fetchText(`${siteUrl}/guides/stripe-webhook-order-of-events-nextjs.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`),
   fetchText(`${siteUrl}/guides/nextjs-paddle-webhook-handler.html`),
   fetchText(`${siteUrl}/guides/paddle-webhook-test-plan-nextjs.html`),
@@ -455,6 +458,9 @@ const issues = [
           stripeInvoicePaymentFailedGuide.status ?? "failed"
         }.`
       ]),
+  ...(stripeWebhookOrderGuide.ok
+    ? []
+    : [`Stripe webhook order guide returned HTTP ${stripeWebhookOrderGuide.status ?? "failed"}.`]),
   ...(paddleNextjsSignatureGuide.ok
     ? []
     : [`Paddle Next.js signature guide returned HTTP ${paddleNextjsSignatureGuide.status ?? "failed"}.`]),
@@ -624,6 +630,9 @@ const issues = [
   ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-test-plan-nextjs.html`)
     ? []
     : ["llms.txt is missing the Stripe Next.js test plan guide URL."]),
+  ...(llms.text.includes(`${siteUrl}/guides/stripe-webhook-order-of-events-nextjs.html`)
+    ? []
+    : ["llms.txt is missing the Stripe webhook order of events guide URL."]),
   ...(llms.text.includes(`${siteUrl}/guides/paddle-webhook-signature-verification-nextjs.html`)
     ? []
     : ["llms.txt is missing the Paddle Next.js signature guide URL."]),
@@ -767,10 +776,12 @@ const issues = [
   guideIndex.text.includes("Lemon Squeezy Webhook Retry and Idempotency Guide") &&
   guideIndex.text.includes("lemon-squeezy-webhook-retry-idempotency.html") &&
   guideIndex.text.includes("Payment Webhook Test Tool Alternatives") &&
-  guideIndex.text.includes("payment-webhook-test-tool-alternatives.html")
+  guideIndex.text.includes("payment-webhook-test-tool-alternatives.html") &&
+  guideIndex.text.includes("Stripe Webhook Order of Events in Next.js") &&
+  guideIndex.text.includes("stripe-webhook-order-of-events-nextjs.html")
     ? []
     : [
-        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, retry idempotency, or alternatives guide."
+        "guide index is missing the Lemon Squeezy production checkout go-live, Next.js 405, webhook 500, retry idempotency, alternatives, or Stripe webhook order guide."
       ]),
   ...(signatureVerifier.text.includes("Lemon Squeezy x-signature checker") &&
   signatureVerifier.text.includes("crypto.subtle") &&

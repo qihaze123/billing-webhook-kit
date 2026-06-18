@@ -45,6 +45,7 @@ Use it when you need to test a billing webhook route before a real Lemon Squeezy
 - Lemon Squeezy webhook retry and idempotency guide: https://qihaze123.github.io/billing-webhook-kit/guides/lemon-squeezy-webhook-retry-idempotency.html
 - Payment webhook test tool alternatives: https://qihaze123.github.io/billing-webhook-kit/guides/payment-webhook-test-tool-alternatives.html
 - Stripe webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-test-plan-nextjs.html
+- Stripe webhook order of events in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-order-of-events-nextjs.html
 - Paddle webhook signature verification in Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
 - Next.js Paddle webhook handler: https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - Paddle webhook test plan for Next.js: https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
@@ -206,6 +207,7 @@ The free tool generates Lemon Squeezy webhook payloads, verifies HMAC signatures
 - Lemon Squeezy webhook event coverage planning for order, subscription, license, payment, paid-state, signature, idempotency, and duplicate replay checks
 - Lemon Squeezy refund webhook rollback checks for access revocation, support evidence, duplicate replay safety, and secret-free reports
 - Lemon Squeezy production checkout go-live checks for live config, CN¥69 price, PayPal checkout, paid webhooks, duplicate replay, private delivery, refund rollback, and release evidence
+- Stripe webhook event-order checks for checkout.session.completed, invoice.paid, subscription lifecycle events, out-of-order delivery, duplicate replay, and entitlement reconciliation
 - Duplicate replay behavior for process-once/skip-duplicate tests
 - Webhook debugging cost estimates for launch planning
 - PR-ready Markdown reports for webhook route review and release checklists
@@ -314,6 +316,7 @@ Current checkout state: public checkout is disabled until live Lemon Squeezy pro
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-subscription-cancellation-webhook-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-paid-webhook-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/stripe-invoice-payment-failed-webhook-nextjs.html
+- https://qihaze123.github.io/billing-webhook-kit/guides/stripe-webhook-order-of-events-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-signature-verification-nextjs.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/nextjs-paddle-webhook-handler.html
 - https://qihaze123.github.io/billing-webhook-kit/guides/paddle-webhook-test-plan-nextjs.html
